@@ -2,6 +2,8 @@
 
 #include "KdWindow.h"
 
+// imgui
+LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleName, std::string_view windowClassName)
 {
@@ -130,6 +132,9 @@ LRESULT CALLBACK KdWindow::callWindowProc(HWND hWnd, UINT message, WPARAM wParam
 // ウィンドウ関数
 LRESULT KdWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	// ImGuiにイベント通知
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam)) { return true; }
+
 	//===================================
 	//メッセージによって処理を選択
 	//===================================
