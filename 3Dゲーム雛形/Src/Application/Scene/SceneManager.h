@@ -26,9 +26,6 @@ public:
 	
 	void SetNextScene(const SceneType& _next) { m_nextSceneType = _next; }
 
-	// GUI処理
-	void ImGuiUpdate();
-
 	// オブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList();
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj);

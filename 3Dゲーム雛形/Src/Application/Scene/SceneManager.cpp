@@ -43,11 +43,6 @@ void SceneManager::DrawDebug()
 	m_curtScene->DrawDebug();
 }
 
-void SceneManager::ImGuiUpdate()
-{
-	m_curtScene->ImGuiUpdate();
-}
-
 const std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList()
 {
 	// TODO: return ステートメントをここに挿入します

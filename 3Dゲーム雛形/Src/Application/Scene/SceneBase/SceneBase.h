@@ -16,15 +16,15 @@ public:
 
 	void DrawDebug();
 
-	// GUI処理
-	void ImGuiUpdate();
-
 	// オブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList() { return m_objList; }
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj) { m_objList.push_back(_obj); }
 protected:
 	virtual void Init() {}
 	virtual void Event() {}
+
+	// GUI処理
+	virtual void ImGuiUpdate() {};
 
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
 

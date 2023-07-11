@@ -83,6 +83,9 @@ void SceneBase::DrawSprite()
 	KdShaderManager::Instance().m_spriteShader.Begin();
 	{
 		for (auto& obj : m_objList) { obj->DrawSprite(); }
+		
+		// ImGuiˆ—
+		ImGuiUpdate();
 	}
 	KdShaderManager::Instance().m_spriteShader.End();
 }
@@ -98,9 +101,4 @@ void SceneBase::DrawDebug()
 		for (auto& obj : m_objList) { obj->DrawDebug(); }
 	}
 	KdShaderManager::Instance().m_HD2DShader.EndUnLit();
-}
-
-void SceneBase::ImGuiUpdate()
-{
-	for (auto& obj : m_objList) { obj->ImGuiUpdate(); }
 }
