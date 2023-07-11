@@ -34,6 +34,8 @@ public:
 
 	virtual void DrawDebug() {}
 
+	virtual void ImGuiUpdate() {}
+
 	virtual void SetAsset(const std::string&) {}
 
 	virtual void SetPos(const Math::Vector3& pos) { m_mWorld.Translation(pos); }

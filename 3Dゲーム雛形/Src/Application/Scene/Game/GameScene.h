@@ -8,6 +8,6 @@ public:
 	~GameScene() {}
 
 private:
-	void Event()override;
-	void Init()	override;
+	void Event()		override;
+	void Init()			override;
 };

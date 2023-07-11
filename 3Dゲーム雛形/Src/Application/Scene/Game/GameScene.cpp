@@ -28,3 +28,16 @@ void GameScene::Init()
 	ground = std::make_shared<Ground>();
 	m_objList.push_back(ground);
 }
+
+void GameScene::ImGuiUpdate()
+{
+	return;
+
+	// ウィンドウ開始"WindowName"の部分は他のウィンドウと被らないようにすること！
+	if (ImGui::Begin("WindowName"))
+	{
+		// ウィンドウを折りたたんでいない状態だと、この中が実行される
+
+	}
+	ImGui::End();
+}

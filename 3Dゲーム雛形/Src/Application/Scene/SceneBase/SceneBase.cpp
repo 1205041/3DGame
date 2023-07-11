@@ -99,3 +99,8 @@ void SceneBase::DrawDebug()
 	}
 	KdShaderManager::Instance().m_HD2DShader.EndUnLit();
 }
+
+void SceneBase::ImGuiUpdate()
+{
+	for (auto& obj : m_objList) { obj->ImGuiUpdate(); }
+}

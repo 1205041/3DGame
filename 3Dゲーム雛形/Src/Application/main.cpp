@@ -215,7 +215,10 @@ void Application::Execute()
 		DrawSprite();
 		
 		// ImGui Demo ウィンドウ表示 ※imgui_demo.cpp参照
-		ImGui::ShowDemoWindow(nullptr);
+//		ImGui::ShowDemoWindow(nullptr);
+
+		// ImGui処理
+		SceneManager::Instance().ImGuiUpdate();
 
 		// ImGuiのレンダリング：ココより上にはimguiの描画すること
 		ImGui::Render();
