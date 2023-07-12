@@ -36,8 +36,8 @@ void GameScene::ImGuiUpdate()
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiSetCond_Once);
 
-	// ウィンドウ開始"WindowName"の部分は他のウィンドウと被らないようにすること！
-	if (ImGui::Begin("WindowName"))
+	// ウィンドウ開始""の中の部分は他のウィンドウと被らないようにすること！
+	if (ImGui::Begin("GameSceneDebugWindow"))
 	{
 		// ウィンドウを折りたたんでいない状態だと、この中が実行される
 

@@ -131,7 +131,7 @@ bool Application::Init(int w, int h)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	// Setup Dear ImGui style
-	// ImGui::StyleColorDark();
+//	ImGui::StyleColorsDark();
 	ImGui::StyleColorsClassic();
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());

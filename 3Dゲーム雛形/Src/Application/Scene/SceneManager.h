@@ -22,7 +22,7 @@ public:
 
 	void DrawDebug();
 
-	void Init() { ChangeScene(SceneType::Title); }
+	void Init() { ChangeScene(SceneType::Game); }
 	
 	void SetNextScene(const SceneType& _next) { m_nextSceneType = _next; }
 
@@ -37,7 +37,7 @@ private:
 	SceneBase* m_curtScene = nullptr;
 
 	// 現在のシーンを管理している変数
-	SceneType m_curtSceneType = SceneType::Title;
+	SceneType m_curtSceneType = SceneType::Game;
 
 	// 次のシーンを管理している変数
 	SceneType m_nextSceneType = m_curtSceneType;
