@@ -20,7 +20,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 	WNDCLASSEX wc;											// ウィンドウクラスの定義用
 	wc.cbSize = sizeof(WNDCLASSEX);							// 構造体のサイズ
 	wc.style = 0;											// スタイル
-	wc.lpfnWndProc = &KdWindow::callWindowProc;			// ウインドウ関数
+	wc.lpfnWndProc = &KdWindow::callWindowProc;				// ウインドウ関数
 	wc.cbClsExtra = 0;										// エキストラクラス情報 
 	wc.cbWndExtra = 0;										// エキストラウィンドウ情報
 	wc.hInstance = hInst;									// インスタンスハンドル
@@ -32,9 +32,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 	wc.lpszClassName = wndClsName.c_str();					// ウィンドウクラス名
 
 	//ウィンドウクラスの登録
-	if (!RegisterClassEx(&wc)) {
-		return false;
-	}
+	if (!RegisterClassEx(&wc)) { return false; }
 
 	//ウィンドウの作成
 	m_hWnd = CreateWindow(
@@ -50,9 +48,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 		hInst,												// インスタンスハンドル 
 		this);												// 追加情報
 
-	if (m_hWnd == nullptr) {
-		return false;
-	}
+	if (m_hWnd == nullptr) { return false; }
 
 	// クライアントのサイズを設定
 	SetClientSize(clientWidth, clientHeight);
@@ -72,7 +68,8 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 
 void KdWindow::Release()
 {
-	if (m_hWnd) {
+	if (m_hWnd) 
+	{
 		DestroyWindow(m_hWnd);
 		m_hWnd = nullptr;
 	}
@@ -87,9 +84,7 @@ bool KdWindow::ProcessMessage()
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
 		// 終了メッセージがきた
-		if (msg.message == WM_QUIT) {
-			return false;
-		}
+		if (msg.message == WM_QUIT) { return false; }
 
 		//メッセージ処理
 		TranslateMessage(&msg);
@@ -106,9 +101,11 @@ LRESULT CALLBACK KdWindow::callWindowProc(HWND hWnd, UINT message, WPARAM wParam
 	KdWindow* pThis = (KdWindow*)GetProp(hWnd, L"GameWindowInstance");
 
 	// nullptrの場合は、デフォルト処理を実行
-	if (pThis == nullptr) {
-		switch (message) {
-			case WM_CREATE:
+	if (pThis == nullptr) 
+	{
+		switch (message) 
+		{
+		case WM_CREATE:
 			{
 				// CreateWindow()で渡したパラメータを取得
 				CREATESTRUCT * createStruct = (CREATESTRUCT*)lParam;
@@ -141,9 +138,7 @@ LRESULT KdWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	switch (message) {
 	// ホイールスクロール時
 	case WM_MOUSEWHEEL:
-		{
-			m_mouseWheelVal = (short)HIWORD(wParam);
-		}
+		{m_mouseWheelVal = (short)HIWORD(wParam); }
 		break;
 	// Xボタンが押された
 	case WM_CLOSE:
@@ -196,7 +191,8 @@ bool KdWindow::OpenFileDialog(std::string& filepath, std::string_view title, con
 	{
 		dir = current.string() + "\\";
 	}
-	else {
+	else 
+	{
 		auto path = std::filesystem::absolute(filepath);
 		dir = path.parent_path().string() + "\\";
 	}
@@ -242,7 +238,8 @@ bool KdWindow::SaveFileDialog(std::string& filepath, std::string_view title, con
 	{
 		dir = current.string() + "\\";
 	}
-	else {
+	else 
+	{
 		auto path = std::filesystem::absolute(filepath);
 		dir = path.parent_path().string() + "\\";
 	}

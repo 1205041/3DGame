@@ -29,4 +29,5 @@ protected:
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
 
 	std::unique_ptr<KdCamera> m_camera = nullptr;
+
 };

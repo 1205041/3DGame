@@ -154,6 +154,11 @@
     <ClInclude Include="..\Library\tinygltf\stb_image.h" />
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
+    <ClInclude Include="Src\Application\Camera\CameraBase\CameraBase.h" />
+    <ClInclude Include="Src\Application\Camera\CameraManager.h" />
+    <ClInclude Include="Src\Application\Camera\FPSC\FPSC.h" />
+    <ClInclude Include="Src\Application\Camera\TPSC\TPSC.h" />
+    <ClInclude Include="Src\Application\Camera\TrackingC\TrackingC.h" />
     <ClInclude Include="Src\Application\main.h" />
     <ClInclude Include="Src\Application\Object\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Scene\Game\GameScene.h" />
@@ -205,6 +210,11 @@
     <ClCompile Include="..\Library\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\Library\imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="Src\Application\Camera\CameraBase\CameraBase.cpp" />
+    <ClCompile Include="Src\Application\Camera\CameraManager.cpp" />
+    <ClCompile Include="Src\Application\Camera\FPSC\FPSC.cpp" />
+    <ClCompile Include="Src\Application\Camera\TPSC\TPSC.cpp" />
+    <ClCompile Include="Src\Application\Camera\TrackingC\TrackingC.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
     <ClCompile Include="Src\Application\Object\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Scene\Game\GameScene.cpp" />

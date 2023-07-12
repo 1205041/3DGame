@@ -31,8 +31,19 @@ void GameScene::Init()
 
 void GameScene::ImGuiUpdate()
 {
-//	return;
-
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000) 
+	{ 
+		if (!ImGuiFlg) 
+		{ 
+			ImGuiFlg = true;
+			return;
+		}
+		else
+		{
+			ImGuiFlg = false;
+		}
+	}
+	
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiSetCond_Once);
 
