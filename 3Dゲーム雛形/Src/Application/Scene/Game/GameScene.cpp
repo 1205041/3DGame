@@ -4,6 +4,15 @@
 
 void GameScene::Event()
 {
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	{
+		ImGuiFlg = true;
+	}
+	else 
+	{
+		ImGuiFlg = false;
+	}
+
 	// ÉVÅ[Éìêÿë÷(GameÅ®Title)
 	if (GetAsyncKeyState('P') & 0x8000)
 	{
@@ -27,22 +36,13 @@ void GameScene::Init()
 	std::shared_ptr<Ground> ground;
 	ground = std::make_shared<Ground>();
 	m_objList.push_back(ground);
+
+	ImGuiFlg = false;
 }
 
 void GameScene::ImGuiUpdate()
 {
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000) 
-	{ 
-		if (!ImGuiFlg) 
-		{ 
-			ImGuiFlg = true;
-			return;
-		}
-		else
-		{
-			ImGuiFlg = false;
-		}
-	}
+	if (!ImGuiFlg) { return; }
 	
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiSetCond_Once);
