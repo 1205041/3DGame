@@ -40,17 +40,18 @@ private:
 	// 現在のシーンを管理しているポインタ
 	std::shared_ptr<SceneBase>	m_spCurtScene = nullptr;
 
-	std::shared_ptr<TitleScene>		title;
-	std::shared_ptr<GameScene>		game;
-	std::shared_ptr<ResultScene>	result;
-
 	// 現在のシーンを管理している変数
 	SceneType m_curtSceneType = SceneType::Game;
 
 	// 次のシーンを管理している変数
 	SceneType m_nextSceneType = m_curtSceneType;
 
-	/* --- シングルトンパターン --- */
+	// シーン一覧
+	std::shared_ptr<TitleScene>		spTitle;
+	std::shared_ptr<GameScene>		spGame;
+	std::shared_ptr<ResultScene>	spResult;
+
+/* --- シングルトンパターン --- */
 private:
 	SceneManager() { Init(); }
 	~SceneManager() {}

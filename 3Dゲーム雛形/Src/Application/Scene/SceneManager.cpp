@@ -66,16 +66,16 @@ void SceneManager::ChangeScene(const SceneType& _type)
 	switch (_type)
 	{
 	case SceneType::Title:
-		if (!title) { title = std::make_shared<TitleScene>(); }
-		m_spCurtScene = title;
+		if (!spTitle) { spTitle = std::make_shared<TitleScene>(); }
+		m_spCurtScene = spTitle;
 		break;
 	case SceneType::Game:
-		if (!game) { game = std::make_shared<GameScene>(); }
-		m_spCurtScene = game;
+		if (!spGame) { spGame = std::make_shared<GameScene>(); }
+		m_spCurtScene = spGame;
 		break;
 	case SceneType::Result:
-		if (!result) { result = std::make_shared<ResultScene>(); }
-		m_spCurtScene = result;
+		if (!spResult) { spResult = std::make_shared<ResultScene>(); }
+		m_spCurtScene = spResult;
 		break;
 	}
 	m_curtSceneType = _type;
