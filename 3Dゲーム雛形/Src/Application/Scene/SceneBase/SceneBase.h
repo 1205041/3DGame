@@ -19,6 +19,7 @@ public:
 	// オブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList() { return m_objList; }
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj) { m_objList.push_back(_obj); }
+
 protected:
 	virtual void Init() {}
 	virtual void Event() {}
@@ -30,4 +31,6 @@ protected:
 
 	std::unique_ptr<KdCamera> m_camera = nullptr;
 
+private:
+	
 };

@@ -6,18 +6,19 @@ void GameScene::Event()
 {
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
-		ImGuiFlg = true;
+		if (!switchFlg)
+		{
+			if (!ImGuiFlg) { ImGuiFlg = true; }
+			else { ImGuiFlg = false; }
+			switchFlg = true;
+		}
 	}
-	else 
-	{
-		ImGuiFlg = false;
-	}
+	else { switchFlg = false; }
 
 	// シーン切替(Game→Title)
 	if (GetAsyncKeyState('P') & 0x8000)
 	{
-		SceneManager::Instance().SetNextScene
-		(SceneManager::SceneType::Title);
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
 	}
 
 	Math::Matrix transMat;
@@ -38,14 +39,16 @@ void GameScene::Init()
 	m_objList.push_back(ground);
 
 	ImGuiFlg = false;
+	switchFlg = false;
+
 }
 
 void GameScene::ImGuiUpdate()
 {
 	if (!ImGuiFlg) { return; }
 	
-	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
-	ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiSetCond_Once);
+	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiCond_Once);
 
 	// ウィンドウ開始""の中の部分は他のウィンドウと被らないようにすること！
 	if (ImGui::Begin("GameSceneDebugWindow"))

@@ -13,4 +13,5 @@ private:
 	void ImGuiUpdate()	override;
 
 	bool ImGuiFlg = false;
+	bool switchFlg = false;
 };
