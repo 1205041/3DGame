@@ -12,28 +12,14 @@ public:
 
 	void SetTarget(const std::shared_ptr<KdGameObject>& target);
 
-	std::shared_ptr<const KdCamera> WorkCamera() const { return m_spCamera; }
+	const std::shared_ptr<const KdCamera> WorkCamera() const { return m_spCamera; }
 
-	const Math::Matrix GetRotationMatrix() const
-	{
-		/* èáî‘ÇÕY,X,Z */
-		return Math::Matrix::CreateFromYawPitchRoll
-		(
-			DirectX::XMConvertToRadians(m_DegAng.y),
-			DirectX::XMConvertToRadians(m_DegAng.x),
-			DirectX::XMConvertToRadians(m_DegAng.z)
-		);
-	}
-
-	const Math::Matrix GetRotationYMatrix() const
-	{
-		/* èáî‘ÇÕY,X,Z */
-		return Math::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_DegAng.y));
-	}
+	const Math::Matrix GetRotationMatrix() const;
+	const Math::Matrix GetRotationYMatrix() const;
 
 protected:
-	std::shared_ptr<KdCamera>			m_spCamera = nullptr;
-	std::weak_ptr<const KdGameObject>	m_wpTarget;
+	std::shared_ptr<KdCamera>	m_spCamera = nullptr;
+	std::weak_ptr<KdGameObject>	m_wpTarget;
 
 	Math::Matrix		m_LocalPos;
 	Math::Matrix		m_Rotation;

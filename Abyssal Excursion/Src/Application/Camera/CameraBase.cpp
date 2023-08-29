@@ -27,3 +27,19 @@ void CameraBase::SetTarget(const std::shared_ptr<KdGameObject>& target)
 
 	m_wpTarget = target;
 }
+
+const Math::Matrix CameraBase::GetRotationMatrix() const
+{
+	/* èáî‘ÇÕY,X,Z */
+	return Math::Matrix::CreateFromYawPitchRoll
+	(
+		DirectX::XMConvertToRadians(m_DegAng.y),
+		DirectX::XMConvertToRadians(m_DegAng.x),
+		DirectX::XMConvertToRadians(m_DegAng.z)
+	);
+}
+
+const Math::Matrix CameraBase::GetRotationYMatrix() const
+{
+	return Math::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_DegAng.y));
+}
