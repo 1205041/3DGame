@@ -106,6 +106,9 @@
     <Filter Include="Src\Application\Camera\CameraBase">
       <UniqueIdentifier>{292dc442-e5a2-4bec-bbce-99a906ea0b42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\SkySphere">
+      <UniqueIdentifier>{d3702f32-1de2-45fd-8de6-96db11a6140b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -291,6 +294,9 @@
     <ClInclude Include="Src\Application\Camera\CameraManager.h">
       <Filter>Src\Application\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\SkySphere\SkySpher.h">
+      <Filter>Src\Application\Object\SkySphere</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -448,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Camera\CameraManager.cpp">
       <Filter>Src\Application\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp">
+      <Filter>Src\Application\Object\SkySphere</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

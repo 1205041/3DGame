@@ -1,6 +1,7 @@
 #include "GameScene.h"
 
 #include "../../Object/Ground/Ground.h"
+#include "../../Object/SkySphere/SkySpher.h"
 
 void GameScene::Event()
 {
@@ -37,6 +38,11 @@ void GameScene::Init()
 	std::shared_ptr<Ground> ground;
 	ground = std::make_shared<Ground>();
 	m_objList.push_back(ground);
+
+	// スカイスフィア
+	std::shared_ptr<SkySphere> skySphere;
+	skySphere = std::make_shared<SkySphere>();
+	m_objList.push_back(skySphere);
 
 	ImGuiFlg = false;
 	switchFlg = false;

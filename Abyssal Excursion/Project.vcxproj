@@ -161,6 +161,7 @@
     <ClInclude Include="Src\Application\Camera\TrackingC\TrackingC.h" />
     <ClInclude Include="Src\Application\main.h" />
     <ClInclude Include="Src\Application\Object\Ground\Ground.h" />
+    <ClInclude Include="Src\Application\Object\SkySphere\SkySpher.h" />
     <ClInclude Include="Src\Application\Scene\Game\GameScene.h" />
     <ClInclude Include="Src\Application\Scene\Result\ResultScene.h" />
     <ClInclude Include="Src\Application\Scene\SceneBase\SceneBase.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Src\Application\Camera\TrackingC\TrackingC.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
     <ClCompile Include="Src\Application\Object\Ground\Ground.cpp" />
+    <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp" />
     <ClCompile Include="Src\Application\Scene\Game\GameScene.cpp" />
     <ClCompile Include="Src\Application\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneBase\SceneBase.cpp" />
