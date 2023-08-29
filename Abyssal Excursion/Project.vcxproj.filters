@@ -94,20 +94,14 @@
     <Filter Include="Src\Application\Camera">
       <UniqueIdentifier>{7b8e7aa8-e821-4a5f-9d9e-56ddb57dacc9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Camera\FPSC">
-      <UniqueIdentifier>{822b9296-e4d6-4276-8d2d-b83ba2c79f5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Camera\TPSC">
       <UniqueIdentifier>{6dccec2c-c528-4bf8-9424-b47460480d27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Camera\TrackingC">
-      <UniqueIdentifier>{88f78164-6d25-4f43-aacd-da902861b354}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Camera\CameraBase">
-      <UniqueIdentifier>{292dc442-e5a2-4bec-bbce-99a906ea0b42}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\SkySphere">
       <UniqueIdentifier>{d3702f32-1de2-45fd-8de6-96db11a6140b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Player">
+      <UniqueIdentifier>{e72c0a77-0f23-4038-b89e-66e8f0f4dbc6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -279,23 +273,20 @@
     <ClInclude Include="..\Library\imgui\ja_glyph_ranges.h">
       <Filter>Library\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Camera\FPSC\FPSC.h">
-      <Filter>Src\Application\Camera\FPSC</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Camera\CameraBase\CameraBase.h">
-      <Filter>Src\Application\Camera\CameraBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Camera\TrackingC\TrackingC.h">
-      <Filter>Src\Application\Camera\TrackingC</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Camera\TPSC\TPSC.h">
       <Filter>Src\Application\Camera\TPSC</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Camera\CameraManager.h">
-      <Filter>Src\Application\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\SkySphere\SkySpher.h">
       <Filter>Src\Application\Object\SkySphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Camera\CameraBase.h">
+      <Filter>Src\Application\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Player\Player.h">
+      <Filter>Src\Application\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\ObjBase.h">
+      <Filter>Src\Application\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,23 +431,20 @@
     <ClCompile Include="..\Library\imgui\misc\cpp\imgui_stdlib.cpp">
       <Filter>Library\imgui\misc\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Camera\FPSC\FPSC.cpp">
-      <Filter>Src\Application\Camera\FPSC</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Camera\CameraBase\CameraBase.cpp">
-      <Filter>Src\Application\Camera\CameraBase</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Camera\TrackingC\TrackingC.cpp">
-      <Filter>Src\Application\Camera\TrackingC</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Camera\TPSC\TPSC.cpp">
       <Filter>Src\Application\Camera\TPSC</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Camera\CameraManager.cpp">
-      <Filter>Src\Application\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp">
       <Filter>Src\Application\Object\SkySphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Camera\CameraBase.cpp">
+      <Filter>Src\Application\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Player\Player.cpp">
+      <Filter>Src\Application\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\ObjBase.cpp">
+      <Filter>Src\Application\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

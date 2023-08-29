@@ -11,12 +11,16 @@ void SkySphere::PostUpdate()
 
 void SkySphere::DrawLit()
 {
-	// ”Âƒ|ƒŠ(’n–Ê)
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_model, m_mWorld);
+	// ƒ‚ƒfƒ‹(”wŒi)
+	if (!m_spModel) { return; }
+//	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
 void SkySphere::Init()
 {
-	m_model = std::make_shared<KdModelWork>();
-	m_model->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/skysphere.gltf"));
+	if (!m_spModel)
+	{
+//		m_spModel = std::make_shared<KdModelWork>();
+//		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/deepSea/DeepSea.gltf"));
+	}
 }

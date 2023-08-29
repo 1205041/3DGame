@@ -20,7 +20,6 @@
 	],
 	"materials":[
 		{
-			"doubleSided":true,
 			"name":"\u30de\u30c6\u30ea\u30a2\u30eb",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
@@ -57,14 +56,14 @@
 		{
 			"mimeType":"image/png",
 			"name":"image20.png",
-			"uri":"image20.png"
+			"uri":"../../../../../../../../../BlenderFile/3DModels/skysphere/image20.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":1088,
+			"count":1984,
 			"max":[
 				0.9999997019767761,
 				1,
@@ -80,13 +79,13 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":1088,
+			"count":1984,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":1088,
+			"count":1984,
 			"type":"VEC2"
 		},
 		{
@@ -99,26 +98,26 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":13056,
+			"byteLength":23808,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":13056,
-			"byteOffset":13056,
+			"byteLength":23808,
+			"byteOffset":23808,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":8704,
-			"byteOffset":26112,
+			"byteLength":15872,
+			"byteOffset":47616,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":5760,
-			"byteOffset":34816,
+			"byteOffset":63488,
 			"target":34963
 		}
 	],
@@ -130,8 +129,8 @@
 	],
 	"buffers":[
 		{
-			"byteLength":40576,
-			"uri":"skysphere.bin"
+			"byteLength":69248,
+			"uri":"DeepSea.bin"
 		}
 	]
 }
