@@ -16,7 +16,7 @@ void Player::Init()
 	if (!m_spModel)
 	{
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/AirPlane/AirPlane.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/AirPlane/Player.gltf"));
 	}
 
 	//	SetScale({ 1.0f,1.0f,1.0f });
