@@ -1,9 +1,6 @@
 #pragma once
 
 class SceneBase;
-class TitleScene;
-class GameScene;
-class ResultScene;
 
 class SceneManager
 {
@@ -25,7 +22,7 @@ public:
 
 	void DrawDebug();
 
-	void Init();
+	void Init() { ChangeScene(SceneType::Game); }
 	
 	void SetNextScene(const SceneType& _next) { m_nextSceneType = _next; }
 
@@ -33,23 +30,19 @@ public:
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList() const;
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj);
 
+	const SceneType& GetCurtSceneType() { return m_curtSceneType; }
 private:
 	
 	void ChangeScene(const SceneType& _type);
 
 	// 現在のシーンを管理しているポインタ
-	std::shared_ptr<SceneBase>	m_spCurtScene = nullptr;
+	SceneBase* m_curtScene = nullptr;
 
 	// 現在のシーンを管理している変数
 	SceneType m_curtSceneType = SceneType::Game;
 
 	// 次のシーンを管理している変数
 	SceneType m_nextSceneType = m_curtSceneType;
-
-	// シーン一覧
-	std::shared_ptr<TitleScene>		spTitle;
-	std::shared_ptr<GameScene>		spGame;
-	std::shared_ptr<ResultScene>	spResult;
 
 /* --- シングルトンパターン --- */
 private:

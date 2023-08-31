@@ -2,11 +2,11 @@
 
 void SkySphere::PostUpdate()
 {
-	Math::Matrix scaleMat;	// ägèkçsóÒ
-	scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
+//	Math::Matrix scaleMat;	// ägèkçsóÒ
+//	scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
 
 	// çsóÒçáê¨
-	m_mWorld = scaleMat;
+//	m_mWorld = scaleMat;
 }
 
 void SkySphere::DrawLit()

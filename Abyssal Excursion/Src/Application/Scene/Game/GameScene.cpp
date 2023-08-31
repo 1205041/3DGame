@@ -29,10 +29,10 @@ void GameScene::Event()
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
 	}
 
-//	Math::Matrix transMat;
-//	transMat = Math::Matrix::CreateTranslation
-//	(Math::Vector3(0, 0, -5));
-//	m_camera->SetCameraMatrix(transMat);
+	Math::Matrix transMat;
+	transMat = Math::Matrix::CreateTranslation
+	(Math::Vector3(0, 0, -5));
+	m_camera->SetCameraMatrix(transMat);
 	/* ※この段階では更新されません！！ */
 }
 
@@ -50,25 +50,22 @@ void GameScene::Init()
 	ground->SetPos({ 0,-2.0f,0 });
 	m_objList.push_back(ground);
 
-	ground = std::make_shared<Ground>();
-	ground->SetScale({ 5.0f, 1.0f, 1.0f });
-	ground->SetPos({ 0,2.0f,0 });
-	m_objList.push_back(ground);
+	// 自機
+	std::shared_ptr<Player> spPlayer;
+	spPlayer = std::make_shared<Player>();
+	spPlayer->SetScale({ 1.0f,1.0f,1.0f });
+	spPlayer->SetPos({ 0,0.0f,0 });
+	m_objList.push_back(spPlayer);
 
 	m_camera = std::make_unique<KdCamera>();
 	m_camera->SetProjectionMatrix(60);
 
-	// 自機
-	std::shared_ptr<Player> spPlayer;
-	spPlayer = std::make_shared<Player>();
-	m_objList.push_back(spPlayer);
-
 	// カメラの初期化
-	std::shared_ptr<TPSC> spTps;
-	spTps = std::make_shared<TPSC>();
-	spTps->SetTarget(spPlayer);
-	spPlayer->SetCamera(spTps);
-	m_objList.push_back(spTps);
+//	std::shared_ptr<TPSC> spTps;
+//	spTps = std::make_shared<TPSC>();
+//	spTps->SetTarget(spPlayer);
+//	spPlayer->SetCamera(spTps);
+//	m_objList.push_back(spTps);
 
 	ImGuiFlg = false;
 	switchFlg = false;

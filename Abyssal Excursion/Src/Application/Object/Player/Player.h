@@ -9,9 +9,9 @@ public:
 	Player() {}
 	~Player() {}
 
-	void Init()		override;
 	void Update()	override;
 	void DrawLit()	override;
+	void Init()		override;
 
 	void SetCamera(const std::shared_ptr<TPSC>& _camera) { m_wpCamera = _camera; }
 

@@ -10,72 +10,66 @@ void SceneManager::PreUpdate()
 	// シーン切替
 	if (m_curtSceneType != m_nextSceneType) { ChangeScene(m_nextSceneType); }
 
-	m_spCurtScene->PreUpdate();
+	m_curtScene->PreUpdate();
 }
 
 void SceneManager::Update()
 {
-	m_spCurtScene->Update();
+	m_curtScene->Update();
 }
 
 void SceneManager::PostUpdate()
 {
-	m_spCurtScene->PostUpdate();
+	m_curtScene->PostUpdate();
 }
 
 void SceneManager::PreDraw()
 {
-	m_spCurtScene->PreDraw();
+	m_curtScene->PreDraw();
 }
 
 void SceneManager::DrawLit()
 {
-	m_spCurtScene->DrawLit();
+	m_curtScene->DrawLit();
 }
 
 void SceneManager::DrawSprite()
 {
-	m_spCurtScene->DrawSprite();
+	m_curtScene->DrawSprite();
 }
 
 void SceneManager::DrawDebug()
 {
-	m_spCurtScene->DrawDebug();
-}
-
-void SceneManager::Init()
-{
-	if (!m_spCurtScene) { m_spCurtScene = std::make_shared<SceneBase>(); }
-
-	ChangeScene(SceneType::Game);
+	m_curtScene->DrawDebug();
 }
 
 const std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList() const
 {
-	return m_spCurtScene->GetObjList();
+	return m_curtScene->GetObjList();
 }
 
 void SceneManager::AddObject(const std::shared_ptr<KdGameObject>& _obj)
 {
-	m_spCurtScene->AddObject(_obj);	
+	m_curtScene->AddObject(_obj);	
 }
 
 void SceneManager::ChangeScene(const SceneType& _type)
 {
+	// 現在のシーンを削除
+	KdSafeDelete(m_curtScene);
+
 	// 次のシーンを作成し、現在のシーンにする
 	switch (_type)
 	{
 	case SceneType::Title:
-		if (!spTitle) { spTitle = std::make_shared<TitleScene>(); }
-		m_spCurtScene = spTitle;
+
+		m_curtScene = new TitleScene();
 		break;
 	case SceneType::Game:
-		if (!spGame) { spGame = std::make_shared<GameScene>(); }
-		m_spCurtScene = spGame;
+		m_curtScene = new GameScene();
 		break;
 	case SceneType::Result:
-		if (!spResult) { spResult = std::make_shared<ResultScene>(); }
-		m_spCurtScene = spResult;
+		m_curtScene = new ResultScene();
 		break;
 	}
 	m_curtSceneType = _type;
