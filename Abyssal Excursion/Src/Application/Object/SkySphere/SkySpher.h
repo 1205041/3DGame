@@ -7,9 +7,9 @@ public:
 	SkySphere() { Init(); }
 	~SkySphere() {}
 
-	void PostUpdate()				override;
-	void DrawLit()					override;
-	void Init()						override;
+	void PostUpdate()	override;
+	void DrawLit()		override;
+	void Init()			override;
 private:
 
 };
