@@ -84,8 +84,6 @@ void Player::Init()
 		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
 	}
 
-	SetScale({ 0.1f,0.1f,0.1f });
-
 	m_moveSpd = 0.05f;
 	m_push = false;
 

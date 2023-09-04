@@ -37,6 +37,7 @@ void GameScene::Init()
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
 	spPlayer->SetPos({ -2.0f,-4.0f,0 });
+	spPlayer->SetScale({ 0.05f,0.05f,0.05f });
 	spPlayer->RegistHitObj(spGround);
 	m_objList.push_back(spPlayer);
 	
