@@ -44,11 +44,6 @@ protected:
 	
 	// 重力
 	float	m_gravity = 0.0f;
-
-	// アニメーション
-	// 歩く：8	,9	,8	,10
-	int		Walk[4] = { 8,9,8,10 };
-	float	m_anime	= 0.0f;
 	
 	// キャラの移動速度
 	float			m_moveSpd	= 0.0f;

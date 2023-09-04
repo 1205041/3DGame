@@ -49,10 +49,6 @@ void Player::Update()
 	m_moveVec *= m_moveSpd;
 
 	m_nowPos += m_moveVec;
-
-	m_spPoly->SetUVRect(Walk[(int)m_anime]);
-	m_anime += 0.1f;
-	if (m_anime >= 4) { m_anime = 0; }
 }
 
 // 更新後更新関数
@@ -84,11 +80,8 @@ void Player::Init()
 	// キャラ初期値
 	if (!m_spPoly)
 	{
-		m_spPoly = std::make_shared<KdSquarePolygon>();
-		m_spPoly->SetMaterial(KdAssets::Instance().m_textures.GetData("Asset/Textures/Player/player.png"));
-
-		m_spPoly->SetPivot(KdSquarePolygon::PivotType::Center_Bottom);
-		m_spPoly->SetSplit(4, 4);
+//		m_spPoly = std::make_shared<KdSquarePolygon>();
+//		m_spPoly->SetMaterial(KdAssets::Instance().m_textures.GetData("Asset/Textures/Player/player.png"));
 	}
 
 	m_moveSpd = 0.05f;

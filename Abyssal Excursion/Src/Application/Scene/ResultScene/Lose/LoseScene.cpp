@@ -1,8 +1,5 @@
 #include "LoseScene.h"
 
-// キャラクター
-#include "../../../Object/Enemy/Enemy.h"
-
 // 地形
 #include "../../../Object/Ground/Ground.h"
 #include "../../../Object/SkySphere/SkySphere.h"
@@ -43,13 +40,6 @@ void LoseScene::Init()
 	std::shared_ptr<SkySphere> spSkySp;
 	spSkySp = std::make_shared<SkySphere>();
 	m_objList.push_back(spSkySp);
-
-	// キャラ
-	std::shared_ptr<Enemy> spEnemy;
-	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0,0,0 });
-	spEnemy->RegistHitObj(spGround);
-	m_objList.push_back(spEnemy);
 
 	// カメラの初期化
 	std::shared_ptr<Tracking> spTrac;

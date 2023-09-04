@@ -4,7 +4,6 @@
 
 // キャラクタ
 #include "../../Object/Player/Player.h"
-#include "../../Object/Enemy/Enemy.h"
 
 // 地形
 #include "../../Object/Ground/Ground.h"
@@ -35,25 +34,11 @@ void GameScene::Init()
 	m_objList.push_back(spSkySp);
 
 	// キャラ
-	std::shared_ptr<Player> spPlayer;
-//	std::shared_ptr<Enemy>	spEnemy;
-	
+	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-//	spEnemy	 = std::make_shared<Enemy>();
-	
 	spPlayer->SetPos({ -2.0f,-4.0f,0 });
-//	spEnemy->SetPos({ 2.0f,-4.0f,0 });
-	
 	spPlayer->RegistHitObj(spGround);
-//	spEnemy->RegistHitObj(spGround);
-
-//	spPlayer->RegistHitObj(spEnemy);
-//	spEnemy->RegistHitObj(spPlayer);
-
-//	spEnemy->SetPlayer(spPlayer);
-
 	m_objList.push_back(spPlayer);
-//	m_objList.push_back(spEnemy);
 	
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;
