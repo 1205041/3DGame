@@ -74,5 +74,5 @@
 // デバックライン表示
 #include "Utility/KdDebugWireFrame.h"
 
-// シーンマネージャー(シーン遷移)
+// シーンマネージャ(シーン遷移用)
 #include "../Application/Scene/SceneManager.h"

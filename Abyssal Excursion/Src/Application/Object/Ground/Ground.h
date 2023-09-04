@@ -7,10 +7,10 @@ public:
 	Ground() { Init(); }
 	~Ground() {}
 
-	void GenerateDepthMapFromLight()override;
-	void DrawLit()					override;
+	void PostUpdate()	override;
+	void DrawLit()		override;
+	void Init()			override;
 
-	void Init()						override;
 private:
-	
+
 };

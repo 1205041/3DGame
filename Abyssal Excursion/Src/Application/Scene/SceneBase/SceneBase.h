@@ -12,25 +12,21 @@ public:
 
 	void PreDraw();
 	void DrawLit();
-	void DrawSprite();
-
 	void DrawDebug();
 
+	void DrawSprite();
+
+	/* ゲッター */
 	// オブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList() { return m_objList; }
+	
+	/* セッター */
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj) { m_objList.push_back(_obj); }
-
+	
 protected:
 	virtual void Init() {}
 	virtual void Event() {}
 
-	// GUI処理
-	virtual void ImGuiUpdate() {};
-
+	// オブジェクトリスト
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
-
-	std::unique_ptr<KdCamera> m_camera = nullptr;
-
-private:
-	
 };

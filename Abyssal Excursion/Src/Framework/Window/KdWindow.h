@@ -35,7 +35,9 @@ public:
 	void Release();
 
 	//
-	~KdWindow() { Release(); }
+	~KdWindow() {
+		Release();
+	}
 
 	//===================================
 	// 処理

@@ -26,10 +26,7 @@ void SceneBase::PostUpdate()
 
 void SceneBase::PreDraw()
 {
-	if (!m_camera)return;
-
-	// カメラ更新
-	m_camera->SetToShader();
+	for (auto& obj : m_objList) { obj->PreDraw(); }
 }
 
 void SceneBase::DrawLit()
@@ -75,21 +72,6 @@ void SceneBase::DrawLit()
 	KdShaderManager::Instance().m_postProcessShader.EndBright();
 }
 
-void SceneBase::DrawSprite()
-{
-	// ===== ===== ===== =====
-	// 2Dの描画はこの間で行う
-	// ===== ===== ===== =====
-	KdShaderManager::Instance().m_spriteShader.Begin();
-	{
-		for (auto& obj : m_objList) { obj->DrawSprite(); }
-		
-		// ImGui処理
-		ImGuiUpdate();
-	}
-	KdShaderManager::Instance().m_spriteShader.End();
-}
-
 void SceneBase::DrawDebug()
 {
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
@@ -101,4 +83,16 @@ void SceneBase::DrawDebug()
 		for (auto& obj : m_objList) { obj->DrawDebug(); }
 	}
 	KdShaderManager::Instance().m_HD2DShader.EndUnLit();
+}
+
+void SceneBase::DrawSprite()
+{
+	// ===== ===== ===== =====
+	// 2Dの描画はこの間で行う
+	// ===== ===== ===== =====
+	KdShaderManager::Instance().m_spriteShader.Begin();
+	{
+		for (auto& obj : m_objList) { obj->DrawSprite(); }
+	}
+	KdShaderManager::Instance().m_spriteShader.End();
 }

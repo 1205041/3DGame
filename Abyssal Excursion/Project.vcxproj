@@ -139,33 +139,29 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Library\imgui\backends\imgui_impl_dx11.h" />
-    <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h" />
-    <ClInclude Include="..\Library\imgui\imconfig.h" />
-    <ClInclude Include="..\Library\imgui\imgui.h" />
-    <ClInclude Include="..\Library\imgui\imgui_internal.h" />
-    <ClInclude Include="..\Library\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\Library\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\Library\imgui\imstb_truetype.h" />
-    <ClInclude Include="..\Library\imgui\ja_glyph_ranges.h" />
-    <ClInclude Include="..\Library\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="..\Library\strconv.h" />
     <ClInclude Include="..\Library\tinygltf\json.hpp" />
     <ClInclude Include="..\Library\tinygltf\stb_image.h" />
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
-    <ClInclude Include="Src\Application\Camera\CameraBase.h" />
-    <ClInclude Include="Src\Application\Camera\TPSC\TPSC.h" />
     <ClInclude Include="Src\Application\main.h" />
+    <ClInclude Include="Src\Application\Object\Camera\CameraBase.h" />
+    <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h" />
+    <ClInclude Include="Src\Application\Object\Camera\Tracking\Tracking.h" />
+    <ClInclude Include="Src\Application\Object\Enemy\Enemy.h" />
     <ClInclude Include="Src\Application\Object\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
     <ClInclude Include="Src\Application\Object\Player\Player.h" />
-    <ClInclude Include="Src\Application\Object\SkySphere\SkySpher.h" />
-    <ClInclude Include="Src\Application\Scene\Game\GameScene.h" />
-    <ClInclude Include="Src\Application\Scene\Result\ResultScene.h" />
+    <ClInclude Include="Src\Application\Object\SceneText\LoseScene\LoseText.h" />
+    <ClInclude Include="Src\Application\Object\SceneText\TitleScene\TitleText.h" />
+    <ClInclude Include="Src\Application\Object\SceneText\WinScene\WinText.h" />
+    <ClInclude Include="Src\Application\Object\SkySphere\SkySphere.h" />
+    <ClInclude Include="Src\Application\Scene\GameScene\GameScene.h" />
+    <ClInclude Include="Src\Application\Scene\ResultScene\Lose\LoseScene.h" />
+    <ClInclude Include="Src\Application\Scene\ResultScene\Win\WinScene.h" />
     <ClInclude Include="Src\Application\Scene\SceneBase\SceneBase.h" />
     <ClInclude Include="Src\Application\Scene\SceneManager.h" />
-    <ClInclude Include="Src\Application\Scene\Ttile\TitleScene.h" />
+    <ClInclude Include="Src\Application\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Src\Framework\Direct3D\KdMaterial.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdPolygon.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdSquarePolygon.h" />
@@ -202,26 +198,24 @@
     <ClInclude Include="src\Framework\Window\KdWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Library\imgui\backends\imgui_impl_dx11.cpp" />
-    <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\Library\imgui\imgui.cpp" />
-    <ClCompile Include="..\Library\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\Library\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\Library\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="..\Library\imgui\misc\cpp\imgui_stdlib.cpp" />
-    <ClCompile Include="Src\Application\Camera\CameraBase.cpp" />
-    <ClCompile Include="Src\Application\Camera\TPSC\TPSC.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
+    <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp" />
+    <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp" />
+    <ClCompile Include="Src\Application\Object\Camera\Tracking\Tracking.cpp" />
+    <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Src\Application\Object\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
     <ClCompile Include="Src\Application\Object\Player\Player.cpp" />
+    <ClCompile Include="Src\Application\Object\SceneText\LoseScene\LoseText.cpp" />
+    <ClCompile Include="Src\Application\Object\SceneText\TitleScene\TitleText.cpp" />
+    <ClCompile Include="Src\Application\Object\SceneText\WinScene\WinText.cpp" />
     <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp" />
-    <ClCompile Include="Src\Application\Scene\Game\GameScene.cpp" />
-    <ClCompile Include="Src\Application\Scene\Result\ResultScene.cpp" />
+    <ClCompile Include="Src\Application\Scene\GameScene\GameScene.cpp" />
+    <ClCompile Include="Src\Application\Scene\ResultScene\Lose\LoseScene.cpp" />
+    <ClCompile Include="Src\Application\Scene\ResultScene\Win\WinScene.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneBase\SceneBase.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp" />
-    <ClCompile Include="Src\Application\Scene\Ttile\TitleScene.cpp" />
+    <ClCompile Include="Src\Application\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Src\Framework\Direct3D\KdMaterial.cpp">
       <SubType>
       </SubType>

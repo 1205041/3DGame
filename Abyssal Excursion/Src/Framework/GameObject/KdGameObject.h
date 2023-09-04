@@ -35,7 +35,6 @@ public:
 	virtual void PostDraw() {}
 
 	virtual void DrawDebug() {}
-	virtual void ImGuiUpdate() {}
 
 	virtual void SetAsset(const std::string&) {}
 
