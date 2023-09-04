@@ -63,26 +63,28 @@ void Player::PostUpdate()
 // ‰e•`‰æŠÖ”
 void Player::GenerateDepthMapFromLight()
 {
-	if (!m_spPoly) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawPolygon(*m_spPoly, m_mWorld);
+	if (!m_spModel) { return; }
+	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
 // ”Âƒ|ƒŠ•`‰æŠÖ”
 void Player::DrawLit()
 {
-	if (!m_spPoly) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawPolygon(*m_spPoly, m_mWorld);
+	if (!m_spModel) { return; }
+	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
 // ‰Šú‰»ŠÖ”
 void Player::Init()
 {
 	// ƒLƒƒƒ‰‰Šú’l
-	if (!m_spPoly)
+	if (!m_spModel)
 	{
-//		m_spPoly = std::make_shared<KdSquarePolygon>();
-//		m_spPoly->SetMaterial(KdAssets::Instance().m_textures.GetData("Asset/Textures/Player/player.png"));
+		m_spModel = std::make_shared<KdModelWork>();
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
 	}
+
+	SetScale({ 0.1f,0.1f,0.1f });
 
 	m_moveSpd = 0.05f;
 	m_push = false;
