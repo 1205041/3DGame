@@ -21,8 +21,8 @@ void GameScene::Event()
 
 void GameScene::Init()
 {
-	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav");
-	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Game.wav", true);
+//	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav");
+//	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Game.wav", true);
 
 	/* オブジェクトの初期化 */
 	// 地形
@@ -36,24 +36,24 @@ void GameScene::Init()
 
 	// キャラ
 	std::shared_ptr<Player> spPlayer;
-	std::shared_ptr<Enemy>	spEnemy;
+//	std::shared_ptr<Enemy>	spEnemy;
 	
 	spPlayer = std::make_shared<Player>();
-	spEnemy	 = std::make_shared<Enemy>();
+//	spEnemy	 = std::make_shared<Enemy>();
 	
 	spPlayer->SetPos({ -2.0f,-4.0f,0 });
-	spEnemy->SetPos({ 2.0f,-4.0f,0 });
+//	spEnemy->SetPos({ 2.0f,-4.0f,0 });
 	
 	spPlayer->RegistHitObj(spGround);
-	spEnemy->RegistHitObj(spGround);
+//	spEnemy->RegistHitObj(spGround);
 
-	spPlayer->RegistHitObj(spEnemy);
-	spEnemy->RegistHitObj(spPlayer);
+//	spPlayer->RegistHitObj(spEnemy);
+//	spEnemy->RegistHitObj(spPlayer);
 
-	spEnemy->SetPlayer(spPlayer);
+//	spEnemy->SetPlayer(spPlayer);
 
 	m_objList.push_back(spPlayer);
-	m_objList.push_back(spEnemy);
+//	m_objList.push_back(spEnemy);
 	
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;
