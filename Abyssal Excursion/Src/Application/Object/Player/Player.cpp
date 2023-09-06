@@ -19,6 +19,7 @@ void Player::Update()
 
 	// キャラクターの移動速度
 	m_moveVec = Math::Vector3::Zero;
+	m_nowPos = GetPos();
 
 	if (GetAsyncKeyState('W') & 0x8000)
 	{
@@ -67,8 +68,7 @@ void Player::Init()
 		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
 	}
 
-	m_moveSpd = 0.05f;
-	m_push = false;
+	m_moveSpd = 0.5f;
 
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("PlayerCollider", GetPos(), 0.25f, KdCollider::TypeBump);

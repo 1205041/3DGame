@@ -21,9 +21,6 @@ public:
 private:
 	std::weak_ptr<CameraBase> m_wpCamera;
 
-	// “G‚Ì‰Ÿ‚µo‚µ
-	bool m_push = false;
-
 	// ƒJƒƒ‰‚Ì‰ñ“]—Ê
 	Math::Matrix camRotMat = Math::Matrix::Identity;
 };

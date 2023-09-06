@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v3.5.30",
+		"generator":"Khronos glTF Blender I/O v3.6.27",
 		"version":"2.0"
 	},
 	"scene":0,
@@ -38,8 +38,8 @@
 				{
 					"attributes":{
 						"POSITION":0,
-						"TEXCOORD_0":1,
-						"NORMAL":2
+						"NORMAL":1,
+						"TEXCOORD_0":2
 					},
 					"indices":3,
 					"material":0
@@ -56,8 +56,8 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"Dohyou.png",
-			"uri":"Dohyou.png"
+			"name":"kaitei.png",
+			"uri":"kaitei.png"
 		}
 	],
 	"accessors":[
@@ -81,13 +81,13 @@
 			"bufferView":1,
 			"componentType":5126,
 			"count":192,
-			"type":"VEC2"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
 			"count":192,
-			"type":"VEC3"
+			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
@@ -105,14 +105,14 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":1536,
+			"byteLength":2304,
 			"byteOffset":2304,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2304,
-			"byteOffset":3840,
+			"byteLength":1536,
+			"byteOffset":4608,
 			"target":34962
 		},
 		{

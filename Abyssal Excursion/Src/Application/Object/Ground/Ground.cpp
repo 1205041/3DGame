@@ -3,7 +3,10 @@
 void Ground::PostUpdate()
 {
 	// 拡縮行列
-	scaleMat = Math::Matrix::CreateScale(0.3f, 0.3f, 0.3f);
+	scaleMat = Math::Matrix::CreateScale(30.0f, 1.0f, 30.0f);
+	/* 拡縮メモ */
+	// スカイスフィア：地面 = 150.0f：10.0fで丁度良いサイズ
+	// なので地面のサイズの15倍がスカイスフィアのサイズ
 
 	// 座標行列
 	transMat = Math::Matrix::CreateTranslation({ 0,-5.0f,0 });
@@ -12,11 +15,9 @@ void Ground::PostUpdate()
 	m_mWorld = scaleMat * transMat;
 }
 
-// 陰影のあるオブジェクト(不透明な物体や2Dキャラ)
 void Ground::DrawLit()
 {
 	if (!m_spModel) { return; }
-	// 板ポリ(地面)
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 

@@ -24,7 +24,7 @@ public:
 
 	void DrawDebug();
 
-	void Init() { ChangeScene(SceneType::Game); }
+	void Init();
 
 	// この関数ではシーン切替がまだ行われない！
 	// あくまで予約！！
@@ -39,7 +39,7 @@ private:
 	void ChangeScene(const SceneType& _sceneType);
 
 	// 現在のシーンを管理しているポインタ
-	SceneBase* m_curtScene = nullptr;
+	std::shared_ptr<SceneBase> m_spCurtScene = nullptr;
 
 	// 現在のシーンを管理している変数
 	SceneType m_curtSceneType = SceneType::Game;

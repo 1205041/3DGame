@@ -14,70 +14,83 @@ void SceneManager::PreUpdate()
 		ChangeScene(m_nextSceneType);
 	}
 
-	m_curtScene->PreUpdate();
+	m_spCurtScene->PreUpdate();
 }
 
 void SceneManager::Update()
 {
-	m_curtScene->Update();
+	m_spCurtScene->Update();
 }
 
 void SceneManager::PostUpdate()
 {
-	m_curtScene->PostUpdate();
+	m_spCurtScene->PostUpdate();
 }
 
 void SceneManager::PreDraw()
 {
-	m_curtScene->PreDraw();
+	m_spCurtScene->PreDraw();
 }
 
 void SceneManager::DrawLit()
 {
-	m_curtScene->DrawLit();
+	m_spCurtScene->DrawLit();
 }
 
 void SceneManager::DrawSprite()
 {
-	m_curtScene->DrawSprite();
+	m_spCurtScene->DrawSprite();
 }
 
 void SceneManager::DrawDebug()
 {
-	m_curtScene->DrawDebug();
+	m_spCurtScene->DrawDebug();
+}
+
+void SceneManager::Init()
+{
+	m_spCurtScene = std::make_shared<SceneBase>();
+
+	ChangeScene(SceneType::Game);
 }
 
 const std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList()
 {
 	// TODO: return ステートメントをここに挿入します
 
-	return m_curtScene->GetObjList();
+	return m_spCurtScene->GetObjList();
 }
 
 void SceneManager::AddObject(const std::shared_ptr<KdGameObject>& _obj)
 {
-	m_curtScene->AddObject(_obj);
+	m_spCurtScene->AddObject(_obj);
 }
 
 void SceneManager::ChangeScene(const SceneType& _sceneType)
 {
-	// 現在のシーンを削除
-	KdSafeDelete(m_curtScene);
+	std::shared_ptr<TitleScene> title;
+	std::shared_ptr<GameScene> game;
+	std::shared_ptr<WinScene> win;
+	std::shared_ptr<LoseScene> lose;
 
 	// 次のシーンを作成し、現在のシーンにする
 	switch (_sceneType)
 	{
 	case SceneType::Title:
-		m_curtScene = new TitleScene();
+		title = std::make_shared<TitleScene>();
+		m_spCurtScene = title;
 		break;
 	case SceneType::Game:
-		m_curtScene = new GameScene();
+		game = std::make_shared<GameScene>();
+		m_spCurtScene = game;
 		break;
 	case SceneType::Win:
-		m_curtScene = new WinScene();
+		win = std::make_shared<WinScene>();
+		m_spCurtScene = win;
 		break;
 	case SceneType::Lose:
-		m_curtScene = new LoseScene();
+		lose = std::make_shared<LoseScene>();
+		m_spCurtScene = lose;
 		break;
 	}
 	m_curtSceneType = _sceneType;

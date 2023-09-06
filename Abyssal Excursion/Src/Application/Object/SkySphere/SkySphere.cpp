@@ -9,7 +9,10 @@ void SkySphere::Update()
 void SkySphere::PostUpdate()
 {
 	// 拡縮行列
-	scaleMat = Math::Matrix::CreateScale(25.0f, 25.0f, 25.0f);
+	scaleMat = Math::Matrix::CreateScale(450.0f, 450.0f, 450.0f);
+	/* 拡縮メモ */
+	// スカイスフィア：地面 = 150.0f：10.0fで丁度良いサイズ
+	// なので地面のサイズの15倍がスカイスフィアのサイズ
 
 	// 回転行列
 	if (SceneManager::Instance().GetCurtSceneType() == SceneManager::SceneType::Title)
@@ -28,12 +31,15 @@ void SkySphere::PostUpdate()
 	m_mWorld = scaleMat * rotMat * transMat;
 }
 
-// 陰影のないオブジェクト(透明な部分を含む物体やエフェクト)
-void SkySphere::DrawUnLit()
+void SkySphere::DrawLit()
 {
-	// 板ポリ(地面)
 	if (!m_spModel) { return; }
-	
+	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
+}
+
+void SkySphere::DrawBright()
+{
+	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
@@ -42,7 +48,7 @@ void SkySphere::Init()
 	if (!m_spModel)
 	{
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/Doujyou/Doujyou.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/deepSea/DeepSea.gltf"));
 	}
 
 	m_cnt = 0.0f;

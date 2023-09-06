@@ -20,7 +20,8 @@
 	],
 	"materials":[
 		{
-			"name":"\u30de\u30c6\u30ea\u30a2\u30eb",
+			"doubleSided":true,
+			"name":"\u30de\u30c6\u30ea\u30a2\u30eb.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0
@@ -32,7 +33,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u7403",
+			"name":"\u7403.001",
 			"primitives":[
 				{
 					"attributes":{
@@ -55,7 +56,7 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"imgDeepSea.png",
+			"name":"imgDeepSea",
 			"uri":"imgDeepSea.png"
 		}
 	],
@@ -63,61 +64,61 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":1984,
+			"count":1103,
 			"max":[
-				0.9999997019767761,
+				0.9999998807907104,
 				1,
-				0.9999993443489075
+				0.9999997615814209
 			],
 			"min":[
-				-0.9999990463256836,
+				-0.9999997019767761,
 				-1,
-				-1
+				-0.9999995827674866
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":1984,
+			"count":1103,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":1984,
+			"count":1103,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":2880,
+			"count":5760,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":23808,
+			"byteLength":13236,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":23808,
-			"byteOffset":23808,
+			"byteLength":13236,
+			"byteOffset":13236,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":15872,
-			"byteOffset":47616,
+			"byteLength":8824,
+			"byteOffset":26472,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":5760,
-			"byteOffset":63488,
+			"byteLength":11520,
+			"byteOffset":35296,
 			"target":34963
 		}
 	],
@@ -129,7 +130,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":69248,
+			"byteLength":46816,
 			"uri":"DeepSea.bin"
 		}
 	]
