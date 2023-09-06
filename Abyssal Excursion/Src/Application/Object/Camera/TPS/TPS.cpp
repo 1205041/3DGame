@@ -9,6 +9,7 @@ void TPS::Init()
 	m_FixMousePos.x = 640;
 	m_FixMousePos.y = 360;
 
+//	ShowCursor(false);
 //	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 
 	CameraBase::Init();
@@ -52,7 +53,7 @@ void TPS::UpdateRotateByMouse()
 	m_degAng.x += mouseMove.y * 0.15f;
 	m_degAng.y += mouseMove.x * 0.15f;
 	*/
-
+	
 	if (GetAsyncKeyState(VK_UP) & 0x8000) { m_degAng.x += 1.0f; }
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000) { m_degAng.x -= 1.0f; }
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000) { m_degAng.y += 1.0f; }

@@ -22,9 +22,7 @@ void TitleScene::Event()
 
 void TitleScene::Init()
 {
-//	ShowCursor(false);
-
-	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
+//	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
 	
 	/* オブジェクトの初期化 */
 	// シーン

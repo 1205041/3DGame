@@ -20,7 +20,7 @@ void Player::Update()
 	// キャラクターの移動速度
 	m_moveVec = Math::Vector3::Zero;
 
-//	if (GetAsyncKeyState('W') & 0x8000)
+	if (GetAsyncKeyState('W') & 0x8000)
 	{
 		// 前方
 		Math::Vector3 v = Math::Vector3::TransformNormal
