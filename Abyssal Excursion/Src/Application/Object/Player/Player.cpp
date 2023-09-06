@@ -13,50 +13,32 @@ void Player::Update()
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Lose);
 	}
 
-	m_gravity += 0.01f;
-	m_mWorld._42 -= m_gravity;
-
-	// キャラクターの移動速度
-	m_nowPos  = GetPos();
-
-	m_moveVec = Math::Vector3::Zero;
-	if (GetAsyncKeyState('D') & 0x8000) { m_moveVec.x = 1.0f; }
-	if (GetAsyncKeyState('A') & 0x8000) { m_moveVec.x = -1.0f; }
-	if (GetAsyncKeyState('W') & 0x8000) { m_moveVec.z = 1.0f; }
-	if (GetAsyncKeyState('S') & 0x8000) { m_moveVec.z = -1.0f; }
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
-	{
-		if (!m_push)
-		{
-			m_moveSpd = 0.1f;
-			m_push = true;
-		}
-	}
-	else
-	{
-		m_moveSpd = 0.05f;
-		m_push = false;
-	}
-
 	// カメラ情報
 	std::shared_ptr<CameraBase> spCamera = m_wpCamera.lock();
-	if (spCamera)
+	if (spCamera) { camRotMat = spCamera->GetRotationYMatrix(); }
+
+	// キャラクターの移動速度
+	m_moveVec = Math::Vector3::Zero;
+
+//	if (GetAsyncKeyState('W') & 0x8000)
 	{
-		m_moveVec = m_moveVec.TransformNormal
-		(m_moveVec, spCamera->GetRotationYMatrix());
+		// 前方
+		Math::Vector3 v = Math::Vector3::TransformNormal
+		(Math::Vector3::Backward, camRotMat);
+
+		m_moveVec += v;
 	}
-
+	
 	m_moveVec.Normalize();
-	m_moveVec *= m_moveSpd;
-
-	m_nowPos += m_moveVec;
+	
+	m_nowPos += m_moveVec * m_moveSpd;
 }
 
 // 更新後更新関数
 void Player::PostUpdate()
 {
 	// キャラの座標行列
-	m_mWorld = Math::Matrix::CreateTranslation(m_nowPos);
+	m_mWorld = camRotMat * Math::Matrix::CreateTranslation(m_nowPos);
 	
 	UpdateCollision();
 }

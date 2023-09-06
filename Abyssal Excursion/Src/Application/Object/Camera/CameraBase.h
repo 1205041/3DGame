@@ -29,8 +29,7 @@ public:
 	// プレイヤーのカメラ情報
 	const Math::Matrix GetRotationYMatrix() const
 	{
-		return	Math::Matrix::CreateRotationY(
-			DirectX::XMConvertToRadians(m_degAng.y));
+		return	Math::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_degAng.y));
 	}
 
 protected:
