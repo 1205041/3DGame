@@ -5,6 +5,7 @@
 // XVŠÖ”
 void Player::Update()
 {
+
 	if (GetPos().y < -10) { m_isExpired = true; }
 	if (m_isExpired)
 	{
