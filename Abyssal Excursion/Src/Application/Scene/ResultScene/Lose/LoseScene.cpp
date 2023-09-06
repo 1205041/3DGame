@@ -8,7 +8,7 @@
 #include "../../../Object/SceneText/LoseScene/LoseText.h"
 
 // ƒJƒƒ‰
-#include "../../../Object/Camera/Tracking/Tracking.h"
+#include "../../../Object/Camera/TPS/TPS.h"
 
 void LoseScene::Event()
 {
@@ -42,8 +42,8 @@ void LoseScene::Init()
 	m_objList.push_back(spSkySp);
 
 	// ƒJƒƒ‰‚Ì‰Šú‰»
-	std::shared_ptr<Tracking> spTrac;
-	spTrac = std::make_shared<Tracking>();
-	spTrac->SetTarget(spLose);
-	m_objList.push_back(spTrac);
+	std::shared_ptr<TPS> spTps;
+	spTps = std::make_shared<TPS>();
+	spTps->SetTarget(spLose);
+	m_objList.push_back(spTps);
 }

@@ -7,7 +7,7 @@
 #include "../../Object/SceneText/TitleScene/TitleText.h"
 
 // ƒJƒƒ‰
-#include "../../Object/Camera/Tracking/Tracking.h"
+#include "../../Object/Camera/TPS/TPS.h"
 
 void TitleScene::Event()
 {
@@ -38,8 +38,9 @@ void TitleScene::Init()
 	m_objList.push_back(spSkySp);
 
 	// ƒJƒƒ‰‚Ì‰Šú‰»
-	std::shared_ptr<Tracking> spTrac;
-	spTrac = std::make_shared<Tracking>();
-	spTrac->SetTarget(spTitle);
-	m_objList.push_back(spTrac);
+	// ƒJƒƒ‰‚Ì‰Šú‰»
+	std::shared_ptr<TPS> spTps;
+	spTps = std::make_shared<TPS>();
+	spTps->SetTarget(spTitle);
+	m_objList.push_back(spTps);
 }

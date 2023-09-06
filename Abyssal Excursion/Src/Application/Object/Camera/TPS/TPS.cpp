@@ -3,7 +3,7 @@
 void TPS::Init()
 {
 	// 基準点(ターゲット)の目線の位置
-	transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.0f, 1.0f, -15.0f));
+	transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.0f, 1.0f, -5.0f));
 
 	// カーソル初期化
 	m_FixMousePos.x = 640;
@@ -27,7 +27,10 @@ void TPS::Update()
 	// 行列合成
 	UpdateRotateByMouse();
 	rotMat = GetRotationMatrix();
+
 	m_mWorld = transMat * rotMat * targetMat;
+
+	UpdateCollision();
 
 	CameraBase::Update();
 }
@@ -57,4 +60,55 @@ void TPS::UpdateRotateByMouse()
 
 	// 回転制御
 	m_degAng.x = std::clamp(m_degAng.x, -FLT_MAX, FLT_MAX);
+}
+
+void TPS::UpdateCollision()
+{
+	const std::shared_ptr<const KdGameObject> spTarget = m_wpTarget.lock();
+	if (!spTarget) { return; }
+
+	// ①レイ判定の情報作成
+	KdCollider::RayInfo rayInfo;
+
+	// レイの発射位置を設定
+	rayInfo.m_pos = spTarget->GetPos();
+
+	// 段差の許容範囲を設定
+	rayInfo.m_pos.y += 2.0f;
+
+	// レイの発射方向を設定
+	rayInfo.m_dir = GetPos() - rayInfo.m_pos;
+	rayInfo.m_dir.Normalize();/* 方向情報のみを抽出 */
+
+	// レイの長さ
+	rayInfo.m_range = (GetPos() - rayInfo.m_pos).Length();
+
+	// 当たり判定をしたいタイプを設定
+	rayInfo.m_type = KdCollider::TypeGround;
+
+	// ②HIT判定対象オブジェクトに総当たり
+	std::shared_ptr<KdGameObject> spGameObj = m_wpHitObject.lock();
+	if (spGameObj)
+	{
+		std::list<KdCollider::CollisionResult> retRayList;
+		spGameObj->Intersects(rayInfo, &retRayList);
+
+		// ③結果を使って座標を補完する
+		// レイに当たったリストから一番近いオブジェクトを検出
+		float maxOverLap = 0;
+		Math::Vector3 hitPos = Math::Vector3::Zero;
+		bool hit = false;
+		for (auto& ret : retRayList)
+		{
+			// レイを遮断し、オーバーした長さが一番長いものを探す
+			if (maxOverLap < ret.m_overlapDistance)
+			{
+				maxOverLap = ret.m_overlapDistance;
+				hitPos = ret.m_hitPos;
+				hit = true;
+			}
+		}
+		// 当たった
+		if (hit) { SetPos(hitPos); }
+	}
 }

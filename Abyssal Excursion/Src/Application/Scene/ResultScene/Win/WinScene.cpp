@@ -11,7 +11,7 @@
 #include "../../../Object/SceneText/WinScene/WinText.h"
 
 // ƒJƒƒ‰
-#include "../../../Object/Camera/Tracking/Tracking.h"
+#include "../../../Object/Camera/TPS/TPS.h"
 
 void WinScene::Event()
 {
@@ -52,8 +52,9 @@ void WinScene::Init()
 	m_objList.push_back(spPlayer);
 
 	// ƒJƒƒ‰‚Ì‰Šú‰»
-	std::shared_ptr<Tracking> spTrac;
-	spTrac = std::make_shared<Tracking>();
-	spTrac->SetTarget(spWin);
-	m_objList.push_back(spTrac);
+	// ƒJƒƒ‰‚Ì‰Šú‰»
+	std::shared_ptr<TPS> spTps;
+	spTps = std::make_shared<TPS>();
+	spTps->SetTarget(spWin);
+	m_objList.push_back(spTps);
 }

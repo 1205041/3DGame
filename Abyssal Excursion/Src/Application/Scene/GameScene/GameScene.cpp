@@ -45,6 +45,7 @@ void GameScene::Init()
 	std::shared_ptr<TPS> spTps;
 	spTps = std::make_shared<TPS>();
 	spTps->SetTarget(spPlayer);
+	spTps->RegistHitObject(spGround);
 	spPlayer->SetCamera(spTps);
 	m_objList.push_back(spTps);
 }

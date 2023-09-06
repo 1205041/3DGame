@@ -147,7 +147,6 @@
     <ClInclude Include="Src\Application\main.h" />
     <ClInclude Include="Src\Application\Object\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h" />
-    <ClInclude Include="Src\Application\Object\Camera\Tracking\Tracking.h" />
     <ClInclude Include="Src\Application\Object\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
     <ClInclude Include="Src\Application\Object\Player\Player.h" />
@@ -200,7 +199,6 @@
     <ClCompile Include="Src\Application\main.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp" />
-    <ClCompile Include="Src\Application\Object\Camera\Tracking\Tracking.cpp" />
     <ClCompile Include="Src\Application\Object\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
     <ClCompile Include="Src\Application\Object\Player\Player.cpp" />

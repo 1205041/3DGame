@@ -103,9 +103,6 @@
     <Filter Include="Src\Application\Object\SceneText\TitleScene">
       <UniqueIdentifier>{9e55000a-655a-46ce-a6df-b400fdc54c27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\Camera\Tracking">
-      <UniqueIdentifier>{d93b2e60-e30e-416b-921c-303928070519}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Scene\ResultScene\Win">
       <UniqueIdentifier>{480a0dd2-b502-4c3b-b151-9b9d310e0d34}</UniqueIdentifier>
     </Filter>
@@ -270,9 +267,6 @@
     <ClInclude Include="Src\Application\Object\SceneText\WinScene\WinText.h">
       <Filter>Src\Application\Object\SceneText\WinScene</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\Camera\Tracking\Tracking.h">
-      <Filter>Src\Application\Object\Camera\Tracking</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Scene\ResultScene\Lose\LoseScene.h">
       <Filter>Src\Application\Scene\ResultScene\Lose</Filter>
     </ClInclude>
@@ -418,9 +412,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\SceneText\WinScene\WinText.cpp">
       <Filter>Src\Application\Object\SceneText\WinScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\Camera\Tracking\Tracking.cpp">
-      <Filter>Src\Application\Object\Camera\Tracking</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\ResultScene\Lose\LoseScene.cpp">
       <Filter>Src\Application\Scene\ResultScene\Lose</Filter>
