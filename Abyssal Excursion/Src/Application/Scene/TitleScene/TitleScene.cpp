@@ -14,9 +14,9 @@ void TitleScene::Event()
 	// ÉVÅ[Éìêÿë÷(TitleÅ®Game)
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
-		KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
+//		KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
-		KdAudioManager::Instance().StopAllSound();
+//		KdAudioManager::Instance().StopAllSound();
 	}
 }
 

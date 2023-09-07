@@ -8,7 +8,7 @@ public:
 	~TitleText() {}
 
 	void PostUpdate()	override;
-	void DrawUnLit()	override;
+	void DrawSprite()	override;
 	void Init()			override;
 private:
 	

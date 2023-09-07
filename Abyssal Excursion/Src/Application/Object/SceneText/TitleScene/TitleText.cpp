@@ -9,7 +9,7 @@ void TitleText::PostUpdate()
 	m_mWorld = scaleMat;
 }
 
-void TitleText::DrawUnLit()
+void TitleText::DrawSprite()
 {
 	if (!m_spPoly) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawPolygon(*m_spPoly, m_mWorld);

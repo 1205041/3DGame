@@ -14,7 +14,13 @@
 
 void GameScene::Event()
 {
-	
+	// シーン切替(Game→Title)
+	if (GetAsyncKeyState('P') & 0x8000)
+	{
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+	}
+
+
 	/* ※ この段階では更新されません ！！ */
 }
 
