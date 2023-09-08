@@ -1,21 +1,5 @@
 #include "ObjBase.h"
 
-void ObjBase::PostUpdate()
-{
-	// À•Ws—ñì¬
-	m_texMat = Math::Matrix::CreateTranslation(m_texPos);
-
-	// s—ñ‡¬(‚r‚q‚s)
-	m_mWorld = m_texMat;
-}
-
-void ObjBase::DrawSprite()
-{
-	Math::Rectangle rc = { 0,0,1280,720 };
-	KdShaderManager::Instance().m_spriteShader.SetMatrix(m_mWorld);
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, 0, 0, &rc);
-}
-
 void ObjBase::UpdateCollision()
 {
 	/* ====================== */

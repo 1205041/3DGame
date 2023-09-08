@@ -1,5 +1,5 @@
 #include "TitleScene.h"
-#include "../../Object/ObjBase.h"
+#include "../../Object/2Ddraw/2Ddraw.h"
 
 void TitleScene::Event()
 {
@@ -16,10 +16,9 @@ void TitleScene::Init()
 {
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
 	
-	/* オブジェクトの初期化 */
-	// シーン
-	std::shared_ptr<ObjBase> spObjTitle;
-	spObjTitle = std::make_shared<ObjBase>();
-	spObjTitle->SetTexture("Asset/Textures/Title/Title.png");
-	m_objList.push_back(spObjTitle);
+	// オブジェクトの初期化
+	std::shared_ptr<twoDdraw> spTitle;
+	spTitle = std::make_shared<twoDdraw>();
+	spTitle->SetTexture("Asset/Textures/Title/Title.png");
+	m_objList.push_back(spTitle);
 }

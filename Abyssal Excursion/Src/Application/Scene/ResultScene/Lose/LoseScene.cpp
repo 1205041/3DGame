@@ -1,5 +1,5 @@
 #include "LoseScene.h"
-#include "../../../Object/ObjBase.h"
+#include "../../../Object/2Ddraw/2Ddraw.h"
 
 void LoseScene::Event()
 {
@@ -19,8 +19,8 @@ void LoseScene::Init()
 
 		/* オブジェクトの初期化 */
 		// シーン
-	std::shared_ptr<ObjBase> spObjLose;
-	spObjLose = std::make_shared<ObjBase>();
-	spObjLose->SetTexture("Asset/Textures/Result/lose.png");
-	m_objList.push_back(spObjLose);
+	std::shared_ptr<twoDdraw> spLose;
+	spLose = std::make_shared<twoDdraw>();
+	spLose->SetTexture("Asset/Textures/Result/lose.png");
+	m_objList.push_back(spLose);
 }

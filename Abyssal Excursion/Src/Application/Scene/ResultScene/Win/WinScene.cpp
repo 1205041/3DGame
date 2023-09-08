@@ -1,5 +1,5 @@
 #include "WinScene.h"
-#include "../../../Object/ObjBase.h"
+#include "../../../Object/2Ddraw/2Ddraw.h"
 
 void WinScene::Event()
 {
@@ -19,8 +19,8 @@ void WinScene::Init()
 
 	/* オブジェクトの初期化 */
 	// シーン
-	std::shared_ptr<ObjBase> spObjWin;
-	spObjWin = std::make_shared<ObjBase>();
-	spObjWin->SetTexture("Asset/Textures/Result/win.png");
-	m_objList.push_back(spObjWin);
+	std::shared_ptr<twoDdraw> spWin;
+	spWin = std::make_shared<twoDdraw>();
+	spWin->SetTexture("Asset/Textures/Result/win.png");
+	m_objList.push_back(spWin);
 }

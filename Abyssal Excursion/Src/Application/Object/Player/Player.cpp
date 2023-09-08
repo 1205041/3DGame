@@ -41,7 +41,7 @@ void Player::PostUpdate()
 	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
 
 	// ƒLƒƒƒ‰‚ÌÀ•Ws—ñ
-	m_mWorld = camRotMat * m_transMat;x
+	m_mWorld = camRotMat * m_transMat;
 	
 	UpdateCollision();
 }

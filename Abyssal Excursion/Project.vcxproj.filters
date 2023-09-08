@@ -97,6 +97,9 @@
     <Filter Include="Src\Application\Scene\ResultScene\Lose">
       <UniqueIdentifier>{7e6e38d2-1407-4110-9002-7d571095c1d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\2Ddraw">
+      <UniqueIdentifier>{26509b11-2bbd-443e-a72c-b05f6752fa7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -255,6 +258,9 @@
     <ClInclude Include="Src\Application\Object\ObjBase.h">
       <Filter>Src\Application\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\2Ddraw\2Ddraw.h">
+      <Filter>Src\Application\Object\2Ddraw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -391,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\ObjBase.cpp">
       <Filter>Src\Application\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\2Ddraw\2Ddraw.cpp">
+      <Filter>Src\Application\Object\2Ddraw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

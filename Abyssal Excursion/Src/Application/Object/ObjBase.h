@@ -9,7 +9,7 @@ public:
 	// 更新に関する関数
 	virtual void PreUpdate()	override {}
 	virtual void Update()		override {}
-	virtual void PostUpdate()	override;
+	virtual void PostUpdate()	override {};
 
 	// 描画に関する関数
 	virtual void PreDraw()						override {}
@@ -17,12 +17,10 @@ public:
 	virtual void DrawLit()						override {}
 	virtual void DrawUnLit()					override {}
 	virtual void DrawBright()					override {}
-	virtual void DrawSprite()					override;
+	virtual void DrawSprite()					override {}
 	virtual void PostDraw()						override {}
 	
 	virtual void Init()			override {}
-	
-	virtual void SetTexture(std::string _fileName) { m_tex.Load(_fileName); }
 
 	void DrawDebug()final { m_debugWire.Draw(); }
 
@@ -38,11 +36,6 @@ protected:
 	std::shared_ptr<KdModelWork>		m_spModel	= nullptr;
 	std::shared_ptr<KdCamera>			m_spCamera	= nullptr;
 
-	// テクスチャ表示
-	KdTexture m_tex;
-	Math::Vector3 m_texPos = Math::Vector3::Zero;
-	Math::Matrix m_texMat = Math::Matrix::Identity;
-	
 	// 行列一覧
 	Math::Matrix m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
 	Math::Matrix m_rotMat		= Math::Matrix::Identity;	// 回転行列
