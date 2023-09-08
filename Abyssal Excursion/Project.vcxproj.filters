@@ -91,18 +91,6 @@
     <Filter Include="Src\Application\Object\Camera\TPS">
       <UniqueIdentifier>{d27fba3a-a20d-43e5-bb9b-d7f4b70293e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\SceneText">
-      <UniqueIdentifier>{e49f03ef-02a9-4cb5-ab09-a913b90aa673}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\SceneText\WinScene">
-      <UniqueIdentifier>{1f45eb00-e602-4acf-8cda-852c25e2b0e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\SceneText\LoseScene">
-      <UniqueIdentifier>{2cc5e0a5-a773-43c6-8a5b-490b8d9ed1e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\SceneText\TitleScene">
-      <UniqueIdentifier>{9e55000a-655a-46ce-a6df-b400fdc54c27}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Scene\ResultScene\Win">
       <UniqueIdentifier>{480a0dd2-b502-4c3b-b151-9b9d310e0d34}</UniqueIdentifier>
     </Filter>
@@ -258,15 +246,6 @@
     <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h">
       <Filter>Src\Application\Object\Camera\TPS</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\SceneText\LoseScene\LoseText.h">
-      <Filter>Src\Application\Object\SceneText\LoseScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\SceneText\TitleScene\TitleText.h">
-      <Filter>Src\Application\Object\SceneText\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\SceneText\WinScene\WinText.h">
-      <Filter>Src\Application\Object\SceneText\WinScene</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Scene\ResultScene\Lose\LoseScene.h">
       <Filter>Src\Application\Scene\ResultScene\Lose</Filter>
     </ClInclude>
@@ -403,15 +382,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp">
       <Filter>Src\Application\Object\Camera\TPS</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\SceneText\LoseScene\LoseText.cpp">
-      <Filter>Src\Application\Object\SceneText\LoseScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\SceneText\TitleScene\TitleText.cpp">
-      <Filter>Src\Application\Object\SceneText\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\SceneText\WinScene\WinText.cpp">
-      <Filter>Src\Application\Object\SceneText\WinScene</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\ResultScene\Lose\LoseScene.cpp">
       <Filter>Src\Application\Scene\ResultScene\Lose</Filter>

@@ -3,16 +3,16 @@
 void SkySphere::PostUpdate()
 {
 	// 拡縮行列
-	scaleMat = Math::Matrix::CreateScale(450.0f, 450.0f, 450.0f);
+	m_scaleMat = Math::Matrix::CreateScale(450.0f, 450.0f, 450.0f);
 	/* 拡縮メモ */
 	// スカイスフィア：地面 = 150.0f：10.0fで丁度良いサイズ
 	// なので地面のサイズの15倍がスカイスフィアのサイズ
 	
 	// 座標行列
-	transMat = Math::Matrix::CreateTranslation({ 0,-5.0f,0 });
+	m_transMat = Math::Matrix::CreateTranslation({ 0,-5.0f,0 });
 
 	// 行列合成(ＳＲＴ)
-	m_mWorld = scaleMat * transMat;
+	m_mWorld = m_scaleMat * m_transMat;
 }
 
 void SkySphere::DrawLit()

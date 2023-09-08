@@ -1,13 +1,5 @@
 #include "TitleScene.h"
-
-// 地形
-#include "../../Object/SkySphere/SkySphere.h"
-
-// タイトルシーン
-#include "../../Object/SceneText/TitleScene/TitleText.h"
-
-// カメラ
-#include "../../Object/Camera/TPS/TPS.h"
+#include "../../Object/ObjBase.h"
 
 void TitleScene::Event()
 {
@@ -26,19 +18,8 @@ void TitleScene::Init()
 	
 	/* オブジェクトの初期化 */
 	// シーン
-	std::shared_ptr<TitleText> spTitle;
-	spTitle = std::make_shared<TitleText>();
-	m_objList.push_back(spTitle);
-
-	// 地形
-	std::shared_ptr<SkySphere> spSkySp;
-	spSkySp = std::make_shared<SkySphere>();
-	m_objList.push_back(spSkySp);
-
-	// カメラの初期化
-	// カメラの初期化
-	std::shared_ptr<TPS> spTps;
-	spTps = std::make_shared<TPS>();
-	spTps->SetTarget(spTitle);
-	m_objList.push_back(spTps);
+	std::shared_ptr<ObjBase> spObjTitle;
+	spObjTitle = std::make_shared<ObjBase>();
+	spObjTitle->SetTexture("Asset/Textures/Title/Title.png");
+	m_objList.push_back(spObjTitle);
 }

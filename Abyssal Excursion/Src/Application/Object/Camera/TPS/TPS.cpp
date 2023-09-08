@@ -3,7 +3,7 @@
 void TPS::Init()
 {
 	// 基準点(ターゲット)の目線の位置
-	transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.5f, 2.5f, -5.0f));
+	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.5f, 2.5f, -5.0f));
 
 	// カーソル初期化
 	m_FixMousePos.x = 640;
@@ -27,9 +27,9 @@ void TPS::Update()
 
 	// 行列合成
 	UpdateRotateByMouse();
-	rotMat = GetRotationMatrix();
+	m_rotMat = GetRotationMatrix();
 
-	m_mWorld = transMat * rotMat * targetMat;
+	m_mWorld = m_transMat * m_rotMat * targetMat;
 
 	UpdateCollision();
 

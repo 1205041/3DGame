@@ -7,20 +7,22 @@ public:
 	~ObjBase() {}
 
 	// 更新に関する関数
-	virtual void PreUpdate()	override{}
-	virtual void Update()		override{}
-	virtual void PostUpdate()	override{}
+	virtual void PreUpdate()	override {}
+	virtual void Update()		override {}
+	virtual void PostUpdate()	override;
 
 	// 描画に関する関数
-	virtual void PreDraw()						override{}
-	virtual void GenerateDepthMapFromLight()	override{}
-	virtual void DrawLit()						override{}
-	virtual void DrawUnLit()					override{}
-	virtual void DrawBright()					override{}
-	virtual void DrawSprite()					override{}
-	virtual void PostDraw()						override{}
+	virtual void PreDraw()						override {}
+	virtual void GenerateDepthMapFromLight()	override {}
+	virtual void DrawLit()						override {}
+	virtual void DrawUnLit()					override {}
+	virtual void DrawBright()					override {}
+	virtual void DrawSprite()					override;
+	virtual void PostDraw()						override {}
 	
-	virtual void Init()			override{}
+	virtual void Init()			override {}
+	
+	virtual void SetTexture(std::string _fileName) { m_tex.Load(_fileName); }
 
 	void DrawDebug()final { m_debugWire.Draw(); }
 
@@ -32,20 +34,24 @@ protected:
 	//srcから見たdestの角度を習得する関数
 	float GetAngleDeg(Math::Vector3 _src, Math::Vector3 _dest);	//角度
 
-	// モデルとポリゴンとカメラのスマポ
+	// モデルとカメラのスマポ
 	std::shared_ptr<KdModelWork>		m_spModel	= nullptr;
-	std::shared_ptr<KdSquarePolygon>	m_spPoly	= nullptr;
 	std::shared_ptr<KdCamera>			m_spCamera	= nullptr;
+
+	// テクスチャ表示
+	KdTexture m_tex;
+	Math::Vector3 m_texPos = Math::Vector3::Zero;
+	Math::Matrix m_texMat = Math::Matrix::Identity;
 	
 	// 行列一覧
-	Math::Matrix scaleMat	= Math::Matrix::Identity;	// 拡縮行列
-	Math::Matrix rotMat		= Math::Matrix::Identity;	// 回転行列
-	Math::Matrix transMat	= Math::Matrix::Identity;	// 座標行列
+	Math::Matrix m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
+	Math::Matrix m_rotMat		= Math::Matrix::Identity;	// 回転行列
+	Math::Matrix m_transMat	= Math::Matrix::Identity;	// 座標行列
 	
 	// 重力
 	float	m_gravity = 0.0f;
 	
-	// キャラの移動速度
+	// オブジェクトの移動速度
 	float			m_moveSpd	= 0.0f;
 	Math::Vector3	m_nowPos	= Math::Vector3::Zero;
 	Math::Vector3	m_moveVec	= Math::Vector3::Zero;

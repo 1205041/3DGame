@@ -150,9 +150,6 @@
     <ClInclude Include="Src\Application\Object\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
     <ClInclude Include="Src\Application\Object\Player\Player.h" />
-    <ClInclude Include="Src\Application\Object\SceneText\LoseScene\LoseText.h" />
-    <ClInclude Include="Src\Application\Object\SceneText\TitleScene\TitleText.h" />
-    <ClInclude Include="Src\Application\Object\SceneText\WinScene\WinText.h" />
     <ClInclude Include="Src\Application\Object\SkySphere\SkySphere.h" />
     <ClInclude Include="Src\Application\Scene\GameScene\GameScene.h" />
     <ClInclude Include="Src\Application\Scene\ResultScene\Lose\LoseScene.h" />
@@ -202,9 +199,6 @@
     <ClCompile Include="Src\Application\Object\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
     <ClCompile Include="Src\Application\Object\Player\Player.cpp" />
-    <ClCompile Include="Src\Application\Object\SceneText\LoseScene\LoseText.cpp" />
-    <ClCompile Include="Src\Application\Object\SceneText\TitleScene\TitleText.cpp" />
-    <ClCompile Include="Src\Application\Object\SceneText\WinScene\WinText.cpp" />
     <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp" />
     <ClCompile Include="Src\Application\Scene\GameScene\GameScene.cpp" />
     <ClCompile Include="Src\Application\Scene\ResultScene\Lose\LoseScene.cpp" />
