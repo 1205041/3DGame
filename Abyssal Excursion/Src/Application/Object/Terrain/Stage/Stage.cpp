@@ -13,6 +13,8 @@ void Stage::PostUpdate()
 
 	// s—ñ‡¬(‚r‚q‚s)
 	m_mWorld = m_scaleMat * m_transMat;
+
+
 }
 
 void Stage::DrawLit()
