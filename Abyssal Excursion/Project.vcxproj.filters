@@ -267,6 +267,9 @@
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h">
       <Filter>Src\Application\Object\Terrain\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Terrain\Ground\Ground.h">
+      <Filter>Src\Application\Object\Terrain\Ground</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -406,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp">
       <Filter>Src\Application\Object\Terrain\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Terrain\Ground\Ground.cpp">
+      <Filter>Src\Application\Object\Terrain\Ground</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

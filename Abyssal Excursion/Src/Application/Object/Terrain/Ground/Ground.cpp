@@ -11,6 +11,7 @@ void Ground::PostUpdate()
 	// À•Ws—ñ
 	m_transMat = Math::Matrix::CreateTranslation({ 0,-5.0f,0 });
 
+
 	// s—ñ‡¬(‚r‚q‚s)
 	m_mWorld = m_scaleMat * m_transMat;
 }
