@@ -1,6 +1,6 @@
-#include "Ground.h"
+#include "Stage.h"
 
-void Ground::PostUpdate()
+void Stage::PostUpdate()
 {
 	// 拡縮行列
 	m_scaleMat = Math::Matrix::CreateScale(30.0f, 1.0f, 30.0f);
@@ -15,19 +15,19 @@ void Ground::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void Ground::DrawLit()
+void Stage::DrawLit()
 {
 	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
-void Ground::Init()
+void Stage::Init()
 {
 	if (!m_spModel)
 	{
-		//	板ポリ(地面)初期化
+		//	モデル(地面)初期化
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Stage/Stage.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Terrain/Stage/Stage.gltf"));
 	}
 	
 	m_pCollider = std::make_unique<KdCollider>();

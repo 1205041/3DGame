@@ -1,11 +1,11 @@
 #pragma once
-#include "../ObjBase.h"
+#include "../../ObjBase.h"
 
-class Ground :public ObjBase
+class Stage :public ObjBase
 {
 public:
-	Ground() { Init(); }
-	~Ground() {}
+	Stage() { Init(); }
+	~Stage() {}
 
 	void PostUpdate()	override;
 	void DrawLit()		override;

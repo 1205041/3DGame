@@ -61,9 +61,6 @@
     <Filter Include="Src\Application\Object">
       <UniqueIdentifier>{6c2611a5-40f0-4ed0-8e06-fb6666b92109}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\Ground">
-      <UniqueIdentifier>{27f06727-c545-4f19-af94-040420fa0770}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Scene">
       <UniqueIdentifier>{2522f277-54cf-46ba-848f-b1260197eb31}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,15 @@
     </Filter>
     <Filter Include="Src\Application\Object\2Ddraw">
       <UniqueIdentifier>{26509b11-2bbd-443e-a72c-b05f6752fa7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Terrain">
+      <UniqueIdentifier>{27f06727-c545-4f19-af94-040420fa0770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Terrain\Ground">
+      <UniqueIdentifier>{0f6fa87b-8abb-4e0b-83a4-fc70f1abeee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Terrain\Stage">
+      <UniqueIdentifier>{f5c265ed-57e7-4e2c-9584-c8fee0c3f888}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -222,9 +228,6 @@
     <ClInclude Include="Src\Framework\Utility\KdDebugWireFrame.h">
       <Filter>Src\Framework\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\Ground\Ground.h">
-      <Filter>Src\Application\Object\Ground</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Scene\GameScene\GameScene.h">
       <Filter>Src\Application\Scene\GameScene</Filter>
     </ClInclude>
@@ -260,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Object\2Ddraw\2Ddraw.h">
       <Filter>Src\Application\Object\2Ddraw</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h">
+      <Filter>Src\Application\Object\Terrain\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -362,9 +368,6 @@
     <ClCompile Include="Src\Framework\Utility\KdDebugWireFrame.cpp">
       <Filter>Src\Framework\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\Ground\Ground.cpp">
-      <Filter>Src\Application\Object\Ground</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Scene\GameScene\GameScene.cpp">
       <Filter>Src\Application\Scene\GameScene</Filter>
     </ClCompile>
@@ -400,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\2Ddraw\2Ddraw.cpp">
       <Filter>Src\Application\Object\2Ddraw</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp">
+      <Filter>Src\Application\Object\Terrain\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

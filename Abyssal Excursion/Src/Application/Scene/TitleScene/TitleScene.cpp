@@ -20,5 +20,6 @@ void TitleScene::Init()
 	std::shared_ptr<twoDdraw> spTitle;
 	spTitle = std::make_shared<twoDdraw>();
 	spTitle->SetTexture("Asset/Textures/Title/Title.png");
+	spTitle->SetRectAngle({ 0,0,1280,720 });
 	m_objList.push_back(spTitle);
 }
