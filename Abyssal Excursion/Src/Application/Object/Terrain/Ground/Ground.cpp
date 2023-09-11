@@ -30,7 +30,6 @@ void Ground::Init()
 		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Terrain/Stage/Stage.gltf"));
 	}
 
-
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("StageModel", m_spModel, KdCollider::TypeGround);
 }
