@@ -1,10 +1,10 @@
 #include "ObjBase.h"
 
-void ObjBase::UpdateCollision()
+/* ====================== */
+/* 当たり判定(レイ判定用) */
+/* ====================== */
+void ObjBase::RayUpdateCollision()
 {
-	/* ====================== */
-	/* 当たり判定(レイ判定用) */
-	/* ====================== */
 	// ①当たり判定(レイ判定)用の情報を作成
 	KdCollider::RayInfo rayInfo;
 	rayInfo.m_pos = GetPos();				// レイの発射位置を設定
@@ -13,10 +13,10 @@ void ObjBase::UpdateCollision()
 
 	// 少し高い所から飛ばす(段差の許容範囲)
 	rayInfo.m_pos.y += enableStepHigh;
-	rayInfo.m_range = m_gravity + enableStepHigh;// レイの長さを設定
+	rayInfo.m_range = enableStepHigh;// レイの長さを設定
 
 	/* === デバック用 === */
-//	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
+	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
 
 	// ②HIT判定対象オブジェクトに総当たり
 	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
@@ -45,18 +45,17 @@ void ObjBase::UpdateCollision()
 					}
 				}
 				// 何かしらに当たっている
-				if (hit)
-				{
-					SetPos(hitPos);
-					m_gravity = 0;
-				}
+				if (hit) { SetPos(hitPos); }
 			}
 		}
 	}
+}
 
-	/* ==================== */
-	/* 当たり判定(球判定用) */
-	/* ==================== */
+/* ==================== */
+/* 当たり判定(球判定用) */
+/* ==================== */
+void ObjBase::SphereUpdateCollision()
+{
 	// ①当たり判定(球判定)用の情報を作成
 	KdCollider::SphereInfo sphereInfo;
 	sphereInfo.m_sphere.Center = GetPos() + Math::Vector3(0, 0.5f, 0);
@@ -79,8 +78,7 @@ void ObjBase::UpdateCollision()
 
 				for (auto& ret : retBumpList)
 				{
-					Math::Vector3 newPos =
-						GetPos() + (ret.m_hitDir * ret.m_overlapDistance);
+					Math::Vector3 newPos = GetPos() + (ret.m_hitDir * ret.m_overlapDistance);
 					SetPos(newPos);
 				}
 				// ③結果を使って座標を補完する

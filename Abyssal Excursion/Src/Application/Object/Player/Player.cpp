@@ -5,14 +5,6 @@
 // 更新関数
 void Player::Update()
 {
-
-	if (GetPos().y < -10) { m_isExpired = true; }
-	if (m_isExpired)
-	{
-		KdAudioManager::Instance().StopAllSound();
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Lose);
-	}
-
 	// カメラ情報
 	std::shared_ptr<CameraBase> spCamera = m_wpCamera.lock();
 	if (spCamera) { camRotMat = spCamera->GetRotationYMatrix(); }
@@ -43,7 +35,8 @@ void Player::PostUpdate()
 	// キャラの座標行列
 	m_mWorld = camRotMat * m_transMat;
 	
-	UpdateCollision();
+	RayUpdateCollision();
+	SphereUpdateCollision();
 }
 
 // 影描画関数
@@ -73,5 +66,5 @@ void Player::Init()
 	m_moveSpd = 0.5f;
 
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("PlayerCollider", GetPos(), 0.25f, KdCollider::TypeBump);
+	m_pCollider->RegisterCollisionShape("PlayerColl", GetPos(), 0.25f, KdCollider::TypeBump);
 }

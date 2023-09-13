@@ -96,6 +96,9 @@ void TPS::UpdateCollision()
 
 		// ③結果を使って座標を補完する
 		// レイに当たったリストから一番近いオブジェクトを検出
+		maxOverLap	= 0.0f;
+		hit			= false;
+		hitPos		= Math::Vector3::Zero;
 		for (auto& ret : retRayList)
 		{
 			// レイを遮断し、オーバーした長さが一番長いものを探す

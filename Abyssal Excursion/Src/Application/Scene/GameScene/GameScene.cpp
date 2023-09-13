@@ -7,6 +7,7 @@
 
 // 地形
 #include "../../Object/Terrain/Stage/Stage.h"
+#include "../../Object/Terrain/Ground/Ground.h"
 #include "../../Object/SkySphere/SkySphere.h"
 
 // カメラ
@@ -47,17 +48,27 @@ void GameScene::Init()
 	spSkySp = std::make_shared<SkySphere>();
 	m_objList.push_back(spSkySp);
 
+	// 通常の地面
+	std::shared_ptr<Ground> spGround;
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
+	spGround->SetPos({ 0,1.0f,0 });
+	m_objList.push_back(spGround);
+
 	// キャラ
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-	spPlayer->RegistHitObj(spStage);/* Stageとの当たり判定 */
+	spPlayer->SetPos({ 0,6.0f,0 });
+	spPlayer->RegistHitObj(spGround);	/* Groundとの当たり判定 */
+	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
+	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
 	m_objList.push_back(spPlayer);
 	
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;
 	spTps = std::make_shared<TPS>();
 	spTps->SetTarget(spPlayer);
-	spTps->RegistHitObject(spStage);/* Stageとの当たり判定 */
+	spTps->RegistHitObject(spGround);	/* Groundとの当たり判定 */
 	spPlayer->SetCamera(spTps);
 	m_objList.push_back(spTps);
 }

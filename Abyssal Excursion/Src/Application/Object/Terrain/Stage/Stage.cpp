@@ -5,7 +5,7 @@ void Stage::PostUpdate()
 	// 拡縮行列
 	m_scaleMat = Math::Matrix::CreateScale(30.0f, 1.0f, 30.0f);
 	/* 拡縮メモ */
-	// スカイスフィア：地面 = 150.0f：10.0fで丁度良いサイズ
+	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
 	// なので地面のサイズの15倍がスカイスフィアのサイズ
 	
 	// 座標行列
@@ -29,7 +29,7 @@ void Stage::Init()
 		m_spModel = std::make_shared<KdModelWork>();
 		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Terrain/Stage/Stage.gltf"));
 	}
-	
+
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("StageModel", m_spModel, KdCollider::TypeGround);
+	m_pCollider->RegisterCollisionShape("StageColl", m_spModel, KdCollider::TypeBump);
 }

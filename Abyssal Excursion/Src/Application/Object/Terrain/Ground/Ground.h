@@ -7,7 +7,6 @@ public:
 	Ground() { Init(); }
 	~Ground() {}
 
-	void PostUpdate()	override;
 	void DrawLit()		override;
 	void Init()			override;
 

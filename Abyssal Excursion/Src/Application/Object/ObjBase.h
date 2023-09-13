@@ -27,7 +27,8 @@ public:
 	void RegistHitObj(const std::shared_ptr<KdGameObject>& _obj) { m_wpHitObjList.push_back(_obj); }
 protected:
 	// 衝突判定とそれに伴う座標の更新
-	void UpdateCollision();
+	void RayUpdateCollision();
+	void SphereUpdateCollision();
 
 	//srcから見たdestの角度を習得する関数
 	float GetAngleDeg(Math::Vector3 _src, Math::Vector3 _dest);	//角度
@@ -40,9 +41,6 @@ protected:
 	Math::Matrix m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
 	Math::Matrix m_rotMat		= Math::Matrix::Identity;	// 回転行列
 	Math::Matrix m_transMat	= Math::Matrix::Identity;	// 座標行列
-	
-	// 重力
-	float	m_gravity = 0.0f;
 	
 	// オブジェクトの移動速度
 	float			m_moveSpd	= 0.0f;

@@ -3,13 +3,13 @@
 void SkySphere::PostUpdate()
 {
 	// 拡縮行列
-	m_scaleMat = Math::Matrix::CreateScale(450.0f, 450.0f, 450.0f);
+	m_scaleMat = Math::Matrix::CreateScale(447.0f, 149.0f, 447.0f);
 	/* 拡縮メモ */
-	// スカイスフィア：地面 = 150.0f：10.0fで丁度良いサイズ
+	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
 	// なので地面のサイズの15倍がスカイスフィアのサイズ
 	
 	// 座標行列
-	m_transMat = Math::Matrix::CreateTranslation({ 0,-5.0f,0 });
+	m_transMat = Math::Matrix::CreateTranslation({ 0,-6.0f,0 });
 
 	// 行列合成(ＳＲＴ)
 	m_mWorld = m_scaleMat * m_transMat;
@@ -34,4 +34,7 @@ void SkySphere::Init()
 		m_spModel = std::make_shared<KdModelWork>();
 		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/deepSea/DeepSea2.gltf"));
 	}
+
+	m_pCollider = std::make_unique<KdCollider>();
+	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModel, KdCollider::TypeBump);
 }
