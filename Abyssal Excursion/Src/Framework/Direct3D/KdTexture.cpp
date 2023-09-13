@@ -18,9 +18,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 	resource->GetDesc(&desc);
 
 	//===========================================================
-	//
 	// RenderTargetViewを作成する
-	//
 	//===========================================================
 
 	// レンダーターゲットフラグがついてる時のみ
@@ -281,15 +279,15 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	//------------------------------------
 	ID3D11Texture2D* tex2D = nullptr;
 	if (FAILED(DirectX::CreateTextureEx(
-		KdDirect3D::Instance().WorkDev(),						// Direct3D Device
+		KdDirect3D::Instance().WorkDev(),				// Direct3D Device
 		image.GetImages(),
 		image.GetImageCount(),
 		image.GetMetadata(),
-		D3D11_USAGE_DEFAULT,								// Usage
-		bindFlags,							// Bind Flags
-		0,									// CPU Access Flags
-		0,									// MiscFlags
-		DirectX::CREATETEX_FLAGS::CREATETEX_FORCE_SRGB,								// ForceSRGB
+		D3D11_USAGE_DEFAULT,							// Usage
+		bindFlags,										// Bind Flags
+		0,												// CPU Access Flags
+		0,												// MiscFlags
+		DirectX::CREATETEX_FLAGS::CREATETEX_FORCE_SRGB,	// ForceSRGB
 		(ID3D11Resource**)&tex2D)
 	)) {
 

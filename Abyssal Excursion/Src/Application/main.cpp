@@ -152,7 +152,7 @@ void Application::Execute()
 	m_fpsController.Init();
 
 	// ループ
-	while (1)
+	while (true)
 	{
 		// 処理開始時間Get
 		m_fpsController.UpdateStartTime();

@@ -3,7 +3,7 @@
 void SkySphere::PostUpdate()
 {
 	// 拡縮行列
-	m_scaleMat = Math::Matrix::CreateScale(447.0f, 149.0f, 447.0f);
+	m_scaleMat = Math::Matrix::CreateScale(447.0f, 447.0f, 447.0f);
 	/* 拡縮メモ */
 	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
 	// なので地面のサイズの15倍がスカイスフィアのサイズ
@@ -15,13 +15,13 @@ void SkySphere::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void SkySphere::DrawLit()
+void SkySphere::DrawBright()
 {
 	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
-void SkySphere::DrawBright()
+void SkySphere::DrawLit()
 {
 	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);

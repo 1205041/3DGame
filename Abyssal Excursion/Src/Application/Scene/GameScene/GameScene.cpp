@@ -51,8 +51,23 @@ void GameScene::Init()
 	// ’Êí‚Ì’n–Ê
 	std::shared_ptr<Ground> spGround;
 	spGround = std::make_shared<Ground>();
-	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
+	spGround->SetScale({ 10.0f, 5.0f, 50.0f });
 	spGround->SetPos({ 0,1.0f,0 });
+	m_objList.push_back(spGround);
+
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
+	spGround->SetPos({ -135.0f,1.0f,0.0f });
+	m_objList.push_back(spGround);
+
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
+	spGround->SetPos({ 135.0f,1.0f,0.0f });
+	m_objList.push_back(spGround);
+
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
+	spGround->SetPos({ 270.0f,1.0f,0.0f });
 	m_objList.push_back(spGround);
 
 	// ƒLƒƒƒ‰

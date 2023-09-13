@@ -70,7 +70,7 @@ void TPS::UpdateCollision()
 
 	// ‡@ƒŒƒC”»’è‚Ìî•ñì¬
 	KdCollider::RayInfo rayInfo;
-
+	
 	// ƒŒƒC‚Ì”­ŽËˆÊ’u‚ðÝ’è
 	rayInfo.m_pos = spTarget->GetPos();
 
