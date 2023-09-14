@@ -49,9 +49,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 	}
 
 	//===========================================================
-	//
 	// ShaderResourceViewの情報を作成する
-	//
 	//===========================================================
 	// シェーダリソースビューフラグがついてる時のみ
 	if (ppSRV && desc.BindFlags & D3D11_BIND_SHADER_RESOURCE)
@@ -120,9 +118,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 	}
 
 	//===========================================================
-	//
 	// DepthStencilViewを作成する
-	//
 	//===========================================================
 	// Zバッファフラグがついてる時のみ
 	if (ppDSV && desc.BindFlags & D3D11_BIND_DEPTH_STENCIL) {
