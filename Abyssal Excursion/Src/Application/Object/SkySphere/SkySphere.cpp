@@ -13,6 +13,7 @@ void SkySphere::PostUpdate()
 
 	// s—ñ‡¬(‚r‚q‚s)
 	m_mWorld = m_scaleMat * m_transMat;
+
 }
 
 void SkySphere::DrawBright()
