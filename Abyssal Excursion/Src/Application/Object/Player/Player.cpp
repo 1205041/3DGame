@@ -35,7 +35,7 @@ void Player::PostUpdate()
 	// ƒLƒƒƒ‰‚ÌÀ•Ws—ñ
 	m_mWorld = camRotMat * m_transMat;
 	
-	RayUpdateCollision();
+//	RayUpdateCollision();
 	SphereUpdateCollision();
 }
 

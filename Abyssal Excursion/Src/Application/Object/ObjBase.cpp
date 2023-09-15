@@ -58,8 +58,8 @@ void ObjBase::SphereUpdateCollision()
 {
 	// ①当たり判定(球判定)用の情報を作成
 	KdCollider::SphereInfo sphereInfo;
-	sphereInfo.m_sphere.Center = GetPos() + Math::Vector3(0, 0.5f, 0);
-	sphereInfo.m_sphere.Radius = 0.5f;
+	sphereInfo.m_sphere.Center = GetPos() + Math::Vector3(0.0f, 0.7f, 0.0f);
+	sphereInfo.m_sphere.Radius = 1.0f;
 	sphereInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用(球) === */

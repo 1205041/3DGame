@@ -87,6 +87,9 @@ void TPS::UpdateCollision()
 	// 当たり判定をしたいタイプを設定
 	rayInfo.m_type = KdCollider::TypeGround;
 
+	/* === デバック用 === */
+	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
+
 	// ②HIT判定対象オブジェクトに総当たり
 	std::shared_ptr<KdGameObject> spGameObj = m_wpHitObject.lock();
 	if (spGameObj)
