@@ -51,30 +51,34 @@ void GameScene::Init()
 	// ’Êí‚Ì’n–Ê
 	std::shared_ptr<Ground> spGround;
 	spGround = std::make_shared<Ground>();
-	spGround->SetScale({ 10.0f, 3.0f, 1.5f });
-	spGround->SetPos({ 0,0.0f,0 });
+	spGround->SetScale({ 10.0f, 3.0f, 10.0f });
+	spGround->SetPos({ 0,-1.5f,0 });
 	m_objList.push_back(spGround);
 
-//	spGround = std::make_shared<Ground>();
-//	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
-//	spGround->SetPos({ -135.0f,1.0f,0.0f });
-//	m_objList.push_back(spGround);
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 15.0f, 3.0f, 15.0f });
+	spGround->SetPos({ -120.0f,-1.5f,0.0f });
+	m_objList.push_back(spGround);
 
-//	spGround = std::make_shared<Ground>();
-//	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
-//	spGround->SetPos({ 135.0f,1.0f,0.0f });
-//	m_objList.push_back(spGround);
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 15.0f, 3.0f, 15.0f });
+	spGround->SetPos({ 120.0f,-1.5f,0.0f });
+	m_objList.push_back(spGround);
 
-//	spGround = std::make_shared<Ground>();
-//	spGround->SetScale({ 10.0f, 5.0f, 10.0f });
-//	spGround->SetPos({ 270.0f,1.0f,0.0f });
-//	m_objList.push_back(spGround);
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 15.0f, 3.0f, 15.0f });
+	spGround->SetPos({ 0.0f,-1.5f,120.0f });
+	m_objList.push_back(spGround);
+
+	spGround = std::make_shared<Ground>();
+	spGround->SetScale({ 15.0f, 3.0f, 15.0f });
+	spGround->SetPos({ 0.0f,-1.5f,-120.0f });
+	m_objList.push_back(spGround);
 
 	// ƒLƒƒƒ‰
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-	spPlayer->SetPos({ 0,6.0f,0 });
-	spPlayer->RegistHitObj(spGround);	/* Ground‚Æ‚Ì“–‚½‚è”»’è */
+	spPlayer->SetPos({ 0,5.0f,0 });
 	spPlayer->RegistHitObj(spSkySp);	/* SkySphere‚Æ‚Ì“–‚½‚è”»’è */
 	spPlayer->RegistHitObj(spStage);	/* Stage‚Æ‚Ì“–‚½‚è”»’è */
 	m_objList.push_back(spPlayer);

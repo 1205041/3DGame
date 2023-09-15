@@ -3,14 +3,14 @@
 void TPS::Init()
 {
 	// 基準点(ターゲット)の目線の位置
-	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.5f, 2.5f, -5.0f));
+	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.5f, 2.0f, -2.0f));
 
 	// カーソル初期化
 	m_FixMousePos.x = 640;
 	m_FixMousePos.y = 360;
 
 //	ShowCursor(false);
-//	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
+	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 
 	CameraBase::Init();
 }
@@ -38,7 +38,6 @@ void TPS::Update()
 
 void TPS::UpdateRotateByMouse()
 {
-	/*
 	// マウス位置の差分を得る
 	POINT nowPos;
 	GetCursorPos(&nowPos);
@@ -52,13 +51,7 @@ void TPS::UpdateRotateByMouse()
 	// カメラを回転させる為に各軸の回転角度を設定する
 	m_degAng.x += mouseMove.y * 0.15f;
 	m_degAng.y += mouseMove.x * 0.15f;
-	*/
 	
-	if (GetAsyncKeyState(VK_UP) & 0x8000) { m_degAng.x += 1.0f; }
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000) { m_degAng.x -= 1.0f; }
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000) { m_degAng.y += 1.0f; }
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) { m_degAng.y -= 1.0f; }
-
 	// 回転制御
 	m_degAng.x = std::clamp(m_degAng.x, -FLT_MAX, FLT_MAX);
 }
@@ -86,9 +79,6 @@ void TPS::UpdateCollision()
 
 	// 当たり判定をしたいタイプを設定
 	rayInfo.m_type = KdCollider::TypeGround;
-
-	/* === デバック用 === */
-	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
 
 	// ②HIT判定対象オブジェクトに総当たり
 	std::shared_ptr<KdGameObject> spGameObj = m_wpHitObject.lock();
