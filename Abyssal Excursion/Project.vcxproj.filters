@@ -261,7 +261,7 @@
     <ClInclude Include="Src\Application\Object\ObjBase.h">
       <Filter>Src\Application\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\2Ddraw\2Ddraw.h">
+    <ClInclude Include="Src\Application\Object\2Ddraw\TextBase.h">
       <Filter>Src\Application\Object\2Ddraw</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h">
@@ -410,7 +410,7 @@
     <ClCompile Include="Src\Application\Object\ObjBase.cpp">
       <Filter>Src\Application\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\2Ddraw\2Ddraw.cpp">
+    <ClCompile Include="Src\Application\Object\2Ddraw\TextBase.cpp">
       <Filter>Src\Application\Object\2Ddraw</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp">

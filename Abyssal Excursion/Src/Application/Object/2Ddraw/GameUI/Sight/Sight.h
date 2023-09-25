@@ -1,14 +1,12 @@
 #pragma once
-#include "../../2Ddraw.h"
+#include "../../TextBase.h"
 
-class Sight :public twoDdraw
+class Sight :public TextBase
 {
 public:
 	Sight() { Init(); }
 	~Sight() {}
 
-	void PostUpdate()	override;
-	void DrawSprite()	override;
 	void Init()			override;
 private:
 	

@@ -1,24 +1,10 @@
 #include "Sight.h"
 
-void Sight::PostUpdate()
-{
-	// ç¿ïWçsóÒçÏê¨
-	m_texMat = Math::Matrix::CreateTranslation(m_texPos);
-
-	// çsóÒçáê¨(ÇrÇqÇs)
-	m_mWorld = m_texMat;
-}
-
-void Sight::DrawSprite()
-{
-	KdShaderManager::Instance().m_spriteShader.SetMatrix(m_mWorld);
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, 0, 0, &m_rcAngle);
-}
-
 void Sight::Init()
 {
-	m_tex.Load("Asset/Textures/GameUI/SightTP.png");
-	m_rcAngle = { 0, 0, 32, 32 };
+	SetText("Asset/Textures/GameUI/SightTP.png");
+	SetRcAngle({ 0, 0, 32, 32 });
+	SetColor({ 1.0f,1.0f,1.0f,0.5f });
 
 	m_texPos = Math::Vector3::Zero;
 	m_texMat = Math::Matrix::Identity;

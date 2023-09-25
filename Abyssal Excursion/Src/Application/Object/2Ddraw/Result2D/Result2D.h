@@ -1,14 +1,12 @@
 #pragma once
-#include "../2Ddraw.h"
+#include "../TextBase.h"
 
-class Result2D :public twoDdraw
+class Result2D :public TextBase
 {
 public:
 	Result2D() { Init(); }
 	~Result2D() {}
 
-	void PostUpdate()	override;
-	void DrawSprite()	override;
 	void Init()			override;
 private:
 	

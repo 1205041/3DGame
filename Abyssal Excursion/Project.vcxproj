@@ -145,7 +145,7 @@
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\main.h" />
-    <ClInclude Include="Src\Application\Object\2Ddraw\2Ddraw.h" />
+    <ClInclude Include="Src\Application\Object\2Ddraw\TextBase.h" />
     <ClInclude Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.h" />
     <ClInclude Include="Src\Application\Object\2Ddraw\Result2D\Result2D.h" />
     <ClInclude Include="Src\Application\Object\2Ddraw\Title2D\Title2D.h" />
@@ -198,7 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application\main.cpp" />
-    <ClCompile Include="Src\Application\Object\2Ddraw\2Ddraw.cpp" />
+    <ClCompile Include="Src\Application\Object\2Ddraw\TextBase.cpp" />
     <ClCompile Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.cpp" />
     <ClCompile Include="Src\Application\Object\2Ddraw\Result2D\Result2D.cpp" />
     <ClCompile Include="Src\Application\Object\2Ddraw\Title2D\Title2D.cpp" />
