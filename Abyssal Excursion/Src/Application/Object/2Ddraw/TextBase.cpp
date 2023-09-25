@@ -13,5 +13,5 @@ void TextBase::PostUpdate()
 
 void TextBase::DrawSprite()
 {
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, 0, 0, &m_rcAngle, &m_color);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, m_pixel.x, m_pixel.y, &m_rcAngle, &m_color);
 }
