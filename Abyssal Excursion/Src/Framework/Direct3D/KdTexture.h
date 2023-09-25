@@ -1,18 +1,14 @@
 ﻿#pragma once
 
 //====================================================
-//
 // テクスチャクラス
-//
 //====================================================
 class KdTexture
 {
 public:
 
 	//====================================================
-	//
 	// 取得
-	//
 	//====================================================
 
 	// 画像のアスペクト比取得
@@ -49,9 +45,7 @@ public:
 	ID3D11DepthStencilView*				WorkDSView() const { return m_dsv; }
 
 	//====================================================
-	//
 	// 画像ファイルからテクスチャ作成
-	//
 	//====================================================
 
 	// 画像ファイルを読み込む
@@ -62,9 +56,7 @@ public:
 	bool Load(std::string_view filename, bool renderTarget = false, bool depthStencil = false, bool generateMipmap = true);
 
 	//====================================================
-	//
 	// テクスチャ作成
-	//
 	//====================================================
 
 	// リソースから作成
@@ -110,9 +102,7 @@ public:
 	bool CreateDepthStencil(int w, int h, DXGI_FORMAT format = DXGI_FORMAT_R24G8_TYPELESS, UINT arrayCnt = 1, const D3D11_SUBRESOURCE_DATA* fillData = nullptr, UINT miscFlags = 0);
 
 	//====================================================
-	//
 	// ビューから作成
-	//
 	//====================================================
 	// ShaderResourceViewをセットする
 	void SetSRView(ID3D11ShaderResourceView* srv);
@@ -121,10 +111,7 @@ public:
 	KdTexture() {}
 
 	// 
-	KdTexture(std::string_view filename )
-	{
-		Load(filename);
-	}
+	KdTexture(std::string_view filename) { Load(filename); }
 
 	//====================================================
 	// 解放
@@ -132,10 +119,7 @@ public:
 	void Release();
 
 	// 
-	~KdTexture()
-	{
-		Release();
-	}
+	~KdTexture() { Release(); }
 
 private:
 

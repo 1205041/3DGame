@@ -10,6 +10,9 @@
 #include "../../Object/Terrain/Ground/Ground.h"
 #include "../../Object/SkySphere/SkySphere.h"
 
+// ゲームUI
+#include "../../Object/2Ddraw/GameUI/Sight/Sight.h"
+
 // カメラ
 #include "../../Object/Camera/TPS/TPS.h"
 
@@ -22,11 +25,7 @@ void GameScene::Event()
 	}
 	if (GetAsyncKeyState('O') & 0x8000)
 	{
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Win);
-	}
-	if (GetAsyncKeyState('I') & 0x8000)
-	{
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Lose);
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 	}
 	
 
@@ -82,6 +81,11 @@ void GameScene::Init()
 	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
 	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
 	m_objList.push_back(spPlayer);
+
+	// ゲームUI
+	std::shared_ptr<Sight> spSight;
+	spSight = std::make_shared<Sight>();
+	m_objList.push_back(spSight);
 	
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;

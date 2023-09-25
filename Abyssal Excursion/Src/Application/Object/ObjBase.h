@@ -39,7 +39,7 @@ protected:
 
 	// 行列一覧
 	Math::Matrix m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
-	Math::Matrix m_rotMat		= Math::Matrix::Identity;	// 回転行列
+	Math::Matrix m_rotMat	= Math::Matrix::Identity;	// 回転行列
 	Math::Matrix m_transMat	= Math::Matrix::Identity;	// 座標行列
 	
 	// オブジェクトの移動速度

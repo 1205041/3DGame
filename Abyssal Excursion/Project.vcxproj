@@ -146,6 +146,9 @@
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\main.h" />
     <ClInclude Include="Src\Application\Object\2Ddraw\2Ddraw.h" />
+    <ClInclude Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.h" />
+    <ClInclude Include="Src\Application\Object\2Ddraw\Result2D\Result2D.h" />
+    <ClInclude Include="Src\Application\Object\2Ddraw\Title2D\Title2D.h" />
     <ClInclude Include="Src\Application\Object\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h" />
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
@@ -154,8 +157,7 @@
     <ClInclude Include="Src\Application\Object\Terrain\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h" />
     <ClInclude Include="Src\Application\Scene\GameScene\GameScene.h" />
-    <ClInclude Include="Src\Application\Scene\ResultScene\Lose\LoseScene.h" />
-    <ClInclude Include="Src\Application\Scene\ResultScene\Win\WinScene.h" />
+    <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h" />
     <ClInclude Include="Src\Application\Scene\SceneBase\SceneBase.h" />
     <ClInclude Include="Src\Application\Scene\SceneManager.h" />
     <ClInclude Include="Src\Application\Scene\TitleScene\TitleScene.h" />
@@ -197,6 +199,9 @@
   <ItemGroup>
     <ClCompile Include="Src\Application\main.cpp" />
     <ClCompile Include="Src\Application\Object\2Ddraw\2Ddraw.cpp" />
+    <ClCompile Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.cpp" />
+    <ClCompile Include="Src\Application\Object\2Ddraw\Result2D\Result2D.cpp" />
+    <ClCompile Include="Src\Application\Object\2Ddraw\Title2D\Title2D.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp" />
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
@@ -205,8 +210,7 @@
     <ClCompile Include="Src\Application\Object\Terrain\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp" />
     <ClCompile Include="Src\Application\Scene\GameScene\GameScene.cpp" />
-    <ClCompile Include="Src\Application\Scene\ResultScene\Lose\LoseScene.cpp" />
-    <ClCompile Include="Src\Application\Scene\ResultScene\Win\WinScene.cpp" />
+    <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneBase\SceneBase.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp" />
     <ClCompile Include="Src\Application\Scene\TitleScene\TitleScene.cpp" />

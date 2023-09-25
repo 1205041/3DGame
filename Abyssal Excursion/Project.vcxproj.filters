@@ -88,12 +88,6 @@
     <Filter Include="Src\Application\Object\Camera\TPS">
       <UniqueIdentifier>{d27fba3a-a20d-43e5-bb9b-d7f4b70293e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Scene\ResultScene\Win">
-      <UniqueIdentifier>{480a0dd2-b502-4c3b-b151-9b9d310e0d34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Scene\ResultScene\Lose">
-      <UniqueIdentifier>{7e6e38d2-1407-4110-9002-7d571095c1d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\2Ddraw">
       <UniqueIdentifier>{26509b11-2bbd-443e-a72c-b05f6752fa7c}</UniqueIdentifier>
     </Filter>
@@ -105,6 +99,18 @@
     </Filter>
     <Filter Include="Src\Application\Object\Terrain\Stage">
       <UniqueIdentifier>{f5c265ed-57e7-4e2c-9584-c8fee0c3f888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\2Ddraw\Title2D">
+      <UniqueIdentifier>{25e9d35b-11ff-41e0-9e2e-af6d072ba2a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\2Ddraw\Result2D">
+      <UniqueIdentifier>{052943ff-b91e-4bba-944b-690aa095769e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\2Ddraw\GameUI">
+      <UniqueIdentifier>{9a25842e-aa49-467c-bd21-4b74d7750d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\2Ddraw\GameUI\Sight">
+      <UniqueIdentifier>{116bd41f-1103-46e8-8806-ce7b2f30cf66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -252,12 +258,6 @@
     <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h">
       <Filter>Src\Application\Object\Camera\TPS</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Scene\ResultScene\Lose\LoseScene.h">
-      <Filter>Src\Application\Scene\ResultScene\Lose</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Scene\ResultScene\Win\WinScene.h">
-      <Filter>Src\Application\Scene\ResultScene\Win</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\ObjBase.h">
       <Filter>Src\Application\Object</Filter>
     </ClInclude>
@@ -269,6 +269,18 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Terrain\Ground\Ground.h">
       <Filter>Src\Application\Object\Terrain\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.h">
+      <Filter>Src\Application\Object\2Ddraw\GameUI\Sight</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\2Ddraw\Result2D\Result2D.h">
+      <Filter>Src\Application\Object\2Ddraw\Result2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\2Ddraw\Title2D\Title2D.h">
+      <Filter>Src\Application\Object\2Ddraw\Title2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
+      <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -395,12 +407,6 @@
     <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp">
       <Filter>Src\Application\Object\Camera\TPS</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Scene\ResultScene\Lose\LoseScene.cpp">
-      <Filter>Src\Application\Scene\ResultScene\Lose</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Scene\ResultScene\Win\WinScene.cpp">
-      <Filter>Src\Application\Scene\ResultScene\Win</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\ObjBase.cpp">
       <Filter>Src\Application\Object</Filter>
     </ClCompile>
@@ -412,6 +418,18 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Terrain\Ground\Ground.cpp">
       <Filter>Src\Application\Object\Terrain\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.cpp">
+      <Filter>Src\Application\Object\2Ddraw\GameUI\Sight</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\2Ddraw\Result2D\Result2D.cpp">
+      <Filter>Src\Application\Object\2Ddraw\Result2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\2Ddraw\Title2D\Title2D.cpp">
+      <Filter>Src\Application\Object\2Ddraw\Title2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp">
+      <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

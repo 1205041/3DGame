@@ -1,7 +1,7 @@
-#include "WinScene.h"
-#include "../../../Object/2Ddraw/2Ddraw.h"
+#include "ResultScene.h"
+#include "../../Object/2Ddraw/Result2D/Result2D.h"
 
-void WinScene::Event()
+void ResultScene::Event()
 {
 	// シーン切替(Result→Title)
 	if (GetAsyncKeyState('P') & 0x8000)
@@ -12,16 +12,14 @@ void WinScene::Event()
 	}
 }
 
-void WinScene::Init()
+void ResultScene::Init()
 {
 //	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameSet.wav");
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Katidoki.wav", true);
 
 	/* オブジェクトの初期化 */
 	// シーン
-	std::shared_ptr<twoDdraw> spWin;
-	spWin = std::make_shared<twoDdraw>();
-	spWin->SetTexture("Asset/Textures/Result/win.png");
-	spWin->SetRectAngle({ 0, 0, 1280, 720 });
-	m_objList.push_back(spWin);
+	std::shared_ptr<Result2D> spResult;
+	spResult = std::make_shared<Result2D>();
+	m_objList.push_back(spResult);
 }

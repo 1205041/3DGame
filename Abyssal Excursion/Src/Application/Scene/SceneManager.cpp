@@ -3,8 +3,7 @@
 #include "SceneBase/SceneBase.h"
 #include "TitleScene/TitleScene.h"
 #include "GameScene/GameScene.h"
-#include "ResultScene/Lose/LoseScene.h"
-#include "ResultScene/Win/WinScene.h"
+#include "ResultScene/ResultScene.h"
 
 void SceneManager::PreUpdate()
 {
@@ -70,8 +69,7 @@ void SceneManager::ChangeScene(const SceneType& _sceneType)
 {
 	std::shared_ptr<TitleScene> title;
 	std::shared_ptr<GameScene> game;
-	std::shared_ptr<WinScene> win;
-	std::shared_ptr<LoseScene> lose;
+	std::shared_ptr<ResultScene> result;
 
 	// 次のシーンを作成し、現在のシーンにする
 	switch (_sceneType)
@@ -84,13 +82,9 @@ void SceneManager::ChangeScene(const SceneType& _sceneType)
 		game = std::make_shared<GameScene>();
 		m_spCurtScene = game;
 		break;
-	case SceneType::Win:
-		win = std::make_shared<WinScene>();
-		m_spCurtScene = win;
-		break;
-	case SceneType::Lose:
-		lose = std::make_shared<LoseScene>();
-		m_spCurtScene = lose;
+	case SceneType::Result:
+		result = std::make_shared<ResultScene>();
+		m_spCurtScene = result;
 		break;
 	}
 	m_curtSceneType = _sceneType;

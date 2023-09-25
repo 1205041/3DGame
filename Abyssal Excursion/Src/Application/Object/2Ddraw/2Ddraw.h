@@ -7,14 +7,11 @@ public:
 	twoDdraw() { Init(); }
 	~twoDdraw() {}
 
-	// 更新に関する関数
-	void PostUpdate()	override;
-	void DrawSprite()	override;
-	void Init()			override;
+	virtual void PostUpdate()	override {}
+	virtual void DrawSprite()	override {}
+	virtual void Init()			override {}
 
-	virtual void SetTexture(std::string _fileName) { m_tex.Load(_fileName); }
-	virtual void SetRectAngle(Math::Rectangle _rcAngle) { m_rcAngle = _rcAngle; }
-private:
+protected:
 	// テクスチャ表示
 	KdTexture m_tex;
 	Math::Rectangle m_rcAngle;

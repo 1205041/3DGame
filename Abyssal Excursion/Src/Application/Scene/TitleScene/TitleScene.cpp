@@ -1,5 +1,5 @@
 #include "TitleScene.h"
-#include "../../Object/2Ddraw/2Ddraw.h"
+#include "../../Object/2Ddraw/Title2D/Title2D.h"
 
 void TitleScene::Event()
 {
@@ -17,9 +17,7 @@ void TitleScene::Init()
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
 	
 	// オブジェクトの初期化
-	std::shared_ptr<twoDdraw> spTitle;
-	spTitle = std::make_shared<twoDdraw>();
-	spTitle->SetTexture("Asset/Textures/Title/Title.png");
-	spTitle->SetRectAngle({ 0,0,1280,720 });
+	std::shared_ptr<Title2D> spTitle;
+	spTitle = std::make_shared<Title2D>();
 	m_objList.push_back(spTitle);
 }
