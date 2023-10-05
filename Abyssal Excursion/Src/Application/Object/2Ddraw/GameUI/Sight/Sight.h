@@ -7,7 +7,7 @@ public:
 	Sight() { Init(); }
 	~Sight() {}
 
-	void Init()			override;
+	void Init()		override;
 private:
 	
 };

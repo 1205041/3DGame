@@ -6,8 +6,8 @@ void TPS::Init()
 	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.5f, 2.0f, -2.0f));
 
 	// ƒJ[ƒ\ƒ‹‰Šú‰»
-	m_FixMousePos.x = 640;
-	m_FixMousePos.y = 360;
+	m_FixMousePos.x = 1280 / 2;
+	m_FixMousePos.y = 720 / 2;
 
 //	ShowCursor(false);
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
