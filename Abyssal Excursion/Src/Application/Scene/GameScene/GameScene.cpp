@@ -18,12 +18,8 @@
 
 void GameScene::Event()
 {
-	// シーン切替(Game→Title)
+	// シーン切替(Game→Result)
 	if (GetAsyncKeyState('P') & 0x8000)
-	{
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
-	}
-	if (GetAsyncKeyState('O') & 0x8000)
 	{
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 	}

@@ -41,7 +41,7 @@ private:
 	std::shared_ptr<SceneBase> m_spCurtScene = nullptr;
 
 	// 現在のシーンを管理している変数
-	SceneType m_curtSceneType = SceneType::Game;
+	SceneType m_curtSceneType = SceneType::Title;
 
 	// 次のシーンを管理している変数
 	SceneType m_nextSceneType = m_curtSceneType;

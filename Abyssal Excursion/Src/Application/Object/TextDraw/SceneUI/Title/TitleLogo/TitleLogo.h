@@ -7,6 +7,7 @@ public:
 	TitleLogo() { Init(); }
 	~TitleLogo() {}
 
+	void Update()	override;
 	void Init()		override;
 private:
 

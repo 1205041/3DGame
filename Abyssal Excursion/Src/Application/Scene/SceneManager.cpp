@@ -50,7 +50,7 @@ void SceneManager::Init()
 {
 	m_spCurtScene = std::make_shared<SceneBase>();
 
-	ChangeScene(SceneType::Game);
+	ChangeScene(SceneType::Title);
 }
 
 const std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList()

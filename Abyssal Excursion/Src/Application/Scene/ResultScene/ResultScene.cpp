@@ -4,7 +4,7 @@
 void ResultScene::Event()
 {
 	// ƒV[ƒ“Ø‘Ö(Result¨Title)
-	if (GetAsyncKeyState('P') & 0x8000)
+	if (GetAsyncKeyState('O') & 0x8000)
 	{
 //		KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
