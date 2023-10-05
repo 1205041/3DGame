@@ -11,7 +11,7 @@
 #include "../../Object/SkySphere/SkySphere.h"
 
 // ÉQÅ[ÉÄUI
-#include "../../Object/2Ddraw/GameUI/Sight/Sight.h"
+#include "../../Object/TextDraw/SceneUI/Game/Sight/Sight.h"
 
 // ÉJÉÅÉâ
 #include "../../Object/Camera/TPS/TPS.h"

@@ -39,10 +39,10 @@ void TPS::Update()
 void TPS::UpdateRotateByMouse()
 {
 	// マウス位置の差分を得る
-	POINT nowPos;
+	POINT nowPos{};
 	GetCursorPos(&nowPos);
 
-	POINT mouseMove;
+	POINT mouseMove{};
 	mouseMove.x = nowPos.x - m_FixMousePos.x;
 	mouseMove.y = nowPos.y - m_FixMousePos.y;
 

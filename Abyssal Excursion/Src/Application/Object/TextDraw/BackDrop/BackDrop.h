@@ -1,11 +1,11 @@
 #pragma once
 #include "../TextBase.h"
 
-class Result2D :public TextBase
+class BackDrop :public TextBase
 {
 public:
-	Result2D() { Init(); }
-	~Result2D() {}
+	BackDrop() { Init(); }
+	~BackDrop() {}
 
 	void Init()			override;
 private:

@@ -1,5 +1,5 @@
 #include "ResultScene.h"
-#include "../../Object/2Ddraw/Result2D/Result2D.h"
+#include "../../Object/TextDraw/BackDrop/BackDrop.h"
 
 void ResultScene::Event()
 {
@@ -19,7 +19,7 @@ void ResultScene::Init()
 
 	/* オブジェクトの初期化 */
 	// シーン
-	std::shared_ptr<Result2D> spResult;
-	spResult = std::make_shared<Result2D>();
-	m_objList.push_back(spResult);
+	std::shared_ptr<BackDrop> spBD;
+	spBD = std::make_shared<BackDrop>();
+	m_objList.push_back(spBD);
 }

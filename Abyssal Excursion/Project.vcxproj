@@ -145,10 +145,6 @@
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\main.h" />
-    <ClInclude Include="Src\Application\Object\2Ddraw\TextBase.h" />
-    <ClInclude Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.h" />
-    <ClInclude Include="Src\Application\Object\2Ddraw\Result2D\Result2D.h" />
-    <ClInclude Include="Src\Application\Object\2Ddraw\Title2D\Title2D.h" />
     <ClInclude Include="Src\Application\Object\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h" />
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
@@ -156,6 +152,10 @@
     <ClInclude Include="Src\Application\Object\SkySphere\SkySphere.h" />
     <ClInclude Include="Src\Application\Object\Terrain\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo\TitleLogo.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\TextBase.h" />
     <ClInclude Include="Src\Application\Scene\GameScene\GameScene.h" />
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h" />
     <ClInclude Include="Src\Application\Scene\SceneBase\SceneBase.h" />
@@ -198,10 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application\main.cpp" />
-    <ClCompile Include="Src\Application\Object\2Ddraw\TextBase.cpp" />
-    <ClCompile Include="Src\Application\Object\2Ddraw\GameUI\Sight\Sight.cpp" />
-    <ClCompile Include="Src\Application\Object\2Ddraw\Result2D\Result2D.cpp" />
-    <ClCompile Include="Src\Application\Object\2Ddraw\Title2D\Title2D.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp" />
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
@@ -209,6 +205,10 @@
     <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo\TitleLogo.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\TextBase.cpp" />
     <ClCompile Include="Src\Application\Scene\GameScene\GameScene.cpp" />
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp" />
     <ClCompile Include="Src\Application\Scene\SceneBase\SceneBase.cpp" />

@@ -1,8 +1,8 @@
-#include "Title2D.h"
+#include "BackDrop.h"
 
-void Title2D::Init()
+void BackDrop::Init()
 {
-	SetText("Asset/Textures/Title/Title.png");
+	SetText("Asset/Textures/BackDrop/BDimg.png");
 	SetRcAngle({ 0,0,1280,720 });
 
 	m_texPos = Math::Vector3::Zero;

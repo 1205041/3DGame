@@ -1,5 +1,5 @@
 #pragma once
-#include "../../TextBase.h"
+#include "../../../TextBase.h"
 
 class Sight :public TextBase
 {
