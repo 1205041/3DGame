@@ -19,8 +19,7 @@ public:
 
 	void SetCamera(const std::shared_ptr<CameraBase>& _camera) { m_wpCamera = _camera; }
 private:
+	// ƒJƒƒ‰
 	std::weak_ptr<CameraBase> m_wpCamera;
-
-	// ƒJƒƒ‰‚Ì‰ñ“]—Ê
 	Math::Matrix camRotMat = Math::Matrix::Identity;
 };

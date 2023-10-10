@@ -82,12 +82,12 @@ void GameScene::Init()
 	std::shared_ptr<Sight> spSight;
 	spSight = std::make_shared<Sight>();
 	m_objList.push_back(spSight);
-	
+
 	// ƒJƒƒ‰‚Ì‰Šú‰»
 	std::shared_ptr<TPS> spTps;
 	spTps = std::make_shared<TPS>();
-	spTps->SetTarget(spPlayer);
 	spTps->RegistHitObject(spGround);	/* Ground‚Æ‚Ì“–‚½‚è”»’è */
+	spTps->SetTarget(spPlayer);
 	spPlayer->SetCamera(spTps);
 	m_objList.push_back(spTps);
 }

@@ -3,7 +3,7 @@
 void Stage::PostUpdate()
 {
 	// 拡縮行列
-	m_scaleMat = Math::Matrix::CreateScale(30.0f, 1.0f, 30.0f);
+	m_scaleMat = Math::Matrix::CreateScale(10.0f, 1.0f, 10.0f);
 	/* 拡縮メモ */
 	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
 	// なので地面のサイズの15倍がスカイスフィアのサイズ
