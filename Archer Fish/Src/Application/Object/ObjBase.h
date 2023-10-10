@@ -25,6 +25,7 @@ public:
 	void DrawDebug()final { m_debugWire.Draw(); }
 
 	void RegistHitObj(const std::shared_ptr<KdGameObject>& _obj) { m_wpHitObjList.push_back(_obj); }
+
 protected:
 	// 衝突判定とそれに伴う座標の更新
 	void RayUpdateCollision();
@@ -38,13 +39,14 @@ protected:
 	std::shared_ptr<KdCamera>			m_spCamera	= nullptr;
 
 	// 行列一覧
-	Math::Matrix m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
-	Math::Matrix m_rotMat	= Math::Matrix::Identity;	// 回転行列
-	Math::Matrix m_transMat	= Math::Matrix::Identity;	// 座標行列
+	Math::Matrix	m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
+	Math::Vector3	m_scale		= Math::Vector3::One;		// サイズ
+	Math::Matrix	m_rotMat	= Math::Matrix::Identity;	// 回転行列
+	Math::Matrix	m_transMat	= Math::Matrix::Identity;	// 座標行列
+	Math::Vector3	m_nowPos	= Math::Vector3::Zero;		// 現在座標
 	
 	// オブジェクトの移動速度
 	float			m_moveSpd	= 0.0f;
-	Math::Vector3	m_nowPos	= Math::Vector3::Zero;
 	Math::Vector3	m_moveVec	= Math::Vector3::Zero;
 	
 	// 当たり判定用変数

@@ -1,13 +1,13 @@
 #pragma once
-#include "../TextBase.h"
+#include "../TextDraw.h"
 
-class BackDrop :public TextBase
+class BackDrop :public TextDraw
 {
 public:
 	BackDrop() { Init(); }
 	~BackDrop() {}
 
-	void Init()			override;
+	void Init()	override;
 private:
 	
 };

@@ -2,7 +2,8 @@
 
 // îwåiÅïÉ^ÉCÉgÉãÉçÉS
 #include "../../Object/TextDraw/BackDrop/BackDrop.h"
-#include "../../Object/TextDraw/SceneUI/Title/TitleLogo/TitleLogo.h"
+#include "../../Object/TextDraw/SceneUI/Title/Logo/Logo.h"
+#include "../../Object/TextDraw/SceneUI/Title/Enter/Enter.h"
 
 void TitleScene::Event()
 {
@@ -24,7 +25,11 @@ void TitleScene::Init()
 	spBD = std::make_shared<BackDrop>();
 	m_objList.push_back(spBD);
 
-	std::shared_ptr<TitleLogo> spTL;
-	spTL = std::make_shared<TitleLogo>();
+	std::shared_ptr<Logo> spTL;
+	spTL = std::make_shared<Logo>();
 	m_objList.push_back(spTL);
+
+	std::shared_ptr<Enter> spEK;
+	spEK = std::make_shared<Enter>();
+	m_objList.push_back(spEK);
 }

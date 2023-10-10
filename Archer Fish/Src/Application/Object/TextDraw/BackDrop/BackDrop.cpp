@@ -2,9 +2,7 @@
 
 void BackDrop::Init()
 {
+	// テクスチャ表示
 	SetText("Asset/Textures/BackDrop/BDimg.png");
-	SetRcAngle({ 0,0,1280,720 });
-
-	m_texPos = Math::Vector3::Zero;
-	m_texMat = Math::Matrix::Identity;
+	SetRecAng({ 0,0,1280,720 });
 }

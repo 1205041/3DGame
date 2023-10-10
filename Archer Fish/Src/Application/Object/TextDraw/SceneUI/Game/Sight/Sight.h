@@ -1,13 +1,13 @@
 #pragma once
-#include "../../../TextBase.h"
+#include "../../../TextDraw.h"
 
-class Sight :public TextBase
+class Sight :public TextDraw
 {
 public:
 	Sight() { Init(); }
 	~Sight() {}
 
-	void Init()		override;
+	void Init()	override;
 private:
 	
 };

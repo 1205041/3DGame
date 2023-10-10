@@ -100,26 +100,29 @@
     <Filter Include="Src\Application\Object\TextDraw">
       <UniqueIdentifier>{66d9a65d-981e-408c-958c-3bfb7a1db05b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\BackDrop">
+      <UniqueIdentifier>{ebbc105a-5580-4f38-949f-63999b28b79f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI">
-      <UniqueIdentifier>{e45e5dde-2630-4b8e-9200-b132695a0f18}</UniqueIdentifier>
+      <UniqueIdentifier>{24b5de61-3a53-415e-9822-4422484a2dd5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title">
-      <UniqueIdentifier>{4d329267-386e-443f-ac2a-3b36604bcde7}</UniqueIdentifier>
+      <UniqueIdentifier>{0303e247-c943-4776-9512-1b4a4bf69a06}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\Game">
-      <UniqueIdentifier>{f2633605-f23c-4cbc-b494-ec2274d41d0f}</UniqueIdentifier>
+      <UniqueIdentifier>{28f52407-881b-412c-8eba-2dfb28c69ef5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\Result">
-      <UniqueIdentifier>{d68e50ad-b93a-404d-8ed4-5b7f339cac6e}</UniqueIdentifier>
+      <UniqueIdentifier>{c62dcf57-fde0-4ad4-b483-1ecb10d84af1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight">
-      <UniqueIdentifier>{6da15ba6-81b4-4357-b401-a415f4141db2}</UniqueIdentifier>
+      <UniqueIdentifier>{7d6cfae2-40ef-4db5-8274-ab3fc81d1198}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\BackDrop">
-      <UniqueIdentifier>{032ad28f-9f26-4dc1-b30d-49c9fb8da97c}</UniqueIdentifier>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo">
+      <UniqueIdentifier>{150ce7ab-ea95-4a33-a5ba-9b2dd25f17d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo">
-      <UniqueIdentifier>{ef5427b7-4025-482a-b7de-2c0462e55a44}</UniqueIdentifier>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter">
+      <UniqueIdentifier>{14485eba-e9dc-4bf3-9ddb-45e6e2171ecc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -279,17 +282,20 @@
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\TextBase.h">
-      <Filter>Src\Application\Object\TextDraw</Filter>
+    <ClInclude Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.h">
+      <Filter>Src\Application\Object\TextDraw\BackDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Enter</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo\Logo.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Logo</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Game\Sight</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.h">
-      <Filter>Src\Application\Object\TextDraw\BackDrop</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo\TitleLogo.h">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo</Filter>
+    <ClInclude Include="Src\Application\Object\TextDraw\TextDraw.h">
+      <Filter>Src\Application\Object\TextDraw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,17 +434,20 @@
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\TextBase.cpp">
-      <Filter>Src\Application\Object\TextDraw</Filter>
+    <ClCompile Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.cpp">
+      <Filter>Src\Application\Object\TextDraw\BackDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Enter</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo\Logo.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Logo</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Game\Sight</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.cpp">
-      <Filter>Src\Application\Object\TextDraw\BackDrop</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo\TitleLogo.cpp">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\TitleLogo</Filter>
+    <ClCompile Include="Src\Application\Object\TextDraw\TextDraw.cpp">
+      <Filter>Src\Application\Object\TextDraw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
