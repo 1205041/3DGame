@@ -15,6 +15,6 @@ void Enter::Init()
 {
 	// テクスチャ表示
 	SetText("Asset/Textures/SceneUI/Title/Key/Enter.png");
-	SetPixel({ 0.0f,-100.0f });
+	SetPixel({ 0.0f,-150.0f });
 	SetRecAng({ 0,0, 300, 60 });
 }
