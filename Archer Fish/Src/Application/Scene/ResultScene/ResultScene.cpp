@@ -17,6 +17,9 @@ void ResultScene::Init()
 //	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameSet.wav");
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Katidoki.wav", true);
 
+	// マウスポインタ表示
+	ShowCursor(true);
+
 	/* オブジェクトの初期化 */
 	// シーン
 	std::shared_ptr<BackDrop> spBD;

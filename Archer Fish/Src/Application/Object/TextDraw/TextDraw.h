@@ -9,7 +9,7 @@ public:
 
 	virtual void	Update()		override {}
 	virtual void	PostUpdate()	override {}
-	void			DrawSprite()	override;
+	virtual void	DrawSprite()	override;
 	virtual void	Init()			override {}
 
 protected:

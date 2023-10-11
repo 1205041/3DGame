@@ -4,6 +4,7 @@
 
 // キャラクタ
 #include "../../Object/Player/Player.h"
+#include "../../Object/Enemy/Enemy.h"
 
 // 地形
 #include "../../Object/Terrain/Stage/Stage.h"
@@ -32,6 +33,9 @@ void GameScene::Init()
 {
 //	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav");
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Game.wav", true);
+
+	// マウスポインタ非表示
+	ShowCursor(false);
 
 	/* オブジェクトの初期化 */
 	// 地形
@@ -77,6 +81,12 @@ void GameScene::Init()
 	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
 	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
 	m_objList.push_back(spPlayer);
+
+	// エネミー
+	std::shared_ptr<Enemy> spEnemy;
+	spEnemy = std::make_shared<Enemy>();
+	spEnemy->SetPos({ 0,5.0f,10.0f });
+	m_objList.push_back(spEnemy);
 
 	// ゲームUI
 	std::shared_ptr<Sight> spSight;

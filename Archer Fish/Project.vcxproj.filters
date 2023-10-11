@@ -124,6 +124,9 @@
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter">
       <UniqueIdentifier>{14485eba-e9dc-4bf3-9ddb-45e6e2171ecc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Enemy">
+      <UniqueIdentifier>{c3a7a6f7-da0a-4532-8aa2-ef6a240f5b7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -297,6 +300,9 @@
     <ClInclude Include="Src\Application\Object\TextDraw\TextDraw.h">
       <Filter>Src\Application\Object\TextDraw</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Enemy\Enemy.h">
+      <Filter>Src\Application\Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -448,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\TextDraw.cpp">
       <Filter>Src\Application\Object\TextDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp">
+      <Filter>Src\Application\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

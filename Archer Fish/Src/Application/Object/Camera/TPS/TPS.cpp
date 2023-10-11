@@ -9,7 +9,6 @@ void TPS::Init()
 	m_FixMousePos.x = 1280 / 2;
 	m_FixMousePos.y = 720 / 2;
 
-//	ShowCursor(false);
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 
 	CameraBase::Init();
