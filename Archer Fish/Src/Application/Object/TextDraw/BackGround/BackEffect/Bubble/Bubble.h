@@ -7,7 +7,9 @@ public:
 	Bubble() {}
 	~Bubble() {}
 
-
+	void Update()		override;
+	void PostUpdate()	override;
+	void Init()			override;
 private:
 
 };
