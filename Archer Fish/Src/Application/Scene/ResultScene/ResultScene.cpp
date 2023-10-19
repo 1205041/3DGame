@@ -1,5 +1,6 @@
 #include "ResultScene.h"
-#include "../../Object/TextDraw/BackDrop/BackDrop.h"
+#include "../../Object/TextDraw/BackGround/BackDrop/BackDrop.h"
+#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
 
 void ResultScene::Event()
 {

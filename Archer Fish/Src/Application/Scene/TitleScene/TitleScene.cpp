@@ -1,7 +1,8 @@
 #include "TitleScene.h"
 
 // îwåiÅïÉ^ÉCÉgÉãÉçÉS
-#include "../../Object/TextDraw/BackDrop/BackDrop.h"
+#include "../../Object/TextDraw/BackGround/BackDrop/BackDrop.h"
+#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
 #include "../../Object/TextDraw/SceneUI/Title/Logo/Logo.h"
 #include "../../Object/TextDraw/SceneUI/Title/Enter/Enter.h"
 
