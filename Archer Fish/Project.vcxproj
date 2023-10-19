@@ -153,7 +153,8 @@
     <ClInclude Include="Src\Application\Object\SkySphere\SkySphere.h" />
     <ClInclude Include="Src\Application\Object\Terrain\Ground\Ground.h" />
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h" />
-    <ClInclude Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackDrop\BackDrop.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo\Logo.h" />
@@ -208,7 +209,8 @@
     <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\Ground\Ground.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp" />
-    <ClCompile Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackDrop\BackDrop.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo\Logo.cpp" />

@@ -100,9 +100,6 @@
     <Filter Include="Src\Application\Object\TextDraw">
       <UniqueIdentifier>{66d9a65d-981e-408c-958c-3bfb7a1db05b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\BackDrop">
-      <UniqueIdentifier>{ebbc105a-5580-4f38-949f-63999b28b79f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI">
       <UniqueIdentifier>{24b5de61-3a53-415e-9822-4422484a2dd5}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,18 @@
     </Filter>
     <Filter Include="Src\Application\Object\Enemy">
       <UniqueIdentifier>{c3a7a6f7-da0a-4532-8aa2-ef6a240f5b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\BackGround">
+      <UniqueIdentifier>{ebbc105a-5580-4f38-949f-63999b28b79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\BackGround\BackDrop">
+      <UniqueIdentifier>{ce9982ab-f405-4a8e-9907-37c9ffc2e3ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\BackGround\BackEffect">
+      <UniqueIdentifier>{75942623-fc82-40d3-a2cf-f420ff33dd8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble">
+      <UniqueIdentifier>{70f0eb68-6234-4d09-8c64-500ff2d83607}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,9 +294,6 @@
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.h">
-      <Filter>Src\Application\Object\TextDraw\BackDrop</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Enter</Filter>
     </ClInclude>
@@ -302,6 +308,12 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Enemy\Enemy.h">
       <Filter>Src\Application\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackDrop\BackDrop.h">
+      <Filter>Src\Application\Object\TextDraw\BackGround\BackDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.h">
+      <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,9 +452,6 @@
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\BackDrop\BackDrop.cpp">
-      <Filter>Src\Application\Object\TextDraw\BackDrop</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Enter</Filter>
     </ClCompile>
@@ -457,6 +466,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp">
       <Filter>Src\Application\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackDrop\BackDrop.cpp">
+      <Filter>Src\Application\Object\TextDraw\BackGround\BackDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.cpp">
+      <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
