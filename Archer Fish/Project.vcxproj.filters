@@ -136,6 +136,18 @@
     <Filter Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble">
       <UniqueIdentifier>{70f0eb68-6234-4d09-8c64-500ff2d83607}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library\imgui">
+      <UniqueIdentifier>{fc538b54-6330-4176-b58e-91c4385e70da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\imgui\backends">
+      <UniqueIdentifier>{f49274ea-af01-4ca9-98cd-3907a51c6678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\imgui\misc">
+      <UniqueIdentifier>{412eb3cd-89fb-4b2b-b866-6ded2cdfa766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\imgui\misc\cpp">
+      <UniqueIdentifier>{2e3e4ab7-f874-4d74-983d-e7c14ce430cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -315,6 +327,36 @@
     <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.h">
       <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
     </ClInclude>
+    <ClInclude Include="..\Library\imgui\imconfig.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\imgui.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\imgui_internal.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\imstb_rectpack.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\imstb_textedit.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\imstb_truetype.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\ja_glyph_ranges.h">
+      <Filter>Library\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\misc\cpp\imgui_stdlib.h">
+      <Filter>Library\imgui\misc\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\backends\imgui_impl_dx11.h">
+      <Filter>Library\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h">
+      <Filter>Library\imgui\backends</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -472,6 +514,30 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.cpp">
       <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\imgui.cpp">
+      <Filter>Library\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\imgui_demo.cpp">
+      <Filter>Library\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\imgui_draw.cpp">
+      <Filter>Library\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\imgui_tables.cpp">
+      <Filter>Library\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\imgui_widgets.cpp">
+      <Filter>Library\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\misc\cpp\imgui_stdlib.cpp">
+      <Filter>Library\imgui\misc\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>Library\imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>Library\imgui\backends</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

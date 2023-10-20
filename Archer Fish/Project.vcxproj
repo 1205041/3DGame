@@ -139,6 +139,16 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Library\imgui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="..\Library\imgui\imconfig.h" />
+    <ClInclude Include="..\Library\imgui\imgui.h" />
+    <ClInclude Include="..\Library\imgui\imgui_internal.h" />
+    <ClInclude Include="..\Library\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\Library\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\Library\imgui\imstb_truetype.h" />
+    <ClInclude Include="..\Library\imgui\ja_glyph_ranges.h" />
+    <ClInclude Include="..\Library\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="..\Library\strconv.h" />
     <ClInclude Include="..\Library\tinygltf\json.hpp" />
     <ClInclude Include="..\Library\tinygltf\stb_image.h" />
@@ -200,6 +210,14 @@
     <ClInclude Include="src\Framework\Window\KdWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Library\imgui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\Library\imgui\imgui.cpp" />
+    <ClCompile Include="..\Library\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\Library\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\Library\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\Library\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp" />

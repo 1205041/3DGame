@@ -125,6 +125,27 @@ bool Application::Init(int w, int h)
 	if (bFullScreen) { KdDirect3D::Instance().WorkSwapChain()->SetFullscreenState(TRUE, 0); }
 
 	//===================================================================
+	// imGui
+	//===================================================================
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+//	ImGui::StyleColorsClassic();
+	// Setup Platform/Renderer bindings
+	ImGui_ImplWin32_Init(m_window.GetWndHandle());
+	ImGui_ImplDX11_Init(KdDirect3D::Instance().WorkDev(), KdDirect3D::Instance().WorkDevContext());
+
+#include "imGui/ja_glyph_ranges.h"
+	ImGuiIO& io = ImGui::GetIO();
+	ImFontConfig config;
+	config.MergeMode = true;
+	io.Fonts->AddFontDefault();
+	// 日本語対応
+	io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msgothic.ttc", 13.0f, &config, glyphRangesJapanese);
+
+	//===================================================================
 	// シェーダー初期化
 	//===================================================================
 	KdShaderManager::Instance().Init();
@@ -170,8 +191,12 @@ void Application::Execute()
 		// ウィンドウが破棄されてるならループ終了
 		if (!m_window.IsCreated()) { break; }
 
-		if (GetAsyncKeyState(VK_ESCAPE)) { {End(); } }
+		if (GetAsyncKeyState(VK_ESCAPE)) { End(); }
 
+		// imGui開始
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
 
 		//=========================================
 		// アプリケーション更新処理
@@ -187,6 +212,14 @@ void Application::Execute()
 		Draw();
 		PostDraw();
 		DrawSprite();
+
+		// ImGui Demoウィンドウ表示 ※すごく参考になるウィンドウ/imgui_demo.cpp参照
+//		ImGui::ShowDemoWindow(nullptr);
+
+		// ImGuiのレンダリング：ここより上にImGuiの描画はする事
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 
 		// BackBuffer -> 画面表示
 		KdDirect3D::Instance().WorkSwapChain()->Present(0, 0);
@@ -210,6 +243,13 @@ void Application::Release()
 	KdInputManager::Instance().Release();
 	KdShaderManager::Instance().Release();
 	KdAudioManager::Instance().Release();
+
+	// imGui解放
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+
+	// Direct3D解放
 	KdDirect3D::Instance().Release();
 
 	// ウィンドウ削除

@@ -1,17 +1,13 @@
 ﻿#pragma once
 //===============================================
-//
 // プリコンパイル済みヘッダー
 //  ここに書いたものは初回のみ解析されるため、コンパイル時間が高速になる。
 //  全てのcppからインクルードされる必要がある。
-//
 //===============================================
 
 
 //===============================================
-//
 // 基本
-//
 //===============================================
 #pragma comment(lib,"winmm.lib")
 
@@ -22,9 +18,7 @@
 #include <wrl/client.h>
 
 //===============================================
-//
 // STL
-//
 //===============================================
 #include <map>
 #include <unordered_map>
@@ -50,9 +44,7 @@
 #include <fileSystem>
 
 //===============================================
-//
 // Direct3D11
-//
 //===============================================
 #pragma comment(lib,"dxguid.lib")
 #pragma comment(lib,"d3d11.lib")
@@ -76,13 +68,22 @@
 #include <DirectXTex.h>
 
 //===============================================
+// imGui
+//===============================================
+#define IMGUI_DEFINE_MATH_OPERATORS
+#define IMGUI_DEFINE_PLACEMENT_NEW
+#include "imgui/imgui.h"
+#include "imgui/imgui_internal.h"
+#include "imgui/backends/imgui_impl_win32.h"
+#include "imgui/backends/imgui_impl_dx11.h"
+#include "imgui/misc/cpp/imgui_stdlib.h"
+
+//===============================================
 // 文字コード変換
 //===============================================
 #include <strconv.h>
 
 //===============================================
-//
 // 自作Framework
-//
 //===============================================
 #include "Framework/KdFramework.h"
