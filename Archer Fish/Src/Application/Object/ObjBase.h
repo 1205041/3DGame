@@ -25,6 +25,7 @@ public:
 	void DrawDebug()final { m_debugWire.Draw(); }
 
 	void RegistHitObj(const std::shared_ptr<KdGameObject>& _obj) { m_wpHitObjList.push_back(_obj); }
+	void SetTarget(const std::shared_ptr<KdGameObject>& _target);
 
 protected:
 	// 衝突判定とそれに伴う座標の更新
@@ -37,6 +38,7 @@ protected:
 	// モデルとカメラのスマポ
 	std::shared_ptr<KdModelWork>		m_spModel	= nullptr;
 	std::shared_ptr<KdCamera>			m_spCamera	= nullptr;
+	std::weak_ptr<KdGameObject>			m_wpTarget;
 
 	// 行列一覧
 	Math::Matrix	m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列

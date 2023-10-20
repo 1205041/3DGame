@@ -52,3 +52,16 @@ void Player::Init()
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("PlayerColl", GetPos(), 0.25f, KdCollider::TypeBump);
 }
+
+void Player::Shot()
+{
+	Math::Vector3	dir = Math::Vector3::Zero;
+	float			range = 0.0f;
+	m_wpCamera.lock()->WorkCamera()->GenerateRayInfoFromClientPos
+	(
+		{ 1280 / 2,720 / 2 },		// 2D座標
+		m_wpCamera.lock()->GetPos(),// カメラの座標
+		dir,						// 方向
+		range						// レイの長さ
+	);
+}

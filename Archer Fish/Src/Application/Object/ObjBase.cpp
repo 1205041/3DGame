@@ -1,5 +1,12 @@
 #include "ObjBase.h"
 
+void ObjBase::SetTarget(const std::shared_ptr<KdGameObject>& _target)
+{
+	if (!_target) { return; }
+
+	m_wpTarget = _target;
+}
+
 /* ====================== */
 /* “–‚½‚è”»’è(ƒŒƒC”»’è—p) */
 /* ====================== */

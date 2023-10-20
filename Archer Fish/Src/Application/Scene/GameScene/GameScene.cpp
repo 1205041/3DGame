@@ -74,6 +74,11 @@ void GameScene::Init()
 	spGround->SetPos({ 0.0f,-1.5f,-120.0f });
 	m_objList.push_back(spGround);
 
+	// ゲームUI
+	std::shared_ptr<Sight> spSight;
+	spSight = std::make_shared<Sight>();
+	m_objList.push_back(spSight);
+
 	// キャラ
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
@@ -87,11 +92,6 @@ void GameScene::Init()
 	spEnemy = std::make_shared<Enemy>();
 	spEnemy->SetPos({ 0,5.0f,10.0f });
 	m_objList.push_back(spEnemy);
-
-	// ゲームUI
-	std::shared_ptr<Sight> spSight;
-	spSight = std::make_shared<Sight>();
-	m_objList.push_back(spSight);
 
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;

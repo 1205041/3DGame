@@ -18,7 +18,11 @@ public:
 	void Init()						override;
 
 	void SetCamera(const std::shared_ptr<CameraBase>& _camera) { m_wpCamera = _camera; }
+
 private:
+	// ’e”­Ë
+	void Shot();
+
 	// ƒJƒƒ‰
 	std::weak_ptr<CameraBase> m_wpCamera;
 	Math::Matrix camRotMat = Math::Matrix::Identity;
