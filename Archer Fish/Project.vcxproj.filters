@@ -79,9 +79,6 @@
     <Filter Include="Src\Application\Scene\SceneBase">
       <UniqueIdentifier>{29036415-941f-4931-8cf0-3ca9680fe9c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\SkySphere">
-      <UniqueIdentifier>{c2dbc98b-e5ff-4612-997f-cf0e87e7facb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\Camera">
       <UniqueIdentifier>{c800615e-3953-4c78-945d-7aaa7184d465}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,15 @@
     </Filter>
     <Filter Include="Library\imgui\misc\cpp">
       <UniqueIdentifier>{2e3e4ab7-f874-4d74-983d-e7c14ce430cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\SphereDome">
+      <UniqueIdentifier>{c2dbc98b-e5ff-4612-997f-cf0e87e7facb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\SphereDome\TropicalDome">
+      <UniqueIdentifier>{e027a8d2-021a-4261-a8d7-ae0e3dc225ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\SphereDome\RivaerSide">
+      <UniqueIdentifier>{0931bbf8-192a-45a4-8297-91a21af42449}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,9 +291,6 @@
     <ClInclude Include="Src\Application\Scene\SceneManager.h">
       <Filter>Src\Application\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\SkySphere\SkySphere.h">
-      <Filter>Src\Application\Object\SkySphere</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\Camera\CameraBase.h">
       <Filter>Src\Application\Object\Camera</Filter>
     </ClInclude>
@@ -356,6 +359,12 @@
     </ClInclude>
     <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h">
       <Filter>Library\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\SphereDome\TropicalDomo\TropicalDome.h">
+      <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\SphereDome\RiverSide\RiverSide.h">
+      <Filter>Src\Application\Object\SphereDome\RivaerSide</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -473,9 +482,6 @@
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp">
       <Filter>Src\Application\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\SkySphere\SkySphere.cpp">
-      <Filter>Src\Application\Object\SkySphere</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp">
       <Filter>Src\Application\Object\Camera</Filter>
     </ClCompile>
@@ -538,6 +544,12 @@
     </ClCompile>
     <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp">
       <Filter>Library\imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\SphereDome\TropicalDomo\TropicalDome.cpp">
+      <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\SphereDome\RiverSide\RiverSide.cpp">
+      <Filter>Src\Application\Object\SphereDome\RivaerSide</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

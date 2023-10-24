@@ -1,6 +1,6 @@
-#include "SkySphere.h"
+#include "TropicalDome.h"
 
-void SkySphere::PostUpdate()
+void TropicalDome::PostUpdate()
 {
 	// ägèkçsóÒ
 	m_scaleMat = Math::Matrix::CreateScale(149.0f, 149.0f, 149.0f);
@@ -15,18 +15,18 @@ void SkySphere::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void SkySphere::DrawUnLit()
+void TropicalDome::DrawUnLit()
 {
 	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
-void SkySphere::Init()
+void TropicalDome::Init()
 {
 	if (!m_spModel)
 	{
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/TropicalDome/TropicalDome.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SphereDome/TropicalDome/TropicalDome.gltf"));
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();

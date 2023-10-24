@@ -9,7 +9,10 @@
 // 地形
 #include "../../Object/Terrain/Stage/Stage.h"
 #include "../../Object/Terrain/Ground/Ground.h"
-#include "../../Object/SkySphere/SkySphere.h"
+
+// スカイスフィア
+#include "../../Object/SphereDome/TropicalDomo/TropicalDome.h"
+#include "../../Object/SphereDome/RiverSide/RiverSide.h"
 
 // ゲームUI
 #include "../../Object/TextDraw/SceneUI/Game/Sight/Sight.h"
@@ -39,20 +42,24 @@ void GameScene::Init()
 
 	/* オブジェクトの初期化 */
 	// 地形
-	std::shared_ptr<Stage> spStage;
-	spStage = std::make_shared<Stage>();
-	m_objList.push_back(spStage);
+//	std::shared_ptr<Stage> spStage;
+//	spStage = std::make_shared<Stage>();
+//	m_objList.push_back(spStage);
 
-	std::shared_ptr<SkySphere> spSkySp;
-	spSkySp = std::make_shared<SkySphere>();
-	m_objList.push_back(spSkySp);
+	std::shared_ptr<TropicalDome> spTroDm;
+	spTroDm = std::make_shared<TropicalDome>();
+	m_objList.push_back(spTroDm);
+
+	std::shared_ptr<RiverSide> spRvSd;
+	spRvSd = std::make_shared<RiverSide>();
+	m_objList.push_back(spRvSd);
 
 	// 通常の地面
 	std::shared_ptr<Ground> spGround;
-	spGround = std::make_shared<Ground>();
-	spGround->SetScale({ 10.0f, 3.0f, 10.0f });
-	spGround->SetPos({ 0,-1.5f,0 });
-	m_objList.push_back(spGround);
+//	spGround = std::make_shared<Ground>();
+//	spGround->SetScale({ 10.0f, 3.0f, 10.0f });
+//	spGround->SetPos({ 0,-1.5f,0 });
+//	m_objList.push_back(spGround);
 
 	spGround = std::make_shared<Ground>();
 	spGround->SetScale({ 15.0f, 3.0f, 15.0f });
@@ -83,8 +90,8 @@ void GameScene::Init()
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
 	spPlayer->SetPos({ 0,5.0f,0 });
-	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
-	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
+//	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
+//	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
 	m_objList.push_back(spPlayer);
 
 	// エネミー

@@ -1,11 +1,11 @@
 #pragma once
-#include "../ObjBase.h"
+#include "../../ObjBase.h"
 
-class SkySphere :public ObjBase
+class RiverSide :public ObjBase
 {
 public:
-	SkySphere() { Init(); }
-	~SkySphere() {};
+	RiverSide() { Init(); }
+	~RiverSide() {};
 
 	void PostUpdate()	override;
 	void DrawUnLit()	override;
