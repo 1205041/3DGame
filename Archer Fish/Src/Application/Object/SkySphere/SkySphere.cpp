@@ -15,13 +15,7 @@ void SkySphere::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void SkySphere::DrawBright()
-{
-	if (!m_spModel) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
-}
-
-void SkySphere::DrawLit()
+void SkySphere::DrawUnLit()
 {
 	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
@@ -32,7 +26,7 @@ void SkySphere::Init()
 	if (!m_spModel)
 	{
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/deepSea/DeepSea2.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SkySphere/TropicalDome/TropicalDome.gltf"));
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();

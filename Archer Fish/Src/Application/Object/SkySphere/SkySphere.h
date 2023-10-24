@@ -8,8 +8,7 @@ public:
 	~SkySphere() {};
 
 	void PostUpdate()	override;
-	void DrawBright()	override;
-	void DrawLit()		override;
+	void DrawUnLit()	override;
 	void Init()			override;
 
 private:
