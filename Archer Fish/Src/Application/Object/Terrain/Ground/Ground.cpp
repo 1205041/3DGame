@@ -12,7 +12,7 @@ void Ground::Init()
 	{
 		//	ƒ‚ƒfƒ‹(’n–Ê)‰Šú‰»
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Terrain/Ground/NGround/Ground.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Terrain/Ground/CGround/CGround.gltf"));
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();
