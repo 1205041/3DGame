@@ -55,11 +55,11 @@ void GameScene::Init()
 	m_objList.push_back(spRvSd);
 
 	// ’Êí‚Ì’n–Ê
-	std::shared_ptr<Ground> spGround;
-	spGround = std::make_shared<Ground>();
-	spGround->SetScale({ 1.0f, 1.0f, 1.0f });
- 	spGround->SetPos({ 0,-1.5f,0 });
-	m_objList.push_back(spGround);
+//	std::shared_ptr<Ground> spGround;
+//	spGround = std::make_shared<Ground>();
+//	spGround->SetScale({ 1.0f, 1.0f, 1.0f });
+ //	spGround->SetPos({ 0,-1.5f,0 });
+//	m_objList.push_back(spGround);
 
 	// ƒQ[ƒ€UI
 	std::shared_ptr<Sight> spSight;
@@ -83,7 +83,7 @@ void GameScene::Init()
 	// ƒJƒƒ‰‚Ì‰Šú‰»
 	std::shared_ptr<TPS> spTps;
 	spTps = std::make_shared<TPS>();
-	spTps->RegistHitObject(spGround);	/* Ground‚Æ‚Ì“–‚½‚è”»’è */
+//	spTps->RegistHitObject(spGround);	/* Ground‚Æ‚Ì“–‚½‚è”»’è */
 	spTps->SetTarget(spPlayer);
 	spPlayer->SetCamera(spTps);
 	m_objList.push_back(spTps);

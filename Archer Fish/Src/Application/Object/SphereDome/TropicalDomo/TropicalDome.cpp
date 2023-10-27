@@ -3,7 +3,8 @@
 void TropicalDome::PostUpdate()
 {
 	// 拡縮行列
-	m_scaleMat = Math::Matrix::CreateScale(149.0f, 149.0f, 149.0f);
+//	m_scaleMat = Math::Matrix::CreateScale(149.0f, 149.0f, 149.0f);
+	m_scaleMat = Math::Matrix::CreateScale(3.0f, 1.0f, 3.0f);
 	/* 拡縮メモ */
 	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
 	// なので地面のサイズの15倍がスカイスフィアのサイズ
@@ -26,7 +27,7 @@ void TropicalDome::Init()
 	if (!m_spModel)
 	{
 		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SphereDome/TropicalDome/TropicalDome.gltf"));
+		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/SphereDome/SphereGround/SphereGround.gltf"));
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();

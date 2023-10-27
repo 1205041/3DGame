@@ -55,15 +55,15 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"Tropical.hdr",
-			"uri":"Tropical.hdr"
+			"name":"1KTropDemo.hdr",
+			"uri":"1KTropDemo.hdr"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":992,
+			"count":296,
 			"max":[
 				0.9999997019767761,
 				1,
@@ -79,13 +79,13 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":992,
+			"count":296,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":992,
+			"count":296,
 			"type":"VEC2"
 		},
 		{
@@ -98,26 +98,26 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":11904,
+			"byteLength":3552,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":11904,
-			"byteOffset":11904,
+			"byteLength":3552,
+			"byteOffset":3552,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":7936,
-			"byteOffset":23808,
+			"byteLength":2368,
+			"byteOffset":7104,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2880,
-			"byteOffset":31744,
+			"byteOffset":9472,
 			"target":34963
 		}
 	],
@@ -129,7 +129,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":34624,
+			"byteLength":12352,
 			"uri":"TropicalDome.bin"
 		}
 	]
