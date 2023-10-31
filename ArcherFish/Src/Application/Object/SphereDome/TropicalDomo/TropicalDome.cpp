@@ -4,7 +4,7 @@ void TropicalDome::PostUpdate()
 {
 	// 拡縮行列
 //	m_scaleMat = Math::Matrix::CreateScale(149.0f, 149.0f, 149.0f);
-	m_scaleMat = Math::Matrix::CreateScale(3.0f, 1.0f, 3.0f);
+	m_scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
 
 	/* 拡縮メモ */
 	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
