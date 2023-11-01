@@ -88,9 +88,6 @@
     <Filter Include="Src\Application\Object\Terrain">
       <UniqueIdentifier>{27f06727-c545-4f19-af94-040420fa0770}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\Terrain\Ground">
-      <UniqueIdentifier>{0f6fa87b-8abb-4e0b-83a4-fc70f1abeee0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\Terrain\Stage">
       <UniqueIdentifier>{f5c265ed-57e7-4e2c-9584-c8fee0c3f888}</UniqueIdentifier>
     </Filter>
@@ -303,9 +300,6 @@
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h">
       <Filter>Src\Application\Object\Terrain\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\Terrain\Ground\Ground.h">
-      <Filter>Src\Application\Object\Terrain\Ground</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
@@ -360,7 +354,7 @@
     <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h">
       <Filter>Library\imgui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\SphereDome\TropicalDomo\TropicalDome.h">
+    <ClInclude Include="Src\Application\Object\SphereDome\TropicalDomo\GroundDome.h">
       <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\SphereDome\RiverSide\RiverSide.h">
@@ -494,9 +488,6 @@
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp">
       <Filter>Src\Application\Object\Terrain\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\Terrain\Ground\Ground.cpp">
-      <Filter>Src\Application\Object\Terrain\Ground</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClCompile>
@@ -545,7 +536,7 @@
     <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp">
       <Filter>Library\imgui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\SphereDome\TropicalDomo\TropicalDome.cpp">
+    <ClCompile Include="Src\Application\Object\SphereDome\TropicalDomo\GroundDome.cpp">
       <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\SphereDome\RiverSide\RiverSide.cpp">

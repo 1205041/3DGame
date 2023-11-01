@@ -8,10 +8,9 @@
 
 // 地形
 #include "../../Object/Terrain/Stage/Stage.h"
-#include "../../Object/Terrain/Ground/Ground.h"
 
 // スカイスフィア
-#include "../../Object/SphereDome/TropicalDomo/TropicalDome.h"
+#include "../../Object/SphereDome/TropicalDomo/GroundDome.h"
 #include "../../Object/SphereDome/RiverSide/RiverSide.h"
 
 // ゲームUI
@@ -46,20 +45,14 @@ void GameScene::Init()
 //	spStage = std::make_shared<Stage>();
 //	m_objList.push_back(spStage);
 
-	std::shared_ptr<TropicalDome> spTroDm;
-	spTroDm = std::make_shared<TropicalDome>();
-	m_objList.push_back(spTroDm);
+	// 通常の地面
+	std::shared_ptr<GroundDome> spGrndDm;
+	spGrndDm = std::make_shared<GroundDome>();
+	m_objList.push_back(spGrndDm);
 
 	std::shared_ptr<RiverSide> spRvSd;
 	spRvSd = std::make_shared<RiverSide>();
 	m_objList.push_back(spRvSd);
-
-	// 通常の地面
-//	std::shared_ptr<Ground> spGround;
-//	spGround = std::make_shared<Ground>();
-//	spGround->SetScale({ 1.0f, 1.0f, 1.0f });
- //	spGround->SetPos({ 0,-1.5f,0 });
-//	m_objList.push_back(spGround);
 
 	// ゲームUI
 	std::shared_ptr<Sight> spSight;
@@ -69,16 +62,16 @@ void GameScene::Init()
 	// キャラ
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-	spPlayer->SetPos({ 0,20.0f,0 });
+	spPlayer->SetPos({ 0,-20.0f,0 });
 //	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
 //	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
 	m_objList.push_back(spPlayer);
 
 	// エネミー
-	std::shared_ptr<Enemy> spEnemy;
-	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0,5.0f,10.0f });
-	m_objList.push_back(spEnemy);
+//	std::shared_ptr<Enemy> spEnemy;
+//	spEnemy = std::make_shared<Enemy>();
+//	spEnemy->SetPos({ 0,5.0f,10.0f });
+//	m_objList.push_back(spEnemy);
 
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;

@@ -1,6 +1,6 @@
-#include "TropicalDome.h"
+#include "GroundDome.h"
 
-void TropicalDome::PostUpdate()
+void GroundDome::PostUpdate()
 {
 	// ägèkçsóÒ
 //	m_scaleMat = Math::Matrix::CreateScale(149.0f, 149.0f, 149.0f);
@@ -17,13 +17,13 @@ void TropicalDome::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void TropicalDome::DrawUnLit()
+void GroundDome::DrawUnLit()
 {
 	if (!m_spModel) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
 }
 
-void TropicalDome::Init()
+void GroundDome::Init()
 {
 	if (!m_spModel)
 	{

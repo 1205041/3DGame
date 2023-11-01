@@ -1,11 +1,11 @@
 #pragma once
 #include "../../ObjBase.h"
 
-class TropicalDome :public ObjBase
+class GroundDome :public ObjBase
 {
 public:
-	TropicalDome() { Init(); }
-	~TropicalDome() {};
+	GroundDome() { Init(); }
+	~GroundDome() {};
 
 	void PostUpdate()	override;
 	void DrawUnLit()	override;
