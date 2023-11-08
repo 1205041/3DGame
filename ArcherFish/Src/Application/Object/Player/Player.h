@@ -24,6 +24,9 @@ private:
 	void Shot();
 
 	// ƒJƒƒ‰
-	std::weak_ptr<CameraBase> m_wpCamera;
 	Math::Matrix camRotMat = Math::Matrix::Identity;
+	std::weak_ptr<CameraBase> m_wpCamera;
+
+	Math::Vector3	m_pos = Math::Vector3::Zero;
+	float m_ang = 0.0f;
 };

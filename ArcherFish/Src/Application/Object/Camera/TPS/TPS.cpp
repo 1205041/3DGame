@@ -14,7 +14,7 @@ void TPS::Init()
 	CameraBase::Init();
 }
 
-void TPS::Update()
+void TPS::PostUpdate()
 {
 	// ターゲットの行列
 	Math::Matrix targetMat = Math::Matrix::Identity;

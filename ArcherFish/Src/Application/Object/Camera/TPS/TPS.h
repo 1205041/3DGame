@@ -7,9 +7,8 @@ public:
 	TPS() { Init(); }
 	~TPS() {}
 
-	void Init()		override;
-	void Update()	override;
-
+	void Init()			override;
+	void PostUpdate()	override;
 	void RegistHitObject(const std::shared_ptr<KdGameObject>& object) { m_wpHitObject = object; }
 
 private:
