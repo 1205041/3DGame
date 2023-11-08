@@ -38,6 +38,7 @@ void Player::Update()
 
 	// 移動
 	m_pos += m_moveVec * m_moveSpd;
+	if (m_pos.y > 0) { m_pos.y = 0; }
 }
 
 // 更新後更新関数
@@ -45,10 +46,6 @@ void Player::PostUpdate()
 {
 	// 拡縮行列
 	m_scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
-
-	// 回転行列
-	m_rotMat = Math::Matrix::CreateRotationY
-	(DirectX::XMConvertToRadians(m_ang));
 
 	// 座標行列
 	m_transMat = Math::Matrix::CreateTranslation(m_pos);

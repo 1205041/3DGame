@@ -27,6 +27,5 @@ private:
 	Math::Matrix camRotMat = Math::Matrix::Identity;
 	std::weak_ptr<CameraBase> m_wpCamera;
 
-	Math::Vector3	m_pos = Math::Vector3::Zero;
-	float m_ang = 0.0f;
+	Math::Vector3	m_pos = { 0.0f,-10.0f,0.0f };
 };

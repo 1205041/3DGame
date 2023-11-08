@@ -62,7 +62,6 @@ void GameScene::Init()
 	// ƒLƒƒƒ‰
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-	spPlayer->SetPos({ 0,0.0f,0 });
 //	spPlayer->RegistHitObj(spSkySp);	/* SkySphere‚Æ‚Ì“–‚½‚è”»’è */
 //	spPlayer->RegistHitObj(spStage);	/* Stage‚Æ‚Ì“–‚½‚è”»’è */
 	m_objList.push_back(spPlayer);
