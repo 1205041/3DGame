@@ -11,7 +11,6 @@
 
 // スカイスフィア
 #include "../../Object/SphereDome/TropicalDomo/GroundDome.h"
-#include "../../Object/SphereDome/RiverSide/RiverSide.h"
 
 // ゲームUI
 #include "../../Object/TextDraw/SceneUI/Game/Sight/Sight.h"
@@ -49,10 +48,6 @@ void GameScene::Init()
 	std::shared_ptr<GroundDome> spGrndDm;
 	spGrndDm = std::make_shared<GroundDome>();
 	m_objList.push_back(spGrndDm);
-
-	std::shared_ptr<RiverSide> spRvSd;
-	spRvSd = std::make_shared<RiverSide>();
-	m_objList.push_back(spRvSd);
 
 	// ゲームUI
 	std::shared_ptr<Sight> spSight;

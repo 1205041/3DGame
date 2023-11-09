@@ -148,9 +148,6 @@
     <Filter Include="Src\Application\Object\SphereDome\TropicalDome">
       <UniqueIdentifier>{e027a8d2-021a-4261-a8d7-ae0e3dc225ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\SphereDome\RivaerSide">
-      <UniqueIdentifier>{0931bbf8-192a-45a4-8297-91a21af42449}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -357,9 +354,6 @@
     <ClInclude Include="Src\Application\Object\SphereDome\TropicalDomo\GroundDome.h">
       <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\SphereDome\RiverSide\RiverSide.h">
-      <Filter>Src\Application\Object\SphereDome\RivaerSide</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -538,9 +532,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\SphereDome\TropicalDomo\GroundDome.cpp">
       <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\SphereDome\RiverSide\RiverSide.cpp">
-      <Filter>Src\Application\Object\SphereDome\RivaerSide</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

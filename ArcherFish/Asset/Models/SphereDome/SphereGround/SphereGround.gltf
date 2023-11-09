@@ -8,8 +8,7 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				0,
-				1
+				0
 			]
 		}
 	],
@@ -17,15 +16,6 @@
 		{
 			"mesh":0,
 			"name":"CircleGround",
-			"scale":[
-				6.8934783935546875,
-				1,
-				1
-			]
-		},
-		{
-			"mesh":1,
-			"name":"SkySphere",
 			"scale":[
 				6.8934783935546875,
 				1,
@@ -52,21 +42,24 @@
 			"name":"Ground",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.24620074033737183,
-					0.5209951400756836,
-					0.520995557308197,
+					0.07496917247772217,
+					0.20186665654182434,
+					0.016385763883590698,
 					1
 				],
+				"metallicFactor":0
+			}
+		},
+		{
+			"name":"SkySphereTex",
+			"pbrMetallicRoughness":{
 				"metallicFactor":0,
 				"roughnessFactor":0.5
 			}
 		},
 		{
-			"name":"SphereTex",
+			"name":"RiverDome",
 			"pbrMetallicRoughness":{
-				"baseColorTexture":{
-					"index":0
-				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
 			}
@@ -93,12 +86,7 @@
 					},
 					"indices":7,
 					"material":1
-				}
-			]
-		},
-		{
-			"name":"Cube.002",
-			"primitives":[
+				},
 				{
 					"attributes":{
 						"POSITION":8,
@@ -107,50 +95,46 @@
 					},
 					"indices":11,
 					"material":2
+				},
+				{
+					"attributes":{
+						"POSITION":12,
+						"NORMAL":13,
+						"TEXCOORD_0":14
+					},
+					"indices":15,
+					"material":3
 				}
 			]
-		}
-	],
-	"textures":[
-		{
-			"sampler":0,
-			"source":0
-		}
-	],
-	"images":[
-		{
-			"mimeType":"image/png",
-			"name":"1KTropDemo.hdr",
-			"uri":"1KTropDemo.hdr"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":384,
+			"count":128,
 			"max":[
-				4.406221866607666,
-				5.927757263183594,
-				30.413354873657227
+				4.40594482421875,
+				0.5683304071426392,
+				30.413352966308594
 			],
 			"min":[
-				-4.417383670806885,
-				-0.6039811372756958,
-				-30.411958694458008
+				-4.417664527893066,
+				-6.375504493713379,
+				-30.411956787109375
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":384,
+			"count":128,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":384,
+			"count":128,
 			"type":"VEC2"
 		},
 		{
@@ -162,29 +146,29 @@
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":128,
+			"count":64,
 			"max":[
-				4.399291038513184,
-				5.927757263183594,
-				30.306442260742188
+				4.399011611938477,
+				0.5683304071426392,
+				30.306446075439453
 			],
 			"min":[
-				-4.385404109954834,
-				-0.12628227472305298,
-				-30.30620765686035
+				-4.385683059692383,
+				-5.4857072830200195,
+				-30.30621337890625
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":128,
+			"count":64,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5126,
-			"count":128,
+			"count":64,
 			"type":"VEC2"
 		},
 		{
@@ -198,14 +182,14 @@
 			"componentType":5126,
 			"count":296,
 			"max":[
-				4.399291038513184,
-				36.21846389770508,
-				30.306442260742188
+				4.399011611938477,
+				30.86559295654297,
+				30.306446075439453
 			],
 			"min":[
-				-4.385404109954834,
-				5.879827499389648,
-				-30.30620765686035
+				-4.385683059692383,
+				0.5243755578994751,
+				-30.30621337890625
 			],
 			"type":"VEC3"
 		},
@@ -226,91 +210,143 @@
 			"componentType":5123,
 			"count":1440,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":12,
+			"componentType":5126,
+			"count":263,
+			"max":[
+				2.5855519771575928,
+				-6.336718559265137,
+				17.87871551513672
+			],
+			"min":[
+				-2.588212251663208,
+				-20.786819458007812,
+				-17.8785400390625
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":13,
+			"componentType":5126,
+			"count":263,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":14,
+			"componentType":5126,
+			"count":263,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":15,
+			"componentType":5123,
+			"count":1248,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":4608,
+			"byteLength":1536,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":4608,
-			"byteOffset":4608,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":3072,
-			"byteOffset":9216,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1152,
-			"byteOffset":12288,
-			"target":34963
-		},
-		{
-			"buffer":0,
 			"byteLength":1536,
-			"byteOffset":13440,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1536,
-			"byteOffset":14976,
+			"byteOffset":1536,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1024,
-			"byteOffset":16512,
+			"byteOffset":3072,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1152,
+			"byteOffset":4096,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":768,
+			"byteOffset":5248,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":768,
+			"byteOffset":6016,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":512,
+			"byteOffset":6784,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":384,
-			"byteOffset":17536,
+			"byteOffset":7296,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":3552,
-			"byteOffset":17920,
+			"byteOffset":7680,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":3552,
-			"byteOffset":21472,
+			"byteOffset":11232,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2368,
-			"byteOffset":25024,
+			"byteOffset":14784,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2880,
-			"byteOffset":27392,
+			"byteOffset":17152,
 			"target":34963
-		}
-	],
-	"samplers":[
+		},
 		{
-			"magFilter":9729,
-			"minFilter":9987
+			"buffer":0,
+			"byteLength":3156,
+			"byteOffset":20032,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":3156,
+			"byteOffset":23188,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2104,
+			"byteOffset":26344,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2496,
+			"byteOffset":28448,
+			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":30272,
+			"byteLength":30944,
 			"uri":"SphereGround.bin"
 		}
 	]
