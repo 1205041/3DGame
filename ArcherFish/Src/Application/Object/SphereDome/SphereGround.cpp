@@ -4,13 +4,9 @@ void SphereGround::PostUpdate()
 {
 	// 拡縮行列
 	m_scaleMat = Math::Matrix::CreateScale(30.0f, 30.0f, 30.0f);
-
-	/* 拡縮メモ */
-	// スカイスフィア：地面 = 149.0f：10.0fで丁度良いサイズ
-	// なので地面のサイズの15倍がスカイスフィアのサイズ
 	
 	// 座標行列
-	m_transMat = Math::Matrix::CreateTranslation({ 0,-6.0f,0 });
+	m_transMat = Math::Matrix::CreateTranslation({ 0,0.0f,0 });
 
 	// 行列合成(ＳＲＴ)
 	m_mWorld = m_scaleMat * m_transMat;

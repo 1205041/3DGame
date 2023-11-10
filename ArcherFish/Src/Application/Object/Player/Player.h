@@ -28,6 +28,6 @@ private:
 	std::weak_ptr<CameraBase> m_wpCamera;
 
 	// ‰ŠúˆÊ’u
-	Math::Vector3	m_pos = { 0.0f,0.0f,0.0f };
+	Math::Vector3	m_pos = { 0.0f,-6.0f,0.0f };
 
 };
