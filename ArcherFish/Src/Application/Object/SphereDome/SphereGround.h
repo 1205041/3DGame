@@ -1,11 +1,11 @@
 #pragma once
-#include "../../ObjBase.h"
+#include "../ObjBase.h"
 
-class GroundDome :public ObjBase
+class SphereGround :public ObjBase
 {
 public:
-	GroundDome() { Init(); }
-	~GroundDome() {};
+	SphereGround() { Init(); }
+	~SphereGround() {};
 
 	void PostUpdate()	override;
 	void DrawUnLit()	override;

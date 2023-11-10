@@ -145,9 +145,6 @@
     <Filter Include="Src\Application\Object\SphereDome">
       <UniqueIdentifier>{c2dbc98b-e5ff-4612-997f-cf0e87e7facb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\SphereDome\TropicalDome">
-      <UniqueIdentifier>{e027a8d2-021a-4261-a8d7-ae0e3dc225ff}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -351,8 +348,8 @@
     <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h">
       <Filter>Library\imgui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\SphereDome\TropicalDomo\GroundDome.h">
-      <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
+    <ClInclude Include="Src\Application\Object\SphereDome\SphereGround.h">
+      <Filter>Src\Application\Object\SphereDome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -530,8 +527,8 @@
     <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp">
       <Filter>Library\imgui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\SphereDome\TropicalDomo\GroundDome.cpp">
-      <Filter>Src\Application\Object\SphereDome\TropicalDome</Filter>
+    <ClCompile Include="Src\Application\Object\SphereDome\SphereGround.cpp">
+      <Filter>Src\Application\Object\SphereDome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

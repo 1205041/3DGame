@@ -10,7 +10,7 @@
 #include "../../Object/Terrain/Stage/Stage.h"
 
 // スカイスフィア
-#include "../../Object/SphereDome/TropicalDomo/GroundDome.h"
+#include "../../Object/SphereDome/SphereGround.h"
 
 // ゲームUI
 #include "../../Object/TextDraw/SceneUI/Game/Sight/Sight.h"
@@ -45,8 +45,8 @@ void GameScene::Init()
 //	m_objList.push_back(spStage);
 
 	// 通常の地面
-	std::shared_ptr<GroundDome> spGrndDm;
-	spGrndDm = std::make_shared<GroundDome>();
+	std::shared_ptr<SphereGround> spGrndDm;
+	spGrndDm = std::make_shared<SphereGround>();
 	m_objList.push_back(spGrndDm);
 
 	// ゲームUI
@@ -57,7 +57,7 @@ void GameScene::Init()
 	// キャラ
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-//	spPlayer->RegistHitObj(spSkySp);	/* SkySphereとの当たり判定 */
+	spPlayer->RegistHitObj(spGrndDm);	/* SkySphereとの当たり判定 */
 //	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
 	m_objList.push_back(spPlayer);
 
