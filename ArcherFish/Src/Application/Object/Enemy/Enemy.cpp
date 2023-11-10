@@ -14,7 +14,7 @@ void Enemy::PostUpdate()
 	m_mWorld = m_transMat;
 
 //	RayUpdateCollision();
-	SphereUpdateCollision();
+	UpdateCollision();
 }
 
 void Enemy::GenerateDepthMapFromLight()

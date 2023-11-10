@@ -21,11 +21,13 @@ public:
 
 private:
 	// ’e”­Ë
-	void Shot();
+	void ShotRayUpdateCollision();
 
 	// ƒJƒƒ‰
 	Math::Matrix camRotMat = Math::Matrix::Identity;
 	std::weak_ptr<CameraBase> m_wpCamera;
 
-	Math::Vector3	m_pos = { 0.0f,-10.0f,0.0f };
+	// ‰ŠúˆÊ’u
+	Math::Vector3	m_pos = { 0.0f,0.0f,0.0f };
+
 };

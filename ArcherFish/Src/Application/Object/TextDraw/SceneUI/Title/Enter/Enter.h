@@ -14,7 +14,7 @@ public:
 private:
 
 	// 色チェンジ
-	float m_colorC = 0.1f;
+	float m_AlphC = 0.1f;
 
 	// 四角の変数
 //	Math::Vector2	m_pos	= Math::Vector2::Zero;

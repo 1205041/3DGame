@@ -2,13 +2,13 @@
 
 void Enter::Update()
 {
-	if (m_colorC <= 1.0f) { m_colorC += 0.02f; }
-	else { m_colorC = 0.1f; }
+	if (m_AlphC <= 1.0f) { m_AlphC += 0.02f; }
+	else { m_AlphC -= 1.0f; }
 }
 
 void Enter::PostUpdate()
 {
-	SetColor({ 1.0f,1.0f,1.0f,m_colorC });
+	SetColor({ 1.0f,1.0f,1.0f,m_AlphC });
 }
 
 //void Enter::DrawSprite()

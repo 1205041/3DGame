@@ -29,8 +29,7 @@ public:
 
 protected:
 	// 衝突判定とそれに伴う座標の更新
-	void RayUpdateCollision();
-	void SphereUpdateCollision();
+	void UpdateCollision();	// 球判定
 
 	//srcから見たdestの角度を習得する関数
 	float GetAngleDeg(Math::Vector3 _src, Math::Vector3 _dest);	//角度
@@ -53,12 +52,11 @@ protected:
 	
 	// 当たり判定用変数
 	std::vector<std::weak_ptr<KdGameObject>>	m_wpHitObjList;
-	const float		enableStepHigh	= 0.2f;
-	float			maxOverLap		= 0.0f;
-	int				notHitCnt		= 0;
-	bool			hit				= false;
-	Math::Vector3	hitPos			= Math::Vector3::Zero;
-	
+	float			maxOverLap = 0.0f;
+	int				notHitCnt = 0;
+	bool			hit = false;
+	Math::Vector3	hitPos = Math::Vector3::Zero;
+
 	// デバック用
 	KdDebugWireFrame m_debugWire;
 };

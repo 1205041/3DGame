@@ -18,14 +18,14 @@ void Player::Update()
 			(Math::Vector3::Backward, camRotMat);
 		m_moveVec += v;
 	}
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (GetAsyncKeyState('D') & 0x8000)
 	{
 		// 下方
 		Math::Vector3 v = Math::Vector3::TransformNormal
 			(Math::Vector3::Down, camRotMat);
 		m_moveVec += v;
 	}
-	if (GetAsyncKeyState('D') & 0x8000)
+	if (GetAsyncKeyState('A') & 0x8000)
 	{
 		// 上方
 		Math::Vector3 v = Math::Vector3::TransformNormal
@@ -54,7 +54,7 @@ void Player::PostUpdate()
 	m_mWorld = m_scaleMat * m_rotMat * camRotMat * m_transMat;
 	
 //	RayUpdateCollision();
-	SphereUpdateCollision();
+	UpdateCollision();
 }
 
 // 影描画関数
@@ -87,15 +87,54 @@ void Player::Init()
 	m_pCollider->RegisterCollisionShape("PlayerColl", GetPos(), 0.25f, KdCollider::TypeBump);
 }
 
-void Player::Shot()
+/* ==================== */
+/* 弾発射レイ当たり判定 */
+/* ==================== */
+void Player::ShotRayUpdateCollision()
 {
-	Math::Vector3	dir = Math::Vector3::Zero;
-	float			range = 0.0f;
-	m_wpCamera.lock()->WorkCamera()->GenerateRayInfoFromClientPos
-	(
-		{ 1280 / 2,720 / 2 },		// 2D座標
-		m_wpCamera.lock()->GetPos(),// カメラの座標
-		dir,						// 方向
-		range						// レイの長さ
-	);
+	// ①当たり判定(レイ判定)用の情報を作成
+	KdCollider::RayInfo rayInfo;
+	rayInfo.m_pos = GetPos();				// レイの発射位置を設定
+	rayInfo.m_dir = Math::Vector3::Down;	// レイの発射方向を設定
+	rayInfo.m_type = KdCollider::TypeGround;// 当たり判定をしたいタイプを設定
+
+	// 少し高い所から飛ばす(段差の許容範囲)
+	const float	enableStepHigh = 0.2f;
+	rayInfo.m_pos.y += enableStepHigh;
+	rayInfo.m_range = enableStepHigh;// レイの長さを設定
+
+	/* === デバック用 === */
+	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
+
+	// ②HIT判定対象オブジェクトに総当たり
+	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
+	{
+		if (!wpGameObj.expired())
+		{
+			std::shared_ptr<KdGameObject> spGameObj = wpGameObj.lock();
+			if (spGameObj)
+			{
+				std::list<KdCollider::CollisionResult> retRayList;
+				spGameObj->Intersects(rayInfo, &retRayList);
+
+				// ③結果を使って座標を補完する
+				// レイに当たったリストから一番近いオブジェクトを検出
+				maxOverLap = 0.0f;
+				hit = false;
+				hitPos = Math::Vector3::Zero;
+				for (auto& ret : retRayList)
+				{
+					// レイを遮断しオーバーした長さが一番長いものを探す
+					if (maxOverLap < ret.m_overlapDistance)
+					{
+						maxOverLap = ret.m_overlapDistance;
+						hitPos = ret.m_hitPos;
+						hit = true;
+					}
+				}
+				// 何かしらに当たっている
+				if (hit) { SetPos(hitPos); }
+			}
+		}
+	}
 }

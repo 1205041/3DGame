@@ -8,7 +8,9 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				0
+				0,
+				1,
+				2
 			]
 		}
 	],
@@ -23,7 +25,35 @@
 			],
 			"translation":[
 				0.27122703194618225,
-				0,
+				0.21518906950950623,
+				0
+			]
+		},
+		{
+			"mesh":1,
+			"name":"Skydome",
+			"scale":[
+				6.8934783935546875,
+				1,
+				1
+			],
+			"translation":[
+				0.27122703194618225,
+				0.21518906950950623,
+				0
+			]
+		},
+		{
+			"mesh":2,
+			"name":"RiverDome",
+			"scale":[
+				6.8934783935546875,
+				1,
+				1
+			],
+			"translation":[
+				0.27122703194618225,
+				0.21518906950950623,
 				0
 			]
 		}
@@ -71,8 +101,7 @@
 				"baseColorTexture":{
 					"index":1
 				},
-				"metallicFactor":0,
-				"roughnessFactor":0.5
+				"metallicFactor":0
 			}
 		}
 	],
@@ -97,7 +126,12 @@
 					},
 					"indices":7,
 					"material":1
-				},
+				}
+			]
+		},
+		{
+			"name":"Cube.002",
+			"primitives":[
 				{
 					"attributes":{
 						"POSITION":8,
@@ -106,7 +140,12 @@
 					},
 					"indices":11,
 					"material":2
-				},
+				}
+			]
+		},
+		{
+			"name":"Cube.003",
+			"primitives":[
 				{
 					"attributes":{
 						"POSITION":12,
@@ -145,7 +184,7 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":145,
+			"count":128,
 			"max":[
 				0.39937734603881836,
 				0.5000066757202148,
@@ -161,13 +200,13 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":145,
+			"count":128,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":145,
+			"count":128,
 			"type":"VEC2"
 		},
 		{
@@ -282,98 +321,98 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":1740,
+			"byteLength":1536,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1740,
-			"byteOffset":1740,
+			"byteLength":1536,
+			"byteOffset":1536,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1160,
-			"byteOffset":3480,
+			"byteLength":1024,
+			"byteOffset":3072,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1152,
-			"byteOffset":4640,
+			"byteOffset":4096,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":768,
-			"byteOffset":5792,
+			"byteOffset":5248,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":768,
-			"byteOffset":6560,
+			"byteOffset":6016,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":512,
-			"byteOffset":7328,
+			"byteOffset":6784,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":384,
-			"byteOffset":7840,
+			"byteOffset":7296,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":3552,
-			"byteOffset":8224,
+			"byteOffset":7680,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":3552,
-			"byteOffset":11776,
+			"byteOffset":11232,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2368,
-			"byteOffset":15328,
+			"byteOffset":14784,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2880,
-			"byteOffset":17696,
+			"byteOffset":17152,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":3156,
-			"byteOffset":20576,
+			"byteOffset":20032,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":3156,
-			"byteOffset":23732,
+			"byteOffset":23188,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2104,
-			"byteOffset":26888,
+			"byteOffset":26344,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2496,
-			"byteOffset":28992,
+			"byteOffset":28448,
 			"target":34963
 		}
 	],
@@ -385,7 +424,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":31488,
+			"byteLength":30944,
 			"uri":"SphereGround.bin"
 		}
 	]

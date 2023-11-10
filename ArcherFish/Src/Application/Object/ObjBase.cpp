@@ -7,61 +7,10 @@ void ObjBase::SetTarget(const std::shared_ptr<KdGameObject>& _target)
 	m_wpTarget = _target;
 }
 
-/* ====================== */
-/* 当たり判定(レイ判定用) */
-/* ====================== */
-void ObjBase::RayUpdateCollision()
-{
-	// ①当たり判定(レイ判定)用の情報を作成
-	KdCollider::RayInfo rayInfo;
-	rayInfo.m_pos = GetPos();				// レイの発射位置を設定
-	rayInfo.m_dir = Math::Vector3::Down;	// レイの発射方向を設定
-	rayInfo.m_type = KdCollider::TypeGround;// 当たり判定をしたいタイプを設定
-
-	// 少し高い所から飛ばす(段差の許容範囲)
-	rayInfo.m_pos.y += enableStepHigh;
-	rayInfo.m_range = enableStepHigh;// レイの長さを設定
-
-	/* === デバック用 === */
-	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
-
-	// ②HIT判定対象オブジェクトに総当たり
-	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
-	{
-		if (!wpGameObj.expired())
-		{
-			std::shared_ptr<KdGameObject> spGameObj = wpGameObj.lock();
-			if (spGameObj)
-			{
-				std::list<KdCollider::CollisionResult> retRayList;
-				spGameObj->Intersects(rayInfo, &retRayList);
-
-				// ③結果を使って座標を補完する
-				// レイに当たったリストから一番近いオブジェクトを検出
-				maxOverLap = 0.0f;
-				hit = false;
-				hitPos = Math::Vector3::Zero;
-				for (auto& ret : retRayList)
-				{
-					// レイを遮断しオーバーした長さが一番長いものを探す
-					if (maxOverLap < ret.m_overlapDistance)
-					{
-						maxOverLap = ret.m_overlapDistance;
-						hitPos = ret.m_hitPos;
-						hit = true;
-					}
-				}
-				// 何かしらに当たっている
-				if (hit) { SetPos(hitPos); }
-			}
-		}
-	}
-}
-
 /* ==================== */
 /* 当たり判定(球判定用) */
 /* ==================== */
-void ObjBase::SphereUpdateCollision()
+void ObjBase::UpdateCollision()
 {
 	// ①当たり判定(球判定)用の情報を作成
 	KdCollider::SphereInfo sphereInfo;
@@ -70,7 +19,7 @@ void ObjBase::SphereUpdateCollision()
 	sphereInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用(球) === */
-//	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
+	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
 
 	// ②HIT判定対象オブジェクトに総当たり
 	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
