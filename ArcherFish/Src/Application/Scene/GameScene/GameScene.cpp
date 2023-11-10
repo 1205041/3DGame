@@ -74,5 +74,4 @@ void GameScene::Init()
 	spTps->SetTarget(spPlayer);
 	spPlayer->SetCamera(spTps);
 	m_objList.push_back(spTps);
-
 }
