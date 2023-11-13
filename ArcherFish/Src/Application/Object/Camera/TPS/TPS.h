@@ -19,5 +19,7 @@ private:
 
 	POINT m_FixMousePos;
 
+	// “–‚½‚è”»’è—p•Ï”
 	std::weak_ptr<KdGameObject> m_wpHitObject;
+	Math::Vector3	hitPos = Math::Vector3::Zero;
 };

@@ -20,7 +20,7 @@ public:
 	void SetCamera(const std::shared_ptr<CameraBase>& _camera) { m_wpCamera = _camera; }
 
 private:
-	// ’e”­Ë
+	// ’e“–‚½‚è”»’è
 	void ShotRayUpdateCollision();
 
 	// ƒJƒƒ‰
@@ -29,5 +29,8 @@ private:
 
 	// ‰ŠúˆÊ’u
 	Math::Vector3	m_pos = { 0.0f,-6.0f,0.0f };
+
+	// “–‚½‚è”»’è—p•Ï”
+	Math::Vector3	hitPos = Math::Vector3::Zero;
 
 };

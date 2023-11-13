@@ -35,8 +35,9 @@ protected:
 	float GetAngleDeg(Math::Vector3 _src, Math::Vector3 _dest);	//角度
 
 	// モデルとカメラのスマポ
-	std::shared_ptr<KdModelWork>		m_spModel	= nullptr;
-	std::shared_ptr<KdCamera>			m_spCamera	= nullptr;
+	std::shared_ptr<KdModelWork>		m_spModelWork	= nullptr;
+	std::shared_ptr<KdModelData>		m_spModelData	= nullptr;
+	std::shared_ptr<KdCamera>			m_spCamera		= nullptr;
 	std::weak_ptr<KdGameObject>			m_wpTarget;
 
 	// 行列一覧
@@ -53,9 +54,8 @@ protected:
 	// 当たり判定用変数
 	std::vector<std::weak_ptr<KdGameObject>>	m_wpHitObjList;
 	float			maxOverLap = 0.0f;
-	int				notHitCnt = 0;
 	bool			hit = false;
-	Math::Vector3	hitPos = Math::Vector3::Zero;
+	Math::Vector3	hitDir = Math::Vector3::Zero;
 
 	// デバック用
 	KdDebugWireFrame m_debugWire;

@@ -22,6 +22,7 @@ void ObjBase::UpdateCollision()
 	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
 
 	// ②HIT判定対象オブジェクトに総当たり
+	Math::Vector3 newPos = Math::Vector3::Zero;
 	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
 	{
 		if (!wpGameObj.expired())
@@ -32,12 +33,27 @@ void ObjBase::UpdateCollision()
 				std::list<KdCollider::CollisionResult> retBumpList;
 				spGameObj->Intersects(sphereInfo, &retBumpList);
 
+				maxOverLap = 0.0f;
+				hit = false;
+				hitDir = Math::Vector3::Zero;
 				for (auto& ret : retBumpList)
 				{
-					Math::Vector3 newPos = GetPos() + (ret.m_hitDir * ret.m_overlapDistance);
+					if (maxOverLap < ret.m_overlapDistance)
+					{
+						maxOverLap = ret.m_overlapDistance;
+						hit = true;
+						hitDir = ret.m_hitDir;// 押し返す方向
+					}
+				}
+				if (hit)
+				{
+					// ③結果を使って座標を補完する
+					hitDir.Normalize();
+
+					// 押し返し
+					newPos = GetPos() + (hitDir * maxOverLap);
 					SetPos(newPos);
 				}
-				// ③結果を使って座標を補完する
 			}
 		}
 	}

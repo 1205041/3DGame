@@ -44,7 +44,7 @@ void GameScene::Init()
 //	spStage = std::make_shared<Stage>();
 //	m_objList.push_back(spStage);
 
-	// 通常の地面
+	// スカイスフィア
 	std::shared_ptr<SphereGround> spGrndDm;
 	spGrndDm = std::make_shared<SphereGround>();
 	m_objList.push_back(spGrndDm);
@@ -64,7 +64,7 @@ void GameScene::Init()
 	// エネミー
 	std::shared_ptr<Enemy> spEnemy;
 	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0,0.0f,5.0f });
+	spEnemy->SetPos({ 0.0f,5.0f,0.0f });
 	m_objList.push_back(spEnemy);
 
 	// カメラの初期化

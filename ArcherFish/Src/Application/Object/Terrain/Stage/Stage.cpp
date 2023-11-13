@@ -17,19 +17,19 @@ void Stage::PostUpdate()
 
 void Stage::DrawLit()
 {
-	if (!m_spModel) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModel, m_mWorld);
+	if (!m_spModelData) { return; }
+	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
 }
 
 void Stage::Init()
 {
-	if (!m_spModel)
+	if (!m_spModelData)
 	{
 		//	ÉÇÉfÉã(ínñ )èâä˙âª
-		m_spModel = std::make_shared<KdModelWork>();
-		m_spModel->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Terrain/Stage/Stage.gltf"));
+		m_spModelData = std::make_shared<KdModelData>();
+		m_spModelData->Load("Asset/Models/Terrain/Stage/Stage.gltf");
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("StageColl", m_spModel, KdCollider::TypeBump);
+	m_pCollider->RegisterCollisionShape("StageColl", m_spModelData, KdCollider::TypeBump);
 }
