@@ -163,6 +163,7 @@
     <ClInclude Include="Src\Application\Object\SphereDome\SphereGround.h" />
     <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\TextDraw.h" />
     <ClInclude Include="Src\Application\Scene\GameScene\GameScene.h" />
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Src\Application\Object\SphereDome\SphereGround.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\TextDraw.cpp" />
     <ClCompile Include="Src\Application\Scene\GameScene\GameScene.cpp" />
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp" />

@@ -2,6 +2,8 @@
 
 // ”wŒi•ƒ^ƒCƒgƒ‹ƒƒS
 #include "../../Object/TextDraw/TextDraw.h"
+#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
+#include "../../Object/TextDraw/SceneUI/Enter/Enter.h"
 
 void TitleScene::Event()
 {
@@ -28,7 +30,14 @@ void TitleScene::Init()
 	spText->SetLoadText("Asset/Textures/SceneUI/Title/Logo/TitleLogo.png", { 0.0f,0.0f }, { 0,0,450, 90 });
 	m_objList.push_back(spText);
 
-	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Title/Key/Enter.png", { 0.0f,-150.0f }, { 0,0, 300, 60 });
-	m_objList.push_back(spText);
+	std::shared_ptr<Enter> spEnter;
+	spEnter = std::make_shared<Enter>();
+	m_objList.push_back(spEnter);
+
+	for (int i = 0; i < babbleNum; i++)
+	{
+		std::shared_ptr<Bubble> spBublle;
+		spBublle = std::make_shared<Bubble>();
+		m_objList.push_back(spBublle);
+	}
 }

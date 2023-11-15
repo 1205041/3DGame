@@ -121,6 +121,12 @@
     <Filter Include="Src\Application\Object\SphereDome">
       <UniqueIdentifier>{c2dbc98b-e5ff-4612-997f-cf0e87e7facb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI">
+      <UniqueIdentifier>{aafe3a2b-5ab1-473f-8311-82f93b9e9c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Eneter">
+      <UniqueIdentifier>{66c72225-e92f-4cbd-837f-b637bacaa4d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -315,6 +321,9 @@
     <ClInclude Include="Src\Application\Object\SphereDome\SphereGround.h">
       <Filter>Src\Application\Object\SphereDome</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -481,6 +490,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\SphereDome\SphereGround.cpp">
       <Filter>Src\Application\Object\SphereDome</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

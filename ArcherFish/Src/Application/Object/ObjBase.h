@@ -42,7 +42,6 @@ protected:
 
 	// 行列一覧
 	Math::Matrix	m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
-	Math::Vector3	m_scale		= Math::Vector3::One;		// サイズ
 	Math::Matrix	m_rotMat	= Math::Matrix::Identity;	// 回転行列
 	Math::Matrix	m_transMat	= Math::Matrix::Identity;	// 座標行列
 	Math::Vector3	m_nowPos	= Math::Vector3::Zero;		// 現在座標
