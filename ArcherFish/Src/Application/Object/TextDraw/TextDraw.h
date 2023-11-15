@@ -24,4 +24,5 @@ private:
 
 	// 色チェンジ
 	float m_AlphC = 0.1f;
+
 };
