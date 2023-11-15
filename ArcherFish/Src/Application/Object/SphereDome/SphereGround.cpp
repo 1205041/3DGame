@@ -37,7 +37,7 @@ void SphereGround::SkySphereCollision()
 	// ①当たり判定(球判定)用の情報を作成
 	KdCollider::SphereInfo sphereInfo;
 	sphereInfo.m_sphere.Center = GetPos() + Math::Vector3(0.0f, 10.0f, 0.0f);
-	sphereInfo.m_sphere.Radius = 50.0f;
+	sphereInfo.m_sphere.Radius = 53.0f;
 	sphereInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用(球) === */

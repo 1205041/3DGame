@@ -53,8 +53,7 @@ void Player::PostUpdate()
 	// s—ñ‡¬(‚r‚q‚s)
 	m_mWorld = m_scaleMat * m_rotMat * camRotMat * m_transMat;
 	
-//	RayUpdateCollision();
-	UpdateCollision();
+	CharaSphereUpdateCollision();
 }
 
 // ‰e•`‰æŠÖ”

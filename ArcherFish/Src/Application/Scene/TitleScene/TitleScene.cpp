@@ -1,10 +1,7 @@
 #include "TitleScene.h"
 
 // 背景＆タイトルロゴ
-#include "../../Object/TextDraw/BackGround/BackDrop/BackDrop.h"
-#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
-#include "../../Object/TextDraw/SceneUI/Title/Logo/Logo.h"
-#include "../../Object/TextDraw/SceneUI/Title/Enter/Enter.h"
+#include "../../Object/TextDraw/TextDraw.h"
 
 void TitleScene::Event()
 {
@@ -22,15 +19,16 @@ void TitleScene::Init()
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
 	
 	// オブジェクトの初期化
-	std::shared_ptr<BackDrop> spBD;
-	spBD = std::make_shared<BackDrop>();
-	m_objList.push_back(spBD);
+	std::shared_ptr<TextDraw> spText;
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png", { 0.0f,0.0f }, { 0,0,1280,720 });
+	m_objList.push_back(spText);
 
-	std::shared_ptr<Logo> spTL;
-	spTL = std::make_shared<Logo>();
-	m_objList.push_back(spTL);
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/SceneUI/Title/Logo/TitleLogo.png", { 0.0f,0.0f }, { 0,0,450, 90 });
+	m_objList.push_back(spText);
 
-	std::shared_ptr<Enter> spEK;
-	spEK = std::make_shared<Enter>();
-	m_objList.push_back(spEK);
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/SceneUI/Title/Key/Enter.png", { 0.0f,-150.0f }, { 0,0, 300, 60 });
+	m_objList.push_back(spText);
 }

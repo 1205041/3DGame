@@ -1,6 +1,6 @@
 #include "ResultScene.h"
-#include "../../Object/TextDraw/BackGround/BackDrop/BackDrop.h"
-#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
+#include "../../Object/TextDraw/TextDraw.h"
+//#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
 
 void ResultScene::Event()
 {
@@ -23,7 +23,8 @@ void ResultScene::Init()
 
 	/* オブジェクトの初期化 */
 	// シーン
-	std::shared_ptr<BackDrop> spBD;
-	spBD = std::make_shared<BackDrop>();
-	m_objList.push_back(spBD);
+	std::shared_ptr<TextDraw> spText;
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png", { 0.0f,0.0f }, { 0,0,1280,720 });
+	m_objList.push_back(spText);
 }

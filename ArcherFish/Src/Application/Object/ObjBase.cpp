@@ -10,7 +10,7 @@ void ObjBase::SetTarget(const std::shared_ptr<KdGameObject>& _target)
 /* ==================== */
 /* “–‚½‚è”»’è(‹…”»’è—p) */
 /* ==================== */
-void ObjBase::UpdateCollision()
+void ObjBase::CharaSphereUpdateCollision()
 {
 	// ‡@“–‚½‚è”»’è(‹…”»’è)—p‚Ìî•ñ‚ğì¬
 	KdCollider::SphereInfo sphereInfo;

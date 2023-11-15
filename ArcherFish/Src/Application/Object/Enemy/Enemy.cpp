@@ -13,7 +13,7 @@ void Enemy::PostUpdate()
 	// ƒLƒƒƒ‰‚ÌÀ•Ws—ñ
 	m_mWorld = m_transMat;
 
-	UpdateCollision();
+	CharaSphereUpdateCollision();
 }
 
 void Enemy::GenerateDepthMapFromLight()

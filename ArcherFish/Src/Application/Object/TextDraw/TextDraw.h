@@ -7,21 +7,21 @@ public:
 	TextDraw() { Init(); }
 	~TextDraw() {}
 
-	virtual void	Update()		override {}
-	virtual void	PostUpdate()	override {}
-	virtual void	DrawSprite()	override;
-	virtual void	Init()			override {}
+	void Update()		override;
+	void PostUpdate()	override;
+	void DrawSprite()	override;
+	void Init()			override;
 
-protected:
-	void SetText(const std::string _tex) { m_tex.Load(_tex); }
-	void SetPixel(const Math::Vector2 _pixel) { m_pixel = _pixel; }
-	void SetRecAng(const Math::Rectangle _recAng) { m_recAngle = _recAng; }
+	void SetLoadText(const std::string _tex, const Math::Vector2 _pixel, const Math::Rectangle _recAng);
+
 	void SetColor(const Math::Color _color) { m_color = _color; }
-
 private:
 	// テクスチャ表示
 	KdTexture		m_tex;
 	Math::Vector2	m_pixel		= Math::Vector2::Zero;
 	Math::Rectangle	m_recAngle	= { 0,0,0,0 };
 	Math::Color		m_color		= { 1.0f,1.0f,1.0f,1.0f };
+
+	// 色チェンジ
+	float m_AlphC = 0.1f;
 };

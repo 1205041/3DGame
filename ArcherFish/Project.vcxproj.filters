@@ -94,35 +94,11 @@
     <Filter Include="Src\Application\Object\TextDraw">
       <UniqueIdentifier>{66d9a65d-981e-408c-958c-3bfb7a1db05b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI">
-      <UniqueIdentifier>{24b5de61-3a53-415e-9822-4422484a2dd5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title">
-      <UniqueIdentifier>{0303e247-c943-4776-9512-1b4a4bf69a06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Game">
-      <UniqueIdentifier>{28f52407-881b-412c-8eba-2dfb28c69ef5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Result">
-      <UniqueIdentifier>{c62dcf57-fde0-4ad4-b483-1ecb10d84af1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight">
-      <UniqueIdentifier>{7d6cfae2-40ef-4db5-8274-ab3fc81d1198}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo">
-      <UniqueIdentifier>{150ce7ab-ea95-4a33-a5ba-9b2dd25f17d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter">
-      <UniqueIdentifier>{14485eba-e9dc-4bf3-9ddb-45e6e2171ecc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\Enemy">
       <UniqueIdentifier>{c3a7a6f7-da0a-4532-8aa2-ef6a240f5b7d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\BackGround">
       <UniqueIdentifier>{ebbc105a-5580-4f38-949f-63999b28b79f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\BackGround\BackDrop">
-      <UniqueIdentifier>{ce9982ab-f405-4a8e-9907-37c9ffc2e3ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\BackGround\BackEffect">
       <UniqueIdentifier>{75942623-fc82-40d3-a2cf-f420ff33dd8e}</UniqueIdentifier>
@@ -297,23 +273,11 @@
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.h">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Enter</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo\Logo.h">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Logo</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.h">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Game\Sight</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\TextDraw.h">
       <Filter>Src\Application\Object\TextDraw</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\Enemy\Enemy.h">
       <Filter>Src\Application\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackDrop\BackDrop.h">
-      <Filter>Src\Application\Object\TextDraw\BackGround\BackDrop</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.h">
       <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
@@ -482,23 +446,11 @@
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Enter\Enter.cpp">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Enter</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Title\Logo\Logo.cpp">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Title\Logo</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Game\Sight\Sight.cpp">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Game\Sight</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\TextDraw.cpp">
       <Filter>Src\Application\Object\TextDraw</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp">
       <Filter>Src\Application\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackDrop\BackDrop.cpp">
-      <Filter>Src\Application\Object\TextDraw\BackGround\BackDrop</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.cpp">
       <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
