@@ -8,7 +8,7 @@ void Enter::Update()
 
 void Enter::PostUpdate()
 {
-	SetColor({ 1.0f,1.0f,1.0f,m_AlphC });
+	m_color = { 1.0f,1.0f,1.0f,m_AlphC };
 }
 
 void Enter::Init()

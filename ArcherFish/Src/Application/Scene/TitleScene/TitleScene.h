@@ -11,5 +11,4 @@ private:
 	void Event()override;
 	void Init()	override;
 
-	const int babbleNum = 100;// –A‚Ì‘”
 };

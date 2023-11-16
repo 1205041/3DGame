@@ -13,6 +13,8 @@ public:
 	void Init()			override;
 private:
 	// –A‚Ìƒpƒ‰ƒ[ƒ^(‰~)
-	Math::Vector2	m_pos;
-	float			m_radius	= 0.0f;
+	Math::Vector2	m_pos = Math::Vector2::Zero;
+	float			m_radius	= 1.0f;
+
+	const int babbleNum = 100;// –A‚Ì‘”
 };
