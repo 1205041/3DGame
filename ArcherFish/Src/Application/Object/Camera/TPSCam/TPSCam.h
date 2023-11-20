@@ -1,16 +1,17 @@
 #pragma once
-#include "../CameraBase.h"
+#include "../CamBase.h"
 
-class TPS :public CameraBase
+class TPSCam :public CamBase
 {
 public:
-	TPS() { Init(); }
-	~TPS() {}
+	TPSCam() { Init(); }
+	~TPSCam() {}
 
-	void Init()			override;
+	void Init()		override;
 	void PostUpdate()	override;
-	void RegistHitObject(const std::shared_ptr<KdGameObject>& object) { m_wpHitObject = object; }
 
+	// “–‚½‚è”»’è—p
+	void RegistHitObject(const std::shared_ptr<KdGameObject>& object) { m_wpHitObject = object; }
 private:
 	void UpdateRotateByMouse();
 

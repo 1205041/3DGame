@@ -16,7 +16,7 @@
 #include "../../Object/TextDraw/TextDraw.h"
 
 // ƒJƒƒ‰
-#include "../../Object/Camera/TPS/TPS.h"
+#include "../../Object/Camera/TPSCam/TPSCam.h"
 
 void GameScene::Event()
 {
@@ -71,10 +71,11 @@ void GameScene::Init()
 	m_objList.push_back(spPlayer);
 
 	// ƒJƒƒ‰‚Ì‰Šú‰»
-	std::shared_ptr<TPS> spTps;
-	spTps = std::make_shared<TPS>();
+	std::shared_ptr<TPSCam> spTps;
+	spTps = std::make_shared<TPSCam>();
 //	spTps->RegistHitObject(spGround);	/* Ground‚Æ‚Ì“–‚½‚è”»’è */
+	m_objList.push_back(spTps);
+
 	spTps->SetTarget(spPlayer);
 	spPlayer->SetCamera(spTps);
-	m_objList.push_back(spTps);
 }

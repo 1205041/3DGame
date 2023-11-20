@@ -1,14 +1,15 @@
 #pragma once
 #include "../ObjBase.h"
 
-class CameraBase :public ObjBase
+class CamBase :public ObjBase
 {
 public:
-	CameraBase() { Init(); }
-	~CameraBase() {}
+	CamBase() { Init(); }
+	~CamBase() {}
 
 	void Init()			override;
 	void Update()		override;
+	void PostUpdate()	override;
 	void PreDraw()		override;
 
 	void SetTarget(const std::shared_ptr<KdGameObject>& _target);

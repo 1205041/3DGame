@@ -1,7 +1,7 @@
 #pragma once
 #include "../ObjBase.h"
 
-class CameraBase;
+class TPSCam;
 class Enemy;
 
 class Player :public ObjBase
@@ -18,16 +18,15 @@ public:
 
 	void Init()						override;
 
-	void SetCamera(const std::shared_ptr<CameraBase>& _camera) { m_wpCamera = _camera; }
+	void SetCamera(const std::shared_ptr<TPSCam>& _camera) { m_wpCamera = _camera; }
 	void SetEnemy(const std::shared_ptr<Enemy>& _enemy) { m_wpEnemy = _enemy; }
-
 private:
 	// ’e“–‚½‚è”»’è
 	void ShotRayUpdateCollision();
 
 	// ƒJƒƒ‰
 	Math::Matrix camRotMat = Math::Matrix::Identity;
-	std::weak_ptr<CameraBase> m_wpCamera;
+	std::weak_ptr<TPSCam> m_wpCamera;
 
 	// “G
 	std::weak_ptr<Enemy> m_wpEnemy;

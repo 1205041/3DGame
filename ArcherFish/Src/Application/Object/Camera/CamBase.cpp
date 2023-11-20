@@ -1,29 +1,31 @@
-#include "CameraBase.h"
+#include "CamBase.h"
 
-void CameraBase::Init()
+void CamBase::Init()
 {
 	if (!m_spCamera) { m_spCamera = std::make_shared<KdCamera>(); }
-
 	m_degAng = Math::Vector3::Zero;
 }
 
-void CameraBase::Update()
+void CamBase::Update()
 {
 	if (!m_spCamera) { return; }
+//	m_spCamera->GenerateRayInfoFromClientPos()
+}
 
+void CamBase::PostUpdate()
+{
+	if (!m_spCamera) { return; }
 	m_spCamera->SetCameraMatrix(m_mWorld);
 }
 
-void CameraBase::PreDraw()
+void CamBase::PreDraw()
 {
 	if (!m_spCamera) { return; }
-
 	m_spCamera->SetToShader();
 }
 
-void CameraBase::SetTarget(const std::shared_ptr<KdGameObject>& _target)
+void CamBase::SetTarget(const std::shared_ptr<KdGameObject>& _target)
 {
 	if (!_target) { return; }
-
 	m_wpTarget = _target;
 }

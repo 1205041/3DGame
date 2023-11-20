@@ -82,9 +82,6 @@
     <Filter Include="Src\Application\Object\Camera">
       <UniqueIdentifier>{c800615e-3953-4c78-945d-7aaa7184d465}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\Camera\TPS">
-      <UniqueIdentifier>{d27fba3a-a20d-43e5-bb9b-d7f4b70293e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\Terrain">
       <UniqueIdentifier>{27f06727-c545-4f19-af94-040420fa0770}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,9 @@
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\Eneter">
       <UniqueIdentifier>{66c72225-e92f-4cbd-837f-b637bacaa4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Camera\TPSCam">
+      <UniqueIdentifier>{0c20af6f-c365-4fbf-a078-76a5ce6ef732}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -264,11 +264,8 @@
     <ClInclude Include="Src\Application\Scene\SceneManager.h">
       <Filter>Src\Application\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\Camera\CameraBase.h">
+    <ClInclude Include="Src\Application\Object\Camera\CamBase.h">
       <Filter>Src\Application\Object\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\Camera\TPS\TPS.h">
-      <Filter>Src\Application\Object\Camera\TPS</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\ObjBase.h">
       <Filter>Src\Application\Object</Filter>
@@ -323,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Camera\TPSCam\TPSCam.h">
+      <Filter>Src\Application\Object\Camera\TPSCam</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,11 +440,8 @@
     <ClCompile Include="Src\Application\Scene\SceneManager.cpp">
       <Filter>Src\Application\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\Camera\CameraBase.cpp">
+    <ClCompile Include="Src\Application\Object\Camera\CamBase.cpp">
       <Filter>Src\Application\Object\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\Camera\TPS\TPS.cpp">
-      <Filter>Src\Application\Object\Camera\TPS</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\ObjBase.cpp">
       <Filter>Src\Application\Object</Filter>
@@ -493,6 +490,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Camera\TPSCam\TPSCam.cpp">
+      <Filter>Src\Application\Object\Camera\TPSCam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

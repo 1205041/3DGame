@@ -1,6 +1,6 @@
-#include "TPS.h"
+#include "TPSCam.h"
 
-void TPS::Init()
+void TPSCam::Init()
 {
 	// 基準点(ターゲット)の目線の位置
 	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.8f, 1.5f, -3.5f));
@@ -11,10 +11,10 @@ void TPS::Init()
 
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 
-	CameraBase::Init();
+	CamBase::Init();
 }
 
-void TPS::PostUpdate()
+void TPSCam::PostUpdate()
 {
 	// ターゲットの行列
 	Math::Matrix targetMat = Math::Matrix::Identity;
@@ -32,10 +32,10 @@ void TPS::PostUpdate()
 
 	UpdateCollision();
 
-	CameraBase::Update();
+	CamBase::PostUpdate();
 }
 
-void TPS::UpdateRotateByMouse()
+void TPSCam::UpdateRotateByMouse()
 {
 	// マウス位置の差分を得る
 	POINT nowPos{};
@@ -50,20 +50,20 @@ void TPS::UpdateRotateByMouse()
 	// カメラを回転させる為に各軸の回転角度を設定する
 	m_degAng.x += mouseMove.y * 0.15f;
 	m_degAng.y += mouseMove.x * 0.15f;
-	
+
 	// 回転制御
 	m_degAng.x = std::clamp(m_degAng.x, -FLT_MAX, FLT_MAX);
 	m_degAng.y = std::clamp(m_degAng.y, -FLT_MAX, FLT_MAX);
 }
 
-void TPS::UpdateCollision()
+void TPSCam::UpdateCollision()
 {
 	const std::shared_ptr<const KdGameObject> spTarget = m_wpTarget.lock();
 	if (!spTarget) { return; }
 
 	// ①レイ判定の情報作成
 	KdCollider::RayInfo rayInfo;
-	
+
 	// レイの発射位置を設定
 	rayInfo.m_pos = spTarget->GetPos();
 
@@ -89,9 +89,9 @@ void TPS::UpdateCollision()
 
 		// ③結果を使って座標を補完する
 		// レイに当たったリストから一番近いオブジェクトを検出
-		maxOverLap	= 0.0f;
-		hit			= false;
-		hitPos		= Math::Vector3::Zero;
+		maxOverLap = 0.0f;
+		hit = false;
+		hitPos = Math::Vector3::Zero;
 		for (auto& ret : retRayList)
 		{
 			// レイを遮断し、オーバーした長さが一番長いものを探す
