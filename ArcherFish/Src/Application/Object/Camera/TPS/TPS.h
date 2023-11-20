@@ -17,8 +17,6 @@ private:
 	// 衝突判定に伴う座標更新
 	void UpdateCollision();
 
-	POINT m_FixMousePos;
-
 	// 当たり判定用変数
 	std::weak_ptr<KdGameObject> m_wpHitObject;
 	Math::Vector3	hitPos = Math::Vector3::Zero;

@@ -1,6 +1,7 @@
 #include "Player.h"
 
 #include "../Camera/TPS/TPS.h"
+#include "../Enemy/Enemy.h"
 
 // 更新関数
 void Player::Update()
@@ -32,6 +33,10 @@ void Player::Update()
 			(Math::Vector3::Up, camRotMat);
 		m_moveVec += v;
 	}
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	{
+		ShotRayUpdateCollision();
+	}
 
 	// 正規化
 	m_moveVec.Normalize();
@@ -46,6 +51,9 @@ void Player::PostUpdate()
 {
 	// 拡縮行列
 	m_scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
+
+	// 回転行列
+	m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(m_mousePos.y));
 
 	// 座標行列
 	m_transMat = Math::Matrix::CreateTranslation(m_pos);
@@ -91,10 +99,13 @@ void Player::Init()
 /* ==================== */
 void Player::ShotRayUpdateCollision()
 {
+//	std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
+//	if (spEnemy) { spEnemy->SetActFlg(false); }
+
 	// ①当たり判定(レイ判定)用の情報を作成
 	KdCollider::RayInfo rayInfo;
-	rayInfo.m_pos = GetPos();				// レイの発射位置を設定
-	rayInfo.m_dir = Math::Vector3::Down;	// レイの発射方向を設定
+	rayInfo.m_pos = GetPos() + Math::Vector3{ 0.0f,0.4f,0.0f };		// レイの発射位置を設定
+	rayInfo.m_dir = Math::Vector3::Backward;// レイの発射方向を設定
 	rayInfo.m_type = KdCollider::TypeGround;// 当たり判定をしたいタイプを設定
 
 	// 少し高い所から飛ばす(段差の許容範囲)

@@ -56,18 +56,19 @@ void GameScene::Init()
 	spText->SetColor({ 1.0f,1.0f,1.0f,0.5f });
 	m_objList.push_back(spText);
 
-	// キャラ
-	std::shared_ptr<Player> spPlayer;	
-	spPlayer = std::make_shared<Player>();
-	spPlayer->RegistHitObj(spGrndDm);	/* SkySphereとの当たり判定 */
-//	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
-	m_objList.push_back(spPlayer);
-
 	// エネミー
 	std::shared_ptr<Enemy> spEnemy;
 	spEnemy = std::make_shared<Enemy>();
 	spEnemy->SetPos({ 0.0f,5.0f,0.0f });
 	m_objList.push_back(spEnemy);
+
+	// キャラ
+	std::shared_ptr<Player> spPlayer;	
+	spPlayer = std::make_shared<Player>();
+	spPlayer->RegistHitObj(spGrndDm);	/* SkySphereとの当たり判定 */
+//	spPlayer->RegistHitObj(spStage);	/* Stageとの当たり判定 */
+	spPlayer->SetEnemy(spEnemy);
+	m_objList.push_back(spPlayer);
 
 	// カメラの初期化
 	std::shared_ptr<TPS> spTps;

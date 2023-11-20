@@ -3,7 +3,7 @@
 void TPS::Init()
 {
 	// 基準点(ターゲット)の目線の位置
-	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.5f, 1.5f, -3.0f));
+	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.8f, 1.5f, -3.5f));
 
 	// カーソル初期化
 	m_FixMousePos.x = 1280 / 2;
@@ -53,6 +53,7 @@ void TPS::UpdateRotateByMouse()
 	
 	// 回転制御
 	m_degAng.x = std::clamp(m_degAng.x, -FLT_MAX, FLT_MAX);
+	m_degAng.y = std::clamp(m_degAng.y, -FLT_MAX, FLT_MAX);
 }
 
 void TPS::UpdateCollision()

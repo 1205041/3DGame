@@ -14,6 +14,8 @@ public:
 	void DrawLit()					override;
 
 	void Init()						override;
-private:
 
+	void SetActFlg(const bool _flg) { m_act = _flg; }
+private:
+	bool m_act = true;
 };

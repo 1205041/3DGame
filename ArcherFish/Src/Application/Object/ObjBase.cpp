@@ -14,7 +14,7 @@ void ObjBase::CharaSphereUpdateCollision()
 {
 	// ‡@“–‚½‚è”»’è(‹…”»’è)—p‚Ìî•ñ‚ğì¬
 	KdCollider::SphereInfo sphereInfo;
-	sphereInfo.m_sphere.Center = GetPos() + Math::Vector3(0.0f, 0.7f, 0.0f);
+	sphereInfo.m_sphere.Center = GetPos();
 	sphereInfo.m_sphere.Radius = 1.0f;
 	sphereInfo.m_type = KdCollider::TypeBump;
 

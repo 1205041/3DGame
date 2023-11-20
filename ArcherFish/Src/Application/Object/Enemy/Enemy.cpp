@@ -2,30 +2,42 @@
 
 void Enemy::Update()
 {
-	// キャラクターの移動速度
-	m_nowPos = GetPos();
+	if (m_act)
+	{
+		// キャラクターの移動速度
+		m_nowPos = GetPos();
+	}
 }
 
 void Enemy::PostUpdate()
 {
-	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
+	if (m_act)
+	{
+		m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
 
-	// キャラの座標行列
-	m_mWorld = m_transMat;
+		// キャラの座標行列
+		m_mWorld = m_transMat;
 
-	CharaSphereUpdateCollision();
+		CharaSphereUpdateCollision();
+	}
 }
 
 void Enemy::GenerateDepthMapFromLight()
 {
-	if (!m_spModelWork) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+	if (m_act)
+	{
+		if (!m_spModelWork) { return; }
+		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+	}
 }
 
 void Enemy::DrawLit()
 {
-	if (!m_spModelWork) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+	if (m_act)
+	{
+		if (!m_spModelWork) { return; }
+		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+	}
 }
 
 void Enemy::Init()

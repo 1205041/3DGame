@@ -56,6 +56,10 @@ protected:
 	bool			hit = false;
 	Math::Vector3	hitDir = Math::Vector3::Zero;
 
+	// マウス座標
+	POINT m_FixMousePos;
+	POINT m_mousePos;
+
 	// デバック用
 	KdDebugWireFrame m_debugWire;
 };
