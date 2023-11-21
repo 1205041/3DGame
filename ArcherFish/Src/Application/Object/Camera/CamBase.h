@@ -8,7 +8,6 @@ public:
 	~CamBase() {}
 
 	void Init()			override;
-	void Update()		override;
 	void PostUpdate()	override;
 	void PreDraw()		override;
 

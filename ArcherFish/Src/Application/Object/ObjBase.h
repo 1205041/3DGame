@@ -28,9 +28,6 @@ public:
 	void SetTarget(const std::shared_ptr<KdGameObject>& _target);
 
 protected:
-	// 衝突判定とそれに伴う座標の更新
-	void CharaSphereUpdateCollision();	// 球判定
-
 	//srcから見たdestの角度を習得する関数
 	float GetAngleDeg(Math::Vector3 _src, Math::Vector3 _dest);	//角度
 
@@ -50,15 +47,11 @@ protected:
 	float			m_moveSpd	= 0.0f;
 	Math::Vector3	m_moveVec	= Math::Vector3::Zero;
 	
-	// 当たり判定用変数
-	std::vector<std::weak_ptr<KdGameObject>>	m_wpHitObjList;
-	float			maxOverLap = 0.0f;
-	bool			hit = false;
-	Math::Vector3	hitDir = Math::Vector3::Zero;
-
 	// マウス座標
 	POINT m_FixMousePos;
-	POINT m_mousePos;
+
+	// 当たり判定用ベクター
+	std::vector<std::weak_ptr<KdGameObject>>	m_wpHitObjList;
 
 	// デバック用
 	KdDebugWireFrame m_debugWire;

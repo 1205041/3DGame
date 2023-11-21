@@ -6,12 +6,6 @@ void CamBase::Init()
 	m_degAng = Math::Vector3::Zero;
 }
 
-void CamBase::Update()
-{
-	if (!m_spCamera) { return; }
-//	m_spCamera->GenerateRayInfoFromClientPos()
-}
-
 void CamBase::PostUpdate()
 {
 	if (!m_spCamera) { return; }

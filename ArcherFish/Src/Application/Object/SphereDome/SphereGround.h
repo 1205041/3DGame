@@ -12,5 +12,5 @@ public:
 	void Init()			override;
 
 private:
-	void SkySphereCollision();
+
 };

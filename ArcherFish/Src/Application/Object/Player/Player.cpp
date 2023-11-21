@@ -33,7 +33,7 @@ void Player::Update()
 			(Math::Vector3::Up, camRotMat);
 		m_moveVec += v;
 	}
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 	{
 		ShotRayUpdateCollision();
 	}
@@ -61,7 +61,7 @@ void Player::PostUpdate()
 	// 行列合成(ＳＲＴ)
 	m_mWorld = m_scaleMat * m_rotMat * camRotMat * m_transMat;
 	
-	CharaSphereUpdateCollision();
+	SphereUpdateCollision();
 }
 
 // 影描画関数
@@ -88,23 +88,69 @@ void Player::Init()
 		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
 	}
 
-	m_moveSpd = 0.2f;
+	m_moveSpd = 0.1f;
 
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("PlayerColl", GetPos(), 0.25f, KdCollider::TypeBump);
 }
 
 /* ==================== */
+/* 当たり判定(球判定用) */
+/* ==================== */
+void Player::SphereUpdateCollision()
+{
+	// ①当たり判定(球判定)用の情報を作成
+	KdCollider::SphereInfo sphereInfo;
+	sphereInfo.m_sphere.Center = GetPos();
+	sphereInfo.m_sphere.Radius = 1.0f;
+	sphereInfo.m_type = KdCollider::TypeBump || KdCollider::TypeGround;
+
+	/* === デバック用(球) === */
+	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
+
+	// ②HIT判定対象オブジェクトに総当たり
+	Math::Vector3 newPos = Math::Vector3::Zero;
+	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
+	{
+		if (!wpGameObj.expired())
+		{
+			std::shared_ptr<KdGameObject> spGameObj = wpGameObj.lock();
+			if (spGameObj)
+			{
+				std::list<KdCollider::CollisionResult> retBumpList;
+				spGameObj->Intersects(sphereInfo, &retBumpList);
+
+				m_maxOverLap = 0.0f;
+				m_hit = false;
+				m_hitDir = Math::Vector3::Zero;
+				for (auto& ret : retBumpList)
+				{
+					if (m_maxOverLap < ret.m_overlapDistance)
+					{
+						m_maxOverLap = ret.m_overlapDistance;
+						m_hit = true;
+						m_hitDir = ret.m_hitDir;// 押し返す方向
+					}
+				}
+				if (m_hit)
+				{
+					// ③結果を使って座標を補完する
+					m_hitDir.Normalize();
+
+					// 押し返し
+					newPos = GetPos() + (m_hitDir * m_maxOverLap);
+					SetPos(newPos);
+				}
+			}
+		}
+	}
+}
+
+/* ==================== */
 /* 弾発射レイ当たり判定 */
 /* ==================== */
 void Player::ShotRayUpdateCollision()
-{
-//	std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
-//	if (spEnemy) { spEnemy->SetActFlg(false); }
-
-//	std::shared_ptr<CamBase> spCamera = m_wpCamera.lock();
-//	if (spCamera) {}
-
+{	
 	// ①当たり判定(レイ判定)用の情報を作成
 	KdCollider::RayInfo rayInfo;
 	rayInfo.m_pos = GetPos() + Math::Vector3{ 0.0f,0.4f,0.0f };		// レイの発射位置を設定
@@ -131,21 +177,23 @@ void Player::ShotRayUpdateCollision()
 
 				// ③結果を使って座標を補完する
 				// レイに当たったリストから一番近いオブジェクトを検出
-				maxOverLap = 0.0f;
-				hit = false;
-				hitPos = Math::Vector3::Zero;
+				m_maxOverLap = 0.0f;
+				m_hit = false;
 				for (auto& ret : retRayList)
 				{
 					// レイを遮断しオーバーした長さが一番長いものを探す
-					if (maxOverLap < ret.m_overlapDistance)
+					if (m_maxOverLap < ret.m_overlapDistance)
 					{
-						maxOverLap = ret.m_overlapDistance;
-						hitPos = ret.m_hitPos;
-						hit = true;
+						m_maxOverLap = ret.m_overlapDistance;
+						m_hit = true;
 					}
 				}
 				// 何かしらに当たっている
-				if (hit) { SetPos(hitPos); }
+				if (m_hit) 
+				{ 
+					std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
+					if (spEnemy) { spEnemy->SetActFlg(false); }
+				}
 			}
 		}
 	}
