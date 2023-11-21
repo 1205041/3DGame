@@ -44,6 +44,10 @@ void Player::Update()
 	// 移動
 	m_pos += m_moveVec * m_moveSpd;
 	if (m_pos.y > 0) { m_pos.y = 0; }
+
+	// レイ判定の方向
+	m_rayDir = Math::Vector3::TransformNormal(Math::Vector3::Backward, camRotMat);
+	m_rayDir.Normalize();
 }
 
 // 更新後更新関数
@@ -153,8 +157,8 @@ void Player::ShotRayUpdateCollision()
 {	
 	// ①当たり判定(レイ判定)用の情報を作成
 	KdCollider::RayInfo rayInfo;
-	rayInfo.m_pos = GetPos() + Math::Vector3{ 0.0f,0.4f,0.0f };		// レイの発射位置を設定
-	rayInfo.m_dir = Math::Vector3::Backward;		// レイの発射方向を設定
+	rayInfo.m_pos = GetPos() + Math::Vector3{ 0.0f,0.3f,0.0f };		// レイの発射位置を設定
+	rayInfo.m_dir = m_rayDir;		// レイの発射方向を設定
 	rayInfo.m_type = KdCollider::TypeDamageLine;	// 当たり判定をしたいタイプを設定
 
 	// 射程(射程の許容範囲)

@@ -41,5 +41,6 @@ private:
 	float			m_maxOverLap = 0.0f;
 	bool			m_hit = false;
 	Math::Vector3	m_hitDir = Math::Vector3::Zero;
+	Math::Vector3	m_rayDir = Math::Vector3::Zero;
 
 };
