@@ -47,7 +47,6 @@ struct KdAnimationData
 class KdAnimator
 {
 public:
-
 	inline void SetAnimation(const std::shared_ptr<KdAnimationData>& rData, bool isLoop = true)
 	{
 		m_spAnimation = rData;
@@ -69,7 +68,6 @@ public:
 	void AdvanceTime( std::vector<KdModelWork::Node>& rNodes, float speed = 1.0f);
 
 private:
-
 	std::shared_ptr<KdAnimationData>	m_spAnimation = nullptr;	// 再生するアニメーションデータ
 
 	float m_time = 0.0f;

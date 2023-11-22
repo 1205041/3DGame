@@ -3,7 +3,7 @@
 #include "KdTexture.h"
 
 
-// 2D画像(resource)リソースから、最適なビューを作成する
+/* 2D画像(resource)リソースから、最適なビューを作成する */
 // ・resource		… 2D画像リソース
 // ・ppSRV			… 作成されたShaderResourceViewを受け取るための変数のアドレス
 // ・ppRTV			… 作成されたRenderTargetViewを受け取るための変数のアドレス

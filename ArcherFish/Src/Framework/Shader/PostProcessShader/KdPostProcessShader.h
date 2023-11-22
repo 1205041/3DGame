@@ -4,10 +4,7 @@ class KdPostProcessShader
 {
 public:
 	KdPostProcessShader() {}
-	~KdPostProcessShader()
-	{
-		Release();
-	}
+	~KdPostProcessShader() { Release(); }
 
 	void SetNearClippingDistance(float distance) { m_cb0_DoFInfo.Work().NearClippingDistance = distance; }
 	void SetFarClippingDistance(float distance) { m_cb0_DoFInfo.Work().FarClippingDistance = distance; }

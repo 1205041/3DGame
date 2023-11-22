@@ -35,14 +35,11 @@ struct KdMeshSubset
 };
 
 //==========================================================
-//
 // メッシュクラス
-//
 //==========================================================
 class KdMesh
 {
 public:
-
 	//=================================================
 	// 取得・設定
 	//=================================================
@@ -70,27 +67,18 @@ public:
 	// 作成・解放
 	//=================================================
 
-	// メッシュ作成
-	// ・vertices		… 頂点配列
-	// ・faces			… 面インデックス情報配列
-	// ・subsets		… サブセット情報配列
-	// 戻り値			… 成功：true
+	/* メッシュ作成 */
+	// ・vertices	… 頂点配列
+	// ・faces		… 面インデックス情報配列
+	// ・subsets	… サブセット情報配列
+	// 戻り値		… 成功：true
 	bool Create(const std::vector<KdMeshVertex>& vertices, const std::vector<KdMeshFace>& faces, const std::vector<KdMeshSubset>& subsets, bool isSkinMesh);
 
 	// 解放
-	void Release()
-	{
-		m_vertBuf.Release();
-		m_indxBuf.Release();
-		m_subsets.clear();
-		m_positions.clear();
-		m_faces.clear();
-	}
+	void Release();
 
-	~KdMesh()
-	{
-		Release();
-	}
+	// デストラクタ
+	~KdMesh() { Release(); }
 
 	//=================================================
 	// 処理
@@ -99,11 +87,10 @@ public:
 	// 指定サブセットを描画
 	void DrawSubset(int subsetNo) const;
 
-	// 
+	// コンストラクタ
 	KdMesh() {}
 
 private:
-
 	// 頂点バッファ
 	KdBuffer					m_vertBuf;
 	// インデックスバッファ

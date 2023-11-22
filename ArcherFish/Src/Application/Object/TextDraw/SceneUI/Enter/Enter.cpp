@@ -3,7 +3,7 @@
 void Enter::Update()
 {
 	if (m_AlphC <= 1.0f) { m_AlphC += 0.02f; }
-	else { m_AlphC -= 1.0f; }
+	else { m_AlphC -= 0.8f; }
 }
 
 void Enter::PostUpdate()

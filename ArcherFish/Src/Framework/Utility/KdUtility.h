@@ -3,9 +3,7 @@
 class KdTexture;
 
 //===========================================
-//
 // 便利機能
-//
 //===========================================
 // 算術系短縮名
 namespace Math = DirectX::SimpleMath;
@@ -48,9 +46,7 @@ void DebugOutputNumber(T num)
 
 
 //===========================================
-//
 // 色定数
-//
 //===========================================
 static const Math::Color	kWhiteColor		= Math::Color(1.0f, 1.0f, 1.0f, 1.0f);
 static const Math::Color	kBlackColor		= Math::Color(0.0f, 0.0f, 0.0f, 1.0f);
@@ -61,9 +57,7 @@ static const Math::Color	kNormalColor	= Math::Color(0.5f, 0.5f, 1.0f, 1.0f);	// 
 
 
 //===========================================
-//
 // ファイル
-//
 //===========================================
 // ファイルの存在確認
 inline bool KdFileExistence(std::string_view path)
@@ -101,9 +95,7 @@ inline std::string KdGetNameFromPath(const std::string& path, bool onlyFileName 
 
 
 //===========================================
-//
 // 文字列関係
-//
 //===========================================
 // std::string版 sprintf
 template <typename ... Args>
@@ -119,8 +111,6 @@ void KdGetTextureInfo(ID3D11View* view, D3D11_TEXTURE2D_DESC& outDesc);
 
 
 //===========================================
-//
 // 座標変換関係
-//
 //===========================================
 bool ConvertRectToUV(const KdTexture* srcTex, const Math::Rectangle& src, Math::Vector2& uvMin, Math::Vector2& uvMax);

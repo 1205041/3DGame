@@ -1,17 +1,14 @@
 ﻿#pragma once
 
 //=====================================================
-//
 // ウィンドウ
-//
 //=====================================================
-class KdWindow {
+class KdWindow 
+{
 public:
-
 	//===================================
 	// 取得・設定
 	//===================================
-
 	// ウィンドウハンドル取得
 	HWND GetWndHandle() const { return m_hWnd; }
 	// ウィンドウが存在する？
@@ -27,22 +24,18 @@ public:
 	//===================================
 	// 初期化・解放
 	//===================================
-
 	// ウィンドウ作成
 	bool Create(int clientWidth, int clientHeight, std::string_view titleName, std::string_view windowClassName);
 
 	// 解放
 	void Release();
 
-	//
-	~KdWindow() {
-		Release();
-	}
+	// デストラクタ
+	~KdWindow() { Release(); }
 
 	//===================================
 	// 処理
 	//===================================
-
 	// ウィンドウメッセージを処理する
 	//  戻り値：終了メッセージが来たらfalseが返る
 	bool ProcessMessage();
@@ -61,7 +54,6 @@ public:
 	static bool SaveFileDialog(std::string& filepath, std::string_view title = "ファイルを保存", const char* filters = "全てのファイル\0*.*\0", std::string_view defExt = "");
 
 private:
-
 	// ウィンドウハンドル
 	HWND	m_hWnd = nullptr;
 
@@ -71,7 +63,5 @@ private:
 	// ウィンドウ関数
 	static LRESULT CALLBACK callWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
-
 };
 

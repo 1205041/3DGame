@@ -1,8 +1,8 @@
 ﻿#include "KdFPSController.h"
 
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
+/* ！=！=！=！=！=！=！=！=！ */
 // FPSの制御コントローラー
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
+/* ！=！=！=！=！=！=！=！=！ */
 void KdFPSController::Init()
 {
 	m_fpsMonitorBeginTime = timeGetTime();
@@ -16,7 +16,6 @@ void KdFPSController::UpdateStartTime()
 void KdFPSController::Update()
 {
 	Control();
-
 	Monitoring();
 }
 
@@ -29,11 +28,8 @@ void KdFPSController::Control()
 	// 1フレームで経過すべき時間
 	DWORD timePerFrame = kSecond / m_maxFps;
 
-	if (frameProcessEndTime - m_frameStartTime < timePerFrame)
-	{
-		// 1秒間にMaxFPS回数以上処理が回らないように待機する
-		Sleep(timePerFrame - (frameProcessEndTime - m_frameStartTime));
-	}
+	// 1秒間にMaxFPS回数以上処理が回らないように待機する
+	if (frameProcessEndTime - m_frameStartTime < timePerFrame) { Sleep(timePerFrame - (frameProcessEndTime - m_frameStartTime)); }
 }
 
 // 現在のFPS計測
@@ -49,9 +45,7 @@ void KdFPSController::Monitoring()
 	{
 		// 現在のFPS算出
 		m_nowfps = (m_fpsCnt * kSecond) / (m_frameStartTime - m_fpsMonitorBeginTime);
-
 		m_fpsMonitorBeginTime = m_frameStartTime;
-
 		m_fpsCnt = 0;
 	}
 }

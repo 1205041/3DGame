@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 描画に使用する視野のデータをアプリケーション上で管理するクラス
-// 3D描画に使用する各種行列を保持
-// 被写界深度（目の焦点をどの距離に合わせるのか：焦点が合っていない距離はぼやける）に必要な情報を保持
-// シェーダーへの情報の送信を行う（重要機能）SetToShader関数をもつ
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* ！ ！ ！ 描画に使用する視野のデータをアプリケーション上で管理するクラス ！ ！ ！ */
+// ・3D描画に使用する各種行列を保持
+// ・被写界深度(目の焦点をどの距離に合わせるのか：焦点が合っていない距離はぼやける)に必要な情報を保持
+// ・シェーダーへの情報の送信を行う（重要機能）SetToShader関数をもつ
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdCamera
 {
 public:
@@ -20,9 +20,11 @@ public:
 	// カメラ行列の設定・カメラ行列からビュー行列を生成
 	virtual void SetCameraMatrix(const DirectX::SimpleMath::Matrix& mCam) { m_mCam = mCam; }
 
-	// 射影行列の設定
+	// 射影行列の設定：各種パラメータから射影行列を生成して保持する
 	void SetProjectionMatrix(float fov, float maxRange = 2000, float minRange = 0.01f, float aspectRatio = 0.0f);
-	void SetProjectionMatrix(const DirectX::SimpleMath::Matrix& rProj);
+	
+	// 射影行列の設定：既存の射影行列をコピーする
+	void SetProjectionMatrix(const DirectX::SimpleMath::Matrix& rProj) { m_mProj = rProj; }
 
 	// 焦点距離を設定
 	void SetFocus(float focusDist, float focusForeRange, float focusBackRange);
@@ -37,7 +39,6 @@ public:
 	void GenerateRayInfoFromClientPos(const POINT& clientPos, Math::Vector3& rayPos, Math::Vector3& rayDir, float& rayRange);
 
 protected:
-
 	// カメラ行列：3Dワールド空間上のカメラの行列情報
 	DirectX::SimpleMath::Matrix	m_mCam;
 

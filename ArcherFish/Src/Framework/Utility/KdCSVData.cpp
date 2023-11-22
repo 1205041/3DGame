@@ -47,8 +47,5 @@ void KdCSVData::CommaSeparatedValue(std::string_view line, std::vector<std::stri
 	std::istringstream stream(line.data());
 	std::string element;
 
-	while (getline(stream, element, ','))
-	{
-		result.push_back(element);
-	}
+	while (getline(stream, element, ',')) { result.push_back(element); }
 }

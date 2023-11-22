@@ -145,10 +145,7 @@ void KdCollider::SetEnable(std::string_view name, bool flag)
 {
 	auto targetCol = m_collisionShapes.find(name.data());
 
-	if (targetCol != m_collisionShapes.end())
-	{
-		targetCol->second->SetEnable(flag);
-	}
+	if (targetCol != m_collisionShapes.end()) { targetCol->second->SetEnable(flag); }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -157,15 +154,9 @@ void KdCollider::SetEnable(std::string_view name, bool flag)
 void KdCollider::SetEnable(int type, bool flag)
 {
 	// 有効にしたい
-	if (flag)
-	{
-		m_disableType &= ~type;
-	}
+	if (flag) { m_disableType &= ~type; }
 	// 無効にしたい
-	else
-	{
-		m_disableType |= type;
-	}
+	else { m_disableType |= type; }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -173,10 +164,7 @@ void KdCollider::SetEnable(int type, bool flag)
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdCollider::SetEnableAll(bool flag)
 {
-	for(auto& col : m_collisionShapes)
-	{
-		col.second->SetEnable(flag);
-	}
+	for (auto& col : m_collisionShapes) { col.second->SetEnable(flag); }
 }
 
 
@@ -308,10 +296,7 @@ bool KdModelCollision::Intersects(const DirectX::BoundingSphere& target, const M
 		CollisionMeshResult* pTmpResult = pRes ? &tmpResult : nullptr;
 
 		// メッシュと球形の当たり判定実行
-		if(!MeshIntersect(*dataNode.m_spMesh, pushedSphere, workNode.m_worldTransform * world, pTmpResult))
-		{
-			continue;
-		}
+		if (!MeshIntersect(*dataNode.m_spMesh, pushedSphere, workNode.m_worldTransform * world, pTmpResult)) { continue; }
 
 		// 詳細リザルトが必要無ければ即結果を返す
 		if (!pRes) { return true; }
@@ -375,21 +360,14 @@ bool KdModelCollision::Intersects(const KdCollider::RayInfo& target, const Math:
 		CollisionMeshResult tmpResult;
 		CollisionMeshResult* pTmpResult = pRes ? &tmpResult : nullptr;
 
-		if (!MeshIntersect(*dataNode.m_spMesh, target.m_pos, target.m_dir, target.m_range,
-			workNode.m_worldTransform * world, pTmpResult))
-		{
-			continue;
-		}
+		if (!MeshIntersect(*dataNode.m_spMesh, target.m_pos, target.m_dir, target.m_range, workNode.m_worldTransform * world, pTmpResult)) { continue; }
 
 		// 詳細リザルトが必要無ければ即結果を返す
 		if (!pRes) { return true; }
 
 		isHit = true;
 
-		if (tmpResult.m_overlapDistance > nearestResult.m_overlapDistance)
-		{
-			nearestResult = tmpResult;
-		}
+		if (tmpResult.m_overlapDistance > nearestResult.m_overlapDistance) { nearestResult = tmpResult; }
 	}
 
 	if (pRes && isHit)
@@ -424,12 +402,8 @@ bool KdPolygonCollision::Intersects(const DirectX::BoundingSphere& target, const
 	CollisionMeshResult result;
 	CollisionMeshResult* pTmpResult = pRes ? &result : nullptr;
 
-	// メッシュと球形の当たり判定実行
-	if (!PolygonsIntersect(*m_shape, target, world, pTmpResult))
-	{
-		// 当たっていなければ無条件に返る
-		return false;
-	}
+	// メッシュと球形の当たり判定実行：当たっていなければ無条件に返る
+	if (!PolygonsIntersect(*m_shape, target, world, pTmpResult)) { return false; }
 
 	if (pRes)
 	{
@@ -456,11 +430,8 @@ bool KdPolygonCollision::Intersects(const KdCollider::RayInfo& target, const Mat
 	CollisionMeshResult result;
 	CollisionMeshResult* pTmpResult = pRes ? &result : nullptr;
 
-	if (!PolygonsIntersect(*m_shape, target.m_pos, target.m_dir, target.m_range, world, pTmpResult))
-	{
-		// 当たっていなければ無条件に返る
-		return false;
-	}
+	// 当たっていなければ無条件に返る
+	if (!PolygonsIntersect(*m_shape, target.m_pos, target.m_dir, target.m_range, world, pTmpResult)) { return false; }
 
 	if (pRes)
 	{

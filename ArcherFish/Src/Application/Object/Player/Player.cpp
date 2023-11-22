@@ -44,10 +44,6 @@ void Player::Update()
 	// 移動
 	m_pos += m_moveVec * m_moveSpd;
 	if (m_pos.y > 0) { m_pos.y = 0; }
-
-	// レイ判定の方向
-	m_rayDir = Math::Vector3::TransformNormal(Math::Vector3::Backward, camRotMat);
-	m_rayDir.Normalize();
 }
 
 // 更新後更新関数
@@ -158,12 +154,25 @@ void Player::ShotRayUpdateCollision()
 	// ①当たり判定(レイ判定)用の情報を作成
 	KdCollider::RayInfo rayInfo;
 	rayInfo.m_pos = GetPos() + Math::Vector3{ 0.0f,0.3f,0.0f };		// レイの発射位置を設定
-	rayInfo.m_dir = m_rayDir;		// レイの発射方向を設定
 	rayInfo.m_type = KdCollider::TypeDamageLine;	// 当たり判定をしたいタイプを設定
+	GetCursorPos(&m_FixMousePos);
 
-	// 射程(射程の許容範囲)
-	const float	bulletRange = 10.0f;
-	rayInfo.m_range = bulletRange;// レイの長さを設定
+	// カメラ情報
+	std::shared_ptr<TPSCam> spCamera = m_wpCamera.lock();
+	if (spCamera)
+	{
+		spCamera->GetCamera()->GenerateRayInfoFromClientPos(
+			m_FixMousePos,	// 2D座標
+			rayInfo.m_pos,	// 座標
+			rayInfo.m_dir,	// 方向
+			rayInfo.m_range	// レイの長さ
+		);
+	}
+
+	// dir		自機からレティクルに向かっての方向
+	//			(※自機の位置から飛ばした場合)
+	// range	最適なレイの長さ(無駄が少ない)
+	//			が取得されている
 
 	/* === デバック用 === */
 	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);

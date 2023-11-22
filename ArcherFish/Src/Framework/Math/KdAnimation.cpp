@@ -29,27 +29,26 @@ bool KdAnimationData::Node::InterpolateTranslations(Math::Vector3& result, float
 	UINT keyIdx = BinarySearchNextAnimKey(m_translations, time);
 
 	// 先頭のキーなら、先頭のデータを返す
-	if (keyIdx == 0) {
+	if (keyIdx == 0) 
+	{
 		result = m_translations.front().m_vec;
 		return true;
 	}
 	// 配列外のキーなら、最後のデータを返す
-	else if (keyIdx >= m_translations.size()) {
+	else if (keyIdx >= m_translations.size()) 
+	{
 		result = m_translations.back().m_vec;
 		return true;
 	}
 	// それ以外(中間の時間)なら、その時間の値を補間計算で求める
-	else {
+	else 
+	{
 		auto& prev = m_translations[keyIdx - 1];	// 前のキー
 		auto& next = m_translations[keyIdx];		// 次のキー
 		// 前のキーと次のキーの時間から、0～1間の時間を求める
 		float f = (time - prev.m_time) / (next.m_time - prev.m_time);
 		// 補間
-		result = DirectX::XMVectorLerp(
-			prev.m_vec,
-			next.m_vec,
-			f
-		);
+		result = DirectX::XMVectorLerp(prev.m_vec, next.m_vec, f);
 	}
 
 	return true;
@@ -62,25 +61,18 @@ bool KdAnimationData::Node::InterpolateRotations(Math::Quaternion& result, float
 	// キー位置検索
 	UINT keyIdx = BinarySearchNextAnimKey(m_rotations, time);
 	// 先頭のキーなら、先頭のデータを返す
-	if (keyIdx == 0) {
-		result = m_rotations.front().m_quat;
-	}
+	if (keyIdx == 0) { result = m_rotations.front().m_quat; }
 	// 配列外のキーなら、最後のデータを返す
-	else if (keyIdx >= m_rotations.size()) {
-		result = m_rotations.back().m_quat;
-	}
+	else if (keyIdx >= m_rotations.size()) { result = m_rotations.back().m_quat; }
 	// それ以外(中間の時間)なら、その時間の値を補間計算で求める
-	else {
+	else 
+	{
 		auto& prev = m_rotations[keyIdx - 1];	// 前のキー
 		auto& next = m_rotations[keyIdx];		// 次のキー
 		// 前のキーと次のキーの時間から、0～1間の時間を求める
 		float f = (time - prev.m_time) / (next.m_time - prev.m_time);
 		// 補間
-		result = DirectX::XMQuaternionSlerp(
-			prev.m_quat,
-			next.m_quat,
-			f
-		);
+		result = DirectX::XMQuaternionSlerp(prev.m_quat, next.m_quat, f);
 	}
 
 	return true;
@@ -94,27 +86,26 @@ bool KdAnimationData::Node::InterpolateScales(Math::Vector3& result, float time)
 	UINT keyIdx = BinarySearchNextAnimKey(m_scales, time);
 
 	// 先頭のキーなら、先頭のデータを返す
-	if (keyIdx == 0) {
+	if (keyIdx == 0) 
+	{
 		result = m_scales.front().m_vec;
 		return true;
 	}
 	// 配列外のキーなら、最後のデータを返す
-	else if (keyIdx >= m_scales.size()) {
+	else if (keyIdx >= m_scales.size()) 
+	{
 		result = m_scales.back().m_vec;
 		return true;
 	}
 	// それ以外(中間の時間)なら、その時間の値を補間計算で求める
-	else {
+	else 
+	{
 		auto& prev = m_scales[keyIdx - 1];	// 前のキー
 		auto& next = m_scales[keyIdx];		// 次のキー
 		// 前のキーと次のキーの時間から、0～1間の時間を求める
 		float f = (time - prev.m_time) / (next.m_time - prev.m_time);
 		// 補間
-		result = DirectX::XMVectorLerp(
-			prev.m_vec,
-			next.m_vec,
-			f
-		);
+		result = DirectX::XMVectorLerp(prev.m_vec, next.m_vec, f);
 	}
 
 	return true;
@@ -149,10 +140,7 @@ void KdAnimationData::Node::Interpolate(Math::Matrix& rDst, float time)
 		isChange = true;
 	}
 
-	if(isChange)
-	{
-		rDst = scale * rotate * trans;
-	}
+	if (isChange) { rDst = scale * rotate * trans; }
 }
 
 void KdAnimator::AdvanceTime(std::vector<KdModelWork::Node>& rNodes, float speed)
@@ -179,14 +167,8 @@ void KdAnimator::AdvanceTime(std::vector<KdModelWork::Node>& rNodes, float speed
 	// アニメーションデータの最後のフレームを超えたら
 	if (m_time >= m_spAnimation->m_maxLength)
 	{
-		if (m_isLoop)
-		{
-			// アニメーションの最初に戻る（ループさせる
-			m_time = 0.0f;
-		}
-		else
-		{
-			m_time = m_spAnimation->m_maxLength;
-		}
+		// アニメーションの最初に戻る（ループさせる
+		if (m_isLoop) { m_time = 0.0f; }
+		else { m_time = m_spAnimation->m_maxLength; }
 	}
 }

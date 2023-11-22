@@ -1,12 +1,11 @@
 ﻿#include "KdCamera.h"
 
-
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// カメラ情報(ビュー・射影行列など)をシェーダへ転送
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* カメラ情報(ビュー・射影行列など)をシェーダへ転送 */
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// CPU側に用意してあるシェーダ情報格納用コンテナへデータをコピー
-// コンテナをシェーダー(GPU)に送信する
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// ・CPU側に用意してあるシェーダ情報格納用コンテナへデータをコピー
+// ・コンテナをシェーダー(GPU)に送信する
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdCamera::SetToShader() const
 {
 	// カメラの情報をGPUへ転送
@@ -25,12 +24,15 @@ void KdCamera::SetToShader() const
 	KdShaderManager::Instance().m_postProcessShader.SetFocusRange(m_focusForeRange / viewRange, m_focusBackRange / viewRange);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 射影行列の設定：各種パラメータから射影行列を生成して保持する
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* 射影行列の設定：各種パラメータから射影行列を生成して保持する */
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 引数：（ fov：視野角 ）（ maxRange：描画する最長距離 ）（ minRange：描画する最短距離 ）（ aspectRatio：画面の縦横幅の比率 ）
-// 視野角以外のパラメータはデフォルト引数が設定されているため、省略可能
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// ・引数：(fov：視野角)
+// 　　　　(maxRange：描画する最長距離)
+// 　　　　(minRange：描画する最短距離)
+// 　　　　(aspectRatio：画面の縦横幅の比率)
+// ・視野角以外のパラメータはデフォルト引数が設定されているため、省略可能
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdCamera::SetProjectionMatrix(float fov, float maxRange, float minRange, float aspectRatio)
 {
 	float aspect = aspectRatio;
@@ -39,15 +41,9 @@ void KdCamera::SetProjectionMatrix(float fov, float maxRange, float minRange, fl
 	if (aspect <= 0)
 	{
 		// 自動的にバックバッファからアスペクト比を求める
-		if (KdDirect3D::Instance().GetBackBuffer())
-		{
-			aspect = KdDirect3D::Instance().GetBackBuffer()->GetAspectRatio();
-		}
+		if (KdDirect3D::Instance().GetBackBuffer()) { aspect = KdDirect3D::Instance().GetBackBuffer()->GetAspectRatio(); }
 		// バックバッファが生成されてすらいな状況なら射影行列をセットしない
-		else
-		{
-			return;
-		}
+		else { return; }
 	}
 
 	m_mProj = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(fov), aspect, minRange, maxRange);
@@ -55,20 +51,12 @@ void KdCamera::SetProjectionMatrix(float fov, float maxRange, float minRange, fl
 	SetProjectionMatrix(m_mProj);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 射影行列の設定：既存の射影行列をコピーする
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdCamera::SetProjectionMatrix(const DirectX::SimpleMath::Matrix& rProj)
-{
-	m_mProj = rProj;
-}
-
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 被写界深度の情報を設定
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* 被写界深度の情報を設定 */
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// カメラから見て焦点を当てる距離の設定
-// ぼかさずに描画する焦点エリアを前後それぞれ別の距離に設定可能
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// ・カメラから見て焦点を当てる距離の設定
+// ・ぼかさずに描画する焦点エリアを前後それぞれ別の距離に設定可能
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdCamera::SetFocus(float focusDist, float focusForeRange, float focusBackRange)
 {
 	m_focusDistance = focusDist;
@@ -76,11 +64,11 @@ void KdCamera::SetFocus(float focusDist, float focusForeRange, float focusBackRa
 	m_focusBackRange = focusBackRange;
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// クライアント座標（2D）から3Dワールド座標を求める用のレイ情報を生成
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* クライアント座標（2D）から3Dワールド座標を求める用のレイ情報を生成 */
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// マウスポインタの2D位置にある3Dオブジェクトを選択する時などに使用する
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// ・マウスポインタの2D位置にある3Dオブジェクトを選択する時などに使用する
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdCamera::GenerateRayInfoFromClientPos(const POINT& clientPos, Math::Vector3& rayPos, Math::Vector3& rayDir, float& rayRange)
 {
 	// レイ判定の最遠座標

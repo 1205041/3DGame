@@ -6,7 +6,6 @@ struct KdGLTFModel;
 class KdModelData
 {
 public:
-
 	// ノード：モデルを形成するメッシュを扱うための最小単位
 	struct Node
 	{
@@ -27,8 +26,11 @@ public:
 		bool	m_isSkinMesh = false;
 	};
 
-	KdModelData();
-	~KdModelData();
+	//コンストラクター
+	KdModelData() {}
+
+	//デストラクター
+	~KdModelData() { Release(); }
 
 	bool Load(std::string_view filename);
 
@@ -41,13 +43,7 @@ public:
 	
 	Node* FindNode(std::string name)
 	{
-		for (auto&& node : m_originalNodes)
-		{
-			if (node.m_name == name)
-			{
-				return &node;
-			}
-		}
+		for (auto&& node : m_originalNodes) { if (node.m_name == name) { return &node; } }
 
 		return nullptr;
 	}
@@ -100,7 +96,6 @@ private:
 class KdModelWork
 {
 public:
-
 	// ノード：活動中変化する可能性のあるデータ、検索用の名前
 	struct Node
 	{
@@ -159,7 +154,6 @@ public:
 	bool NeedCalcNodeMatrices() { return m_needCalcNode; }
 
 private:
-
 	// 再帰呼び出し用計算関数
 	void recCalcNodeMatrices(int nodeIdx, int parentNodeIdx = -1);
 

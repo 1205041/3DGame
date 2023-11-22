@@ -66,7 +66,6 @@ public:
 	void SetheightFog(const Math::Vector3& col, float topValue, float bottomValue, float distance);
 
 private:
-
 	void WriteLightParams(); 
 	void WriteFogParams();
 

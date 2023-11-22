@@ -19,10 +19,7 @@ static void Dump(const tinygltf::Model &model);
 //===================================================
 static std::string GetFilePathExtension(const std::string &FileName)
 {
-	if (FileName.find_last_of(".") != std::string::npos)
-	{
-		return FileName.substr(FileName.find_last_of(".") + 1);
-	}
+	if (FileName.find_last_of(".") != std::string::npos) { return FileName.substr(FileName.find_last_of(".") + 1); }
 	return "";
 }
 
@@ -30,7 +27,8 @@ static std::string GetFilePathExtension(const std::string &FileName)
 //===================================================
 // バッファから型を指定して取得する関数
 //===================================================
-class GLTFBufferGetter {
+class GLTFBufferGetter 
+{
 public:
 
 	//	GLTFBufferGetter(const BYTE* address) : m_address(address) { }
@@ -81,26 +79,11 @@ public:
 	// 値を正規化して取得
 	float GetValue_UNORM(int index)
 	{
-		if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_BYTE)
-		{
-			return std::max(Get<char>(index) / 127.0f, -1.0f);
-		}
-		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE)
-		{
-			return Get<BYTE>(index) / 255.0f;
-		}
-		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_SHORT)
-		{
-			return std::max(Get<short>(index) / 32767.0f, -1.0f);
-		}
-		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT)
-		{
-			return Get<unsigned short>(index) / 65535.0f;
-		}
-		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_FLOAT)
-		{
-			return GetValue_Float(index);
-		}
+		if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_BYTE) { return std::max(Get<char>(index) / 127.0f, -1.0f); }
+		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE) { return Get<BYTE>(index) / 255.0f; }
+		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_SHORT) { return std::max(Get<short>(index) / 32767.0f, -1.0f); }
+		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT) { return Get<unsigned short>(index) / 65535.0f; }
+		else if (m_accessor->componentType == TINYGLTF_PARAMETER_TYPE_FLOAT) { return GetValue_Float(index); }
 
 		assert(0 && "対応していない型");
 		return 0;
@@ -116,9 +99,7 @@ private:
 
 	// 指定型でindex番目のデータを取得
 	template<class Type>
-	const Type& Get(int index) {
-		return *(const Type*)&m_address[index * sizeof(Type)];
-	}
+	const Type& Get(int index) { return *(const Type*)&m_address[index * sizeof(Type)]; }
 
 	const BYTE* m_address = nullptr;
 
@@ -144,7 +125,7 @@ static void MatrixMirrorZ(Math::Matrix& mat)
 }
 
 //===================================================
-// GLTF形式の3Dモデルを読み込む
+/* GLTF形式の3Dモデルを読み込む */
 // ※左手座標系にするため下記の仕様でZ軸反転も行う(アニメーションやボーンを使用するときも同様にすること)
 // 　・行列：MatrixMirrorZ関数で反転
 // 　・クォータニオン：xとyに-1を乗算
@@ -154,9 +135,7 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 {
 #ifdef GLTF_DEBUG
 	// コンソールウィンドウ表示
-	if (AllocConsole()) {
-		freopen("CONOUT$", "w", stdout);
-	}
+	if (AllocConsole()) { freopen("CONOUT$", "w", stdout); }
 #endif
 
 	tinygltf::Model model;
@@ -169,26 +148,25 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 
 		// GLTF読み込み
 		bool ret = false;
-		if (ext.compare("glb") == 0) {
+		if (ext.compare("glb") == 0) 
+		{
 			std::cout << "Reading binary glTF" << std::endl;
 			// assume binary glTF.
 			ret = gltf_ctx.LoadBinaryFromFile(&model, &err, &warn, input_filename.c_str());
 		}
-		else {
+		else 
+		{
 			std::cout << "Reading ASCII glTF" << std::endl;
 			// assume ascii glTF.
 			ret = gltf_ctx.LoadASCIIFromFile(&model, &err, &warn, input_filename.c_str());
 		}
 
-		if (!warn.empty()) {
-			printf("Warn: %s\n", warn.c_str());
-		}
+		if (!warn.empty()) { printf("Warn: %s\n", warn.c_str()); }
 
-		if (!err.empty()) {
-			printf("Err: %s\n", err.c_str());
-		}
+		if (!err.empty()) { printf("Err: %s\n", err.c_str()); }
 
-		if (!ret) {
+		if (!ret) 
+		{
 			printf("Failed to parse glTF\n");
 			return nullptr;
 		}
@@ -262,7 +240,6 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 
 		// マテリアルがゼロの場合は、１つだけ作成しておく
 		if (destModel->Materials.size() == 0)destModel->Materials.resize(1);
-
 	}
 
 	//----------------------------------
@@ -290,10 +267,7 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 		destNode->Children = model.nodes[nodei].children;
 
 		// 全ての子に、親設定
-		for (auto&& idx : destNode->Children)
-		{
-			destModel->Nodes[idx].Parent = nodei;
-		}
+		for (auto&& idx : destNode->Children) { destModel->Nodes[idx].Parent = nodei; }
 
 		//----------------------------
 		// 変換行列取得
@@ -331,10 +305,7 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 		// 行列
 		if (model.nodes[nodei].matrix.size() != 0)
 		{
-			for (int n = 0; n < 16; n++)
-			{
-				*(&mS._11 + n) = (float)model.nodes[nodei].matrix[n];
-			}
+			for (int n = 0; n < 16; n++) { *(&mS._11 + n) = (float)model.nodes[nodei].matrix[n]; }
 		}
 
 		// 変換行列
@@ -342,21 +313,14 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 		// Z軸ミラー
 		MatrixMirrorZ(destNode->LocalTransform);
 
-		// メッシュあり
-		if (model.nodes[nodei].mesh >= 0)
-		{
-			// MeshフラグOn
-			destNode->IsMesh = true;
-		}
+		// メッシュあり：MeshフラグOn
+		if (model.nodes[nodei].mesh >= 0) { destNode->IsMesh = true; }
 	}
 
 	//----------------------------------
 	// ルートノードのみの参照リスト
 	//----------------------------------
-	for (auto&& idx : model.scenes[0].nodes)
-	{
-		destModel->RootNodeIndices.push_back(idx);
-	}
+	for (auto&& idx : model.scenes[0].nodes) { destModel->RootNodeIndices.push_back(idx); }
 
 	//----------------------------------
 	// 各ノードのTransformからWorldTransformを算出
@@ -365,25 +329,15 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 		// 行列計算用 再帰関数
 		std::function<void(KdGLTFNode*, const Math::Matrix*)> rec = [&rec, &destModel](KdGLTFNode* node, const Math::Matrix* parentMat)
 		{
-			if (parentMat) {
-				node->WorldTransform = node->LocalTransform * (*parentMat);
-			}
-			else {
-				node->WorldTransform = node->LocalTransform;
-			}
+			if (parentMat) { node->WorldTransform = node->LocalTransform * (*parentMat); }
+			else { node->WorldTransform = node->LocalTransform; }
 
 			// 子再帰
-			for (auto&& child : node->Children)
-			{
-				rec(&destModel->Nodes[child], &node->WorldTransform);
-			}
+			for (auto&& child : node->Children) { rec(&destModel->Nodes[child], &node->WorldTransform); }
 		};
 
 		// 親子関係から行列を作成
-		for (int nodeIdx : destModel->RootNodeIndices)
-		{
-			rec(&destModel->Nodes[nodeIdx], nullptr);
-		}
+		for (int nodeIdx : destModel->RootNodeIndices) { rec(&destModel->Nodes[nodeIdx], nullptr); }
 	}
 
 	//----------------------------------
@@ -409,10 +363,7 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 
 			// オフセット行列取得
 			Math::Matrix invBindMat;
-			for (int mati = 0; mati < 16; mati++)
-			{
-				(&invBindMat._11)[mati] = ibmGetter.GetValue_Float(ji * 16 + mati);
-			}
+			for (int mati = 0; mati < 16; mati++) { (&invBindMat._11)[mati] = ibmGetter.GetValue_Float(ji * 16 + mati); }
 			MatrixMirrorZ(invBindMat);
 			boneNode->InverseBindMatrix = invBindMat;
 			// 変換行列へ変換
@@ -424,14 +375,8 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 		{
 			KdGLTFNode* boneNode = &destModel->Nodes[nodeIdx];
 
-			if (boneNode->Parent >= 0)
-			{
-				boneNode->LocalTransform = boneNode->WorldTransform * destModel->Nodes[boneNode->Parent].InverseBindMatrix;
-			}
-			else
-			{
-				boneNode->LocalTransform = boneNode->WorldTransform;
-			}
+			if (boneNode->Parent >= 0) { boneNode->LocalTransform = boneNode->WorldTransform * destModel->Nodes[boneNode->Parent].InverseBindMatrix; }
+			else { boneNode->LocalTransform = boneNode->WorldTransform; }
 		}
 	}
 
@@ -608,10 +553,7 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 								cnt++;
 							}
 							float totalW = 0;
-							for (int x = 0; x < cnt - 1; x++)
-							{
-								totalW += skinWei[x];
-							}
+							for (int x = 0; x < cnt - 1; x++) { totalW += skinWei[x]; }
 							skinWei[cnt - 1] = 1.0f - totalW;
 						}
 					}
@@ -645,11 +587,8 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 
 		// マテリアルの最大数ぶんサブセット作成
 		destNode->Mesh.Subsets.resize(tempPrimitives.size());
-		for (UINT pi = 0; pi < tempPrimitives.size(); pi++)
-		{
-			// マテリアル番号
-			destNode->Mesh.Subsets[pi].MaterialNo = tempPrimitives[pi]->MaterialNo;
-		}
+		// マテリアル番号
+		for (UINT pi = 0; pi < tempPrimitives.size(); pi++) { destNode->Mesh.Subsets[pi].MaterialNo = tempPrimitives[pi]->MaterialNo; }
 
 		// 全プリミティブを合成し、１つのメッシュにする
 		UINT currentVertexIdx = 0;
@@ -707,10 +646,7 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 
 			Math::Vector3( 0.0f, 1.0f, 0.0f ).Cross(v.Normal, v.Tangent);
 			
-			if (v.Tangent.x == 0 && v.Tangent.y == 0 && v.Tangent.z == 0)
-			{
-				Math::Vector3( 0.0f, 0.0f, -1.0f).Cross(v.Normal, v.Tangent);
-			}
+			if (v.Tangent.x == 0 && v.Tangent.y == 0 && v.Tangent.z == 0) { Math::Vector3(0.0f, 0.0f, -1.0f).Cross(v.Normal, v.Tangent); }
 		}
 	}
 
@@ -877,12 +813,8 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(std::string_view path)
 
 
 //===================================================
-//
 // ここからはデバッグ表示用
-//
 //===================================================
-
-
 #ifdef GLTF_DEBUG
 
 #include <cstdio>

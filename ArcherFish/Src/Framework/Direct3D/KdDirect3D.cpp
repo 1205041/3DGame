@@ -55,7 +55,8 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	//=====================================================
 	IDXGIFactory* factory = nullptr;
 	hr = CreateDXGIFactory1(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&factory));
-	if (FAILED(hr)) {
+	if (FAILED(hr)) 
+	{
 		errMsg = "ファクトリー作成失敗";
 
 		Release();
@@ -67,10 +68,8 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	//=====================================================
 	UINT creationFlags = 0;
 
-	if (deviceDebug) {
-		// Direct3Dのデバッグを有効にする(すごく重いが細かいエラーがわかる)
-		creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
-	}
+	// Direct3Dのデバッグを有効にする(すごく重いが細かいエラーがわかる)
+	if (deviceDebug) { creationFlags |= D3D11_CREATE_DEVICE_DEBUG; }
 
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
@@ -321,10 +320,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 
 void KdDirect3D::Release()
 {
-	for (auto&& n : m_tempFixedVertexBuffer)
-	{
-		n.Release();
-	}
+	for (auto&& n : m_tempFixedVertexBuffer) { n.Release(); }
 	m_tempVertexBuffer.Release();
 
 	m_backBuffer = nullptr;
@@ -383,7 +379,8 @@ ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterTyp
 {
 	D3D11_SAMPLER_DESC desc = {};
 	// フィルタ
-	switch (filterType) {
+	switch (filterType) 
+	{
 		// Point
 	case KdSamplerFilterMode::Point:
 		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
@@ -400,7 +397,8 @@ ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterTyp
 	}
 
 	// アドレッシングモード
-	switch (addressingMode) {
+	switch (addressingMode) 
+	{
 		// Wrap
 	case KdSamplerAddressingMode::Wrap:
 		desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -421,9 +419,7 @@ ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterTyp
 		desc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;	// とりあえず今回は線形フィルタ固定で
 	}
 	// 通常サンプラ
-	else {
-		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-	}
+	else { desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS; }
 
 	// 
 	desc.MipLODBias = 0;
@@ -519,19 +515,15 @@ void KdDirect3D::DrawVertices(D3D_PRIMITIVE_TOPOLOGY topology, int vertexCount, 
 		buffer = &m_tempVertexBuffer;
 
 		// 頂点バッファのサイズが小さいときは、リサイズのため再作成する
-		if (m_tempVertexBuffer.GetBufferSize() < totalSize) {
-			m_tempVertexBuffer.Create(D3D11_BIND_VERTEX_BUFFER, totalSize, D3D11_USAGE_DYNAMIC, nullptr);
-		}
+		if (m_tempVertexBuffer.GetBufferSize() < totalSize) { m_tempVertexBuffer.Create(D3D11_BIND_VERTEX_BUFFER, totalSize, D3D11_USAGE_DYNAMIC, nullptr); }
 	}
 
 	//============================================================
-	//
-	// 単純なDISCARDでの書き込み。
-	//  DISCARDは、新たなバッファを内部で作成し、前回のバッファは使い終わると無効にするものです。
-	//  つまり書き込む度に新規のバッファになる感じです。
-	//  バッファのサイズが大きいと、その分新規のバッファを作成する時間がかかってしまいます。
-	//  これを改善したい場合は、「DISCARDとNO_OVERWRITEの組み合わせ技」の方法で行うほうがよいです。
-	//
+	/* 単純なDISCARDでの書き込み。 */
+	//  ・DISCARDは、新たなバッファを内部で作成し、前回のバッファは使い終わると無効にするものです。
+	//  　つまり書き込む度に新規のバッファになる感じです。
+	//  ・バッファのサイズが大きいと、その分新規のバッファを作成する時間がかかってしまいます。
+	//  　これを改善したい場合は、「DISCARDとNO_OVERWRITEの組み合わせ技」の方法で行うほうがよいです。
 	//============================================================
 
 	// 全頂点をバッファに書き込み(DISCARD指定)

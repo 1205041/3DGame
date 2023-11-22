@@ -74,25 +74,15 @@ void KdShaderManager::Init()
 	m_samplerStates[(int)KdSamplerState::Point_Clamp]		= KdDirect3D::Instance().CreateSamplerState(KdSamplerFilterMode::Point, 0, KdSamplerAddressingMode::Clamp, false);
 	
 	// 初期サンプラーステートの設定
-	if (m_pixelArtStyle)
-	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(0, 1, &m_samplerStates[(int)KdSamplerState::Point_Wrap]);
-	}
-	else
-	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(0, 1, &m_samplerStates[(int)KdSamplerState::Anisotropic_Wrap]);
-	}
+	if (m_pixelArtStyle) { KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(0, 1, &m_samplerStates[(int)KdSamplerState::Point_Wrap]); }
+	else { KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(0, 1, &m_samplerStates[(int)KdSamplerState::Anisotropic_Wrap]); }
 
 	m_ambientController.Init();
 }
 
-
 //==========================
-//
 // 描画パイプライン系の設定
-//
 //==========================
-
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 頂点シェーダのセット（現行のシェーダーと同じ場合はキャンセル）
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -106,10 +96,7 @@ bool KdShaderManager::SetVertexShader(ID3D11VertexShader* pSetVS)
 	// セットしようとしているシェーダーが現行と同じならキャンセル
 	bool needChange = pNowVS != pSetVS;
 
-	if (needChange)
-	{
-		KdDirect3D::Instance().WorkDevContext()->VSSetShader(pSetVS, nullptr, 0);
-	}
+	if (needChange) { KdDirect3D::Instance().WorkDevContext()->VSSetShader(pSetVS, nullptr, 0); }
 
 	KdSafeRelease(pNowVS);
 
@@ -129,10 +116,7 @@ bool KdShaderManager::SetPixelShader(ID3D11PixelShader* pSetPS)
 	// セットしようとしているシェーダーが現行と同じならキャンセル
 	bool needChange = pNowPS != pSetPS;
 
-	if (needChange)
-	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetShader(pSetPS, nullptr, 0);
-	}
+	if (needChange) { KdDirect3D::Instance().WorkDevContext()->PSSetShader(pSetPS, nullptr, 0); }
 
 	KdSafeRelease(pNowPS);
 
@@ -153,10 +137,7 @@ bool KdShaderManager::SetInputLayout(ID3D11InputLayout* pSetLayout)
 	// セットしようとしているレイアウトが現行と同じならキャンセル
 	bool needChange = pNowLayout != pSetLayout;
 
-	if (needChange)
-	{
-		KdDirect3D::Instance().WorkDevContext()->IASetInputLayout(pSetLayout);
-	}
+	if (needChange) { KdDirect3D::Instance().WorkDevContext()->IASetInputLayout(pSetLayout); }
 
 	KdSafeRelease(pNowLayout);
 
@@ -177,10 +158,7 @@ bool KdShaderManager::SetVSConstantBuffer(int startSlot, ID3D11Buffer* const* pS
 	// セットしようとしている定数バッファが現行と同じならキャンセル
 	bool needChange = pNowVSBuffer != *pSetVSBuffer;
 
-	if (needChange)
-	{
-		KdDirect3D::Instance().WorkDevContext()->VSSetConstantBuffers(startSlot, 1, pSetVSBuffer);
-	}
+	if (needChange) { KdDirect3D::Instance().WorkDevContext()->VSSetConstantBuffers(startSlot, 1, pSetVSBuffer); }
 
 	KdSafeRelease(pNowVSBuffer);
 
@@ -200,23 +178,16 @@ bool KdShaderManager::SetPSConstantBuffer(int startSlot, ID3D11Buffer* const* pS
 
 	bool needChange = pNowPSBuffer != *pSetPSBuffer;
 
-	if (needChange)
-	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetConstantBuffers(startSlot, 1, pSetPSBuffer);
-	}
+	if (needChange) { KdDirect3D::Instance().WorkDevContext()->PSSetConstantBuffers(startSlot, 1, pSetPSBuffer); }
 
 	KdSafeRelease(pNowPSBuffer);
 
 	return needChange;
 }
 
-
 //==========================
-//
 // パイプラインステートの変更
-//
 //==========================
-
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 深度ステンシルステートの変更（現行と同じステートの場合はキャンセル
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -225,10 +196,7 @@ void KdShaderManager::ChangeDepthStencilState(KdDepthStencilState stateId)
 	ID3D11DepthStencilState* pNowDs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->OMGetDepthStencilState(&pNowDs, 0);
 
-	if (pNowDs != m_depthStencilStates[(int)stateId])
-	{
-		KdDirect3D::Instance().WorkDevContext()->OMSetDepthStencilState(m_depthStencilStates[(int)stateId], 0);
-	}
+	if (pNowDs != m_depthStencilStates[(int)stateId]) { KdDirect3D::Instance().WorkDevContext()->OMSetDepthStencilState(m_depthStencilStates[(int)stateId], 0); }
 
 	m_ds_Undo.push(pNowDs);
 
@@ -245,10 +213,7 @@ void KdShaderManager::UndoDepthStencilState()
 	ID3D11DepthStencilState* pNowDs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->OMGetDepthStencilState(&pNowDs, 0);
 
-	if (pNowDs != m_ds_Undo.top())
-	{
-		KdDirect3D::Instance().WorkDevContext()->OMSetDepthStencilState(m_ds_Undo.top(), 0);
-	}
+	if (pNowDs != m_ds_Undo.top()) { KdDirect3D::Instance().WorkDevContext()->OMSetDepthStencilState(m_ds_Undo.top(), 0); }
 
 	m_ds_Undo.pop();
 
@@ -263,10 +228,7 @@ void KdShaderManager::ChangeRasterizerState(KdRasterizerState stateId)
 	ID3D11RasterizerState* pNowRs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->RSGetState(&pNowRs);
 
-	if (pNowRs != m_rasterizerStates[(int)stateId])
-	{
-		KdDirect3D::Instance().WorkDevContext()->RSSetState(m_rasterizerStates[(int)stateId]);
-	}
+	if (pNowRs != m_rasterizerStates[(int)stateId]) { KdDirect3D::Instance().WorkDevContext()->RSSetState(m_rasterizerStates[(int)stateId]); }
 
 	m_rs_Undo.push(pNowRs);
 
@@ -283,10 +245,7 @@ void KdShaderManager::UndoRasterizerState()
 	ID3D11RasterizerState* pNowRs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->RSGetState(&pNowRs);
 
-	if (pNowRs != m_rs_Undo.top())
-	{
-		KdDirect3D::Instance().WorkDevContext()->RSSetState(m_rs_Undo.top());
-	}
+	if (pNowRs != m_rs_Undo.top()) { KdDirect3D::Instance().WorkDevContext()->RSSetState(m_rs_Undo.top()); }
 
 	m_rs_Undo.pop();
 
@@ -301,10 +260,7 @@ void KdShaderManager::ChangeBlendState(KdBlendState stateId)
 	ID3D11BlendState* pNowBs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->OMGetBlendState(&pNowBs, nullptr, nullptr);
 
-	if (pNowBs != m_blendStates[(int)stateId])
-	{
-		KdDirect3D::Instance().WorkDevContext()->OMSetBlendState(m_blendStates[(int)stateId], Math::Color(0, 0, 0, 0), 0xFFFFFFFF);
-	}
+	if (pNowBs != m_blendStates[(int)stateId]) { KdDirect3D::Instance().WorkDevContext()->OMSetBlendState(m_blendStates[(int)stateId], Math::Color(0, 0, 0, 0), 0xFFFFFFFF); }
 
 	m_bs_Undo.push(pNowBs);
 
@@ -321,10 +277,7 @@ void KdShaderManager::UndoBlendState()
 	ID3D11BlendState* pNowBs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->OMGetBlendState(&pNowBs, nullptr, nullptr);
 	
-	if (pNowBs != m_bs_Undo.top())
-	{
-		KdDirect3D::Instance().WorkDevContext()->OMSetBlendState(m_bs_Undo.top(), Math::Color(0, 0, 0, 0), 0xFFFFFFFF);
-	}
+	if (pNowBs != m_bs_Undo.top()) { KdDirect3D::Instance().WorkDevContext()->OMSetBlendState(m_bs_Undo.top(), Math::Color(0, 0, 0, 0), 0xFFFFFFFF); }
 
 	m_bs_Undo.pop();
 
@@ -339,10 +292,7 @@ void KdShaderManager::ChangeSamplerState(KdSamplerState stateId, int slot)
 	ID3D11SamplerState* pNowSs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->PSGetSamplers(slot, 1, &pNowSs);
 
-	if (pNowSs != m_samplerStates[(int)stateId])
-	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(slot, 1, &m_samplerStates[(int)stateId]);
-	}
+	if (pNowSs != m_samplerStates[(int)stateId]) { KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(slot, 1, &m_samplerStates[(int)stateId]); }
 
 	m_ss_Undo.push(pNowSs);
 
@@ -359,10 +309,7 @@ void KdShaderManager::UndoSamplerState(int slot)
 	ID3D11SamplerState* pNowSs = nullptr;
 	KdDirect3D::Instance().WorkDevContext()->PSGetSamplers(0, 1, &pNowSs);
 
-	if (pNowSs != m_ss_Undo.top())
-	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(slot, 1, &m_ss_Undo.top());
-	}
+	if (pNowSs != m_ss_Undo.top()) { KdDirect3D::Instance().WorkDevContext()->PSSetSamplers(slot, 1, &m_ss_Undo.top()); }
 
 	m_ss_Undo.pop();
 
@@ -521,34 +468,22 @@ void KdShaderManager::Release()
 	m_cb9_Light.Release();
 
 	//深度ステンシルステート開放
-	for (auto& state : m_depthStencilStates)
-	{
-		KdSafeRelease(state);
-	}
+	for (auto& state : m_depthStencilStates) { KdSafeRelease(state); }
 
 	m_ds_Undo.swap(std::stack<ID3D11DepthStencilState*>());
 
 	// ラスタライザステート解放
-	for (auto& state : m_rasterizerStates)
-	{
-		KdSafeRelease(state);
-	}
+	for (auto& state : m_rasterizerStates) { KdSafeRelease(state); }
 
 	m_rs_Undo.swap(std::stack<ID3D11RasterizerState*>());
 
 	// ブレンドステート解放
-	for (auto& state : m_blendStates)
-	{
-		KdSafeRelease(state);
-	}
+	for (auto& state : m_blendStates) { KdSafeRelease(state); }
 
 	m_bs_Undo.swap(std::stack<ID3D11BlendState*>());
 
 	// サンプラーステート解放
-	for (auto& state : m_samplerStates)
-	{
-		KdSafeRelease(state);
-	}
+	for (auto& state : m_samplerStates) { KdSafeRelease(state); }
 
 	m_ss_Undo.swap(std::stack<ID3D11SamplerState*>());
 }

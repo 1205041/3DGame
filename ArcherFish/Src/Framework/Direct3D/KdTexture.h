@@ -1,15 +1,14 @@
 ﻿#pragma once
 
-//====================================================
+/* = = = = = = = = = */
 // テクスチャクラス
-//====================================================
+/* = = = = = = = = = */
 class KdTexture
 {
 public:
-
-	//====================================================
+	/* = = = = = = = = = */
 	// 取得
-	//====================================================
+	/* = = = = = = = = = */
 
 	// 画像のアスペクト比取得
 	float								GetAspectRatio() const { return (float)m_desc.Width / m_desc.Height; }
@@ -44,10 +43,9 @@ public:
 	const ID3D11DepthStencilView*		GetDSView() const { return m_dsv; }
 	ID3D11DepthStencilView*				WorkDSView() const { return m_dsv; }
 
-	//====================================================
+	/* = = = = = = = = = = = = = = = = */
 	// 画像ファイルからテクスチャ作成
-	//====================================================
-
+	/* = = = = = = = = = = = = = = = = */
 	// 画像ファイルを読み込む
 	// ・filename		… 画像ファイル名
 	// ・renderTarget	… レンダーターゲットビューを生成する(レンダーターゲットにする)
@@ -55,10 +53,9 @@ public:
 	// ・generateMipmap	… ミップマップ生成する？
 	bool Load(std::string_view filename, bool renderTarget = false, bool depthStencil = false, bool generateMipmap = true);
 
-	//====================================================
+	/* = = = = = = = = */
 	// テクスチャ作成
-	//====================================================
-
+	/* = = = = = = = = */
 	// リソースから作成
 	// ・pTexture2D	… 画像リソース
 	// 戻り値：true … 成功
@@ -101,9 +98,9 @@ public:
 	// 戻り値：true … 成功
 	bool CreateDepthStencil(int w, int h, DXGI_FORMAT format = DXGI_FORMAT_R24G8_TYPELESS, UINT arrayCnt = 1, const D3D11_SUBRESOURCE_DATA* fillData = nullptr, UINT miscFlags = 0);
 
-	//====================================================
+	/* = = = = = = = = */
 	// ビューから作成
-	//====================================================
+	/* = = = = = = = = */
 	// ShaderResourceViewをセットする
 	void SetSRView(ID3D11ShaderResourceView* srv);
 
@@ -113,16 +110,15 @@ public:
 	// 
 	KdTexture(std::string_view filename) { Load(filename); }
 
-	//====================================================
+	/* = = = */
 	// 解放
-	//====================================================
+	/* = = = */
 	void Release();
 
 	// 
 	~KdTexture() { Release(); }
 
 private:
-
 	// シェーダリソースビュー(読み取り用)
 	ID3D11ShaderResourceView*	m_srv = nullptr;
 	// レンダーターゲットビュー(書き込み用)

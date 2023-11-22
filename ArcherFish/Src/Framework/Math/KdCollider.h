@@ -54,7 +54,7 @@ public:
 
 		// レイの情報を全て指定：自動的に方向ベクトルは正規化
 		RayInfo(UINT type, const Math::Vector3& pos, const Math::Vector3& dir, float range) 
-			: m_type(type), m_pos(pos), m_dir(dir),m_range(range)
+			: m_type(type), m_pos(pos), m_dir(dir), m_range(range) 
 		{
 			m_dir.Normalize();
 		}

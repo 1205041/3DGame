@@ -1,17 +1,6 @@
 ﻿#include "KdModel.h"
 #include "KdGLTFLoader.h"
 
-//コンストラクター
-KdModelData::KdModelData()
-{
-}
-
-//デストラクター
-KdModelData::~KdModelData()
-{
-	Release();
-}
-
 //ロード関数
 bool KdModelData::Load(std::string_view filename)
 {
@@ -49,10 +38,7 @@ void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
 			// メッシュ作成
 			rDstNode.m_spMesh = std::make_shared<KdMesh>();
 
-			if (rDstNode.m_spMesh)
-			{
-				rDstNode.m_spMesh->Create(rSrcNode.Mesh.Vertices, rSrcNode.Mesh.Faces, rSrcNode.Mesh.Subsets, rSrcNode.Mesh.IsSkinMesh);
-			}
+			if (rDstNode.m_spMesh) { rDstNode.m_spMesh->Create(rSrcNode.Mesh.Vertices, rSrcNode.Mesh.Faces, rSrcNode.Mesh.Subsets, rSrcNode.Mesh.IsSkinMesh); }
 
 			// メッシュノードリストにインデックス登録
 			m_meshNodeIndices.push_back(i);
@@ -73,17 +59,10 @@ void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
 		rDstNode.m_parent = rSrcNode.Parent;
 		rDstNode.m_children = rSrcNode.Children;
 
-		// 当たり判定用ノード検索
-		if (rDstNode.m_name.find("COL") != std::string::npos)
-		{
-			// 判定用ノードに割り当て
-			m_collisionMeshNodeIndices.push_back(i);
-		}
-		else
-		{
-			// 描画ノードに割り当て
-			m_drawMeshNodeIndices.push_back(i);
-		}
+		/* 当たり判定用ノード検索 */
+		// 判定用ノードに割り当て
+		if (rDstNode.m_name.find("COL") != std::string::npos) { m_collisionMeshNodeIndices.push_back(i); }
+		else { m_drawMeshNodeIndices.push_back(i); }// 描画ノードに割り当て
 	}
 
 	for (UINT nodeIdx = 0; nodeIdx < spGltfModel->Nodes.size(); nodeIdx++)
@@ -104,10 +83,7 @@ void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
 
 	// 当たり判定用ノードが1つも見つからなければ、m_drawMeshNodeと同じ割り当てを行い
 	// 見た目 = 当たり判定となる
-	if (!m_collisionMeshNodeIndices.size())
-	{
-		m_collisionMeshNodeIndices = m_drawMeshNodeIndices;
-	}
+	if (!m_collisionMeshNodeIndices.size()) { m_collisionMeshNodeIndices = m_drawMeshNodeIndices; }
 }
 
 // マテリアル作成
@@ -174,13 +150,7 @@ void KdModelData::CreateAnimations(const std::shared_ptr<KdGLTFModel>& spGltfMod
 // アニメーションデータ取得：文字列検索
 const std::shared_ptr<KdAnimationData> KdModelData::GetAnimation(std::string_view animName) const
 {
-	for (auto&& anim : m_spAnimations)
-	{
-		if (anim->m_name == animName)
-		{
-			return anim;
-		}
-	}
+	for (auto&& anim : m_spAnimations) { if (anim->m_name == animName) { return anim; } }
 
 	return nullptr;
 }
@@ -204,20 +174,15 @@ void KdModelData::Release()
 
 bool KdModelData::IsSkinMesh()
 {
-	for (auto& node : m_originalNodes)
-	{
-		if (node.m_isSkinMesh) { return true; }
-	}
+	for (auto& node : m_originalNodes) { if (node.m_isSkinMesh) { return true; } }
 
 	return false;
 }
 
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 
+/* = = = = = = */
 // KdModelWork
-// 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = */
 const KdModelData::Node* KdModelWork::FindDataNode(std::string_view name) const
 {
 	if (m_spData == nullptr) { return nullptr; }
@@ -228,13 +193,7 @@ const KdModelData::Node* KdModelWork::FindDataNode(std::string_view name) const
 // ノード検索：文字列
 const KdModelWork::Node* KdModelWork::FindNode(std::string_view name) const
 {
-	for (auto&& node : m_coppiedNodes)
-	{
-		if (node.m_name == name.data())
-		{
-			return &node;
-		}
-	}
+	for (auto&& node : m_coppiedNodes) { if (node.m_name == name.data()) { return &node; } }
 
 	return nullptr;
 }
@@ -265,10 +224,7 @@ void KdModelWork::SetModelData(const std::shared_ptr<KdModelData>& rModel)
 	m_coppiedNodes.resize(nodeSize);
 
 	// ノードのコピーを生成
-	for (UINT i = 0; i < nodeSize; ++i)
-	{
-		m_coppiedNodes[i].copy(rModel->GetOriginalNodes()[i]);
-	}
+	for (UINT i = 0; i < nodeSize; ++i) { m_coppiedNodes[i].copy(rModel->GetOriginalNodes()[i]); }
 
 	m_needCalcNode = true;
 }
@@ -287,10 +243,7 @@ void KdModelWork::CalcNodeMatrices()
 	if (!m_spData) { assert(0 && "モデルのないノード行列計算"); return; }
 
 	// 全ボーン行列を書き込み
-	for (auto&& nodeIdx : m_spData->GetRootNodeIndices())
-	{
-		recCalcNodeMatrices(nodeIdx);
-	}
+	for (auto&& nodeIdx : m_spData->GetRootNodeIndices()) { recCalcNodeMatrices(nodeIdx); }
 
 	m_needCalcNode = false;
 }
@@ -311,13 +264,7 @@ void KdModelWork::recCalcNodeMatrices(int nodeIdx, int parentNodeIdx)
 		work.m_worldTransform = work.m_localTransform * parent.m_worldTransform;
 	}
 	// 親が居ない場合は親は自分自身とする
-	else
-	{
-		work.m_worldTransform = work.m_localTransform;
-	}
+	else { work.m_worldTransform = work.m_localTransform; }
 
-	for (auto childNodeIdx : data.m_children)
-	{
-		recCalcNodeMatrices(childNodeIdx, nodeIdx);
-	}
+	for (auto childNodeIdx : data.m_children) { recCalcNodeMatrices(childNodeIdx, nodeIdx); }
 }

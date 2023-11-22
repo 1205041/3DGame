@@ -49,10 +49,7 @@ const std::shared_ptr<KdAnimationFrame> KdUVAnimationData::GetAnimation(std::str
 // 再生したいアニメーションのセット
 void KdUVAnimator::SetAnimation(const std::shared_ptr<KdAnimationFrame>& animData, bool loop, bool restart)
 {
-	if (!m_spNowAnimation)
-	{
-		m_spNowAnimation = animData;
-	}
+	if (!m_spNowAnimation) { m_spNowAnimation = animData; }
 
 	// アニメーションの進捗を初期化しない
 	if (!restart)
@@ -61,10 +58,7 @@ void KdUVAnimator::SetAnimation(const std::shared_ptr<KdAnimationFrame>& animDat
 
 		m_nowAnimPos = std::min(animData->m_startFrame + nowProgress, static_cast<float>(animData->m_endFrame));
 	}
-	else
-	{
-		m_nowAnimPos = static_cast<float>(animData->m_startFrame);
-	}
+	else { m_nowAnimPos = static_cast<float>(animData->m_startFrame); }
 
 	m_spNowAnimation = animData;
 
@@ -82,15 +76,8 @@ void KdUVAnimator::AdvanceTime(float speed)
 	// 終了判定
 	if (IsAnimationEnd())
 	{
-		if (m_loopAnimation)
-		{
-			m_nowAnimPos = static_cast<float>(m_spNowAnimation->m_startFrame);
-		}
-		else
-		{
-			// 最後のコマにする
-			m_nowAnimPos = static_cast<float>(m_spNowAnimation->m_endFrame) - 0.001f;
-		}
+		if (m_loopAnimation) { m_nowAnimPos = static_cast<float>(m_spNowAnimation->m_startFrame); }
+		else { m_nowAnimPos = static_cast<float>(m_spNowAnimation->m_endFrame) - 0.001f; }// 最後のコマにする
 	}
 }
 

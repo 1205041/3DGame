@@ -18,9 +18,7 @@ struct PointLight
 };
 
 //==========================
-//
 // 各パイプラインステートの呼び出しID
-//
 //==========================
 // 深度情報の影響・書き込みの制御ステート
 enum class KdDepthStencilState
@@ -61,14 +59,11 @@ enum class KdSamplerState
 };
 
 //==========================================================
-//
 // シェーダ関係をまとめたクラス
-//
 //==========================================================
 class KdShaderManager
 {
 public:
-
 	// カメラ定数バッファ用構造体
 	struct cbCamera
 	{
@@ -131,18 +126,14 @@ public:
 	void Init();
 
 	//==========================
-	//
 	// シェーダ
-	//
 	//==========================
 	KdHD2DShader			m_HD2DShader;			// HD2D描画シェーダ
 	KdPostProcessShader		m_postProcessShader;	// ポストプロセスシェーダ
 	KdSpriteShader			m_spriteShader;			// 2Dテクスチャ描画シェーダ
 
 	//==========================
-	//
 	// 描画パイプライン系の設定
-	//
 	//==========================
 	// パイプラインの設定
 	bool SetVertexShader(ID3D11VertexShader* pSetVS);
@@ -156,9 +147,7 @@ public:
 	bool SetPSConstantBuffer(int startSlot, ID3D11Buffer* const* pSetBuffer);
 
 	//==========================
-	//
 	// パイプラインステートの変更
-	//
 	//==========================
 	// 深度情報をどのように扱うかを変更：変更したかどうかが返ってくる
 	void ChangeDepthStencilState(KdDepthStencilState stateId);
@@ -177,9 +166,7 @@ public:
 	void UndoSamplerState(int slot = 0);
 
 	//==========================
-	//
 	// 定数バッファ系
-	//
 	//==========================
 	const cbCamera& GetCameraCB() const { return m_cb7_Camera.Get(); }
 
@@ -199,11 +186,8 @@ public:
 	void WriteCBPointLight(const std::list<PointLight>& pointLights);
 
 	//==========================
-	//
 	// その他
-	//
 	//==========================
-
 	bool IsPixelArtStyle() const { return m_pixelArtStyle; }
 
 	void AddPointLight(const Math::Vector3& pos, const Math::Vector3& color, float radius, bool isBright);
@@ -215,7 +199,6 @@ public:
 	void Release();
 
 private:
-
 	KdShaderManager() {}
 
 	~KdShaderManager() {}
@@ -234,9 +217,7 @@ private:
 	bool m_pixelArtStyle = true;
 
 	//==========================
-	//
 	// パイプラインステート
-	//
 	//==========================
 	 
 	//深度ステンシル（奥行情報の使い方・手前にあるものを無視して描画したりできる

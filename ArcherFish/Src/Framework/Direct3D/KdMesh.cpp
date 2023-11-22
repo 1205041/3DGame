@@ -1,15 +1,11 @@
 ﻿#include "Framework/KdFramework.h"
 
 #include "KdMesh.h"
-
 #include "KdGLTFLoader.h"
 
 //=============================================================
-//
 // Mesh
-//
 //=============================================================
-
 void KdMesh::SetToDevice() const
 {
 	// 頂点バッファセット
@@ -57,10 +53,7 @@ bool KdMesh::Create(const std::vector<KdMeshVertex>& vertices, const std::vector
 
 		// 座標のみの配列
 		m_positions.resize(vertices.size());
-		for (UINT i = 0; i < m_positions.size(); i++)
-		{
-			m_positions[i] = vertices[i].Pos;
-		}
+		for (UINT i = 0; i < m_positions.size(); i++) { m_positions[i] = vertices[i].Pos; }
 
 		// AA境界データ作成
 		DirectX::BoundingBox::CreateFromPoints(m_aabb, m_positions.size(), &m_positions[0], sizeof(Math::Vector3));
@@ -94,6 +87,15 @@ bool KdMesh::Create(const std::vector<KdMeshVertex>& vertices, const std::vector
 	m_isSkinMesh = isSkinMesh;
 
 	return true;
+}
+
+void KdMesh::Release()
+{
+	m_vertBuf.Release();
+	m_indxBuf.Release();
+	m_subsets.clear();
+	m_positions.clear();
+	m_faces.clear();
 }
 
 

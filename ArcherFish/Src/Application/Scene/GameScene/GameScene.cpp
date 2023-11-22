@@ -36,7 +36,7 @@ void GameScene::Init()
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Game.wav", true);
 
 	// マウスポインタ非表示
-	ShowCursor(false);
+//	ShowCursor(false);
 
 	/* オブジェクトの初期化 */
 	// 地形
@@ -52,7 +52,7 @@ void GameScene::Init()
 	// ゲームUI
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { -16.0f,16.0f }, { 0,0,32, 32 });
+	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0.0f,0.0f }, { 0,0,32, 32 });
 	spText->SetColor({ 1.0f,1.0f,1.0f,0.5f });
 	m_objList.push_back(spText);
 

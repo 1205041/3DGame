@@ -32,9 +32,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 	wc.lpszClassName = wndClsName.c_str();					// ウィンドウクラス名
 
 	//ウィンドウクラスの登録
-	if (!RegisterClassEx(&wc)) {
-		return false;
-	}
+	if (!RegisterClassEx(&wc)) { return false; }
 
 	//ウィンドウの作成
 	m_hWnd = CreateWindow(
@@ -50,9 +48,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 		hInst,												// インスタンスハンドル 
 		this);												// 追加情報
 
-	if (m_hWnd == nullptr) {
-		return false;
-	}
+	if (m_hWnd == nullptr) { return false; }
 
 	// クライアントのサイズを設定
 	SetClientSize(clientWidth, clientHeight);
@@ -72,7 +68,8 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 
 void KdWindow::Release()
 {
-	if (m_hWnd) {
+	if (m_hWnd) 
+	{
 		DestroyWindow(m_hWnd);
 		m_hWnd = nullptr;
 	}
@@ -87,9 +84,7 @@ bool KdWindow::ProcessMessage()
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
 		// 終了メッセージがきた
-		if (msg.message == WM_QUIT) {
-			return false;
-		}
+		if (msg.message == WM_QUIT) { return false; }
 
 		//メッセージ処理
 		TranslateMessage(&msg);
@@ -106,19 +101,20 @@ LRESULT CALLBACK KdWindow::callWindowProc(HWND hWnd, UINT message, WPARAM wParam
 	KdWindow* pThis = (KdWindow*)GetProp(hWnd, L"GameWindowInstance");
 
 	// nullptrの場合は、デフォルト処理を実行
-	if (pThis == nullptr) {
-		switch (message) {
-			case WM_CREATE:
-			{
-				// CreateWindow()で渡したパラメータを取得
-				CREATESTRUCT * createStruct = (CREATESTRUCT*)lParam;
-				KdWindow* window = (KdWindow*)createStruct->lpCreateParams;
+	if (pThis == nullptr) 
+	{
+		switch (message) 
+		{
+		case WM_CREATE:
+		{
+			// CreateWindow()で渡したパラメータを取得
+			CREATESTRUCT * createStruct = (CREATESTRUCT*)lParam;
+			KdWindow* window = (KdWindow*)createStruct->lpCreateParams;
 
-				// ウィンドウプロパティにこのクラスのインスタンスアドレスを埋め込んでおく
-				// 次回から、pThis->WindowProcの方へ処理が流れていく
-				SetProp(hWnd, L"GameWindowInstance", window);
-
-			}
+			// ウィンドウプロパティにこのクラスのインスタンスアドレスを埋め込んでおく
+			// 次回から、pThis->WindowProcの方へ処理が流れていく
+			SetProp(hWnd, L"GameWindowInstance", window);
+		}
 			return 0;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
@@ -138,13 +134,14 @@ LRESULT KdWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	//===================================
 	//メッセージによって処理を選択
 	//===================================
-	switch (message) {
+	switch (message) 
+	{
 	// ホイールスクロール時
 	case WM_MOUSEWHEEL:
-		{
-			m_mouseWheelVal = (short)HIWORD(wParam);
-		}
-		break;
+	{
+		m_mouseWheelVal = (short)HIWORD(wParam); 
+	}
+	break;
 	// Xボタンが押された
 	case WM_CLOSE:
 		// 破棄
@@ -196,7 +193,8 @@ bool KdWindow::OpenFileDialog(std::string& filepath, std::string_view title, con
 	{
 		dir = current.string() + "\\";
 	}
-	else {
+	else 
+	{
 		auto path = std::filesystem::absolute(filepath);
 		dir = path.parent_path().string() + "\\";
 	}
@@ -204,12 +202,12 @@ bool KdWindow::OpenFileDialog(std::string& filepath, std::string_view title, con
 	OPENFILENAMEA o;
 	ZeroMemory(&o, sizeof(o));
 
-	o.lStructSize = sizeof(o);									// 構造体サイズ
-	o.hwndOwner = nullptr;										// 親ウィンドウのハンドル
-	o.lpstrInitialDir = dir.c_str();							// 初期フォルダー
-	o.lpstrFile = fname;										// 取得したファイル名を保存するバッファ
-	o.nMaxFile = sizeof(fname);									// 取得したファイル名を保存するバッファサイズ
-	o.lpstrFilter = filters;									// (例) "TXTファイル(*.TXT)\0*.TXT\0全てのファイル(*.*)\0*.*\0";
+	o.lStructSize = sizeof(o);			// 構造体サイズ
+	o.hwndOwner = nullptr;				// 親ウィンドウのハンドル
+	o.lpstrInitialDir = dir.c_str();	// 初期フォルダー
+	o.lpstrFile = fname;				// 取得したファイル名を保存するバッファ
+	o.nMaxFile = sizeof(fname);			// 取得したファイル名を保存するバッファサイズ
+	o.lpstrFilter = filters;			// (例) "TXTファイル(*.TXT)\0*.TXT\0全てのファイル(*.*)\0*.*\0";
 	o.lpstrDefExt = "";
 	o.lpstrTitle = title.data();
 	o.nFilterIndex = 1;
@@ -242,7 +240,8 @@ bool KdWindow::SaveFileDialog(std::string& filepath, std::string_view title, con
 	{
 		dir = current.string() + "\\";
 	}
-	else {
+	else 
+	{
 		auto path = std::filesystem::absolute(filepath);
 		dir = path.parent_path().string() + "\\";
 	}

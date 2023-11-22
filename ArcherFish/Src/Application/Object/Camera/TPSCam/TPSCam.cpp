@@ -6,8 +6,11 @@ void TPSCam::Init()
 	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.8f, 1.5f, -3.5f));
 
 	// ÉJÅ[É\Éãèâä˙âª
-	m_FixMousePos.x = 1280 / 2;
-	m_FixMousePos.y = 720 / 2;
+	KdCSVData windowData("Asset/Data/WindowSettings.csv");
+	const std::vector<std::string>& sizeData = windowData.GetLine(0);
+
+	m_FixMousePos.x = atoi(sizeData[0].c_str()) / 2;
+	m_FixMousePos.y = atoi(sizeData[1].c_str()) / 2;
 
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 

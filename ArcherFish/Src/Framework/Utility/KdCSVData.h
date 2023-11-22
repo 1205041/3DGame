@@ -2,6 +2,7 @@
 
 struct KdCSVData
 {
+public:
 	KdCSVData() {}
 	KdCSVData(const std::string_view filename) { Load(filename); }
 
@@ -14,7 +15,6 @@ struct KdCSVData
 	size_t GetLineSize() const { return m_dataLines.size(); }
 
 private:
-
 	void CommaSeparatedValue(std::string_view src, std::vector<std::string>& result);
 
 	std::vector<std::vector<std::string>> m_dataLines;

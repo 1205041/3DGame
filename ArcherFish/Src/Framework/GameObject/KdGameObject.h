@@ -4,7 +4,6 @@
 class KdGameObject : public std::enable_shared_from_this<KdGameObject>
 {
 public:
-
 	// どのような描画を行うのかを設定するTypeID：Bitフラグで複数指定可能
 	enum
 	{
@@ -66,7 +65,6 @@ public:
 	bool Intersects(const KdCollider::RayInfo& targetShape, std::list<KdCollider::CollisionResult>* pResults);
 
 protected:
-
 	void Release() {}
 
 	// 描画タイプ・何の描画を行うのかを決める / 最適な描画リスト作成用

@@ -1,9 +1,7 @@
 ﻿#include "KdRenderTargetChange.h"
 
 //===========================================
-//
 // レンダーターゲットのパッケージ　RTView-DSView-ViewPort
-//
 //===========================================
 
 void KdRenderTargetPack::CreateRenderTarget(int width, int height, bool needDSV, DXGI_FORMAT format, D3D11_VIEWPORT* pVP)
@@ -30,10 +28,7 @@ void KdRenderTargetPack::SetRenderTarget(std::shared_ptr<KdTexture> RTT, std::sh
 
 void KdRenderTargetPack::SetViewPort(D3D11_VIEWPORT* pVP)
 {
-	if (pVP)
-	{
-		m_viewPort = *pVP;
-	}
+	if (pVP) { m_viewPort = *pVP; }
 	else
 	{
 		if (!m_RTTexture) { return; }
@@ -55,11 +50,8 @@ void KdRenderTargetPack::ClearTexture(const Math::Color& fillColor)
 {
 	ID3D11DeviceContext* DevCon = KdDirect3D::Instance().WorkDevContext();
 
-	if (m_RTTexture)
-	{
-		// テクスチャの描画クリア
-		DevCon->ClearRenderTargetView(m_RTTexture->WorkRTView(), fillColor);
-	}
+	// テクスチャの描画クリア
+	if (m_RTTexture) { DevCon->ClearRenderTargetView(m_RTTexture->WorkRTView(), fillColor); }
 
 	if (m_ZBuffer)
 	{
@@ -70,11 +62,8 @@ void KdRenderTargetPack::ClearTexture(const Math::Color& fillColor)
 
 
 //===========================================
-//
 // レンダーターゲット変更クラス
-//
 //===========================================
-
 bool KdRenderTargetChanger::Validate(ID3D11RenderTargetView* pRTV)
 {
 	if (!pRTV)
@@ -101,11 +90,8 @@ bool KdRenderTargetChanger::ChangeRenderTarget(ID3D11RenderTargetView* pRTV,
 
 	ID3D11DeviceContext* DevCon = KdDirect3D::Instance().WorkDevContext();
 
-	if (!m_saveRTV)
-	{
-		// 情報保存
-		DevCon->OMGetRenderTargets(1, &m_saveRTV, &m_saveDSV);
-	}
+	// 情報保存
+	if (!m_saveRTV) { DevCon->OMGetRenderTargets(1, &m_saveRTV, &m_saveDSV); }
 
 	// レンダーターゲット切替 ----- ----- ----- ----- -----
 	DevCon->OMSetRenderTargets(1, &pRTV, pDSV);
@@ -114,9 +100,7 @@ bool KdRenderTargetChanger::ChangeRenderTarget(ID3D11RenderTargetView* pRTV,
 	{
 		// 情報保存
 		DevCon->RSGetViewports(&m_numVP, &m_saveVP);
-
 		DevCon->RSSetViewports(1, pVP);
-
 		m_changeVP = true;
 	}
 
@@ -130,10 +114,7 @@ bool KdRenderTargetChanger::ChangeRenderTarget(std::shared_ptr<KdTexture> RTT,
 
 	ID3D11DepthStencilView* pDSV = nullptr;
 
-	if (DST)
-	{
-		pDSV = DST->WorkDSView();
-	}
+	if (DST) { pDSV = DST->WorkDSView(); }
 
 	return ChangeRenderTarget(RTT->WorkRTView(), pDSV, pVP);
 }
@@ -150,10 +131,7 @@ void KdRenderTargetChanger::UndoRenderTarget()
 
 	KdDirect3D::Instance().WorkDevContext()->OMSetRenderTargets(1, &m_saveRTV, m_saveDSV);
 
-	if (m_changeVP)
-	{
-		KdDirect3D::Instance().WorkDevContext()->RSSetViewports(1, &m_saveVP);
-	}
+	if (m_changeVP) { KdDirect3D::Instance().WorkDevContext()->RSSetViewports(1, &m_saveVP); }
 
 	KdSafeRelease(m_saveRTV);
 	KdSafeRelease(m_saveDSV);

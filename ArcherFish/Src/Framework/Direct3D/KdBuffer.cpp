@@ -2,8 +2,6 @@
 
 #include "KdBuffer.h"
 
-
-
 bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, const D3D11_SUBRESOURCE_DATA* initData)
 {
 	Release();
@@ -21,8 +19,7 @@ bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, 
 		}
 
 		// サイズを16の倍数バイトにする
-//		bufferSize = ((bufferSize + 16 - 1) / 16) * 16;
-
+		// bufferSize = ((bufferSize + 16 - 1) / 16) * 16;
 	}
 
 	//--------------------------------
@@ -36,27 +33,27 @@ bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, 
 
 	desc.Usage				= bufferUsage;		// 作成するバッファの使用法
 
-	// 動的ビデオメモリバッファ
-	//  GPUからWrite× Read○
-	//  CPUからWrite○ Read×
-	// 頻繁に更新されるようなバッファはこれが効率良いが、DEFAULTに比べたら少し速度は落ちる
-	if (desc.Usage == D3D11_USAGE_DYNAMIC)
-	{
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	}
-	// 静的ビデオメモリバッファ
-	//  GPUからWrite○ Read○
-	//  CPUからWrite× Read×　(ただしUpdateSubresource()で更新は可能)
-	// ビデオメモリーのバッファ　頻繁に更新するには向いていないが描画が高速
-	else if(desc.Usage == D3D11_USAGE_DEFAULT)
-	{
-		desc.CPUAccessFlags = 0;
-	}
-	// ステージングバッファ
-	//  GPUからWrite× Read×
-	//  CPUからWrite○ Read○
-	// Direct3Dへバインドは出来ないが、DEFAULTやDYNAMICのバッファに対して読み書き転送が可能
-	// (例)DEFAULTバッファの内容を取得したい！ -> STAGINGバッファを作成し、DEFAULTバッファからコピーしてくる(CopyResource関数)。そしてSTAGINGバッファにアクセス(Map/Unmap)する。
+	/* 動的ビデオメモリバッファ */
+	// ・GPUからWrite× Read○
+	// ・CPUからWrite○ Read×
+	// ・頻繁に更新されるようなバッファはこれが効率良いが、
+	// 　DEFAULTに比べたら少し速度は落ちる
+	if (desc.Usage == D3D11_USAGE_DYNAMIC) { desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; }
+
+	/* 静的ビデオメモリバッファ */
+	// ・GPUからWrite○ Read○
+	// ・CPUからWrite× Read×　(ただしUpdateSubresource()で更新は可能)
+	// ・ビデオメモリーのバッファ　頻繁に更新するには向いていないが描画が高速
+	else if (desc.Usage == D3D11_USAGE_DEFAULT) { desc.CPUAccessFlags = 0; }
+
+	/* ステージングバッファ */
+	// ・GPUからWrite× Read×
+	// ・CPUからWrite○ Read○
+	// ・Direct3Dへバインドは出来ないが、
+	// 　DEFAULTやDYNAMICのバッファに対して読み書き転送が可能
+	// (例)DEFAULTバッファの内容を取得したい！ 
+	// 　　-> STAGINGバッファを作成し、DEFAULTバッファからコピーしてくる(CopyResource関数)。
+	// 　　　　そしてSTAGINGバッファにアクセス(Map/Unmap)する。
 	else if (desc.Usage == D3D11_USAGE_STAGING)
 	{
 		desc.BindFlags = 0;
@@ -93,12 +90,8 @@ void KdBuffer::WriteData(const void* pSrcData, UINT size)
 			KdDirect3D::Instance().WorkDevContext()->Unmap(m_pBuffer, 0);
 		}
 	}
-	// 静的バッファの場合
-	else if (m_bufUsage == D3D11_USAGE_DEFAULT)
-	{
-		// バッファに書き込み
-		KdDirect3D::Instance().WorkDevContext()->UpdateSubresource(m_pBuffer, 0, 0, pSrcData, 0, 0);
-	}
+	// 静的バッファの場合：バッファに書き込み
+	else if (m_bufUsage == D3D11_USAGE_DEFAULT) { KdDirect3D::Instance().WorkDevContext()->UpdateSubresource(m_pBuffer, 0, 0, pSrcData, 0, 0); }
 	// ステージングバッファの場合
 	else if (m_bufUsage == D3D11_USAGE_STAGING)
 	{

@@ -16,7 +16,6 @@ struct KdAnimationFrame
 struct KdUVAnimationData
 {
 public:
-
 	void Load(std::string_view);
 
 	void AddAnimation(const std::string_view animName, const KdAnimationFrame& data);
@@ -26,14 +25,12 @@ public:
 	const std::shared_ptr<KdAnimationFrame> GetAnimation(std::string_view name);
 
 private:
-
 	std::unordered_map<std::string, std::shared_ptr<KdAnimationFrame>> m_animations;
 };
 
 class KdUVAnimator
 {
 public:
-
 	void SetAnimation(const std::shared_ptr<KdAnimationFrame>& animData, bool isLoop = true, bool restart = true);
 
 	// コマアニメーションを進行させる
@@ -46,7 +43,6 @@ public:
 	bool IsAnimationEnd() const;
 
 private:
-
 	float	m_nowAnimPos = 0;	// 現在のアニメーション位置
 
 	std::shared_ptr<KdAnimationFrame> m_spNowAnimation = nullptr;

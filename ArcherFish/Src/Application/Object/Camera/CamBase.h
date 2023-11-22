@@ -14,7 +14,6 @@ public:
 	void SetTarget(const std::shared_ptr<KdGameObject>& _target);
 
 	const std::shared_ptr<KdCamera>& GetCamera() { return m_spCamera; }
-	const std::shared_ptr<KdCamera>& WorkCamera() { return m_spCamera; }
 
 	// m_rot�̕␳
 	const Math::Matrix GetRotationMatrix() const

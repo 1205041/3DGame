@@ -531,7 +531,7 @@ void KdHD2DShader::WriteMaterial(const KdMaterial& material, const Math::Vector4
 	//-----------------------
 	// テクスチャセット
 	//-----------------------
-	ID3D11ShaderResourceView* srvs[4];
+	ID3D11ShaderResourceView* srvs[4]{};
 
 	srvs[0] = material.m_baseColorTex ? material.m_baseColorTex->WorkSRView() : KdDirect3D::Instance().GetWhiteTex()->WorkSRView();
 	srvs[1] = material.m_metallicRoughnessTex ? material.m_metallicRoughnessTex->WorkSRView() : KdDirect3D::Instance().GetWhiteTex()->WorkSRView();

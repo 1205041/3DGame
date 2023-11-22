@@ -1,24 +1,21 @@
 ﻿#pragma once
 
-//============================================================
+/* = = = = = = = = = = = = = = = = = */
 // アプリケーションのFPS制御 + 測定
-//============================================================
+/* = = = = = = = = = = = = = = = = = */
 struct KdFPSController
 {
+public:
 	// FPS制御
 	int		m_nowfps = 0;		// 現在のFPS値
 	int		m_maxFps = 60;		// 最大FPS
 
 	void Init();
-
 	void UpdateStartTime();
-
 	void Update();
 
 private:
-
 	void Control();
-
 	void Monitoring();
 
 	DWORD		m_frameStartTime = 0;		// フレームの開始時間

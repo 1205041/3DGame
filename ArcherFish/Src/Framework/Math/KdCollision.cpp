@@ -6,7 +6,7 @@ using namespace DirectX;
 // ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// レイの情報を逆行列化する
+/* レイの情報を逆行列化する */
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // レイとポリゴンを判定する際に全ての頂点を行列移動させるとポリゴン数によって処理コストが変わるため非常に不安定
 // レイの情報は1つしかないためレイだけを逆行列化する事で処理の安定化＋1度しか計算が行われないため最大の効率化にもなる
@@ -86,12 +86,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 	{
 		// レイと三角形の判定
 		float hitDist = FLT_MAX;
-		if (!DirectX::TriangleTests::Intersects(rayPosInv, rayDirInv,
-			positions[faceIdx], positions[faceIdx + 1], positions[faceIdx + 2],
-			hitDist))
-		{
-			continue;
-		}
+		if (!DirectX::TriangleTests::Intersects(rayPosInv, rayDirInv, positions[faceIdx], positions[faceIdx + 1], positions[faceIdx + 2], hitDist)) { continue; }
 
 		// レイの判定範囲外なら無視
 		if (hitDist > rayRangeInv) { continue; }
@@ -105,10 +100,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 		isHit = true;
 	}
 
-	if (pResult && isHit)
-	{
-		SetRayResult(*pResult, isHit, closestDist / scaleInv, rayPos, rayDir, rayRange);
-	}
+	if (pResult && isHit) { SetRayResult(*pResult, isHit, closestDist / scaleInv, rayPos, rayDir, rayRange); }
 
 	return isHit;
 }
@@ -130,7 +122,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 		DirectX::BoundingBox aabb;
 		mesh.GetBoundingBox().Transform(aabb, matrix);
 
-		if (aabb.Intersects(rayPos, rayDir, AABBdist) == false) { return false; }
+		if (!aabb.Intersects(rayPos, rayDir, AABBdist)) { return false; }
 
 		// 最大距離外なら範囲外なので中止
 		if (AABBdist > rayRange) { return false; }
@@ -168,12 +160,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 
 		// レイと三角形の判定
 		float hitDist = FLT_MAX;
-		if (!DirectX::TriangleTests::Intersects(rayPosInv, rayDirInv,
-			vertices[idx[0]], vertices[idx[1]], vertices[idx[2]],
-			hitDist))
-		{
-			continue;
-		}
+		if (!DirectX::TriangleTests::Intersects(rayPosInv, rayDirInv, vertices[idx[0]], vertices[idx[1]], vertices[idx[2]], hitDist)) { continue; }
 
 		// レイの判定範囲外なら無視
 		if (hitDist > rayRangeInv) { continue; }
@@ -187,10 +174,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 		isHit = true;
 	}
 
-	if (pResult && isHit)
-	{
-		SetRayResult(*pResult, isHit, closestDist / scaleInv, rayPos, rayDir, rayRange);
-	}
+	if (pResult && isHit) { SetRayResult(*pResult, isHit, closestDist / scaleInv, rayPos, rayDir, rayRange); }
 
 	return isHit;
 }
