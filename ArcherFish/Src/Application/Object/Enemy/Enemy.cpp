@@ -58,7 +58,6 @@ void Enemy::Init()
 /* ==================== */
 void Enemy::SphereUpdateCollision()
 {
-
 	// ‡@“–‚½‚è”»’è(‹…”»’è)—p‚Ìî•ñ‚ğì¬
 	KdCollider::SphereInfo sphereInfo;
 	sphereInfo.m_sphere.Center = GetPos();
