@@ -20,6 +20,13 @@ void Enemy::PostUpdate()
 
 		SphereUpdateCollision();
 	}
+	else
+	{
+		if (GetAsyncKeyState('E') & 0x8000)
+		{
+			m_act = true;
+		}
+	}
 }
 
 void Enemy::GenerateDepthMapFromLight()
@@ -61,7 +68,7 @@ void Enemy::SphereUpdateCollision()
 	// ①当たり判定(球判定)用の情報を作成
 	KdCollider::SphereInfo sphereInfo;
 	sphereInfo.m_sphere.Center = GetPos();
-	sphereInfo.m_sphere.Radius = 1.0f;
+	sphereInfo.m_sphere.Radius = 0.5f;
 	sphereInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用(球) === */

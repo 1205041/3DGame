@@ -165,15 +165,11 @@ void Player::ShotRayUpdateCollision()
 	{
 		spCamera->GetCamera()->GenerateRayInfoFromClientPos(
 			nowPos,			// 2D座標
-			GetPos()+ Math::Vector3{ 0.0f,0.3f,0.0f },		// 座標
+			GetPos() + Math::Vector3{ 0.0f,0.3f,0.0f },		// 座標
 			rayInfo.m_dir,	// 方向
-			rayInfo.m_range	// レイの長さ
+			rayInfo.m_range // レイの長さ
 		);
 	}
-	// dir		自機からレティクルに向かっての方向
-	//			(※自機の位置から飛ばした場合)
-	// range	最適なレイの長さ(無駄が少ない)
-	//			が取得されている
 
 	rayInfo.m_type = KdCollider::TypeBump;	// 当たり判定をしたいタイプを設定
 

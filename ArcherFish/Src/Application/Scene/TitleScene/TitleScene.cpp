@@ -34,7 +34,7 @@ void TitleScene::Init()
 	spEnter = std::make_shared<Enter>();
 	m_objList.push_back(spEnter);
 
-//	std::shared_ptr<Bubble> spBublle;
-//	spBublle = std::make_shared<Bubble>();
-//	m_objList.push_back(spBublle);
+	std::shared_ptr<Bubble> spBublle;
+	spBublle = std::make_shared<Bubble>();
+	m_objList.push_back(spBublle);
 }
