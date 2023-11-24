@@ -2,14 +2,17 @@
 
 class KdCollisionShape;
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 当たり判定を内部で実行し判定結果を返してくれるクラス
-// 当たり判定を受けたいゲーム内のオブジェクトにメンバーとして持たせる　※当てる側ではなく当てられる側に持たせる
-// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-// 運用には形状登録・判定実行の2つの手順が必要
-// 形状登録：RegisterColisionSphape()を使って当たり判定の形状を登録しておく。CollisionShapeは形状と衝突タイプ（用途）が必要
-// 判定実行：Intersects()で当たり判定を実行する。詳細な結果が欲しい場合にはResultを引数としてセットする事
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* 当たり判定を内部で実行し判定結果を返してくれるクラス */
+// ・当たり判定を受けたいゲーム内のオブジェクトにメンバーとして持たせる
+// 　※当てる側ではなく当てられる側に持たせる
+/* ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== */
+/* === 運用には形状登録・判定実行の2つの手順が必要 === */
+// ・形状登録：RegisterColisionSphape()を使って当たり判定の形状を登録しておく。
+// 　CollisionShapeは形状と衝突タイプ（用途）が必要
+// ・判定実行：Intersects()で当たり判定を実行する。
+// 　詳細な結果が欲しい場合にはResultを引数としてセットする事
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdCollider
 {
 public:
@@ -53,8 +56,9 @@ public:
 		RayInfo() {}
 
 		// レイの情報を全て指定：自動的に方向ベクトルは正規化
-		RayInfo(UINT type, const Math::Vector3& pos, const Math::Vector3& dir, float range) 
-			: m_type(type), m_pos(pos), m_dir(dir), m_range(range) 
+		RayInfo(UINT type,const Math::Vector3& pos,
+			const Math::Vector3& dir,float range)
+			: m_type(type), m_pos(pos), m_dir(dir), m_range(range)
 		{
 			m_dir.Normalize();
 		}
@@ -75,7 +79,6 @@ public:
 		UINT m_type = 0;
 	};
 
-
 	// 詳細な衝突結果
 	struct CollisionResult
 	{
@@ -85,27 +88,38 @@ public:
 	};
 
 	KdCollider() {}
-	
 	~KdCollider() {}
 
-	// 当たり判定形状形状登録
+	/* === 当たり判定の形状登録関数群 === */
+	// 当たり判定形状登録関数
 	void RegisterCollisionShape(std::string_view name, std::unique_ptr<KdCollisionShape> spShape);
+	// 球情報の当たり判定
 	void RegisterCollisionShape(std::string_view name, const DirectX::BoundingSphere& sphere, UINT type);
+	// ローカル座標と半径の当たり判定
 	void RegisterCollisionShape(std::string_view name, const Math::Vector3& localPos, float radius, UINT type);
+	// スマポのモデルデータの当たり判定
 	void RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdModelData>& model, UINT type);
+	// 生ポのモデルデータの当たり判定
 	void RegisterCollisionShape(std::string_view name, KdModelData* model, UINT type);
+	// スマポのモデルワークの当たり判定
 	void RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdModelWork>& model, UINT type);
+	// 生ポのモデルワークの当たり判定
 	void RegisterCollisionShape(std::string_view name, KdModelWork* model, UINT type);
+	// スマポのポリゴンの当たり判定
 	void RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdPolygon> polygon, UINT type);
+	// 生ポのポリゴンの当たり判定
 	void RegisterCollisionShape(std::string_view name, KdPolygon* polygon, UINT type);
 
 	// 当たり判定実行
 	bool Intersects(const SphereInfo& targetShape, const Math::Matrix& ownerMatrix, std::list<KdCollider::CollisionResult>* pResults) const;
 	bool Intersects(const RayInfo& targetShape, const Math::Matrix& ownerMatrix, std::list<KdCollider::CollisionResult>* pResults) const;
 
-	// 登録した当たり判定の有効/無効の設定
+	/* === 登録した当たり判定の有効/無効の設定 === */
+	// 任意のCollisionShapeを検索して有効/無効を切り替える
 	void SetEnable(std::string_view name, bool flag);
+	// 特定のタイプの有効/無効を切り替える
 	void SetEnable(int type, bool flag);
+	// 全てのCollisionShapeの有効/無効を一気に切り替える
 	void SetEnableAll(bool flag);
 
 private:
@@ -115,17 +129,16 @@ private:
 };
 
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// vs球とvsレイの判定を持つ何かしらの形状の基底クラス
-// 当たり判定をする用途（type）と球・レイの当たり判定用インターフェースを持つ
-// 継承先では任意の形状をメンバーに追加し、その形状とvs球とvsレイ当たり判定関数を作成する
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* vs球とvsレイの判定を持つ何かしらの形状の基底クラス */
+// ・当たり判定をする用途（type）と球・レイの当たり判定用インターフェースを持つ
+// ・継承先では任意の形状をメンバーに追加し、
+// 　その形状とvs球とvsレイ当たり判定関数を作成する
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdCollisionShape
 {
 public:
-
 	KdCollisionShape(UINT type) { m_type = type; }
-
 	virtual ~KdCollisionShape() {}
 
 	UINT GetType() const { return m_type; }
@@ -143,15 +156,16 @@ private:
 };
 
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// コライダー：球形状
-// 球形状vs特定形状（球・レイ）の当たり判定実行クラス
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* コライダー：球形状 */
+// ・球形状vs特定形状（球・レイ）の当たり判定実行クラス
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdSphereCollision : public KdCollisionShape
 {
 public:
 	KdSphereCollision(const DirectX::BoundingSphere& sphere, UINT type) :
 		KdCollisionShape(type), m_shape(sphere) {}
+
 	KdSphereCollision(const Math::Vector3& localPos, float radius, UINT type) :
 		KdCollisionShape(type) { m_shape.Center = localPos; m_shape.Radius = radius; }
 
@@ -165,15 +179,16 @@ private:
 };
 
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// コライダー：モデル形状(dynamicAnimationModelWork)
-// モデル形状vs特定形状（球・レイ）の当たり判定実行クラス
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* コライダー：モデル形状(dynamicAnimationModelWork) */
+// ・モデル形状vs特定形状（球・レイ）の当たり判定実行クラス
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdModelCollision : public KdCollisionShape
 {
 public:
 	KdModelCollision(const std::shared_ptr<KdModelData>& model, UINT type) :
 		KdCollisionShape(type), m_shape(std::make_shared<KdModelWork>(model)) {}
+
 	KdModelCollision(const std::shared_ptr<KdModelWork>& model, UINT type) :
 		KdCollisionShape(type), m_shape(model) {}
 
@@ -187,10 +202,10 @@ private:
 };
 
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// コライダー：ポリゴン形状
-// ポリゴン形状vs特定形状（球・レイ）の当たり判定実行クラス
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* コライダー：ポリゴン形状 */
+// ・ポリゴン形状vs特定形状（球・レイ）の当たり判定実行クラス
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdPolygonCollision : public KdCollisionShape
 {
 public:

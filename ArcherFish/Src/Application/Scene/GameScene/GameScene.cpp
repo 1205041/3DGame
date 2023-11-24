@@ -69,9 +69,9 @@ void GameScene::Init()
 	m_objList.push_back(spPlayer);
 
 	spEnemy->RegistHitObj(spPlayer);	/* spPlayer‚Æ‚Ì“–‚½‚è”»’è */
+	spPlayer->RegistHitObj(spEnemy);	/* spEnemy‚Æ‚Ì“–‚½‚è”»’è */
 	spGrndDm->RegistHitObj(spPlayer);	/* SkyPlayer‚Æ‚Ì“–‚½‚è”»’è */
 	spPlayer->RegistHitObj(spGrndDm);	/* SkySphere‚Æ‚Ì“–‚½‚è”»’è */
-	spPlayer->RegistHitObj(spEnemy);	/* spEnemy‚Æ‚Ì“–‚½‚è”»’è */
 
 	// ƒJƒƒ‰‚Ì‰Šú‰»
 	std::shared_ptr<TPSCam> spTps;

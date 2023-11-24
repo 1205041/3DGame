@@ -50,7 +50,7 @@ void Enemy::Init()
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("EnemyColl", GetPos(), 0.25f, KdCollider::TypeBump || KdCollider::TypeDamageLine);
+	m_pCollider->RegisterCollisionShape("EnemyColl", GetPos(), 0.25f, KdCollider::TypeBump);
 }
 
 /* ==================== */
@@ -62,7 +62,7 @@ void Enemy::SphereUpdateCollision()
 	KdCollider::SphereInfo sphereInfo;
 	sphereInfo.m_sphere.Center = GetPos();
 	sphereInfo.m_sphere.Radius = 1.0f;
-	sphereInfo.m_type = KdCollider::TypeBump || KdCollider::TypeDamageLine;
+	sphereInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用(球) === */
 	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
@@ -99,7 +99,6 @@ void Enemy::SphereUpdateCollision()
 					// 押し返し
 					newPos = GetPos() + (m_hitDir * m_maxOverLap);
 					SetPos(newPos);
-					
 				}
 			}
 		}

@@ -154,26 +154,28 @@ void Player::ShotRayUpdateCollision()
 	// ①当たり判定(レイ判定)用の情報を作成
 	KdCollider::RayInfo rayInfo;
 	rayInfo.m_pos = GetPos() + Math::Vector3{ 0.0f,0.3f,0.0f };	// レイの発射位置を設定
-	rayInfo.m_type = KdCollider::TypeDamageLine;	// 当たり判定をしたいタイプを設定
-	GetCursorPos(&m_FixMousePos);
+	
+	// マウス位置の差分を得る
+	POINT nowPos{};
+	GetCursorPos(&nowPos);
 
 	// カメラ情報
 	std::shared_ptr<TPSCam> spCamera = m_wpCamera.lock();
 	if (spCamera)
 	{
 		spCamera->GetCamera()->GenerateRayInfoFromClientPos(
-			m_FixMousePos,		// 2D座標
-			rayInfo.m_pos,		// 座標
-			rayInfo.m_dir,		// 方向
-			rayInfo.m_range		// レイの長さ
+			nowPos,			// 2D座標
+			GetPos()+ Math::Vector3{ 0.0f,0.3f,0.0f },		// 座標
+			rayInfo.m_dir,	// 方向
+			rayInfo.m_range	// レイの長さ
 		);
 	}
-	
-
 	// dir		自機からレティクルに向かっての方向
 	//			(※自機の位置から飛ばした場合)
 	// range	最適なレイの長さ(無駄が少ない)
 	//			が取得されている
+
+	rayInfo.m_type = KdCollider::TypeBump;	// 当たり判定をしたいタイプを設定
 
 	/* === デバック用 === */
 	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
