@@ -94,15 +94,6 @@
     <Filter Include="Src\Application\Object\Enemy">
       <UniqueIdentifier>{c3a7a6f7-da0a-4532-8aa2-ef6a240f5b7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\BackGround">
-      <UniqueIdentifier>{ebbc105a-5580-4f38-949f-63999b28b79f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\BackGround\BackEffect">
-      <UniqueIdentifier>{75942623-fc82-40d3-a2cf-f420ff33dd8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble">
-      <UniqueIdentifier>{70f0eb68-6234-4d09-8c64-500ff2d83607}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Library\imgui">
       <UniqueIdentifier>{fc538b54-6330-4176-b58e-91c4385e70da}</UniqueIdentifier>
     </Filter>
@@ -282,9 +273,6 @@
     <ClInclude Include="Src\Application\Object\Enemy\Enemy.h">
       <Filter>Src\Application\Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.h">
-      <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
-    </ClInclude>
     <ClInclude Include="..\Library\imgui\imconfig.h">
       <Filter>Library\imgui</Filter>
     </ClInclude>
@@ -457,9 +445,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp">
       <Filter>Src\Application\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble\Bubble.cpp">
-      <Filter>Src\Application\Object\TextDraw\BackGround\BackEffect\Bubble</Filter>
     </ClCompile>
     <ClCompile Include="..\Library\imgui\imgui.cpp">
       <Filter>Library\imgui</Filter>

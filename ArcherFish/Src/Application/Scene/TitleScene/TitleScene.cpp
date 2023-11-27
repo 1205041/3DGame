@@ -2,7 +2,6 @@
 
 // ”wŒi•ƒ^ƒCƒgƒ‹ƒƒS
 #include "../../Object/TextDraw/TextDraw.h"
-#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
 #include "../../Object/TextDraw/SceneUI/Enter/Enter.h"
 
 void TitleScene::Event()
@@ -33,8 +32,4 @@ void TitleScene::Init()
 	std::shared_ptr<Enter> spEnter;
 	spEnter = std::make_shared<Enter>();
 	m_objList.push_back(spEnter);
-
-	std::shared_ptr<Bubble> spBublle;
-	spBublle = std::make_shared<Bubble>();
-	m_objList.push_back(spBublle);
 }

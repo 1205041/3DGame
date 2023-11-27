@@ -1,6 +1,5 @@
 #include "ResultScene.h"
 #include "../../Object/TextDraw/TextDraw.h"
-//#include "../../Object/TextDraw/BackGround/BackEffect/Bubble/Bubble.h"
 
 void ResultScene::Event()
 {
