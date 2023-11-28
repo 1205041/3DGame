@@ -1,15 +1,22 @@
 #include "ResultScene.h"
+
 #include "../../Object/TextDraw/TextDraw.h"
+#include "../../Object/TextDraw/SceneUI/Enter/Enter.h"
 
 void ResultScene::Event()
 {
 	// シーン切替(Result→Title)
-	if (GetAsyncKeyState('O') & 0x8000)
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
-//		KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
-//		KdAudioManager::Instance().StopAllSound();
+		if (!m_pushAct)
+		{
+//			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
+			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+//			KdAudioManager::Instance().StopAllSound();
+			m_pushAct = true;
+		}
 	}
+	else { m_pushAct = false; }
 }
 
 void ResultScene::Init()
@@ -24,6 +31,21 @@ void ResultScene::Init()
 	// シーン
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png", { 0.0f,0.0f }, { 0,0,1280,720 });
+	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png", { 0,0,1280,720 });
 	m_objList.push_back(spText);
+
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/SceneUI/Logo/Logo.png", { 0,0,450, 90 });
+	spText->SetTextPixel({ 0.0f,180.0f });
+	m_objList.push_back(spText);
+
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/SceneUI/Score/Score.png", { 0,0,237,82 });
+	spText->SetTextPixel({ -250.0f,0.0f });
+	m_objList.push_back(spText);
+
+	std::shared_ptr<Enter> spEnter;
+	spEnter = std::make_shared<Enter>();
+	spEnter->SetTextPixel({ 480.0f, -300.0f });
+	m_objList.push_back(spEnter);
 }

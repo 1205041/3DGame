@@ -38,7 +38,7 @@ void Player::Update()
 
 	// 移動
 	m_pos += m_moveVec * m_moveSpd;
-	if (m_pos.y > 0) { m_pos.y = 0; }
+	if (m_pos.y >= 1.0f) { m_pos.y = 1.0f; }
 }
 
 // 更新後更新関数

@@ -29,4 +29,7 @@ protected:
 
 	// オブジェクトリスト
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
+
+	// 長押しシーン切替防止
+	bool m_pushAct = false;
 };

@@ -1,8 +1,8 @@
 ﻿#include "KdAudio.h"
 
-/* ！=！=！=！=！=！=！=！=！=！=！=！=！=！ */
+/* ！=！=！=！=！ */
 // KdAudioManager
-/* ！=！=！=！=！=！=！=！=！=！=！=！=！=！ */
+/* ！=！=！=！=！ */
 
 /* = = = = = = = = = = = = = = */
 /* 初期化 */
@@ -64,17 +64,13 @@ void KdAudioManager::SetListnerMatrix(const Math::Matrix& mWorld)
 std::shared_ptr<KdSoundInstance> KdAudioManager::Play(std::string_view rName, bool loop)
 {
 	if (!m_audioEng) { return nullptr; }
-
 	std::shared_ptr<KdSoundEffect> soundData = GetSound(rName);
-
+	
 	if (!soundData) { return nullptr; }
-
 	std::shared_ptr<KdSoundInstance> instance = std::make_shared<KdSoundInstance>(soundData);
-
+	
 	if(!instance->CreateInstance()){ return nullptr; }
-
 	instance->Play(loop);
-
 	AddPlayList(instance);
 
 	return instance;
@@ -89,19 +85,15 @@ std::shared_ptr<KdSoundInstance> KdAudioManager::Play(std::string_view rName, bo
 std::shared_ptr<KdSoundInstance3D> KdAudioManager::Play3D(std::string_view rName, const Math::Vector3& rPos, bool loop)
 {
 	if (!m_audioEng) { return nullptr; }
-
 	std::shared_ptr<KdSoundEffect> soundData = GetSound(rName);
 
 	if (!soundData) { return nullptr; }
-
-	std::shared_ptr<KdSoundInstance3D> instance = std::make_shared<KdSoundInstance3D>(soundData, m_listener);
+	std::shared_ptr<KdSoundInstance3D> instance;
+	instance = std::make_shared<KdSoundInstance3D>(soundData, m_listener);
 
 	if (!instance->CreateInstance()) { return nullptr; }
-
 	instance->Play(loop);
-
 	instance->SetPos(rPos);
-
 	AddPlayList(instance);
 
 	return instance;
@@ -206,10 +198,7 @@ std::shared_ptr<KdSoundEffect> KdAudioManager::GetSound(std::string_view fileNam
 	auto itFound = m_soundMap.find(fileName.data());
 
 	// ロード済み
-	if (itFound != m_soundMap.end())
-	{
-		return (*itFound).second;
-	}
+	if (itFound != m_soundMap.end()) { return (*itFound).second; }
 	else
 	{
 		// 生成 & 読み込み
@@ -257,13 +246,12 @@ bool KdSoundEffect::Load(std::string_view fileName, const std::unique_ptr<Direct
 // KdSoundInstance
 /* ！=！=！=！=！=！ */
 
-KdSoundInstance::KdSoundInstance(const std::shared_ptr<KdSoundEffect>& soundEffect)
-	:m_soundData(soundEffect){}
+KdSoundInstance::KdSoundInstance(const std::shared_ptr<KdSoundEffect>& soundEffect) 
+	:m_soundData(soundEffect) {}
 
 bool KdSoundInstance::CreateInstance()
 {
 	if (!m_soundData) { return false; }
-
 	DirectX::SOUND_EFFECT_INSTANCE_FLAGS flags = DirectX::SoundEffectInstance_Default;
 
 	m_instance = (m_soundData->CreateInstance(flags));
@@ -284,14 +272,12 @@ void KdSoundInstance::Play(bool loop)
 void KdSoundInstance::SetVolume(float vol)
 {
 	if (m_instance == nullptr) { return; }
-
 	m_instance->SetVolume(vol);
 }
 
 void KdSoundInstance::SetPitch(float pitch)
 {
 	if (m_instance == nullptr) { return; }
-
 	m_instance->SetPitch(pitch);
 }
 
@@ -320,12 +306,11 @@ bool KdSoundInstance::IsStopped()
 // KdSoundInstance3D
 /* = = = = = = = = = */
 KdSoundInstance3D::KdSoundInstance3D(const std::shared_ptr<KdSoundEffect>& soundEffect, const DirectX::AudioListener& ownerListener)
-	:KdSoundInstance(soundEffect), m_ownerListener(ownerListener){}
+	:KdSoundInstance(soundEffect), m_ownerListener(ownerListener) {}
 
 bool KdSoundInstance3D::CreateInstance()
 {
 	if (!m_soundData) { return false; }
-
 	DirectX::SOUND_EFFECT_INSTANCE_FLAGS flags = DirectX::SoundEffectInstance_Default |
 		DirectX::SoundEffectInstance_Use3D | DirectX::SoundEffectInstance_ReverbUseFilters;
 
@@ -337,24 +322,19 @@ bool KdSoundInstance3D::CreateInstance()
 void KdSoundInstance3D::Play(bool loop)
 {
 	if (!m_instance) { return; }
-
 	KdSoundInstance::Play(loop);
 }
 
 void KdSoundInstance3D::SetPos(const Math::Vector3& rPos)
 {
 	if (!m_instance) { return; }
-
 	m_emitter.SetPosition(rPos);
-
 	m_instance->Apply3D(m_ownerListener, m_emitter, false);
 }
 
 void KdSoundInstance3D::SetCurveDistanceScaler(float val)
 {
 	if (!m_instance) { return; }
-
 	m_emitter.CurveDistanceScaler = val;
-
 	m_instance->Apply3D(m_ownerListener, m_emitter, false);
 }

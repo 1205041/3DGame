@@ -6,7 +6,7 @@ class KdSoundInstance3D;
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* ！ ！ ！ ゲーム内の音を全て管理するクラス ！ ！ ！ */
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+/* ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- */
 // ・DirectXAudioEngineの管理
 // ・2Dと3Dサウンドの簡易再生関数
 // ・再生中のサウンドインスタンスの管理（全停止・一時停止などが可能）
@@ -15,7 +15,6 @@ class KdSoundInstance3D;
 class KdAudioManager
 {
 public:
-
 	// 初期化
 	void Init();
 
@@ -57,7 +56,6 @@ public:
 	void Release();
 
 private:
-
 	// サウンドデータの取得orロード
 	std::shared_ptr<KdSoundEffect> GetSound(std::string_view fileName);
 
@@ -86,10 +84,9 @@ private:
 	~KdAudioManager() { Release(); }
 };
 
-
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* ！ ！ ！ 2Dサウンド再生用のインスタンス ！ ！ ！ */
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+/* ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- */
 // ・再生や停止、再生状況の確認
 // ・各種パラメータの変更が可能
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -117,7 +114,6 @@ public:
 	bool IsStopped();
 
 protected:
-
 	// サウンドの再生インスタンス
 	std::unique_ptr<DirectX::SoundEffectInstance>	m_instance;
 
@@ -132,9 +128,9 @@ protected:
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* ！ ！ ！  3Dサウンド再生用のインスタンス ！ ！ ！ */
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+/* ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- */
 // ・KdSoundInstanceに3D座標情報を追加
-//* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 class KdSoundInstance3D : public KdSoundInstance
 {
 public:
@@ -150,7 +146,6 @@ public:
 	void SetCurveDistanceScaler(float val);
 
 protected:
-
 	// エミッター 主に3Dサウンドソースの定義
 	DirectX::AudioEmitter			m_emitter;
 
@@ -160,18 +155,17 @@ protected:
 	// コピー禁止用
 	KdSoundInstance3D(const KdSoundInstance3D& src) = delete;
 	void operator=(const KdSoundInstance3D& src) = delete;
-
 };
 
 
 //* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* ！ ！ ！ サウンドデータを扱う ！ ！ ！ */
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+/* ----- ----- ----- ----- ----- ----- ----- ----- ----- ---- */
 // ・Wave形式のデータを格納できる
 //* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-class KdSoundEffect {
+class KdSoundEffect 
+{
 public:
-
 	KdSoundEffect() {}
 
 	~KdSoundEffect() { m_soundEffect = nullptr; }

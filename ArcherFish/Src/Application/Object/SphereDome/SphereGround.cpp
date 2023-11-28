@@ -3,7 +3,7 @@
 void SphereGround::PostUpdate()
 {
 	// Šgks—ñ
-	m_scaleMat = Math::Matrix::CreateScale(30.0f, 30.0f, 30.0f);
+	m_scaleMat = Math::Matrix::CreateScale(18.0f, 18.0f, 18.0f);
 	
 	// À•Ws—ñ
 	m_transMat = Math::Matrix::CreateTranslation({ 0,0.0f,0 });

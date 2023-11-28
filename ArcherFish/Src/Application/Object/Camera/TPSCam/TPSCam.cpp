@@ -21,10 +21,7 @@ void TPSCam::Init()
 
 void TPSCam::Update()
 {
-	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
-	{
-		ShotRayUpdateCollision();
-	}
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) { ShotRayUpdateCollision(); }
 }
 
 void TPSCam::PostUpdate()
@@ -82,7 +79,7 @@ void TPSCam::ShotRayUpdateCollision()
 
 	// カメラ情報
 	GetCamera()->GenerateRayInfoFromClientPos(
-		nowPos,	// 2D座標
+		nowPos,			// 2D座標
 		rayInfo.m_pos,	// 座標
 		rayInfo.m_dir,	// 方向
 		rayInfo.m_range // レイの長さ

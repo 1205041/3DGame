@@ -10,6 +10,7 @@ public:
 	void Update()		override;
 	void PostUpdate()	override;
 	void Init()			override;
+
 private:
 	// 色チェンジ
 	float m_AlphC = 0.2f;

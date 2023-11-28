@@ -24,8 +24,14 @@ void GameScene::Event()
 	// シーン切替(Game→Result)
 	if (GetAsyncKeyState('P') & 0x8000)
 	{
-		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+		if (!m_pushAct)
+		{
+			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+			m_pushAct = true;
+		}
+		
 	}
+	else { m_pushAct = false; }
 	
 
 	/* ※ この段階では更新されません ！！ */
@@ -40,11 +46,6 @@ void GameScene::Init()
 	ShowCursor(false);
 
 	/* オブジェクトの初期化 */
-	// 地形
-//	std::shared_ptr<Stage> spStage;
-//	spStage = std::make_shared<Stage>();
-//	m_objList.push_back(spStage);
-
 	// スカイスフィア
 	std::shared_ptr<SphereGround> spGrndDm;
 	spGrndDm = std::make_shared<SphereGround>();
@@ -69,8 +70,8 @@ void GameScene::Init()
 	// ゲームUI
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0.0f,0.0f }, { 0,0,32, 32 });
-	spText->SetColor({ 0.3f,0.3f,1.0f,0.7f });
+	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0,0,32, 32 });
+	spText->SetColor({ 0.0f,1.0f,1.0f,0.8f });
 	m_objList.push_back(spText);
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
@@ -82,7 +83,6 @@ void GameScene::Init()
 	// カメラの初期化
 	std::shared_ptr<TPSCam> spTps;
 	spTps = std::make_shared<TPSCam>();
-//	spTps->RegistHitObject(spGround);	/* Groundとの当たり判定 */
 	m_objList.push_back(spTps);
 
 	spTps->SetTarget(spPlayer);
