@@ -18,6 +18,7 @@ void TitleScene::Event()
 		}
 	}
 	else { m_pushAct = false; }
+
 }
 
 void TitleScene::Init()
