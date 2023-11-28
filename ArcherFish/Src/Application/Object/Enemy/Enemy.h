@@ -16,11 +16,14 @@ public:
 	void Init()						override;
 
 	void SetActFlg(const bool _flg) { m_act = _flg; }
+	void SetSurviveFlg(const bool _flg) { m_survive = _flg; }
 private:
 	// 衝突判定とそれに伴う座標の更新
 	void SphereUpdateCollision();
 
+	// 活動中フラグ & 生存中フラグ
 	bool m_act = true;
+	bool m_survive = true;
 
 	// 当たり判定変数
 	float			m_maxOverLap = 0.0f;

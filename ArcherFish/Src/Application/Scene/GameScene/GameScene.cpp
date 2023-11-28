@@ -14,6 +14,7 @@
 
 // ゲームUI
 #include "../../Object/TextDraw/TextDraw.h"
+#include "../../Object/TextDraw/SceneUI/MaxWaterLv/MaxWaterLv.h"
 
 // カメラ
 #include "../../Object/Camera/TPSCam/TPSCam.h"
@@ -36,7 +37,7 @@ void GameScene::Init()
 //	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Game.wav", true);
 
 	// マウスポインタ非表示
-//	ShowCursor(false);
+	ShowCursor(false);
 
 	/* オブジェクトの初期化 */
 	// 地形
@@ -49,29 +50,34 @@ void GameScene::Init()
 	spGrndDm = std::make_shared<SphereGround>();
 	m_objList.push_back(spGrndDm);
 
-	// ゲームUI
-	std::shared_ptr<TextDraw> spText;
-	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0.0f,0.0f }, { 0,0,32, 32 });
-	spText->SetColor({ 1.0f,1.0f,1.0f,0.5f });
-	m_objList.push_back(spText);
-
 	// エネミー
 	std::shared_ptr<Enemy> spEnemy;
 	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0.0f,-1.0f,3.0f });
+	spEnemy->SetPos({ 0.0f,10.0f,3.0f });
 	m_objList.push_back(spEnemy);
 
 	// キャラ
 	std::shared_ptr<Player> spPlayer;	
 	spPlayer = std::make_shared<Player>();
-	spPlayer->SetEnemy(spEnemy);
 	m_objList.push_back(spPlayer);
 
 	spEnemy->RegistHitObj(spPlayer);	/* spPlayerとの当たり判定 */
 	spPlayer->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
-	spGrndDm->RegistHitObj(spPlayer);	/* SkyPlayerとの当たり判定 */
+	spGrndDm->RegistHitObj(spPlayer);	/* Playerとの当たり判定 */
 	spPlayer->RegistHitObj(spGrndDm);	/* SkySphereとの当たり判定 */
+
+	// ゲームUI
+	std::shared_ptr<TextDraw> spText;
+	spText = std::make_shared<TextDraw>();
+	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0.0f,0.0f }, { 0,0,32, 32 });
+	spText->SetColor({ 0.3f,0.3f,1.0f,0.7f });
+	m_objList.push_back(spText);
+
+	std::shared_ptr<MaxWaterLv> spWaterLv;
+	spWaterLv = std::make_shared<MaxWaterLv>();
+	m_objList.push_back(spWaterLv);
+
+	spWaterLv->SetPlayer(spPlayer);
 
 	// カメラの初期化
 	std::shared_ptr<TPSCam> spTps;
@@ -81,4 +87,7 @@ void GameScene::Init()
 
 	spTps->SetTarget(spPlayer);
 	spPlayer->SetCamera(spTps);
+
+	spTps->SetEnemy(spEnemy);
+	spTps->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
 }

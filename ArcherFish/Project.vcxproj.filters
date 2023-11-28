@@ -118,6 +118,9 @@
     <Filter Include="Src\Application\Object\Camera\TPSCam">
       <UniqueIdentifier>{0c20af6f-c365-4fbf-a078-76a5ce6ef732}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv">
+      <UniqueIdentifier>{f8bf5c65-edff-4b2a-8d40-6db3a5dcd420}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -312,6 +315,9 @@
     <ClInclude Include="Src\Application\Object\Camera\TPSCam\TPSCam.h">
       <Filter>Src\Application\Object\Camera\TPSCam</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\MaxWaterLv</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -478,6 +484,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Camera\TPSCam\TPSCam.cpp">
       <Filter>Src\Application\Object\Camera\TPSCam</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\MaxWaterLv</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

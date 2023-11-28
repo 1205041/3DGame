@@ -7,6 +7,10 @@ void Enemy::Update()
 		// キャラクターの移動速度
 		m_nowPos = GetPos();
 	}
+	else 
+	{
+
+	}
 }
 
 void Enemy::PostUpdate()
@@ -17,8 +21,6 @@ void Enemy::PostUpdate()
 
 		// キャラの座標行列
 		m_mWorld = m_transMat;
-
-		SphereUpdateCollision();
 	}
 	else
 	{
@@ -27,11 +29,13 @@ void Enemy::PostUpdate()
 			m_act = true;
 		}
 	}
+
+	SphereUpdateCollision();
 }
 
 void Enemy::GenerateDepthMapFromLight()
 {
-	if (m_act)
+	if (m_survive)
 	{
 		if (!m_spModelWork) { return; }
 		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
@@ -40,7 +44,7 @@ void Enemy::GenerateDepthMapFromLight()
 
 void Enemy::DrawLit()
 {
-	if (m_act)
+	if (m_survive)
 	{
 		if (!m_spModelWork) { return; }
 		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);

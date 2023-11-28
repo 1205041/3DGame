@@ -2,7 +2,6 @@
 #include "../ObjBase.h"
 
 class TPSCam;
-class Enemy;
 
 class Player :public ObjBase
 {
@@ -19,20 +18,15 @@ public:
 	void Init()						override;
 
 	void SetCamera(const std::shared_ptr<TPSCam>& _camera) { m_wpCamera = _camera; }
-	void SetEnemy(const std::shared_ptr<Enemy>& _enemy) { m_wpEnemy = _enemy; }
+
+	float GetNowYPos() const { return m_pos.y; }
 private:
 	// 衝突判定とそれに伴う座標の更新
 	void SphereUpdateCollision();
 
-	// 弾当たり判定
-	void ShotRayUpdateCollision();
-
 	// カメラ
 	Math::Matrix camRotMat = Math::Matrix::Identity;
 	std::weak_ptr<TPSCam> m_wpCamera;
-
-	// 敵
-	std::weak_ptr<Enemy> m_wpEnemy;
 
 	// 初期位置
 	Math::Vector3	m_pos = { 0.0f,-1.0f,0.0f };
