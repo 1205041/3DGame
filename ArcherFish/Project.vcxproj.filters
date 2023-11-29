@@ -82,12 +82,6 @@
     <Filter Include="Src\Application\Object\Camera">
       <UniqueIdentifier>{c800615e-3953-4c78-945d-7aaa7184d465}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\Terrain">
-      <UniqueIdentifier>{27f06727-c545-4f19-af94-040420fa0770}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\Terrain\Stage">
-      <UniqueIdentifier>{f5c265ed-57e7-4e2c-9584-c8fee0c3f888}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\TextDraw">
       <UniqueIdentifier>{66d9a65d-981e-408c-958c-3bfb7a1db05b}</UniqueIdentifier>
     </Filter>
@@ -264,9 +258,6 @@
     <ClInclude Include="Src\Application\Object\ObjBase.h">
       <Filter>Src\Application\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\Terrain\Stage\Stage.h">
-      <Filter>Src\Application\Object\Terrain\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
@@ -439,9 +430,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\ObjBase.cpp">
       <Filter>Src\Application\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\Terrain\Stage\Stage.cpp">
-      <Filter>Src\Application\Object\Terrain\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\ResultScene\ResultScene.cpp">
       <Filter>Src\Application\Scene\ResultScene</Filter>

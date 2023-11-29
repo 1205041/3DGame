@@ -36,7 +36,7 @@ void TPSCam::PostUpdate()
 
 	// 行列合成
 	UpdateRotateByMouse();
-	m_rotMat = GetRotationMatrix();
+	m_rotMat = GetRotCameraMatrix();
 
 	m_mWorld = m_transMat * m_rotMat * targetMat;
 
@@ -61,7 +61,6 @@ void TPSCam::UpdateRotateByMouse()
 
 	// 回転制御
 	m_degAng.x = std::clamp(m_degAng.x, -FLT_MAX, FLT_MAX);
-	m_degAng.y = std::clamp(m_degAng.y, -FLT_MAX, FLT_MAX);
 }
 
 /* ==================== */
@@ -103,19 +102,14 @@ void TPSCam::ShotRayUpdateCollision()
 
 				// ③結果を使って座標を補完する
 				// レイに当たったリストから一番近いオブジェクトを検出
-				m_maxOverLap = 0.0f;
-				m_hit = false;
+				float maxOverLap = 0.0f;
+				bool  hit = false;
 				for (auto& ret : retRayList)
 				{
 					// レイを遮断しオーバーした長さが一番長いものを探す
-					if (m_maxOverLap < ret.m_overlapDistance)
-					{
-						m_maxOverLap = ret.m_overlapDistance;
-						m_hit = true;
-					}
+					if (maxOverLap < ret.m_overlapDistance) { hit = true; }
 				}
-				// 何かしらに当たっている
-				if (m_hit)
+				if (hit) // 何かしらに当たっている
 				{
 					std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
 					if (spEnemy) { spEnemy->SetActFlg(false); }

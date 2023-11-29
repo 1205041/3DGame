@@ -6,9 +6,6 @@
 #include "../../Object/Player/Player.h"
 #include "../../Object/Enemy/Enemy.h"
 
-// 地形
-#include "../../Object/Terrain/Stage/Stage.h"
-
 // スカイスフィア
 #include "../../Object/SphereDome/SphereGround.h"
 
@@ -33,7 +30,6 @@ void GameScene::Event()
 	}
 	else { m_pushAct = false; }
 	
-
 	/* ※ この段階では更新されません ！！ */
 }
 
@@ -54,7 +50,7 @@ void GameScene::Init()
 	// エネミー
 	std::shared_ptr<Enemy> spEnemy;
 	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0.0f,10.0f,3.0f });
+	spEnemy->SetPos({ 0.0f,15.0f,3.0f });
 	m_objList.push_back(spEnemy);
 
 	// キャラ

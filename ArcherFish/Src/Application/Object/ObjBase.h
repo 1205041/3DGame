@@ -27,6 +27,7 @@ public:
 	void RegistHitObj(const std::shared_ptr<KdGameObject>& _obj) { m_wpHitObjList.push_back(_obj); }
 	void SetTarget(const std::shared_ptr<KdGameObject>& _target);
 
+	float GetNowYPos() const { return m_nowPos.y; }
 protected:
 	//srcから見たdestの角度を習得する関数
 	float GetAngleDeg(Math::Vector3 _src, Math::Vector3 _dest);	//角度
@@ -35,17 +36,19 @@ protected:
 	std::shared_ptr<KdModelWork>		m_spModelWork	= nullptr;
 	std::shared_ptr<KdModelData>		m_spModelData	= nullptr;
 	std::shared_ptr<KdCamera>			m_spCamera		= nullptr;
+
+	// ウィークポインタ
 	std::weak_ptr<KdGameObject>			m_wpTarget;
 
 	// 行列一覧
 	Math::Matrix	m_scaleMat	= Math::Matrix::Identity;	// 拡縮行列
 	Math::Matrix	m_rotMat	= Math::Matrix::Identity;	// 回転行列
 	Math::Matrix	m_transMat	= Math::Matrix::Identity;	// 座標行列
-	Math::Vector3	m_nowPos	= Math::Vector3::Zero;		// 現在座標
 	
 	// オブジェクトの移動速度
-	float			m_moveSpd	= 0.0f;
+	Math::Vector3	m_nowPos	= Math::Vector3::Zero;		// 現在座標
 	Math::Vector3	m_moveVec	= Math::Vector3::Zero;
+	float			m_moveSpd	= 0.0f;
 	
 	// マウス座標
 	POINT m_FixMousePos;

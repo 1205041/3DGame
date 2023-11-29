@@ -23,9 +23,4 @@ private:
 
 	// “G
 	std::weak_ptr<Enemy> m_wpEnemy;
-
-	// “–‚½‚è”»’è—p•Ï”
-	float			m_maxOverLap = 0.0f;
-	bool			m_hit = false;
-	Math::Vector3	m_hitDir = Math::Vector3::Zero;
 };

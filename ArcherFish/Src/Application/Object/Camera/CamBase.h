@@ -17,7 +17,7 @@ public:
 	const std::shared_ptr<KdCamera>& GetCamera() { return m_spCamera; }
 
 	// m_rotの補正
-	const Math::Matrix GetRotationMatrix() const
+	const Math::Matrix GetRotCameraMatrix() const
 	{
 		return	Math::Matrix::CreateFromYawPitchRoll(
 			DirectX::XMConvertToRadians(m_degAng.y),
@@ -27,11 +27,14 @@ public:
 	}
 
 	// プレイヤーのカメラ情報
-	const Math::Matrix GetRotationYMatrix() const
+	const Math::Matrix GetRotPlayerMatrix() const
 	{
-		return	Math::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_degAng.y));
+		return Math::Matrix::CreateFromYawPitchRoll(
+			DirectX::XMConvertToRadians(m_degAng.y),
+			DirectX::XMConvertToRadians(m_degAng.x),
+			DirectX::XMConvertToRadians(0.0f)
+		);
 	}
-
 protected:
 	// カメラ変数
 	std::weak_ptr<KdGameObject>	m_wpTarget;

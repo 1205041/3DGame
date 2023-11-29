@@ -2,36 +2,52 @@
 
 void Enemy::Update()
 {
+	// キャラクターの移動速度
+	m_nowPos = GetPos();
+
+	m_moveVec = Math::Vector3::Zero;
 	if (m_act)
 	{
-		// キャラクターの移動速度
-		m_nowPos = GetPos();
+		// 前方
+		{
+			Math::Vector3 vec = Math::Vector3::TransformNormal
+				(Math::Vector3::Backward, m_transMat);
+			m_moveVec += vec;
+		}
 	}
 	else 
 	{
-		m_survive = false;
-	}
-}
+		{
+			// 下方
+			Math::Vector3 vec = Math::Vector3::TransformNormal
+			(Math::Vector3::Down, m_transMat);
+			m_moveVec += vec;
+		}
 
-void Enemy::PostUpdate()
-{
-	if (m_act)
-	{
-		m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
-
-		// キャラの座標行列
-		m_mWorld = m_transMat;
-	}
-	else
-	{
 		if (GetAsyncKeyState('E') & 0x8000)
 		{
 			m_act = true;
 			m_survive = true;
 		}
+
+//		m_survive = false;
 	}
 
+	// 移動
+	m_nowPos += m_moveVec * m_moveSpd;
+	if (m_nowPos.z >= 50.0f) { m_nowPos.z = -50.0f; }
+	if (m_nowPos.y <= -50.0f) { m_nowPos.y = 50.0f; }
+}
+
+void Enemy::PostUpdate()
+{
 	SphereUpdateCollision();
+
+	m_scaleMat = Math::Matrix::CreateScale(3.0f);
+	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
+
+	// キャラの座標行列
+	m_mWorld = m_scaleMat * m_transMat;
 }
 
 void Enemy::GenerateDepthMapFromLight()
@@ -60,6 +76,9 @@ void Enemy::Init()
 		m_spModelWork = std::make_shared<KdModelWork>();
 		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Enemy/SkyEnemy.gltf"));
 	}
+
+	// 速度
+	m_moveSpd = 0.1f;
 
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("EnemyColl", GetPos(), 0.25f, KdCollider::TypeBump);
@@ -91,25 +110,25 @@ void Enemy::SphereUpdateCollision()
 				std::list<KdCollider::CollisionResult> retBumpList;
 				spGameObj->Intersects(sphereInfo, &retBumpList);
 
-				m_maxOverLap = 0.0f;
-				m_hit = false;
-				m_hitDir = Math::Vector3::Zero;
+				float		  maxOverLap = 0.0f;
+				bool		  hit = false;
+				Math::Vector3 dir = Math::Vector3::Zero;
 				for (auto& ret : retBumpList)
 				{
-					if (m_maxOverLap < ret.m_overlapDistance)
+					if (maxOverLap < ret.m_overlapDistance)
 					{
-						m_maxOverLap = ret.m_overlapDistance;
-						m_hit = true;
-						m_hitDir = ret.m_hitDir;// 押し返す方向
+						maxOverLap = ret.m_overlapDistance;
+						hit = true;
+						dir = ret.m_hitDir;// 押し返す方向
 					}
 				}
-				if (m_hit)
+				if (hit)
 				{
 					// ③結果を使って座標を補完する
-					m_hitDir.Normalize();
+					dir.Normalize();
 
 					// 押し返し
-					newPos = GetPos() + (m_hitDir * m_maxOverLap);
+					newPos = GetPos() + (dir * maxOverLap);
 					SetPos(newPos);
 				}
 			}

@@ -5,12 +5,11 @@
 // 更新関数
 void Player::Update()
 {
-	m_moveVec = Math::Vector3::Zero;
-
 	// カメラ情報
 	std::shared_ptr<TPSCam> spCamera = m_wpCamera.lock();
-	if (spCamera) { camRotMat = spCamera->GetRotationYMatrix(); }
+	if (spCamera) { camRotMat = spCamera->GetRotPlayerMatrix(); }
 
+	m_moveVec = Math::Vector3::Zero;
 	if (GetAsyncKeyState('W') & 0x8000)
 	{
 		// 前方
@@ -32,13 +31,11 @@ void Player::Update()
 			(Math::Vector3::Up, camRotMat);
 		m_moveVec += v;
 	}
-
-	// 正規化
-	m_moveVec.Normalize();
+	m_moveVec.Normalize();	// 正規化
 
 	// 移動
-	m_pos += m_moveVec * m_moveSpd;
-	if (m_pos.y >= 1.0f) { m_pos.y = 1.0f; }
+	m_nowPos += m_moveVec * m_moveSpd;
+	if (m_nowPos.y >= 1.0f) { m_nowPos.y = 1.0f; }
 }
 
 // 更新後更新関数
@@ -48,10 +45,10 @@ void Player::PostUpdate()
 	m_scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
 
 	// 回転行列
-//	m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(m_mousePos.y));
+//	m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians());	
 
 	// 座標行列
-	m_transMat = Math::Matrix::CreateTranslation(m_pos);
+	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
 
 	// 行列合成(ＳＲＴ)
 	m_mWorld = m_scaleMat * m_rotMat * camRotMat * m_transMat;
@@ -83,6 +80,8 @@ void Player::Init()
 		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
 	}
 
+	// 初期位置と速度
+	m_nowPos = { 0.0f,-1.0f,0.0f };
 	m_moveSpd = 0.1f;
 
 	m_pCollider = std::make_unique<KdCollider>();
@@ -104,7 +103,6 @@ void Player::SphereUpdateCollision()
 	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
 
 	// ②HIT判定対象オブジェクトに総当たり
-	Math::Vector3 newPos = Math::Vector3::Zero;
 	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
 	{
 		if (!wpGameObj.expired())
@@ -115,26 +113,26 @@ void Player::SphereUpdateCollision()
 				std::list<KdCollider::CollisionResult> retBumpList;
 				spGameObj->Intersects(sphereInfo, &retBumpList);
 
-				m_maxOverLap = 0.0f;
-				m_hit = false;
-				m_hitDir = Math::Vector3::Zero;
+				float			maxOverLap = 0.0f;
+				bool			hit = false;
+				Math::Vector3	dir = Math::Vector3::Zero;
 				for (auto& ret : retBumpList)
 				{
-					if (m_maxOverLap < ret.m_overlapDistance)
+					if (maxOverLap < ret.m_overlapDistance)
 					{
-						m_maxOverLap = ret.m_overlapDistance;
-						m_hit = true;
-						m_hitDir = ret.m_hitDir;// 押し返す方向
+						maxOverLap = ret.m_overlapDistance;
+						hit = true;
+						dir = ret.m_hitDir;// 押し返す方向
 					}
 				}
-				if (m_hit)
+				if (hit)
 				{
 					// ③結果を使って座標を補完する
-					m_hitDir.Normalize();
+					dir.Normalize();
 
 					// 押し返し
-					newPos = GetPos() + (m_hitDir * m_maxOverLap);
-					SetPos(newPos);
+					m_nowPos = GetPos() + (dir * maxOverLap);
+					SetPos(m_nowPos);
 				}
 			}
 		}
