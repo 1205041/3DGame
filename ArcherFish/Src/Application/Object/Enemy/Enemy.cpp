@@ -9,7 +9,7 @@ void Enemy::Update()
 	}
 	else 
 	{
-
+		m_survive = false;
 	}
 }
 
@@ -27,6 +27,7 @@ void Enemy::PostUpdate()
 		if (GetAsyncKeyState('E') & 0x8000)
 		{
 			m_act = true;
+			m_survive = true;
 		}
 	}
 

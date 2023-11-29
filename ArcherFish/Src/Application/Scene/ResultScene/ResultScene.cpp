@@ -13,6 +13,7 @@ void ResultScene::Event()
 //			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
 //			KdAudioManager::Instance().StopAllSound();
+			Sleep(300);
 			m_pushAct = true;
 		}
 	}
@@ -46,6 +47,6 @@ void ResultScene::Init()
 
 	std::shared_ptr<Enter> spEnter;
 	spEnter = std::make_shared<Enter>();
-	spEnter->SetTextPixel({ 480.0f, -300.0f });
+	spEnter->SetTextPixel({ 450.0f, -300.0f });
 	m_objList.push_back(spEnter);
 }

@@ -14,6 +14,7 @@ void TitleScene::Event()
 //			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
 //			KdAudioManager::Instance().StopAllSound();
+			Sleep(300);
 			m_pushAct = true;
 		}
 	}
@@ -25,7 +26,7 @@ void TitleScene::Init()
 {
 	//	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
 
-		// オブジェクトの初期化
+	// オブジェクトの初期化
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
 	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png", { 0,0,1280,720 });

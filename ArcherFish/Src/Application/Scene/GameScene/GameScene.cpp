@@ -27,9 +27,9 @@ void GameScene::Event()
 		if (!m_pushAct)
 		{
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+			Sleep(300); // –ñ0.3•b
 			m_pushAct = true;
 		}
-		
 	}
 	else { m_pushAct = false; }
 	
@@ -76,6 +76,7 @@ void GameScene::Init()
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
 	spWaterLv = std::make_shared<MaxWaterLv>();
+	spWaterLv->SetTextPixel({ 0.0f,180.0f });
 	m_objList.push_back(spWaterLv);
 
 	spWaterLv->SetPlayer(spPlayer);
