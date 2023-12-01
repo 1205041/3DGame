@@ -38,7 +38,8 @@ void SphereGround::Init()
 	if (!m_spModelData)
 	{
 		m_spModelData = std::make_shared<KdModelData>();
-		m_spModelData->Load("Asset/Models/SphereDome/SphereGround/SphereGround.gltf");
+		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
+			"Asset/Models/SphereDome/SphereGround/SphereGround.gltf");
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();
