@@ -8,7 +8,6 @@ class Application
 {
 // メンバ
 public:
-
 	// アプリケーション実行
 	void Execute();
 
@@ -22,7 +21,6 @@ public:
 	int GetMaxFPS() const { return m_fpsController.m_maxFps; }
 
 private:
-
 	void PreUpdate();
 	void Update();
 	void PostUpdate();
@@ -52,7 +50,7 @@ private:
 // シングルトンパターン
 //=====================================================
 private:
-	// 
+	// コンストラクタ
 	Application() {}
 
 public:

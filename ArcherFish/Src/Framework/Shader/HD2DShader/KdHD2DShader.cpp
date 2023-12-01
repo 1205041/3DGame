@@ -1,8 +1,6 @@
 ﻿#include "Framework/KdFramework.h"
 
 #include "KdHD2DShader.h"
-
-
 //================================================
 // 描画準備
 //================================================
@@ -19,7 +17,6 @@ void KdHD2DShader::BeginLit()
 	if (KdShaderManager::Instance().SetVertexShader(m_VS_Lit))
 	{
 		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-
 		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
 	}
@@ -60,7 +57,6 @@ void KdHD2DShader::BeginUnLit()
 	if (KdShaderManager::Instance().SetVertexShader(m_VS_UnLit))
 	{
 		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-
 		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
 	}
@@ -91,7 +87,6 @@ void KdHD2DShader::BeginGenerateDepthMapFromLight()
 	if (KdShaderManager::Instance().SetVertexShader(m_VS_GenDepthFromLight))
 	{
 		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-
 		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
 	}
@@ -114,7 +109,6 @@ void KdHD2DShader::EndGenerateDepthMapFromLight()
 {
 	m_depthMapFromLightRTChanger.UndoRenderTarget();
 }
-
 
 //================================================
 // 描画関数
@@ -164,10 +158,7 @@ void KdHD2DShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWor
 	const Math::Color& colRate, const Math::Vector3& emissive)
 {
 	// オブジェクト単位の情報転送
-	if (m_dirtyCBObj)
-	{
-		m_cb0_Obj.Write();
-	}
+	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
 	auto& dataNodes = rModel.GetOriginalNodes();
 
@@ -180,10 +171,7 @@ void KdHD2DShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWor
 	}
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
-	if(m_dirtyCBObj)
-	{
-		ResetCBObject();
-	}
+	if (m_dirtyCBObj) { ResetCBObject(); }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -201,16 +189,10 @@ void KdHD2DShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld,
 	// データがないときはスキップ
 	if (data == nullptr) { return; }
 
-	if (rModel.NeedCalcNodeMatrices())
-	{
-		rModel.CalcNodeMatrices();
-	}
+	if (rModel.NeedCalcNodeMatrices()) { rModel.CalcNodeMatrices(); }
 
 	// オブジェクト単位の情報転送
-	if (m_dirtyCBObj)
-	{
-		m_cb0_Obj.Write();
-	}
+	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
 	auto& workNodes = rModel.GetNodes();
 	auto& dataNodes = data->GetOriginalNodes();
@@ -224,10 +206,7 @@ void KdHD2DShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld,
 	}
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
-	if (m_dirtyCBObj)
-	{
-		ResetCBObject();
-	}
+	if (m_dirtyCBObj) { ResetCBObject(); }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -247,24 +226,15 @@ void KdHD2DShader::DrawPolygon(const KdPolygon& rPolygon, const Math::Matrix& mW
 	if (vertices.size() < 3) { return; }
 
 	// オブジェクト単位の定数バッファで変更があった場合のみ情報転送
-	if (m_dirtyCBObj)
-	{
-		m_cb0_Obj.Write();
-	}
+	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
 	// 3Dワールド行列転送
 	m_cb1_Mesh.Work().mW = mWorld;
 	m_cb1_Mesh.Write();
 
 	// マテリアルの転送
-	if (rPolygon.GetMaterial())
-	{
-		WriteMaterial(*rPolygon.GetMaterial(), colRate, emissive);
-	}
-	else
-	{
-		WriteMaterial(KdMaterial(), colRate, emissive);
-	}
+	if (rPolygon.GetMaterial()) { WriteMaterial(*rPolygon.GetMaterial(), colRate, emissive); }
+	else { WriteMaterial(KdMaterial(), colRate, emissive); }
 
 	KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
 
@@ -273,10 +243,7 @@ void KdHD2DShader::DrawPolygon(const KdPolygon& rPolygon, const Math::Matrix& mW
 	{
 		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Point_Clamp);
 	}
-	else
-	{
-		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp);
-	}
+	else { KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp); }
 
 	// 描画パイプラインのチェック
 	ID3D11VertexShader* pNowVS = nullptr;
@@ -295,21 +262,14 @@ void KdHD2DShader::DrawPolygon(const KdPolygon& rPolygon, const Math::Matrix& mW
 		// 2DObject用に変換した頂点配列を描画
 		KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, _2DVertices.size(), &_2DVertices[0], sizeof(KdPolygon::Vertex));
 	}
-	else
-	{
-		// 頂点配列を描画
-		KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, vertices.size(), &vertices[0], sizeof(KdPolygon::Vertex));
-	}
+	// 頂点配列を描画
+	else { KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, vertices.size(), &vertices[0], sizeof(KdPolygon::Vertex)); }
 
 	KdShaderManager::Instance().UndoSamplerState();
-
 	KdShaderManager::Instance().UndoRasterizerState();
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
-	if (m_dirtyCBObj)
-	{
-		ResetCBObject();
-	}
+	if (m_dirtyCBObj) { ResetCBObject(); }
 }
 
 void KdHD2DShader::DrawVertices(const std::vector<KdPolygon::Vertex>& vertices, const Math::Matrix& mWorld,
@@ -319,10 +279,7 @@ void KdHD2DShader::DrawVertices(const std::vector<KdPolygon::Vertex>& vertices, 
 	if (vertices.size() < 2) { return; }
 
 	// オブジェクト単位の定数バッファで変更があった場合のみ情報転送
-	if (m_dirtyCBObj)
-	{
-		m_cb0_Obj.Write();
-	}
+	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
 	// 3Dワールド行列転送
 	m_cb1_Mesh.Work().mW = mWorld;
@@ -339,10 +296,7 @@ void KdHD2DShader::DrawVertices(const std::vector<KdPolygon::Vertex>& vertices, 
 	{
 		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Point_Clamp);
 	}
-	else
-	{
-		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp);
-	}
+	else { KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp); }
 
 	// 描画パイプラインのチェック
 	ID3D11VertexShader* pNowVS = nullptr;
@@ -354,15 +308,11 @@ void KdHD2DShader::DrawVertices(const std::vector<KdPolygon::Vertex>& vertices, 
 	KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_LINELIST, vertices.size(), &vertices[0], sizeof(KdPolygon::Vertex));
 
 	KdShaderManager::Instance().UndoSamplerState();
-
 	KdShaderManager::Instance().UndoDepthStencilState();
-
 	KdShaderManager::Instance().UndoRasterizerState();
+
 	// 定数に変更があった場合は自動的に初期状態に戻す
-	if (m_dirtyCBObj)
-	{
-		ResetCBObject();
-	}
+	if (m_dirtyCBObj) { ResetCBObject(); }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -485,7 +435,6 @@ bool KdHD2DShader::Init()
 
 	SetDissolveTexture(*KdAssets::Instance().m_textures.GetData("Asset/Textures/System/WhiteNoise.png"));
 
-
 	return true;
 }
 
@@ -569,8 +518,6 @@ void KdHD2DShader::ConvertNormalsFor2D(std::vector<KdPolygon::Vertex>& target, c
 void KdHD2DShader::ResetCBObject()
 {
 	m_cb0_Obj.Work() = cbObject();
-
 	m_cb0_Obj.Write();
-
 	m_dirtyCBObj = false;
 }

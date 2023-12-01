@@ -2,13 +2,12 @@
 
 #include "KdShaderManager.h"
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 全てのシェーダーオブジェクトの生成
+/* === 全てのシェーダーオブジェクトの生成 === */
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-// 描画するシェーダー本体の作成（メモリ確保）
-// 全ての描画に必要であろうカメラ・ライトの定数バッファの作成
-// 描画に関する様々なステートの作成（実行中に切り替える用：切り替えるたびに新しく作るのは無駄
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// ・描画するシェーダー本体の作成（メモリ確保）
+// ・全ての描画に必要であろうカメラ・ライトの定数バッファの作成
+// ・描画に関する様々なステートの作成
+// 　（実行中に切り替える用：切り替えるたびに新しく作るのは無駄
 void KdShaderManager::Init()
 {
 	//============================================
@@ -83,9 +82,8 @@ void KdShaderManager::Init()
 //==========================
 // 描画パイプライン系の設定
 //==========================
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 頂点シェーダのセット（現行のシェーダーと同じ場合はキャンセル）
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 頂点シェーダのセット */
+// （現行のシェーダーと同じ場合はキャンセル）
 bool KdShaderManager::SetVertexShader(ID3D11VertexShader* pSetVS)
 {
 	if (!pSetVS) { return false; }
@@ -103,9 +101,8 @@ bool KdShaderManager::SetVertexShader(ID3D11VertexShader* pSetVS)
 	return needChange;
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ピクセルシェーダのセット（現行のシェーダーと同じ場合はキャンセル）
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ピクセルシェーダのセット */
+// （現行のシェーダーと同じ場合はキャンセル）
 bool KdShaderManager::SetPixelShader(ID3D11PixelShader* pSetPS)
 {
 	if (!pSetPS) { return false; }
@@ -123,9 +120,8 @@ bool KdShaderManager::SetPixelShader(ID3D11PixelShader* pSetPS)
 	return needChange;
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 頂点入力レイアウトのセット（現行のレイアウトと同じ場合はキャンセル）
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 頂点入力レイアウトのセット */
+// （現行のレイアウトと同じ場合はキャンセル）
 bool KdShaderManager::SetInputLayout(ID3D11InputLayout* pSetLayout)
 {
 	if (!pSetLayout) { return false; }
@@ -144,9 +140,8 @@ bool KdShaderManager::SetInputLayout(ID3D11InputLayout* pSetLayout)
 	return needChange;
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 頂点シェーダーの定数バッファのセット（現行の定数バッファと同じ場合はキャンセル）
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 頂点シェーダーの定数バッファのセット */
+// （現行の定数バッファと同じ場合はキャンセル）
 bool KdShaderManager::SetVSConstantBuffer(int startSlot, ID3D11Buffer* const* pSetVSBuffer)
 {
 	if (!pSetVSBuffer) { return false; }
@@ -165,9 +160,8 @@ bool KdShaderManager::SetVSConstantBuffer(int startSlot, ID3D11Buffer* const* pS
 	return needChange;
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ピクセルシェーダーの定数バッファのセット（現行の定数バッファと同じ場合はキャンセル）
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ピクセルシェーダーの定数バッファのセット */
+// （現行の定数バッファと同じ場合はキャンセル）
 bool KdShaderManager::SetPSConstantBuffer(int startSlot, ID3D11Buffer* const* pSetPSBuffer)
 {
 	if (!pSetPSBuffer) { return false; }
@@ -188,9 +182,8 @@ bool KdShaderManager::SetPSConstantBuffer(int startSlot, ID3D11Buffer* const* pS
 //==========================
 // パイプラインステートの変更
 //==========================
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 深度ステンシルステートの変更（現行と同じステートの場合はキャンセル
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 深度ステンシルステートの変更 */
+//（現行と同じステートの場合はキャンセル）
 void KdShaderManager::ChangeDepthStencilState(KdDepthStencilState stateId)
 {
 	ID3D11DepthStencilState* pNowDs = nullptr;
@@ -203,9 +196,7 @@ void KdShaderManager::ChangeDepthStencilState(KdDepthStencilState stateId)
 	KdSafeRelease(pNowDs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 深度ステンシルステートを変更直前のステートに戻す
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 深度ステンシルステートを変更直前のステートに戻す */
 void KdShaderManager::UndoDepthStencilState()
 {
 	if (!m_ds_Undo.size()) { return; }
@@ -220,9 +211,8 @@ void KdShaderManager::UndoDepthStencilState()
 	KdSafeRelease(pNowDs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ラスタライザステートの変更（現行と同じステートの場合はキャンセル
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ラスタライザステートの変更 */
+// （現行と同じステートの場合はキャンセル）
 void KdShaderManager::ChangeRasterizerState(KdRasterizerState stateId)
 {
 	ID3D11RasterizerState* pNowRs = nullptr;
@@ -235,9 +225,7 @@ void KdShaderManager::ChangeRasterizerState(KdRasterizerState stateId)
 	KdSafeRelease(pNowRs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ラスタライザステンシルステートを変更直前のステートに戻す
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ラスタライザステンシルステートを変更直前のステートに戻す */
 void KdShaderManager::UndoRasterizerState()
 {
 	if (!m_rs_Undo.size()) { return; }
@@ -252,9 +240,8 @@ void KdShaderManager::UndoRasterizerState()
 	KdSafeRelease(pNowRs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ブレンドステートの変更（現行と同じステートの場合はキャンセル
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ブレンドステートの変更 */
+// （現行と同じステートの場合はキャンセル）
 void KdShaderManager::ChangeBlendState(KdBlendState stateId)
 {
 	ID3D11BlendState* pNowBs = nullptr;
@@ -267,9 +254,7 @@ void KdShaderManager::ChangeBlendState(KdBlendState stateId)
 	KdSafeRelease(pNowBs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ブレンドステートを変更直前のステートに戻す
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ブレンドステートを変更直前のステートに戻す */
 void KdShaderManager::UndoBlendState()
 {
 	if (!m_bs_Undo.size()) { return; }
@@ -284,9 +269,8 @@ void KdShaderManager::UndoBlendState()
 	KdSafeRelease(pNowBs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// サンプラーステートの変更（現行と同じステートの場合はキャンセル
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* サンプラーステートの変更 */
+// （現行と同じステートの場合はキャンセル）
 void KdShaderManager::ChangeSamplerState(KdSamplerState stateId, int slot)
 {
 	ID3D11SamplerState* pNowSs = nullptr;
@@ -299,9 +283,7 @@ void KdShaderManager::ChangeSamplerState(KdSamplerState stateId, int slot)
 	KdSafeRelease(pNowSs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// サンプラーステートを変更直前のステートに戻す
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* サンプラーステートを変更直前のステートに戻す */
 void KdShaderManager::UndoSamplerState(int slot)
 {
 	if (!m_ss_Undo.size()) { return; }
@@ -316,9 +298,7 @@ void KdShaderManager::UndoSamplerState(int slot)
 	KdSafeRelease(pNowSs);
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// カメラ情報をGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* カメラ情報をGPUに転送 */
 void KdShaderManager::WriteCBCamera(const Math::Matrix& cam, const Math::Matrix& proj)
 {
 	cbCamera& camera = m_cb7_Camera.Work();
@@ -333,9 +313,7 @@ void KdShaderManager::WriteCBCamera(const Math::Matrix& cam, const Math::Matrix&
 	m_cb7_Camera.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// フォグの有効フラグをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* フォグの有効フラグをGPUに転送 */
 void KdShaderManager::WriteCBFogEnable(bool distance, bool height)
 {
 	cbFog& fog = m_cb8_Fog.Work();
@@ -346,9 +324,7 @@ void KdShaderManager::WriteCBFogEnable(bool distance, bool height)
 	m_cb8_Fog.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 距離フォグのデータをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 距離フォグのデータをGPUに転送 */
 void KdShaderManager::WriteCBDistanceFog(const Math::Vector3& col, float density)
 {
 	cbFog& fog = m_cb8_Fog.Work();
@@ -359,9 +335,7 @@ void KdShaderManager::WriteCBDistanceFog(const Math::Vector3& col, float density
 	m_cb8_Fog.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 高さフォグのデータをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 高さフォグのデータをGPUに転送 */
 void KdShaderManager::WriteCBHeightFog(const Math::Vector3& col, float top, float bottom, float beginDistance)
 {
 	cbFog& fog = m_cb8_Fog.Work();
@@ -374,19 +348,14 @@ void KdShaderManager::WriteCBHeightFog(const Math::Vector3& col, float top, floa
 	m_cb8_Fog.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 環境光のデータをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 環境光のデータをGPUに転送 */
 void KdShaderManager::WriteCBAmbientLight(const Math::Vector4& col)
 {
 	m_cb9_Light.Work().AmbientLight = col;
-
 	m_cb9_Light.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 平行光のデータをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 平行光のデータをGPUに転送 */
 void KdShaderManager::WriteCBDirectionalLight(const Math::Vector3& dir, const Math::Vector3& col)
 {
 	cbLight& light = m_cb9_Light.Work();
@@ -397,9 +366,7 @@ void KdShaderManager::WriteCBDirectionalLight(const Math::Vector3& dir, const Ma
 	m_cb9_Light.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 影生成エリアのデータをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 影生成エリアのデータをGPUに転送 */
 void KdShaderManager::WriteCBShadowArea(const Math::Matrix& proj, float dirLightHeight)
 {
 	Math::Vector3 lightDir = m_cb9_Light.Get().DirLight_Dir;
@@ -415,9 +382,7 @@ void KdShaderManager::WriteCBShadowArea(const Math::Matrix& proj, float dirLight
 	m_cb9_Light.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// 点光源の配列データをGPUに転送
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* 点光源の配列データをGPUに転送 */
 void KdShaderManager::WriteCBPointLight(const std::list<PointLight>& pointLights)
 {
 	cbLight& light = m_cb9_Light.Work();
@@ -436,9 +401,7 @@ void KdShaderManager::WriteCBPointLight(const std::list<PointLight>& pointLights
 	m_cb9_Light.Write();
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// ポイントライトの追加
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* ポイントライトの追加 */
 void KdShaderManager::AddPointLight(const Math::Vector3& pos, const Math::Vector3& color, float radius, bool isBright)
 {
 	KdShaderManager::cbLight& cbLight = m_cb9_Light.Work();
@@ -453,9 +416,10 @@ void KdShaderManager::AddPointLight(const Math::Vector3& pos, const Math::Vector
 	++cbLight.PointLight_Num;
 }
 
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// パラメータの解放：シェーダー本体・共通の定数バッファ・各パイプラインステート
-// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+/* パラメータの解放 */
+// ・シェーダー本体
+// ・共通の定数バッファ
+// ・各パイプラインステート
 #pragma warning(disable:4239)
 void KdShaderManager::Release()
 {
@@ -469,22 +433,18 @@ void KdShaderManager::Release()
 
 	//深度ステンシルステート開放
 	for (auto& state : m_depthStencilStates) { KdSafeRelease(state); }
-
 	m_ds_Undo.swap(std::stack<ID3D11DepthStencilState*>());
 
 	// ラスタライザステート解放
 	for (auto& state : m_rasterizerStates) { KdSafeRelease(state); }
-
 	m_rs_Undo.swap(std::stack<ID3D11RasterizerState*>());
 
 	// ブレンドステート解放
 	for (auto& state : m_blendStates) { KdSafeRelease(state); }
-
 	m_bs_Undo.swap(std::stack<ID3D11BlendState*>());
 
 	// サンプラーステート解放
 	for (auto& state : m_samplerStates) { KdSafeRelease(state); }
-
 	m_ss_Undo.swap(std::stack<ID3D11SamplerState*>());
 }
 #pragma warning(default:4239)

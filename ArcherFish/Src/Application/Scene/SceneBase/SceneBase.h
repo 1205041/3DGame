@@ -4,7 +4,7 @@ class SceneBase
 {
 public:
 	SceneBase() { Init(); }
-	~SceneBase() {}
+	virtual ~SceneBase() {}
 
 	void PreUpdate();
 	void Update();

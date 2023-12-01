@@ -12,6 +12,9 @@ Texture2D g_dirShadowMap : register(t10);	// 平行光シャドウマップ
 Texture2D g_dissolveTex : register(t11);	// ディゾルブマップ
 Texture2D g_environmentTex : register(t12); // 反射景マップ
 
+// add：水面表現用テクスチャ
+Texture2D g_waterNormalTex : register(t20); // 水面用法線マップ
+
 // サンプラ
 SamplerState g_ss : register(s0);				// 通常のテクスチャ描画用
 SamplerComparisonState g_ssCmp : register(s1);	// 補間用比較機能付き
@@ -54,11 +57,35 @@ float4 main(VSOutput In) : SV_Target0
 	float camDist = length(vCam); // カメラ - ピクセル距離
 	vCam = normalize(vCam);
 
-	// 法線マップから法線ベクトル取得
-	float3 wN = g_normalTex.Sample(g_ss, In.UV).rgb;
-
-	// UV座標（0～1）から 射影座標（-1～1）へ変換
-	wN = wN * 2.0 - 1.0;
+	// add：水面表現 =================================
+    float3 wN = 0.0f;
+    if (g_waterEnable)
+    {
+		// 法線情報を取得
+        float4 n1 = g_waterNormalTex.Sample(g_ss, In.UV + g_waterUVOffset);
+        float4 n2 = g_waterNormalTex.Sample(g_ss, In.UV - g_waterUVOffset);
+		
+		// nの中身は 0~1 の値になる(n.x/n.y/n.z/n.w)
+		// 0~1 の値を ‐1~1 に変える
+        n1 = n1 * 2.0f - 1.0f;
+        n2 = n2 * 2.0f - 1.0f;
+		
+		// ベクトルで行列を変形
+        wN = mul(n1 + n2, g_mR).rgb;
+		/* n.rgbかn.xyzでキャスト */
+		
+        baseColor = g_baseTex.Sample(g_ss, In.UV + wN.rb / 50.0f) * g_BaseColor * In.Color;
+        baseColor += float4(0.0f, 0.0f, 0.3f, 0.0f);
+    }
+    else
+    {
+		// 法線マップから法線ベクトル取得
+        wN = g_normalTex.Sample(g_ss, In.UV).rgb;
+		
+		// UV座標（0～1）から 射影座標（-1～1）へ変換
+        wN = wN * 2.0 - 1.0;
+    }
+	/* =============================================== */
 	
 	{
 		// 3種の法線から法線行列を作成

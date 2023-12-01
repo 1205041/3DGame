@@ -1,5 +1,14 @@
 #include "SphereGround.h"
 
+void SphereGround::Update()
+{
+	m_offset.x += 0.001f;
+	if (m_offset.x > 1.0f) { m_offset.x -= 1.0f; }
+
+	m_offset.y += 0.001f;
+	if (m_offset.y > 1.0f) { m_offset.y -= 1.0f; }
+}
+
 void SphereGround::PostUpdate()
 {
 	// 拡縮行列
@@ -12,10 +21,16 @@ void SphereGround::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void SphereGround::DrawUnLit()
+void SphereGround::DrawLit()
 {
+	// 水面表現を有効
+	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(true);
+	KdShaderManager::Instance().m_HD2DShader.SetWaterUVOffset(m_offset);
+
 	if (!m_spModelData) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
+
+	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(false);
 }
 
 void SphereGround::Init()
@@ -28,4 +43,9 @@ void SphereGround::Init()
 
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModelData, KdCollider::TypeGround);
+
+	// add：テクスチャ読込とGPUに転送
+	std::shared_ptr<KdTexture> spTex;
+	spTex = KdAssets::Instance().m_textures.GetData("Asset/Textures/WaterSurface/water.png");
+	KdShaderManager::Instance().m_HD2DShader.SetWaterNomalText(*spTex);
 }

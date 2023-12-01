@@ -29,7 +29,7 @@ void GameScene::Event()
 		}
 	}
 	else { m_pushAct = false; }
-	
+
 	/* ※ この段階では更新されません ！！ */
 }
 
@@ -47,21 +47,27 @@ void GameScene::Init()
 	spGrndDm = std::make_shared<SphereGround>();
 	m_objList.push_back(spGrndDm);
 
-	// エネミー
-	std::shared_ptr<Enemy> spEnemy;
-	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0.0f,15.0f,3.0f });
-	m_objList.push_back(spEnemy);
-
 	// キャラ
-	std::shared_ptr<Player> spPlayer;	
+	std::shared_ptr<Player> spPlayer;
 	spPlayer = std::make_shared<Player>();
 	m_objList.push_back(spPlayer);
 
-	spEnemy->RegistHitObj(spPlayer);	/* spPlayerとの当たり判定 */
-	spPlayer->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
 	spGrndDm->RegistHitObj(spPlayer);	/* Playerとの当たり判定 */
 	spPlayer->RegistHitObj(spGrndDm);	/* SkySphereとの当たり判定 */
+
+	// エネミー
+	std::shared_ptr<Enemy> spEnemy;
+//	for (int i = 1; i < 5; i++)
+//	{
+		spEnemy = std::make_shared<Enemy>();
+//		spEnemy->SetPos({ 0.0f,15.0f ,3.0f * i });
+		spEnemy->SetPos({ 0.0f,15.0f ,3.0f });
+		m_objList.push_back(spEnemy);
+
+		spEnemy->RegistHitObj(spPlayer);	/* spPlayerとの当たり判定 */
+		spPlayer->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
+		spPlayer->SetEnemy(spEnemy);
+//	}
 
 	// ゲームUI
 	std::shared_ptr<TextDraw> spText;
@@ -85,6 +91,5 @@ void GameScene::Init()
 	spTps->SetTarget(spPlayer);
 	spPlayer->SetCamera(spTps);
 
-	spTps->SetEnemy(spEnemy);
 	spTps->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
 }

@@ -1,8 +1,7 @@
 ﻿#pragma once
+
 //============================================================
-//
 // HD2D用の基本シェーダー
-//
 //============================================================
 class KdHD2DShader
 {
@@ -14,6 +13,7 @@ public:
 		// UV操作
 		Math::Vector2	UVOffset = { 0.0f, 0.0f };
 		Math::Vector2	UVTiling = { 1.0f, 1.0f };
+		/* ============================ */
 
 		// フォグ有効
 		int				FogEnable = 1;
@@ -24,9 +24,19 @@ public:
 		// ディゾルブ関連
 		float			DissolveThreshold = 0.0f;	// 0 ～ 1
 		float			DissolveEdgeRange = 0.03f;	// 0 ～ 1
+		/* ============================ */
 
 		Math::Vector3	DissolveEmissive = { 0.0f, 1.0f, 1.0f };
-		float			_blank2 = 0.0f;
+		int				_blank = 0;
+		/* ============================ */
+
+		// add：水面表現
+		Math::Matrix mR;
+
+		int WaterEnable = 0;
+		Math::Vector2 WaterUVOffset;
+		float _dummy = 0.0f;
+		/* ============================ */
 	};
 
 	// 定数バッファ(メッシュ単位更新)
@@ -50,6 +60,30 @@ public:
 	//================================================
 	// 設定・取得
 	//================================================
+
+	// add：水面表現用 ===============================
+	void SetWaterNomalText(KdTexture& _text)
+	{
+		// テクスチャをGPUに転送
+		KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(20, 1, _text.WorkSRViewAddress());
+		/* マルチレンダーターゲットが使われている */
+	}
+
+	void SetWaterEnable(bool _enable)
+	{
+		m_cb0_Obj.Work().WaterEnable = _enable;
+		m_cb0_Obj.Work().mR = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f));
+
+		m_dirtyCBObj = true;
+	}
+
+	void SetWaterUVOffset(const Math::Vector2& _offset)
+	{
+		m_cb0_Obj.Work().WaterUVOffset = _offset;
+
+		m_dirtyCBObj = true;
+	}
+	/* =============================================== */
 
 	// UVタイリング設定
 	void SetUVTiling(const Math::Vector2& tiling)
@@ -82,15 +116,9 @@ public:
 
 		cbObj.DissolveThreshold = threshold;
 
-		if (range)
-		{
-			cbObj.DissolveEdgeRange = *range;
-		}
+		if (range) { cbObj.DissolveEdgeRange = *range; }
 
-		if (edgeColor)
-		{
-			cbObj.DissolveEmissive = *edgeColor;
-		}
+		if (edgeColor) { cbObj.DissolveEmissive = *edgeColor; }
 
 		m_dirtyCBObj = true;
 	}
@@ -175,15 +203,11 @@ public:
 	// 解放
 	void Release();
 
-	~KdHD2DShader()
-	{
-		Release();
-	}
+	~KdHD2DShader() { Release(); }
 
 	std::shared_ptr<KdTexture>& GetDepthTex() { return m_depthMapFromLightRTPack.m_RTTexture; }
 
 private:
-
 	// マテリアルのセット
 	void WriteMaterial(const KdMaterial& material, const Math::Vector4& colRate, const Math::Vector3& emiRate);
 

@@ -9,28 +9,17 @@ void Enemy::Update()
 	if (m_act)
 	{
 		// 前方
-		{
-			Math::Vector3 vec = Math::Vector3::TransformNormal
-				(Math::Vector3::Backward, m_transMat);
-			m_moveVec += vec;
-		}
+		GetVecNowMove(Math::Vector3::Backward, m_transMat);
 	}
 	else 
 	{
-		{
-			// 下方
-			Math::Vector3 vec = Math::Vector3::TransformNormal
-			(Math::Vector3::Down, m_transMat);
-			m_moveVec += vec;
-		}
+		GetVecNowMove(Math::Vector3::Down, m_transMat);
 
 		if (GetAsyncKeyState('E') & 0x8000)
 		{
 			m_act = true;
 			m_survive = true;
 		}
-
-//		m_survive = false;
 	}
 
 	// 移動
@@ -43,11 +32,17 @@ void Enemy::PostUpdate()
 {
 	SphereUpdateCollision();
 
-	m_scaleMat = Math::Matrix::CreateScale(3.0f);
+	if (!m_act) 
+	{ 
+		m_scaleMat = Math::Matrix::CreateScale(1.0f);
+		m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f)); 
+	}
+	else { m_scaleMat = Math::Matrix::CreateScale(2.5f); }
+
 	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
 
 	// キャラの座標行列
-	m_mWorld = m_scaleMat * m_transMat;
+	m_mWorld = m_scaleMat * m_rotMat * m_transMat;
 }
 
 void Enemy::GenerateDepthMapFromLight()
@@ -128,8 +123,8 @@ void Enemy::SphereUpdateCollision()
 					dir.Normalize();
 
 					// 押し返し
-					newPos = GetPos() + (dir * maxOverLap);
-					SetPos(newPos);
+					m_nowPos = GetPos() + (dir * maxOverLap);
+					SetPos(m_nowPos);
 				}
 			}
 		}

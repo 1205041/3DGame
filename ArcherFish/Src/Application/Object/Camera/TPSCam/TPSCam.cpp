@@ -1,7 +1,5 @@
 #include "TPSCam.h"
 
-#include "../../Enemy/Enemy.h"
-
 void TPSCam::Init()
 {
 	// 基準点(ターゲット)の目線の位置
@@ -17,11 +15,6 @@ void TPSCam::Init()
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 
 	CamBase::Init();
-}
-
-void TPSCam::Update()
-{
-	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) { ShotRayUpdateCollision(); }
 }
 
 void TPSCam::PostUpdate()
@@ -61,60 +54,4 @@ void TPSCam::UpdateRotateByMouse()
 
 	// 回転制御
 	m_degAng.x = std::clamp(m_degAng.x, -FLT_MAX, FLT_MAX);
-}
-
-/* ==================== */
-/* 弾発射レイ当たり判定 */
-/* ==================== */
-void TPSCam::ShotRayUpdateCollision()
-{
-	// ①当たり判定(レイ判定)用の情報を作成
-	KdCollider::RayInfo rayInfo;
-	rayInfo.m_pos = GetPos();	// レイの発射位置を設定
-
-	// マウス位置の差分を得る
-	POINT nowPos{};
-	GetCursorPos(&nowPos);
-
-	// カメラ情報
-	GetCamera()->GenerateRayInfoFromClientPos(
-		nowPos,			// 2D座標
-		rayInfo.m_pos,	// 座標
-		rayInfo.m_dir,	// 方向
-		rayInfo.m_range // レイの長さ
-	);
-	
-	rayInfo.m_type = KdCollider::TypeBump;	// 当たり判定をしたいタイプを設定
-
-	/* === デバック用 === */
-//	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
-
-	// ②HIT判定対象オブジェクトに総当たり
-	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
-	{
-		if (!wpGameObj.expired())
-		{
-			std::shared_ptr<KdGameObject> spGameObj = wpGameObj.lock();
-			if (spGameObj)
-			{
-				std::list<KdCollider::CollisionResult> retRayList;
-				spGameObj->Intersects(rayInfo, &retRayList);
-
-				// ③結果を使って座標を補完する
-				// レイに当たったリストから一番近いオブジェクトを検出
-				float maxOverLap = 0.0f;
-				bool  hit = false;
-				for (auto& ret : retRayList)
-				{
-					// レイを遮断しオーバーした長さが一番長いものを探す
-					if (maxOverLap < ret.m_overlapDistance) { hit = true; }
-				}
-				if (hit) // 何かしらに当たっている
-				{
-					std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
-					if (spEnemy) { spEnemy->SetActFlg(false); }
-				}
-			}
-		}
-	}
 }
