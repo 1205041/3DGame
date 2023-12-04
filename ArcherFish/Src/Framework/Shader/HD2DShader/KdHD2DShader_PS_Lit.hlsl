@@ -75,7 +75,7 @@ float4 main(VSOutput In) : SV_Target0
 		/* n.rgbかn.xyzでキャスト */
 		
         baseColor = g_baseTex.Sample(g_ss, In.UV + wN.rb / 50.0f) * g_BaseColor * In.Color;
-        baseColor += float4(0.0f, 0.0f, 0.3f, 0.0f);
+        baseColor += float4(0.0f, 0.0f, 0.0f, 0.0f);
     }
     else
     {

@@ -1,6 +1,6 @@
-#include "SphereGround.h"
+#include "WaterSurface.h"
 
-void SphereGround::Update()
+void WaterSurface::Update()
 {
 	m_offset.x += 0.001f;
 	if (m_offset.x > 1.0f) { m_offset.x -= 1.0f; }
@@ -9,41 +9,43 @@ void SphereGround::Update()
 	if (m_offset.y > 1.0f) { m_offset.y -= 1.0f; }
 }
 
-void SphereGround::PostUpdate()
+void WaterSurface::PostUpdate()
 {
-	// 拡縮行列
-	m_scaleMat = Math::Matrix::CreateScale(18.0f, 18.0f, 18.0f);
-	
+	// 回転行列
+	m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f));
+
 	// 座標行列
 	m_transMat = Math::Matrix::CreateTranslation({ 0,0.0f,0 });
 
 	// 行列合成(ＳＲＴ)
-	m_mWorld = m_scaleMat * m_transMat;
+	m_mWorld = m_rotMat * m_transMat;
 }
 
-void SphereGround::DrawLit()
+void WaterSurface::DrawLit()
 {
 	// 水面表現を有効
 	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(true);
 	KdShaderManager::Instance().m_HD2DShader.SetWaterUVOffset(m_offset);
 
-	if (!m_spModelData) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
+	if (!m_spPolygon) { return; }
+	KdShaderManager::Instance().m_HD2DShader.DrawPolygon(*m_spPolygon, m_mWorld);
 
 	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(false);
 }
 
-void SphereGround::Init()
+void WaterSurface::Init()
 {
-	if (!m_spModelData)
+	if (!m_spPolygon)
 	{
-		m_spModelData = std::make_shared<KdModelData>();
-		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
-			"Asset/Models/SphereDome/SphereGround/SphereGround.gltf");
+		m_spPolygon = std::make_shared<KdSquarePolygon>();
+		m_spPolygon->SetMaterial(KdAssets::Instance().m_textures.GetData(
+			"Asset/Textures/WaterSurface/tp.png"));
+		m_spPolygon->SetScale(10.0f);
+		m_spPolygon->SetColor({ 0.5f,0.5f,0.5f,0.5f });
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModelData, KdCollider::TypeGround);
+	m_pCollider->RegisterCollisionShape("SkySpColl", m_spPolygon, KdCollider::TypeGround);
 
 	// add：テクスチャ読込とGPUに転送
 	std::shared_ptr<KdTexture> spTex;

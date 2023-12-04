@@ -7,7 +7,8 @@
 #include "../../Object/Enemy/Enemy.h"
 
 // スカイスフィア
-#include "../../Object/SphereDome/SphereGround.h"
+#include "../../Object/Terrain/SphereDome/SphereGround.h"
+#include "../../Object/Terrain/WaterSurface/WaterSurface.h"
 
 // ゲームUI
 #include "../../Object/TextDraw/TextDraw.h"
@@ -46,6 +47,10 @@ void GameScene::Init()
 	std::shared_ptr<SphereGround> spGrndDm;
 	spGrndDm = std::make_shared<SphereGround>();
 	m_objList.push_back(spGrndDm);
+
+	std::shared_ptr<WaterSurface> spWaterSf;
+	spWaterSf = std::make_shared<WaterSurface>();
+	m_objList.push_back(spWaterSf);
 
 	// キャラ
 	std::shared_ptr<Player> spPlayer;

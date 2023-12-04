@@ -1,5 +1,5 @@
 #pragma once
-#include "../ObjBase.h"
+#include "../../ObjBase.h"
 
 class SphereGround :public ObjBase
 {
@@ -7,11 +7,10 @@ public:
 	SphereGround() { Init(); }
 	~SphereGround() {};
 
-	void Update()		override;
 	void PostUpdate()	override;
-	void DrawLit()		override;
+	void DrawUnLit()	override;
 	void Init()			override;
 
 private:
-	Math::Vector2 m_offset;
+
 };

@@ -100,9 +100,6 @@
     <Filter Include="Library\imgui\misc\cpp">
       <UniqueIdentifier>{2e3e4ab7-f874-4d74-983d-e7c14ce430cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\SphereDome">
-      <UniqueIdentifier>{c2dbc98b-e5ff-4612-997f-cf0e87e7facb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI">
       <UniqueIdentifier>{aafe3a2b-5ab1-473f-8311-82f93b9e9c7b}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,15 @@
     </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv">
       <UniqueIdentifier>{f8bf5c65-edff-4b2a-8d40-6db3a5dcd420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Terrain">
+      <UniqueIdentifier>{c2dbc98b-e5ff-4612-997f-cf0e87e7facb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Terrain\SphereDome">
+      <UniqueIdentifier>{77d4a30e-c2d2-4428-be87-3d95656dc2af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\Terrain\WaterSurface">
+      <UniqueIdentifier>{a6952bcc-aecb-4c48-92de-197b49f6017b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +303,6 @@
     <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h">
       <Filter>Library\imgui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\SphereDome\SphereGround.h">
-      <Filter>Src\Application\Object\SphereDome</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
     </ClInclude>
@@ -308,6 +311,12 @@
     </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\MaxWaterLv</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Terrain\SphereDome\SphereGround.h">
+      <Filter>Src\Application\Object\Terrain\SphereDome</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.h">
+      <Filter>Src\Application\Object\Terrain\WaterSurface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -464,9 +473,6 @@
     <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp">
       <Filter>Library\imgui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\SphereDome\SphereGround.cpp">
-      <Filter>Src\Application\Object\SphereDome</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
     </ClCompile>
@@ -475,6 +481,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\MaxWaterLv</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Terrain\SphereDome\SphereGround.cpp">
+      <Filter>Src\Application\Object\Terrain\SphereDome</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.cpp">
+      <Filter>Src\Application\Object\Terrain\WaterSurface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
