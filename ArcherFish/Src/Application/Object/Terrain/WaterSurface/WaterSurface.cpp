@@ -44,7 +44,6 @@ void WaterSurface::Init()
 		m_spPolygon->SetColor({ 0.5f,0.5f,0.5f,0.5f });
 	}
 
-
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("SkySpColl", m_spPolygon, KdCollider::TypeGround);
 
