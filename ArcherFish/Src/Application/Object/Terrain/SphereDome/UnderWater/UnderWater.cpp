@@ -1,6 +1,6 @@
-#include "WaterSurface.h"
+#include "UnderWater.h"
 
-void WaterSurface::Update()
+void UnderWater::Update()
 {
 	m_offset.x += 0.001f;
 	if (m_offset.x > 1.0f) { m_offset.x -= 1.0f; }
@@ -9,10 +9,10 @@ void WaterSurface::Update()
 	if (m_offset.y > 1.0f) { m_offset.y -= 1.0f; }
 }
 
-void WaterSurface::PostUpdate()
+void UnderWater::PostUpdate()
 {
 	// 拡縮行列
-	m_scaleMat = Math::Matrix::CreateScale({33.0f,1.0f,33.0f});
+	m_scaleMat = Math::Matrix::CreateScale(18.0f, 18.0f, 18.0f);
 
 	// 座標行列
 	m_transMat = Math::Matrix::CreateTranslation({ 0,0.0f,0 });
@@ -21,9 +21,9 @@ void WaterSurface::PostUpdate()
 	m_mWorld = m_scaleMat * m_transMat;
 }
 
-void WaterSurface::DrawLit()
+void UnderWater::DrawLit()
 {
-	KdShaderManager::Instance().m_HD2DShader.SetUVTiling({ 10.0f,10.0f });
+//	KdShaderManager::Instance().m_HD2DShader.SetUVTiling({ 10.0f,10.0f });
 
 	// 水面表現を有効
 	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(true);
@@ -31,24 +31,19 @@ void WaterSurface::DrawLit()
 
 	if (!m_spModelData) { return; }
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
-
+	
 	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(false);
 }
 
-void WaterSurface::Init()
+void UnderWater::Init()
 {
 	if (!m_spModelData)
 	{
 		m_spModelData = std::make_shared<KdModelData>();
 		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
-			"Asset/Models/Terrain/WaterSurface/WaterSurface.gltf");
+			"Asset/Models/Terrain/SphereGround/SphereGround.gltf");
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();
 	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModelData, KdCollider::TypeGround);
-
-	// add：テクスチャ読込とGPUに転送
-	std::shared_ptr<KdTexture> spTex;
-	spTex = KdAssets::Instance().m_textures.GetData("Asset/Textures/WaterSurface/water.png");
-	KdShaderManager::Instance().m_HD2DShader.SetWaterNomalText(*spTex);
 }

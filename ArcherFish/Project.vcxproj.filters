@@ -121,6 +121,9 @@
     <Filter Include="Src\Application\Object\Terrain\WaterSurface">
       <UniqueIdentifier>{a6952bcc-aecb-4c48-92de-197b49f6017b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Terrain\SphereDome\UnderWater">
+      <UniqueIdentifier>{4733e5db-9f61-4a6e-895d-6e055a1297b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -318,6 +321,9 @@
     <ClInclude Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.h">
       <Filter>Src\Application\Object\Terrain\WaterSurface</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.h">
+      <Filter>Src\Application\Object\Terrain\SphereDome\UnderWater</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -487,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.cpp">
       <Filter>Src\Application\Object\Terrain\WaterSurface</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.cpp">
+      <Filter>Src\Application\Object\Terrain\SphereDome\UnderWater</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@ void SphereGround::Init()
 	{
 		m_spModelData = std::make_shared<KdModelData>();
 		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
-			"Asset/Models/Terrain/SphereGround/SphereGround.gltf");
+			"Asset/Models/Terrain/Land/Land.gltf");
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();

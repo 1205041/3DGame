@@ -161,6 +161,7 @@
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
     <ClInclude Include="Src\Application\Object\Player\Player.h" />
     <ClInclude Include="Src\Application\Object\Terrain\SphereDome\SphereGround.h" />
+    <ClInclude Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.h" />
     <ClInclude Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
     <ClCompile Include="Src\Application\Object\Player\Player.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\SphereDome\SphereGround.cpp" />
+    <ClCompile Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.cpp" />

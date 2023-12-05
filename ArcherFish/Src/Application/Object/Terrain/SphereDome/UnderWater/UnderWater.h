@@ -1,16 +1,18 @@
 #pragma once
-#include "../../ObjBase.h"
 
-class WaterSurface :public ObjBase
+#include "../../../ObjBase.h"
+
+class UnderWater :public ObjBase
 {
 public:
-	WaterSurface() { Init(); }
-	~WaterSurface() {}
+	UnderWater() { Init(); }
+	~UnderWater() {};
 
 	void Update()		override;
 	void PostUpdate()	override;
 	void DrawLit()		override;
 	void Init()			override;
+
 private:
 	Math::Vector2 m_offset;
 };

@@ -24,7 +24,7 @@ void Player::Update()
 
 	// 移動
 	m_nowPos += m_moveVec * m_moveSpd;
-//	if (m_nowPos.y >= 1.0f) { m_nowPos.y = 1.0f; }
+	if (m_nowPos.y >= 1.0f) { m_nowPos.y = 1.0f; }
 }
 
 // 更新後更新関数
@@ -33,14 +33,11 @@ void Player::PostUpdate()
 	// 拡縮行列
 	m_scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
 
-	// 回転行列
-//	m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians());	
-
 	// 座標行列
 	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
 
 	// 行列合成(ＳＲＴ)
-	m_mWorld = m_scaleMat * m_rotMat * camRotMat * m_transMat;
+	m_mWorld = m_scaleMat * camRotMat * m_transMat;
 	
 	SphereUpdateCollision();
 }
