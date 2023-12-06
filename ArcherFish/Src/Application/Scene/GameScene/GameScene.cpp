@@ -7,6 +7,7 @@
 #include "../../Object/Enemy/Enemy.h"
 
 // スカイスフィア
+#include "../../Object/Terrain/SphereDome/UnderWater/UnderWater.h"
 #include "../../Object/Terrain/SphereDome/SphereGround.h"
 #include "../../Object/Terrain/WaterSurface/WaterSurface.h"
 
@@ -43,7 +44,11 @@ void GameScene::Init()
 	ShowCursor(false);
 
 	/* オブジェクトの初期化 */
-	// スカイスフィア
+	// 地形
+	std::shared_ptr<UnderWater> spUnWater;
+	spUnWater = std::make_shared<UnderWater>();
+	m_objList.push_back(spUnWater);
+
 	std::shared_ptr<SphereGround> spGrndDm;
 	spGrndDm = std::make_shared<SphereGround>();
 	m_objList.push_back(spGrndDm);
@@ -57,8 +62,13 @@ void GameScene::Init()
 	spPlayer = std::make_shared<Player>();
 	m_objList.push_back(spPlayer);
 
-	spGrndDm->RegistHitObj(spPlayer);	/* Playerとの当たり判定 */
-	spPlayer->RegistHitObj(spGrndDm);	/* SkySphereとの当たり判定 */
+	/* === 地形の当たり判定 === */
+	// Playerとの当たり判定
+	spUnWater->RegistHitObj(spPlayer);
+	spGrndDm->RegistHitObj(spPlayer);
+	// SkySphereとの当たり判定
+	spPlayer->RegistHitObj(spGrndDm);
+	spPlayer->RegistHitObj(spUnWater);
 
 	// エネミー
 	std::shared_ptr<Enemy> spEnemy;

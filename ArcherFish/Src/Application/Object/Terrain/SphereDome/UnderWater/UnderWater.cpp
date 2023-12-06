@@ -23,8 +23,6 @@ void UnderWater::PostUpdate()
 
 void UnderWater::DrawLit()
 {
-//	KdShaderManager::Instance().m_HD2DShader.SetUVTiling({ 10.0f,10.0f });
-
 	// …–Ê•\Œ»‚ğ—LŒø
 	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(true);
 	KdShaderManager::Instance().m_HD2DShader.SetWaterUVOffset(m_offset);
@@ -41,7 +39,7 @@ void UnderWater::Init()
 	{
 		m_spModelData = std::make_shared<KdModelData>();
 		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
-			"Asset/Models/Terrain/SphereGround/SphereGround.gltf");
+			"Asset/Models/Terrain/UnderWater/UnderWater.gltf");
 	}
 
 	m_pCollider = std::make_unique<KdCollider>();

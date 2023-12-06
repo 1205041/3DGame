@@ -44,8 +44,8 @@ void WaterSurface::Init()
 			"Asset/Models/Terrain/WaterSurface/WaterSurface.gltf");
 	}
 
-	m_pCollider = std::make_unique<KdCollider>();
-	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModelData, KdCollider::TypeGround);
+//	m_pCollider = std::make_unique<KdCollider>();
+//	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModelData, KdCollider::TypeGround);
 
 	// add：テクスチャ読込とGPUに転送
 	std::shared_ptr<KdTexture> spTex;

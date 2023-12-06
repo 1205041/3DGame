@@ -32,6 +32,9 @@
 		{
 			"name":"RiverSide",
 			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":0
+				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
 			}
@@ -51,6 +54,19 @@
 					"material":0
 				}
 			]
+		}
+	],
+	"textures":[
+		{
+			"sampler":0,
+			"source":0
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"UnderWater.hdr.001",
+			"uri":"UnderWater.hdr"
 		}
 	],
 	"accessors":[
@@ -113,6 +129,12 @@
 			"byteLength":2496,
 			"byteOffset":9760,
 			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9729,
+			"minFilter":9987
 		}
 	],
 	"buffers":[
