@@ -42,13 +42,6 @@ void Player::PostUpdate()
 	SphereUpdateCollision();
 }
 
-// ‰e•`‰æŠÖ”
-void Player::GenerateDepthMapFromLight()
-{
-	if (!m_spModelWork) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
-}
-
 // ”Âƒ|ƒŠ•`‰æŠÖ”
 void Player::DrawLit()
 {

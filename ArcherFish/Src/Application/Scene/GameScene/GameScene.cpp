@@ -6,7 +6,7 @@
 #include "../../Object/Player/Player.h"
 #include "../../Object/Enemy/Enemy.h"
 
-// スカイスフィア
+// 地形
 #include "../../Object/Terrain/SphereDome/UnderWater/UnderWater.h"
 #include "../../Object/Terrain/SphereDome/SphereGround.h"
 #include "../../Object/Terrain/WaterSurface/WaterSurface.h"
@@ -63,26 +63,23 @@ void GameScene::Init()
 	m_objList.push_back(spPlayer);
 
 	/* === 地形の当たり判定 === */
-	// Playerとの当たり判定
-	spUnWater->RegistHitObj(spPlayer);
-	spGrndDm->RegistHitObj(spPlayer);
-	// SkySphereとの当たり判定
-	spPlayer->RegistHitObj(spGrndDm);
-	spPlayer->RegistHitObj(spUnWater);
+	spUnWater->RegistHitObj(spPlayer); // Playerとの当たり判定
+	spPlayer->RegistHitObj(spUnWater); // SkySphereとの当たり判定
 
 	// エネミー
 	std::shared_ptr<Enemy> spEnemy;
-//	for (int i = 1; i < 5; i++)
-//	{
-		spEnemy = std::make_shared<Enemy>();
-//		spEnemy->SetPos({ 0.0f,15.0f ,3.0f * i });
-		spEnemy->SetPos({ 0.0f,15.0f ,3.0f });
-		m_objList.push_back(spEnemy);
+	spEnemy = std::make_shared<Enemy>();
+	spEnemy->SetPos({ 0.0f,15.0f ,3.0f });
+	m_objList.push_back(spEnemy);
 
-		spEnemy->RegistHitObj(spPlayer);	/* spPlayerとの当たり判定 */
-		spPlayer->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
-		spPlayer->SetEnemy(spEnemy);
-//	}
+	/* === 射撃の当たり判定 === */
+	spEnemy->RegistHitObj(spPlayer); // spPlayerとの当たり判定
+	spPlayer->RegistHitObj(spEnemy); // spEnemyとの当たり判定
+	spPlayer->SetEnemy(spEnemy);
+
+	/* === 地形の当たり判定 === */
+//	spGrndDm->RegistHitObj(spEnemy); // spEnemyとの当たり判定
+//	spEnemy->RegistHitObj(spGrndDm); // SkySphereとの当たり判定
 
 	// ゲームUI
 	std::shared_ptr<TextDraw> spText;

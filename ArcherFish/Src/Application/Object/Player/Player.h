@@ -10,13 +10,11 @@ public:
 	Player() { Init(); }
 	~Player() {}
 
-	void Update()					override;
-	void PostUpdate()				override;
+	void Update()		override;
+	void PostUpdate()	override;
 
-	void GenerateDepthMapFromLight()override;
-	void DrawLit()					override;
-
-	void Init()						override;
+	void DrawLit()		override;
+	void Init()			override;
 
 	void SetCamera(const std::shared_ptr<TPSCam>& _camera) { m_wpCamera = _camera; }
 	void SetEnemy(const std::shared_ptr<Enemy>& _enemy) { m_wpEnemy = _enemy; }

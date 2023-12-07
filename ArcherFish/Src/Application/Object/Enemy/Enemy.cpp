@@ -37,21 +37,16 @@ void Enemy::PostUpdate()
 		m_scaleMat = Math::Matrix::CreateScale(1.0f);
 		m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f)); 
 	}
-	else { m_scaleMat = Math::Matrix::CreateScale(2.5f); }
+	else 
+	{ 
+		m_scaleMat = Math::Matrix::CreateScale(2.5f); 
+		m_rotMat = Math::Matrix::Identity;
+	}
 
 	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
 
 	// ÉLÉÉÉâÇÃç¿ïWçsóÒ
 	m_mWorld = m_scaleMat * m_rotMat * m_transMat;
-}
-
-void Enemy::GenerateDepthMapFromLight()
-{
-	if (m_survive)
-	{
-		if (!m_spModelWork) { return; }
-		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
-	}
 }
 
 void Enemy::DrawLit()

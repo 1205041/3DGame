@@ -10,9 +10,7 @@ public:
 	void Update()					override;
 	void PostUpdate()				override;
 
-	void GenerateDepthMapFromLight()override;
 	void DrawLit()					override;
-
 	void Init()						override;
 
 	void SetActFlg(const bool _flg) { m_act = _flg; }

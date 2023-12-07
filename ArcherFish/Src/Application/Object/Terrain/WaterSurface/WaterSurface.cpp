@@ -15,7 +15,7 @@ void WaterSurface::PostUpdate()
 	m_scaleMat = Math::Matrix::CreateScale({33.0f,1.0f,33.0f});
 
 	// 座標行列
-	m_transMat = Math::Matrix::CreateTranslation({ 0,0.0f,0 });
+	m_transMat = Math::Matrix::CreateTranslation({ 0,1.3f,0 });
 
 	// 行列合成(ＳＲＴ)
 	m_mWorld = m_scaleMat * m_transMat;
@@ -43,9 +43,6 @@ void WaterSurface::Init()
 		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
 			"Asset/Models/Terrain/WaterSurface/WaterSurface.gltf");
 	}
-
-//	m_pCollider = std::make_unique<KdCollider>();
-//	m_pCollider->RegisterCollisionShape("SkySpColl", m_spModelData, KdCollider::TypeGround);
 
 	// add：テクスチャ読込とGPUに転送
 	std::shared_ptr<KdTexture> spTex;
