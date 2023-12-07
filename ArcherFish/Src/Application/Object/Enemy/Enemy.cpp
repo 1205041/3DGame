@@ -2,19 +2,20 @@
 
 void Enemy::Update()
 {
-	// キャラクターの移動速度
+	// 現在位置と移動速度
 	m_nowPos = GetPos();
-
 	m_moveVec = Math::Vector3::Zero;
+
 	if (m_act)
 	{
 		// 前方
 		GetVecNowMove(Math::Vector3::Backward, m_transMat);
+		m_moveSpd = 0.1f;
 	}
 	else 
 	{
 		GetVecNowMove(Math::Vector3::Down, m_transMat);
-
+		m_moveSpd = 0.05f;
 		if (GetAsyncKeyState('E') & 0x8000)
 		{
 			m_act = true;
@@ -22,7 +23,7 @@ void Enemy::Update()
 		}
 	}
 
-	// 移動
+	// 座標更新
 	m_nowPos += m_moveVec * m_moveSpd;
 	if (m_nowPos.z >= 50.0f) { m_nowPos.z = -50.0f; }
 	if (m_nowPos.y <= -50.0f) { m_nowPos.y = 50.0f; }

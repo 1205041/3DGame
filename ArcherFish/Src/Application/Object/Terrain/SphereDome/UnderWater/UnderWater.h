@@ -5,7 +5,7 @@ class UnderWater :public ObjBase
 {
 public:
 	UnderWater() { Init(); }
-	~UnderWater() {};
+	virtual ~UnderWater() {};
 
 	void Update()		override;
 	void PostUpdate()	override;

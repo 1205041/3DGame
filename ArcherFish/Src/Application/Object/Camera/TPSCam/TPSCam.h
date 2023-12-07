@@ -5,7 +5,7 @@ class TPSCam :public CamBase
 {
 public:
 	TPSCam() { Init(); }
-	~TPSCam() {}
+	virtual ~TPSCam() {}
 
 	void Init()			override;
 	void PostUpdate()	override;

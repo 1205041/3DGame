@@ -4,7 +4,7 @@ class ObjBase :public KdGameObject
 {
 public:
 	ObjBase() { Init(); }
-	~ObjBase() {}
+	virtual ~ObjBase() {}
 
 	// 更新に関する関数
 	virtual void PreUpdate()	override {}
@@ -37,19 +37,19 @@ protected:
 	const Math::Vector3 GetVecNowMove(Math::Vector3 _vec, Math::Matrix _mat);
 
 	// オブジェクトの移動速度
-	Math::Vector3	m_nowPos = Math::Vector3::Zero;		// 現在座標
+	Math::Vector3	m_nowPos  = Math::Vector3::Zero;		// 現在座標
 	Math::Vector3	m_moveVec = Math::Vector3::Zero;
 	float			m_moveSpd = 0.0f;
 
 	// 行列一覧
-	Math::Matrix	m_scaleMat = Math::Matrix::Identity;	// 拡縮行列
-	Math::Matrix	m_rotMat = Math::Matrix::Identity;	// 回転行列
-	Math::Matrix	m_transMat = Math::Matrix::Identity;	// 座標行列
+	Math::Matrix	m_scaleMat  = Math::Matrix::Identity;	// 拡縮行列
+	Math::Matrix	m_rotMat	= Math::Matrix::Identity;	// 回転行列
+	Math::Matrix	m_transMat  = Math::Matrix::Identity;	// 座標行列
 
 	// モデルとカメラのスマポ
-	std::shared_ptr<KdModelWork> m_spModelWork	= nullptr;
-	std::shared_ptr<KdModelData> m_spModelData	= nullptr;
-	std::shared_ptr<KdCamera>	 m_spCamera		= nullptr;
+	std::shared_ptr<KdModelWork> m_spModelWork = nullptr;
+	std::shared_ptr<KdModelData> m_spModelData = nullptr;
+	std::shared_ptr<KdCamera>	 m_spCamera	   = nullptr;
 
 	// ウィークポインタ
 	std::weak_ptr<KdGameObject>	 m_wpTarget;

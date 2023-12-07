@@ -5,7 +5,7 @@ class TextDraw :public ObjBase
 {
 public:
 	TextDraw() { Init(); }
-	~TextDraw() {}
+	virtual ~TextDraw() {}
 
 	void SetLoadText(const std::string _tex, const Math::Rectangle _recAng);
 

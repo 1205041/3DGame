@@ -5,7 +5,7 @@ class SphereGround :public ObjBase
 {
 public:
 	SphereGround() { Init(); }
-	~SphereGround() {};
+	virtual ~SphereGround() {};
 
 	void PostUpdate()	override;
 	void DrawUnLit()	override;

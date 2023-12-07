@@ -5,7 +5,7 @@ class TitleScene :public SceneBase
 {
 public:
 	TitleScene() { Init(); }
-	~TitleScene() {}
+	virtual ~TitleScene() {}
 
 private:
 	void Event()override;

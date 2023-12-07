@@ -8,7 +8,7 @@ class Player :public ObjBase
 {
 public:
 	Player() { Init(); }
-	~Player() {}
+	virtual ~Player() {}
 
 	void Update()		override;
 	void PostUpdate()	override;

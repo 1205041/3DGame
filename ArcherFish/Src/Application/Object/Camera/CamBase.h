@@ -5,7 +5,7 @@ class CamBase :public ObjBase
 {
 public:
 	CamBase() { Init(); }
-	~CamBase() {}
+	virtual ~CamBase() {}
 
 	void Init()			override;
 	void Update()		override {}

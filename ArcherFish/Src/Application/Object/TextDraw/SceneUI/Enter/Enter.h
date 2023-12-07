@@ -5,7 +5,7 @@ class Enter:public TextDraw
 {
 public:
 	Enter() { Init(); }
-	~Enter() {}
+	virtual ~Enter() {}
 
 	void Update()		override;
 	void PostUpdate()	override;

@@ -5,7 +5,7 @@ class Enemy :public ObjBase
 {
 public:
 	Enemy() { Init(); }
-	~Enemy() {}
+	virtual ~Enemy() {}
 
 	void Update()					override;
 	void PostUpdate()				override;

@@ -31,7 +31,7 @@ void Player::Update()
 void Player::PostUpdate()
 {
 	// Šgks—ñ
-	m_scaleMat = Math::Matrix::CreateScale(1.0f, 1.0f, 1.0f);
+	m_scaleMat = Math::Matrix::CreateScale(1.0f);
 
 	// À•Ws—ñ
 	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);

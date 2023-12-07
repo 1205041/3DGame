@@ -7,7 +7,7 @@ class MaxWaterLv :public TextDraw
 {
 public:
 	MaxWaterLv() { Init(); }
-	~MaxWaterLv() {}
+	virtual ~MaxWaterLv() {}
 
 	void Update()		override;
 	void PostUpdate()	override;

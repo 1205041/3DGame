@@ -5,7 +5,7 @@ class WaterSurface :public ObjBase
 {
 public:
 	WaterSurface() { Init(); }
-	~WaterSurface() {}
+	virtual ~WaterSurface() {}
 
 	void Update()		override;
 	void PostUpdate()	override;

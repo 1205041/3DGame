@@ -5,7 +5,7 @@ class GameScene :public SceneBase
 {
 public:
 	GameScene() { Init(); }
-	~GameScene(){}
+	virtual ~GameScene(){}
 
 private:
 	void Event()override;
