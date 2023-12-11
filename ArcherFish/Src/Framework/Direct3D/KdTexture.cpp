@@ -4,10 +4,10 @@
 
 
 /* 2D画像(resource)リソースから、最適なビューを作成する */
-// ・resource		… 2D画像リソース
-// ・ppSRV			… 作成されたShaderResourceViewを受け取るための変数のアドレス
-// ・ppRTV			… 作成されたRenderTargetViewを受け取るための変数のアドレス
-// ・ppDSV			… 作成されたDepthStencilViewを受け取るための変数のアドレス
+// ・resource … 2D画像リソース
+// ・ppSRV	  … 作成されたShaderResourceViewを受け取るための変数のアドレス
+// ・ppRTV	  … 作成されたRenderTargetViewを受け取るための変数のアドレス
+// ・ppDSV	  … 作成されたDepthStencilViewを受け取るための変数のアドレス
 static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderResourceView** ppSRV, ID3D11RenderTargetView** ppRTV, ID3D11DepthStencilView** ppDSV)
 {
 	// リソースが無い
@@ -230,7 +230,8 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	}
 
 	// DDS画像読み込み
-	if (bLoaded == false) {
+	if (!bLoaded) 
+	{
 		if (SUCCEEDED(DirectX::LoadFromDDSFile(wFilename.c_str(), DirectX::DDS_FLAGS_NONE, &meta, image)))
 		{
 			bLoaded = true;
@@ -238,26 +239,25 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	}
 
 	// TGA画像読み込み
-	if (bLoaded == false) {
-		if (SUCCEEDED(DirectX::LoadFromTGAFile(wFilename.c_str(), &meta, image)))
+	if (!bLoaded) 
+	{
+		if (SUCCEEDED(DirectX::LoadFromTGAFile(wFilename.c_str(), &meta, image))) 
 		{
 			bLoaded = true;
 		}
 	}
 
 	// HDR画像読み込み
-	if (bLoaded == false) {
-		if (SUCCEEDED(DirectX::LoadFromHDRFile(wFilename.c_str(), &meta, image)))
+	if (!bLoaded) 
+	{
+		if (SUCCEEDED(DirectX::LoadFromHDRFile(wFilename.c_str(), &meta, image))) 
 		{
 			bLoaded = true;
 		}
 	}
 
 	// 読み込み失敗
-	if (bLoaded == false)
-	{
-		return false;
-	}
+	if (!bLoaded) { return false; }
 
 	// ミップマップ生成
 	if (meta.mipLevels == 1 && generateMipmap)
@@ -292,7 +292,7 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	//------------------------------------
 	// テクスチャリソース(m_resource)から、各ビューを作成する
 	//------------------------------------
-	if (KdCreateViewsFromTexture2D(tex2D, &m_srv, &m_rtv, &m_dsv) == false)
+	if (!KdCreateViewsFromTexture2D(tex2D, &m_srv, &m_rtv, &m_dsv))
 	{
 		tex2D->Release();
 		Release();
@@ -316,7 +316,8 @@ bool KdTexture::Create(ID3D11Texture2D* pTexture2D)
 	//---------------------------------------------
 	// 画像リソースから、各ビューを作成する
 	//---------------------------------------------
-	if (KdCreateViewsFromTexture2D(pTexture2D, &m_srv, &m_rtv, &m_dsv) == false) {
+	if (!KdCreateViewsFromTexture2D(pTexture2D, &m_srv, &m_rtv, &m_dsv)) 
+	{
 		Release();
 		return false;
 	}
@@ -340,7 +341,8 @@ bool KdTexture::Create(const D3D11_TEXTURE2D_DESC & desc, const D3D11_SUBRESOURC
 	//--------------------------------------------
 	ID3D11Texture2D* resource;
 	HRESULT hr = KdDirect3D::Instance().WorkDev()->CreateTexture2D(&desc, fillData, &resource);
-	if (FAILED(hr)) {
+	if (FAILED(hr)) 
+	{
 		Release();
 		return false;
 	}
@@ -373,7 +375,6 @@ void SetTextureInfo(D3D11_TEXTURE2D_DESC& rDesc, int w, int h, DXGI_FORMAT forma
 bool KdTexture::Create(int w, int h, DXGI_FORMAT format, UINT arrayCnt, const D3D11_SUBRESOURCE_DATA * fillData)
 {
 	Release();
-
 
 	// 作成する2Dテクスチャ設定
 	D3D11_TEXTURE2D_DESC desc = {};

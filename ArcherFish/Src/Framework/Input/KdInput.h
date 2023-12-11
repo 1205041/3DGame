@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 class KdInputCollector;
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -13,7 +12,6 @@ class KdInputCollector;
 class KdInputManager
 {
 public:
-
 	static KdInputManager& Instance()
 	{
 		static KdInputManager instance;
@@ -43,7 +41,6 @@ public:
 	void Release();
 
 private:
-
 	KdInputManager() {}
 	~KdInputManager() { Release(); }
 
@@ -63,7 +60,6 @@ class KdInputAxisBase;
 class KdInputCollector
 {
 public:
-
 	enum class ActiveState
 	{
 		Disable,	// 無効：完全に停止している状態
@@ -118,7 +114,6 @@ private:
 class KdInputButtonBase
 {
 public:
-
 	enum State
 	{
 		Free,				// 入力が無い
@@ -158,7 +153,6 @@ protected:
 class KdInputButtonForWindows : public KdInputButtonBase
 {
 public:
-
 	// 引き付きコンストラクター
 	KdInputButtonForWindows(int keyCode);
 	KdInputButtonForWindows(std::initializer_list<int> keyCodeList);
@@ -215,7 +209,6 @@ protected:
 class KdInputAxisForWindows : public KdInputAxisBase
 {
 public:
-
 	// 引き付きコンストラクター
 	KdInputAxisForWindows(int upCode, int rightCode, int downCode, int leftCode);
 	KdInputAxisForWindows(std::initializer_list<int> upCodes, std::initializer_list<int> rightCodes,
@@ -232,7 +225,6 @@ public:
 	void Update() override;
 
 private:
-
 	enum DIR
 	{
 		Up, 
@@ -254,7 +246,6 @@ private:
 class KdInputAxisForWindowsMouse : public KdInputAxisBase
 {
 public:
-
 	KdInputAxisForWindowsMouse() {}
 
 	KdInputAxisForWindowsMouse(int fixCode);
