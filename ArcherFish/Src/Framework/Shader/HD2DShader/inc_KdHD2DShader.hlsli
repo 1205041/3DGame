@@ -11,6 +11,9 @@ cbuffer cbObject : register(b0)
 	float g_dissolveEdgeRange;	// ディゾルブの境界線の太さ
 	float3 g_dissolveEmissive;	// 境界の色
 	
+	// add：色変化
+    int g_colorEnable;
+	
 	// add：水面表現用
     float4x4 g_mR;
     int g_waterEnable;

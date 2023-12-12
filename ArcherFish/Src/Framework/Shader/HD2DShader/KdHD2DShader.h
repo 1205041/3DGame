@@ -27,7 +27,9 @@ public:
 		/* ============================ */
 
 		Math::Vector3	DissolveEmissive = { 0.0f, 1.0f, 1.0f };
-		int				_blank = 0;
+		
+		// add：色変更
+		int				ColorEnable = 0;
 		/* ============================ */
 
 		// add：水面表現
@@ -80,6 +82,14 @@ public:
 	void SetWaterUVOffset(const Math::Vector2& _offset)
 	{
 		m_cb0_Obj.Work().WaterUVOffset = _offset;
+
+		m_dirtyCBObj = true;
+	}
+
+	// add：色変更有効/無効
+	void SetColorEnable(bool enable)
+	{
+		m_cb0_Obj.Work().ColorEnable = enable;
 
 		m_dirtyCBObj = true;
 	}

@@ -27,9 +27,9 @@ protected:
 	virtual void Init() {}
 	virtual void Event() {}
 
+	// GUI処理
+	virtual void ImGuiUpdate() {};
+
 	// オブジェクトリスト
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
-
-	// 長押しシーン切替防止
-	bool m_pushAct = false;
 };

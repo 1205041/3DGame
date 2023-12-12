@@ -24,4 +24,7 @@ private:
 	// 活動中フラグ & 生存中フラグ
 	bool m_act = true;
 	bool m_survive = true;
+
+	// 光っている時間
+	float m_lightTime = 0.0f;
 };

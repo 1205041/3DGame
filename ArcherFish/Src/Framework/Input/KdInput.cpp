@@ -1,26 +1,24 @@
 ﻿#include "KdInput.h"
 
+/* === InputManager === */
 
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-// InputManager
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = */
 // 入力デバイス統合マネージャの更新
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 登録された入力デバイスのUpdateを行う
-// 毎ループの初めに呼び出す必要がある
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ----- ----- ----- ----- ----- ----- -----
+// ・登録された入力デバイスのUpdateを行う
+// ・毎ループの初めに呼び出す必要がある
+/* = = = = = = = = = = = = = = = = = = = = = */
 void KdInputManager::Update()
 {
 	for (auto& device : m_pInputDevices) { device.second->Update(); }
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = */
 // 任意のアプリケーションボタンの入力状態を取得
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 全ての有効状態の入力デバイスから任意のボタンの入力状状態を取得する
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ----- ----- ----- ----- ----- ----- ----- -----
+// ・全ての有効状態の入力デバイスから
+// 　任意のボタンの入力状状態を取得する
+/* = = = = = = = = = = = = = = = = = = = = = = = = */
 short KdInputManager::GetButtonState(std::string_view name) const
 {
 	short buttonState = KdInputButtonBase::Free;
@@ -34,43 +32,48 @@ short KdInputManager::GetButtonState(std::string_view name) const
 	return buttonState;
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// 任意のアプリケーションボタンが「押されていない状態」か判定
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = */
+// 任意のアプリケーションボタンが
+// 「押されていない状態」か判定
+/* = = = = = = = = = = = = = = = = */
 bool KdInputManager::IsFree(std::string_view name) const
 {
 	return (GetButtonState(name) == KdInputButtonBase::Free);
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// 任意のアプリケーションボタンが「押された瞬間」か判定
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = */
+// 任意のアプリケーションボタンが
+// 「押された瞬間」か判定
+/* = = = = = = = = = = = = = = = = */
 bool KdInputManager::IsPress(std::string_view name) const
 {
 	return (GetButtonState(name) & KdInputButtonBase::Press);
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// 任意のアプリケーションボタンが「押されている状態」か判定
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = */
+// 任意のアプリケーションボタンが
+// 「押されている状態」か判定
+/* = = = = = = = = = = = = = = = = */
 bool KdInputManager::IsHold(std::string_view name) const
 {
 	return (GetButtonState(name) & KdInputButtonBase::Hold);
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// 任意のアプリケーションボタンが「離された瞬間」か判定
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = */
+// 任意のアプリケーションボタンが
+// 「離された瞬間」か判定
+/* = = = = = = = = = = = = = = = = */
 bool KdInputManager::IsRelease(std::string_view name) const
 {
 	return (GetButtonState(name) & KdInputButtonBase::Release);
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = */
 // 任意の軸入力状態を取得
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 指定した入力デバイスの任意の軸の入力状状態を2次元ベクトルで取得する
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ----- ----- ----- ----- ----- ----- ----- -----
+// ・指定した入力デバイスの任意の軸の入力状状態を
+// 　2次元ベクトルで取得する
+/* = = = = = = = = = = = = = = = = = = = = = = = = */
 Math::Vector2 KdInputManager::GetAxisState(std::string_view name) const
 {
 	float leftValue = 0.0f, rightValue = 0.0f, topValue = 0.0f, bottomValue = 0.0f;
@@ -103,9 +106,9 @@ Math::Vector2 KdInputManager::GetAxisState(std::string_view name) const
 	return Math::Vector2(leftValue + rightValue, topValue + bottomValue);
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = */
 // 入力コレクター（入力デバイス）の追加
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = */
 void KdInputManager::AddDevice(std::string_view name, KdInputCollector* pDevice)
 {
 	std::unique_ptr<KdInputCollector> pNewDevice(pDevice);
@@ -137,26 +140,26 @@ std::unique_ptr<KdInputCollector>& KdInputManager::WorkDevice(std::string_view n
 	return device->second;
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = */
 // 登録している入力コレクターを全て解放
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = */
 void KdInputManager::Release()
 {
 	m_pInputDevices.clear();
 }
 
+/* === InputCollector === */
 
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-// InputCollector
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 // 入力デバイスの入力状況更新
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 登録されたアプリケーションボタンに紐づけた入力キーを調査し、ボタンの入力状況を更新する
-// 同じく軸情報の状況更新を行う
-// 無効（入力を受け付けない）に設定している場合は全て入力無しにする
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ----- ----- ----- ----- ----- ----- ----- ----- -----
+// ・登録されたアプリケーションボタンに
+// 　紐づけた入力キーを調査し、
+//   ボタンの入力状況を更新する
+// ・同じく軸情報の状況更新を行う
+// ・無効（入力を受け付けない）に設定している場合は
+// 　全て入力無しにする
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdInputCollector::Update()
 {
 	// 更新前の準備　PreUpdate
@@ -182,9 +185,9 @@ void KdInputCollector::Update()
 	}
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = */
 // 何かしらの入力を検知した時に「true」を返す
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = */
 bool KdInputCollector::IsSomethingInput()
 {
 	for (auto& button : m_spButtons)
@@ -207,9 +210,9 @@ bool KdInputCollector::IsSomethingInput()
 	return false;
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = */
 // 任意のアプリケーションボタンの入力情報取得
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = */
 short KdInputCollector::GetButtonState(std::string_view name) const
 {
 	const std::shared_ptr<KdInputButtonBase>& spButton = GetButton(name);
@@ -219,9 +222,9 @@ short KdInputCollector::GetButtonState(std::string_view name) const
 	return spButton->GetState();
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = */
 // 任意の軸の入力情報取得
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = */
 Math::Vector2 KdInputCollector::GetAxisState(std::string_view name) const
 {
 	const std::shared_ptr<KdInputAxisBase>& spAxis = GetAxis(name);
@@ -231,10 +234,11 @@ Math::Vector2 KdInputCollector::GetAxisState(std::string_view name) const
 	return spAxis->GetState();
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = */
 // アプリケーションボタンの追加
-// 生ポインタの追加関数も用意（必ず new した生ポインタを引数として渡す事
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ・生ポインタの追加関数も用意
+// 　（必ず new した生ポインタを引数として渡す事
+/* = = = = = = = = = = = = = = = = = = = = = = = */
 void KdInputCollector::AddButton(std::string_view name, KdInputButtonBase* pButton)
 {
 	AddButton(name.data(), std::shared_ptr<KdInputButtonBase>(pButton));
@@ -286,28 +290,25 @@ const std::shared_ptr<KdInputAxisBase> KdInputCollector::GetAxis(std::string_vie
 	return AxisIter->second;
 }
 
-
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = */
 // 管理しているボタンと入力軸・入力ポインタの解放
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdInputCollector::Release()
 {
 	m_spButtons.clear();
 	m_spAxes.clear();
 }
 
+/* === InputButtonForWindows === */
 
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-// InputButtonForWindows
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// 引数付きコンストラクター：キーコードを指定してボタンを作成する
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 単一のキーコード（整数）
-// 複数のキーコード（初期化リスト：整数）
-// 複数のキーコード（Vector配列：整数）
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = */
+// 引数付きコンストラクター
+// ：キーコードを指定してボタンを作成する
+// ----- ----- ----- ----- ----- ----- -----
+// ・単一のキーコード（整数）
+// ・複数のキーコード（初期化リスト：整数）
+// ・複数のキーコード（Vector配列：整数）
+/* = = = = = = = = = = = = = = = = = = = = = */
 KdInputButtonForWindows::KdInputButtonForWindows(int keyCode)
 {
 	m_keyCodes.push_back(keyCode); 
@@ -323,10 +324,13 @@ KdInputButtonForWindows::KdInputButtonForWindows(const std::vector<int>& keyCode
 	for (int keyCode : keyCodeList) m_keyCodes.push_back(keyCode);
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// GetAsyncKeyStateを使ってアプリケーションボタンに紐づけたキーコードの入力状況を取得
-// その情報を基にアプリケーションボタンの入力状況を更新する
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = */
+// ・GetAsyncKeyStateを使って
+// 　アプリケーションボタンに紐づけた
+// 　キーコードの入力状況を取得
+// ・その情報を基にアプリケーションボタンの
+// 　入力状況を更新する
+/* = = = = = = = = = = = = = = = = = = = = = */
 void KdInputButtonForWindows::Update()
 {
 	// 既に状態更新済み
@@ -361,18 +365,15 @@ void KdInputButtonForWindows::GetCode(std::vector<int>& ret) const
 	for (int code : m_keyCodes) { ret.push_back(code); }
 }
 
+/* === InputAxisBase === */
 
-
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-// InputAxisBase
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = */
 // 軸の入力状況の取得
-// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 軸の数値に倍率を合成
-// 限界値に設定された値を超えないようにclamp
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ----- ----- ----- ----- -----
+// ・軸の数値に倍率を合成
+// ・限界値に設定された値を
+// 　超えないようにclamp
+/* = = = = = = = = = = = = = = = */
 Math::Vector2 KdInputAxisBase::GetState() const
 {
 	Math::Vector2 retAxis = m_axis * m_valueRate;
@@ -383,17 +384,15 @@ Math::Vector2 KdInputAxisBase::GetState() const
 	return retAxis;
 }
 
-
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-// InputAxisForWindowsKeyBoard
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
+/* === InputAxisForWindowsKeyBoard === */
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// 引数付きコンストラクター：キーコードを指定して上下左右ボタンを作成・登録する
+// 引数付きコンストラクター
+// ：キーコードを指定して上下左右ボタンを作成・登録する
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
-// 上下左右4ボタンに1つのキーコード（整数）
-// 上下左右4ボタンに複数のキーコード（初期化リスト：整数）
-// 上下左右4ボタンに複数のキーコード（Vector配列：整数）
+// ・上下左右4ボタンに1つのキーコード（整数）
+// ・上下左右4ボタンに複数のキーコード（初期化リスト：整数）
+// ・上下左右4ボタンに複数のキーコード（Vector配列：整数）
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 KdInputAxisForWindows::KdInputAxisForWindows(int upCode, int rightCode, int downCode, int leftCode)
 {
@@ -443,10 +442,12 @@ void KdInputAxisForWindows::PreUpdate()
 	for (auto& button : m_spDirButtons) { button->PreUpdate(); }
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// GetAsyncKeyStateを使って軸に紐づけた上下左右のキーコードの入力状況を更新
-// その情報を基に軸の入力状況を更新する
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = */
+// ・GetAsyncKeyStateを使って
+// 　軸に紐づけた上下左右の
+// 　キーコードの入力状況を更新
+// ・その情報を基に軸の入力状況を更新する
+/* = = = = = = = = = = = = = = = = = = = = */
 void KdInputAxisForWindows::Update()
 {
 	m_axis = Math::Vector2::Zero;
@@ -459,11 +460,7 @@ void KdInputAxisForWindows::Update()
 	if (m_spDirButtons[Left]->GetState())	{ m_axis.x -= 1.0f; }
 }
 
-
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-// InputAxisForWindowsMouse
-// ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
-
+/* === InputAxisForWindowsMouse === */
 KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(int fixCode)
 {
 	m_spFixButton = std::make_shared<KdInputButtonForWindows>(fixCode);
@@ -491,10 +488,12 @@ void KdInputAxisForWindowsMouse::PreUpdate()
 	m_spFixButton->PreUpdate();
 }
 
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-// マウスの毎フレームの移動量を使って軸の入力状況を更新
-// 初めの1フレーム目はマウスの前フレーム座標が無く移動量を求められないので0ベクトル
-/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+/* = = = = = = = = = = = = = = = = = = = = = = = = = */
+// ・マウスの毎フレームの移動量を
+// 　使って軸の入力状況を更新
+// ・初めの1フレーム目はマウスの前フレーム座標が無く
+// 　移動量を求められないので0ベクトル
+/* = = = = = = = = = = = = = = = = = = = = = = = = = */
 void KdInputAxisForWindowsMouse::Update()
 {
 	bool needCreateAxisState = true;

@@ -23,14 +23,19 @@ void GameScene::Event()
 	// シーン切替(Game→Result)
 	if (GetAsyncKeyState('P') & 0x8000)
 	{
-		if (!m_pushAct)
+		if (!m_SceneSwitcResult)
 		{
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 			Sleep(300); // 約0.3秒
-			m_pushAct = true;
+			m_SceneSwitcResult = true;
 		}
 	}
+	else { m_SceneSwitcResult = false; }
+
+	
+	if (GetAsyncKeyState('G') & 0x8000) { m_pushAct = true; }
 	else { m_pushAct = false; }
+	
 
 	/* ※ この段階では更新されません ！！ */
 }
@@ -104,4 +109,19 @@ void GameScene::Init()
 	spPlayer->SetCamera(spTps);
 
 	spTps->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
+}
+
+void GameScene::ImGuiUpdate()
+{
+	if (!m_pushAct) { return; }
+
+	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
+
+	// デバッグウィンドウ
+	if (ImGui::Begin("Archer Fish : Debug Window"))
+	{
+		ImGui::Text("");
+	}
+	ImGui::End();
 }

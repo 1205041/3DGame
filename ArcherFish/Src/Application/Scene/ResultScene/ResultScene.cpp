@@ -8,16 +8,16 @@ void ResultScene::Event()
 	// ÉVÅ[Éìêÿë÷(ResultÅ®Title)
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
-		if (!m_pushAct)
+		if (!m_SceneSwitcTitle)
 		{
 //			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
 //			KdAudioManager::Instance().StopAllSound();
 			Sleep(300);
-			m_pushAct = true;
+			m_SceneSwitcTitle = true;
 		}
 	}
-	else { m_pushAct = false; }
+	else { m_SceneSwitcTitle = false; }
 }
 
 void ResultScene::Init()

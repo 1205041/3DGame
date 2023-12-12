@@ -2,6 +2,8 @@
 
 void Enemy::Update()
 {
+	m_lightTime++;
+
 	// Œ»İˆÊ’u‚ÆˆÚ“®‘¬“x
 	m_nowPos = GetPos();
 	m_moveVec = Math::Vector3::Zero;
@@ -52,11 +54,26 @@ void Enemy::PostUpdate()
 
 void Enemy::DrawLit()
 {
+	if (!m_act)
+	{
+		if (m_lightTime <= 1.0f)
+		{
+			KdShaderManager::Instance().m_HD2DShader.SetColorEnable(true);
+		}
+		else
+		{
+			KdShaderManager::Instance().m_HD2DShader.SetColorEnable(false);
+			m_lightTime -= 1.0f;
+		}
+	}
+
 	if (m_survive)
 	{
 		if (!m_spModelWork) { return; }
 		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
 	}
+	
+	KdShaderManager::Instance().m_HD2DShader.SetColorEnable(false);
 }
 
 void Enemy::Init()

@@ -93,6 +93,9 @@ void SceneBase::DrawSprite()
 	KdShaderManager::Instance().m_spriteShader.Begin();
 	{
 		for (auto& obj : m_objList) { obj->DrawSprite(); }
+
+		// ImGuiˆ—
+		ImGuiUpdate();
 	}
 	KdShaderManager::Instance().m_spriteShader.End();
 }

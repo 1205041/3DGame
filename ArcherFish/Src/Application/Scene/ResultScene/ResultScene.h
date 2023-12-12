@@ -11,4 +11,6 @@ private:
 	void Event()override;
 	void Init()	override;
 
+	// ’·‰Ÿ‚µƒV[ƒ“Ø‘Ö–h~
+	bool m_SceneSwitcTitle = false;
 };
