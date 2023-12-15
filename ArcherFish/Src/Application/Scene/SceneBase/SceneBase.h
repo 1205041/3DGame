@@ -32,4 +32,16 @@ protected:
 
 	// オブジェクトリスト
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
+
+	// シーン切替用フラグ
+	bool m_SceneFlg = false;
+
+	// BGM・SE
+	std::shared_ptr<KdSoundInstance> m_SESound;
+	std::shared_ptr<KdSoundInstance> m_BGMSound;
+	float m_BGMVol = 0.3f;
+	float m_SEVol = 0.3f;
+private:
+	// imGui表示 有効/無効
+	bool m_pushAct = false;
 };

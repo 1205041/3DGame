@@ -23,27 +23,35 @@ void GameScene::Event()
 	// シーン切替(Game→Result)
 	if (GetAsyncKeyState('P') & 0x8000)
 	{
-		if (!m_SceneSwitcResult)
+		if (!m_SceneFlg)
 		{
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+			KdAudioManager::Instance().StopAllSound();
 			Sleep(300); // 約0.3秒
-			m_SceneSwitcResult = true;
+			m_SceneFlg = true;
 		}
 	}
-	else { m_SceneSwitcResult = false; }
+	else { m_SceneFlg = false; }	
 
-	
-	if (GetAsyncKeyState('G') & 0x8000) { m_pushAct = true; }
-	else { m_pushAct = false; }
-	
-
+	if (GetAsyncKeyState(VK_UP) & 0x8000) 
+	{ 
+		m_BGMVol += 0.01f;
+		if (m_BGMVol >= 1.0f) { m_BGMVol = 1.0f; }
+	}
+	if (GetAsyncKeyState(VK_DOWN) & 0x8000) 
+	{ 
+		m_BGMVol -= 0.01f;
+		if (m_BGMVol <= 0.1f) { m_BGMVol = 0.1f; }
+	}
+	m_BGMSound->SetVolume(m_BGMVol);
 	/* ※ この段階では更新されません ！！ */
 }
 
 void GameScene::Init()
 {
-//	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav");
-//	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Game.wav", true);
+	// BGM・SE
+//	m_SESound = KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav");
+	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/GameUnderWater.wav", true);
 
 	// マウスポインタ非表示
 	ShowCursor(false);
@@ -113,15 +121,14 @@ void GameScene::Init()
 
 void GameScene::ImGuiUpdate()
 {
-	if (!m_pushAct) { return; }
-
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
 
 	// デバッグウィンドウ
-	if (ImGui::Begin("Archer Fish : Debug Window"))
+	if (ImGui::Begin("GameScene : Debug Window"))
 	{
-		ImGui::Text("");
+		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
+//		ImGui::SliderFloat("SEVol", &m_SEVol, 0.1f, 1.0f);
 	}
 	ImGui::End();
 }

@@ -25,6 +25,7 @@ private:
 	bool m_act = true;
 	bool m_survive = true;
 
-	// Œõ‚Á‚Ä‚¢‚éŠÔ
+	// ”­ŒõŠm”F & ”­ŒõŠÔ
+	bool m_lightAct = false;
 	float m_lightTime = 0.0f;
 };

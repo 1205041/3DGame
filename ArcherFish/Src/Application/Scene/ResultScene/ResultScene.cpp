@@ -8,22 +8,25 @@ void ResultScene::Event()
 	// シーン切替(Result→Title)
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
-		if (!m_SceneSwitcTitle)
+		if (!m_SceneFlg)
 		{
 //			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
-//			KdAudioManager::Instance().StopAllSound();
+			KdAudioManager::Instance().StopAllSound();
 			Sleep(300);
-			m_SceneSwitcTitle = true;
+			m_SceneFlg = true;
 		}
 	}
-	else { m_SceneSwitcTitle = false; }
+	else { m_SceneFlg = false; }
+
+	m_BGMSound->SetVolume(m_BGMVol);
 }
 
 void ResultScene::Init()
 {
-//	KdAudioManager::Instance().Play("Asset/Sounds/SE/GameSet.wav");
-//	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Katidoki.wav", true);
+	// BGM・SE
+//	m_SESound = KdAudioManager::Instance().Play("Asset/Sounds/SE/GameSet.wav");
+	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/ResultCoast.wav", true);
 
 	// マウスポインタ表示
 	ShowCursor(true);
@@ -49,4 +52,18 @@ void ResultScene::Init()
 	spEnter = std::make_shared<Enter>();
 	spEnter->SetTextPixel({ 450.0f, -300.0f });
 	m_objList.push_back(spEnter);
+}
+
+void ResultScene::ImGuiUpdate()
+{
+	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
+
+	// デバッグウィンドウ
+	if (ImGui::Begin("ResultScene : Debug Window"))
+	{
+		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
+//		ImGui::SliderFloat("SEVol", &m_SEVol, 0.1f, 1.0f);
+	}
+	ImGui::End();
 }

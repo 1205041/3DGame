@@ -141,7 +141,8 @@ void Player::ShotRayUpdateCollision()
 			rayInfo.m_range // レイの長さ
 		);
 	}
-	rayInfo.m_type = KdCollider::TypeBump;	// 当たり判定をしたいタイプを設定
+	// 当たり判定をしたいタイプを設定
+	rayInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用 === */
 //	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);

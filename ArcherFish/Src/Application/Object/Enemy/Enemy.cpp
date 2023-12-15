@@ -2,8 +2,6 @@
 
 void Enemy::Update()
 {
-	m_lightTime++;
-
 	// Œ»ÝˆÊ’u‚ÆˆÚ“®‘¬“x
 	m_nowPos = GetPos();
 	m_moveVec = Math::Vector3::Zero;
@@ -18,6 +16,10 @@ void Enemy::Update()
 	{
 		GetVecNowMove(Math::Vector3::Down, m_transMat);
 		m_moveSpd = 0.05f;
+
+		if (m_lightTime > 5.0f) { m_lightAct = true; }
+		else { m_lightAct = false; }
+
 		if (GetAsyncKeyState('E') & 0x8000)
 		{
 			m_act = true;
@@ -29,6 +31,10 @@ void Enemy::Update()
 	m_nowPos += m_moveVec * m_moveSpd;
 	if (m_nowPos.z >= 50.0f) { m_nowPos.z = -50.0f; }
 	if (m_nowPos.y <= -50.0f) { m_nowPos.y = 50.0f; }
+
+	// ”­ŒõŽžŠÔ
+	m_lightTime += 0.5f;
+	if (m_lightTime > 10.0f) { m_lightTime = 0.0f; }
 }
 
 void Enemy::PostUpdate()
@@ -56,15 +62,7 @@ void Enemy::DrawLit()
 {
 	if (!m_act)
 	{
-		if (m_lightTime <= 1.0f)
-		{
-			KdShaderManager::Instance().m_HD2DShader.SetColorEnable(true);
-		}
-		else
-		{
-			KdShaderManager::Instance().m_HD2DShader.SetColorEnable(false);
-			m_lightTime -= 1.0f;
-		}
+		KdShaderManager::Instance().m_HD2DShader.SetColorEnable(m_lightAct);
 	}
 
 	if (m_survive)

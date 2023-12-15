@@ -9,22 +9,24 @@ void TitleScene::Event()
 	// シーン切替(Title→Game)
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 	{
-		if (!m_SceneSwitcGame)
+		if (!m_SceneFlg)
 		{
 //			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
-//			KdAudioManager::Instance().StopAllSound();
+			KdAudioManager::Instance().StopAllSound();
 			Sleep(300);
-			m_SceneSwitcGame = true;
+			m_SceneFlg = true;
 		}
 	}
-	else { m_SceneSwitcGame = false; }
+	else { m_SceneFlg = false; }
 
+	m_BGMSound->SetVolume(m_BGMVol);
 }
 
 void TitleScene::Init()
 {
-	//	KdAudioManager::Instance().Play("Asset/Sounds/BGM/Title.wav", true);
+	// BGM・SE
+	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/TitleRipple.wav", true);
 
 	// オブジェクトの初期化
 	std::shared_ptr<TextDraw> spText;
@@ -40,4 +42,17 @@ void TitleScene::Init()
 	spEnter = std::make_shared<Enter>();
 	spEnter->SetTextPixel({ 0.0f, -150.0f });
 	m_objList.push_back(spEnter);
+}
+
+void TitleScene::ImGuiUpdate()
+{
+	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
+
+	// デバッグウィンドウ
+	if (ImGui::Begin("TitleScene : Debug Window"))
+	{
+		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
+	}
+	ImGui::End();
 }

@@ -17,6 +17,10 @@ void SceneBase::Update()
 	for (auto& obj : m_objList) { obj->Update(); }
 
 	Event();
+
+	// imGui•\¦Ø‘Ö
+	if (GetAsyncKeyState('M') & 0x8000) { m_pushAct = true; }
+	if (GetAsyncKeyState('N') & 0x8000) { m_pushAct = false; }
 }
 
 void SceneBase::PostUpdate()
@@ -95,7 +99,7 @@ void SceneBase::DrawSprite()
 		for (auto& obj : m_objList) { obj->DrawSprite(); }
 
 		// ImGuiˆ—
-		ImGuiUpdate();
+		if (m_pushAct) { ImGuiUpdate(); }
 	}
 	KdShaderManager::Instance().m_spriteShader.End();
 }

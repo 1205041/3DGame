@@ -8,9 +8,8 @@ public:
 	virtual ~ResultScene() {}
 
 private:
-	void Event()override;
-	void Init()	override;
+	void Event()		override;
+	void Init()			override;
+	void ImGuiUpdate()	override;
 
-	// ’·‰Ÿ‚µƒV[ƒ“Ø‘Ö–h~
-	bool m_SceneSwitcTitle = false;
 };

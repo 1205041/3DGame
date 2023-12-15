@@ -1,11 +1,9 @@
 ﻿#include "KdAudio.h"
 
-/* ！=！=！=！=！ */
-// KdAudioManager
-/* ！=！=！=！=！ */
+/* === KdAudioManager === */
 
 /* = = = = = = = = = = = = = = */
-/* 初期化 */
+// 初期化
 // ・DirectXAudioEngineの初期化 
 // ・3Dリスナーの設定
 /* = = = = = = = = = = = = = = */
@@ -21,7 +19,7 @@ void KdAudioManager::Init()
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = */
-/* 更新 */
+// 更新
 // ・DirectXAudioEngineの更新
 // ・プレイリストから不要なサウンドインスタンスを削除
 /* = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -55,7 +53,7 @@ void KdAudioManager::SetListnerMatrix(const Math::Matrix& mWorld)
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-/* 2Dサウンドの再生 */
+// 2Dサウンドの再生
 // ・サウンドアセットの取得orロード
 // ・再生用インスタンスの生成
 // ・管理用プレイリストへの追加
@@ -77,7 +75,7 @@ std::shared_ptr<KdSoundInstance> KdAudioManager::Play(std::string_view rName, bo
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = */
-/* 3Dサウンドの再生 */
+// 3Dサウンドの再生
 // ・サウンドアセットの取得orロード
 // ・再生用インスタンスの生成、3D座標のセット
 // ・管理用プレイリストへの追加
@@ -174,7 +172,7 @@ void KdAudioManager::LoadSoundAssets(std::initializer_list<std::string_view>& fi
 }
 
 /* = = = = = = = = = = = = = = = */
-/* 解放 */
+// 解放
 // ・再生中のプレイリストの解放
 // ・サウンドアセットの解放
 // ・エンジンの解放
@@ -188,7 +186,7 @@ void KdAudioManager::Release()
 }
 
 /* = = = = = = = = = = = = = */
-/* サウンドアセットの取得 */
+// サウンドアセットの取得
 // ・サウンドアセットの解放
 // ・エンジンの解放
 /* = = = = = = = = = = = = = */
@@ -213,10 +211,7 @@ std::shared_ptr<KdSoundEffect> KdAudioManager::GetSound(std::string_view fileNam
 	}
 }
 
-
-/* ！=！=！=！=！ */
-// KdSoundEffect
-/* ！=！=！=！=！ */
+/* === KdSoundEffect === */
 // 音データの読み込み
 bool KdSoundEffect::Load(std::string_view fileName, const std::unique_ptr<DirectX::AudioEngine>& engine)
 {
@@ -241,10 +236,7 @@ bool KdSoundEffect::Load(std::string_view fileName, const std::unique_ptr<Direct
 	return true;
 }
 
-
-/* ！=！=！=！=！=！ */
-// KdSoundInstance
-/* ！=！=！=！=！=！ */
+/* === KdSoundInstance === */
 
 KdSoundInstance::KdSoundInstance(const std::shared_ptr<KdSoundEffect>& soundEffect) 
 	:m_soundData(soundEffect) {}
