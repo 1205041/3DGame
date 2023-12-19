@@ -12,7 +12,7 @@ void Enemy::Update()
 		GetVecNowMove(Math::Vector3::Backward, m_transMat);
 		m_moveSpd = 0.1f;
 	}
-	else 
+	else
 	{
 		GetVecNowMove(Math::Vector3::Down, m_transMat);
 		m_moveSpd = 0.05f;
