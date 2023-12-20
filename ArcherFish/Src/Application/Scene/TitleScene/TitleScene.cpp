@@ -36,6 +36,7 @@ void TitleScene::Init()
 
 	spText = std::make_shared<TextDraw>();
 	spText->SetLoadText("Asset/Textures/SceneUI/Logo/Logo.png", { 0,0,450, 90 });
+	spText->SetTextPixel({ 0.0f,80.0f });
 	m_objList.push_back(spText);
 
 	std::shared_ptr<Enter> spEnter;

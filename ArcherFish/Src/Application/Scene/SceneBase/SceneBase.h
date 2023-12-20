@@ -22,7 +22,6 @@ public:
 	
 	/* セッター */
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj) { m_objList.push_back(_obj); }
-	
 protected:
 	virtual void Init() {}
 	virtual void Event() {}

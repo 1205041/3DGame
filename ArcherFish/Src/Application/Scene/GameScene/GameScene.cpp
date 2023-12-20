@@ -88,7 +88,7 @@ void GameScene::Init()
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
 	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0,0,32, 32 });
-	spText->SetColor({ 0.0f,1.0f,1.0f,0.8f });
+	spText->SetColor({ 5.0f,0.0f,0.0f,0.8f });
 	m_objList.push_back(spText);
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
