@@ -12,15 +12,16 @@ void Player::Update()
 
 	// ˆÚ“®ˆ—
 	m_moveVec = Math::Vector3::Zero;
-	// ‘O•û
-	if (GetAsyncKeyState('W') & 0x8000) { GetVecNowMove(Math::Vector3::Backward, camRotMat); }
-	// ‰º•û
-	if (GetAsyncKeyState('D') & 0x8000) { GetVecNowMove(Math::Vector3::Down, camRotMat); }
-	// ã•û
-	if (GetAsyncKeyState('A') & 0x8000) { GetVecNowMove(Math::Vector3::Up, camRotMat); }
 
+	// ‘O•ûˆÚ“®
+	if (KdInputManager::Instance().GetButtonState("MoveForward")) { GetVecNowMove(Math::Vector3::Backward, camRotMat); }
+	// ã•ûˆÚ“®
+	if (KdInputManager::Instance().GetButtonState("MoveUp")) { GetVecNowMove(Math::Vector3::Up, camRotMat); }
+	// ‰º•ûˆÚ“®
+	if (KdInputManager::Instance().GetButtonState("MoveDown")) { GetVecNowMove(Math::Vector3::Down, camRotMat); }
+	
 	// ËŒ‚ˆ—
-	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) { ShotRayUpdateCollision(); }
+	if (KdInputManager::Instance().GetButtonState("ShotRay")) { ShotRayUpdateCollision(); }
 
 	// ˆÚ“®
 	m_nowPos += m_moveVec * m_moveSpd;

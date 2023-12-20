@@ -151,7 +151,77 @@ bool Application::Init(int w, int h)
 	KdShaderManager::Instance().Init();
 	KdAudioManager::Instance().Init();
 
+	//===================================================================
+	// インプット初期化
+	//===================================================================
+	InputButtonInit();
+
 	return true;
+}
+
+void Application::InputButtonInit()
+{
+	// キーボード用コレクター(入力デバイス①)
+	KdInputCollector* keyboardCollector = new KdInputCollector();
+
+	// 入力デバイス①をWindowsと命名してマネージャに登録
+	KdInputManager::Instance().AddDevice("Windows", keyboardCollector);
+
+	// シーン切替
+	/* キーボードキーの入力受付クラスを作成 */
+	std::shared_ptr<KdInputButtonForWindows> changeScene;	// Title→Game,Result→Title
+	changeScene = std::make_shared<KdInputButtonForWindows>(VK_RETURN);
+	/* 入力デバイス①にそれぞれの名前でボタンを登録 */
+	keyboardCollector->AddButton("ChangeScene", changeScene);
+
+	std::shared_ptr<KdInputButtonForWindows> changeGame;	// Game→Result
+	changeGame = std::make_shared<KdInputButtonForWindows>('P');
+	keyboardCollector->AddButton("ChangeGame", changeGame);
+
+	// プレイヤーの操作
+	std::shared_ptr<KdInputButtonForWindows> moveForward;
+	moveForward = std::make_shared<KdInputButtonForWindows>('W');
+	keyboardCollector->AddButton("MoveForward", moveForward);
+
+	std::shared_ptr<KdInputButtonForWindows> moveUp;
+	moveUp = std::make_shared<KdInputButtonForWindows>('A');
+	keyboardCollector->AddButton("MoveUp", moveUp);
+
+	std::shared_ptr<KdInputButtonForWindows> moveDown;
+	moveDown = std::make_shared<KdInputButtonForWindows>('D');
+	keyboardCollector->AddButton("MoveDown", moveDown);
+
+	std::shared_ptr<KdInputButtonForWindows> shotRay;
+	shotRay = std::make_shared<KdInputButtonForWindows>(VK_LBUTTON);
+	keyboardCollector->AddButton("ShotRay", shotRay);
+
+	// エネミーの復活
+	std::shared_ptr<KdInputButtonForWindows> enemyFlg;
+	enemyFlg = std::make_shared<KdInputButtonForWindows>('E');
+	keyboardCollector->AddButton("EnemyFlg", enemyFlg);
+
+	// imGui On/Off
+	std::shared_ptr<KdInputButtonForWindows> imguiOn;
+	imguiOn = std::make_shared<KdInputButtonForWindows>('M');
+	keyboardCollector->AddButton("ImGuiOn", imguiOn);
+
+	std::shared_ptr<KdInputButtonForWindows> imguiOff;
+	imguiOff = std::make_shared<KdInputButtonForWindows>('N');
+	keyboardCollector->AddButton("ImGuiOff", imguiOff);
+
+	// 音量 上昇/減少
+	std::shared_ptr<KdInputButtonForWindows> bgmVolUp;
+	bgmVolUp = std::make_shared<KdInputButtonForWindows>(VK_UP);
+	keyboardCollector->AddButton("BGMVolUp", bgmVolUp);
+
+	std::shared_ptr<KdInputButtonForWindows> bgmVolDown;
+	bgmVolDown = std::make_shared<KdInputButtonForWindows>(VK_DOWN);
+	keyboardCollector->AddButton("BGMVolDown", bgmVolDown);
+
+	// アプリケーション終了
+	std::shared_ptr<KdInputButtonForWindows> endButton;
+	endButton = std::make_shared<KdInputButtonForWindows>(VK_ESCAPE);
+	keyboardCollector->AddButton("EndButton", endButton);
 }
 
 // アプリケーション実行
@@ -191,7 +261,7 @@ void Application::Execute()
 		// ウィンドウが破棄されてるならループ終了
 		if (!m_window.IsCreated()) { break; }
 
-		if (GetAsyncKeyState(VK_ESCAPE)) { End(); }
+		if (KdInputManager::Instance().GetButtonState("EndButton")) { End(); }
 
 		// imGui開始
 		ImGui_ImplDX11_NewFrame();

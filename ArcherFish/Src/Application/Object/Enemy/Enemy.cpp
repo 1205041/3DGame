@@ -20,7 +20,7 @@ void Enemy::Update()
 		if (m_lightTime > 5.0f) { m_lightAct = true; }
 		else { m_lightAct = false; }
 
-		if (GetAsyncKeyState('E') & 0x8000)
+		if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
 		{
 			m_act = true;
 			m_survive = true;

@@ -21,7 +21,7 @@
 void GameScene::Event()
 {
 	// シーン切替(Game→Result)
-	if (GetAsyncKeyState('P') & 0x8000)
+	if (KdInputManager::Instance().GetButtonState("ChangeGame"))
 	{
 		if (!m_SceneFlg)
 		{
@@ -33,16 +33,6 @@ void GameScene::Event()
 	}
 	else { m_SceneFlg = false; }	
 
-	if (GetAsyncKeyState(VK_UP) & 0x8000) 
-	{ 
-		m_BGMVol += 0.01f;
-		if (m_BGMVol >= 1.0f) { m_BGMVol = 1.0f; }
-	}
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000) 
-	{ 
-		m_BGMVol -= 0.01f;
-		if (m_BGMVol <= 0.1f) { m_BGMVol = 0.1f; }
-	}
 	m_BGMSound->SetVolume(m_BGMVol);
 	/* ※ この段階では更新されません ！！ */
 }
@@ -123,6 +113,17 @@ void GameScene::ImGuiUpdate()
 {
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
+
+	if (KdInputManager::Instance().GetButtonState("BGMVolUp"))
+	{
+		m_BGMVol += 0.01f;
+		if (m_BGMVol >= 1.0f) { m_BGMVol = 1.0f; }
+	}
+	if (KdInputManager::Instance().GetButtonState("BGMVolDown"))
+	{
+		m_BGMVol -= 0.01f;
+		if (m_BGMVol <= 0.1f) { m_BGMVol = 0.1f; }
+	}
 
 	// デバッグウィンドウ
 	if (ImGui::Begin("GameScene : Debug Window"))

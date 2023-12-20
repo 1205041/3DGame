@@ -6,7 +6,7 @@
 void ResultScene::Event()
 {
 	// ƒV[ƒ“Ø‘Ö(Result¨Title)
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+	if (KdInputManager::Instance().GetButtonState("ChangeScene"))
 	{
 		if (!m_SceneFlg)
 		{

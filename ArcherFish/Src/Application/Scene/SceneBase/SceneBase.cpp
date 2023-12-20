@@ -19,8 +19,8 @@ void SceneBase::Update()
 	Event();
 
 	// imGuiï\é¶êÿë÷
-	if (GetAsyncKeyState('M') & 0x8000) { m_pushAct = true; }
-	if (GetAsyncKeyState('N') & 0x8000) { m_pushAct = false; }
+	if (KdInputManager::Instance().GetButtonState("ImGuiOn")) { m_pushAct = true; }
+	if (KdInputManager::Instance().GetButtonState("ImGuiOff")) { m_pushAct = false; }
 }
 
 void SceneBase::PostUpdate()

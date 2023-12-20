@@ -34,6 +34,9 @@ private:
 	// アプリケーション初期化
 	bool Init(int w, int h);
 
+	// インプット初期化
+	void InputButtonInit();
+
 	// アプリケーション解放
 	void Release();
 

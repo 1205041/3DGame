@@ -7,7 +7,7 @@
 void TitleScene::Event()
 {
 	// シーン切替(Title→Game)
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+	if (KdInputManager::Instance().GetButtonState("ChangeScene"))
 	{
 		if (!m_SceneFlg)
 		{
@@ -27,7 +27,7 @@ void TitleScene::Init()
 {
 	// BGM・SE
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/TitleRipple.wav", true);
-
+	
 	// オブジェクトの初期化
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();

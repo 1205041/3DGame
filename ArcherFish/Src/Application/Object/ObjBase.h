@@ -20,7 +20,7 @@ public:
 	virtual void DrawSprite()					override {}
 	virtual void PostDraw()						override {}
 	
-	virtual void Init()			override {}
+	virtual void Init()	override {}
 
 	void DrawDebug()final { m_debugWire.Draw(); }
 
