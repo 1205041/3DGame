@@ -2,60 +2,66 @@
 
 void Enemy::Update()
 {
-	// 現在位置と移動速度
-	m_nowPos = GetPos();
-	m_moveVec = Math::Vector3::Zero;
-
-	if (m_act)
+	if (m_survive)
 	{
-		// 前方
-		GetVecNowMove(Math::Vector3::Backward, m_transMat);
-		m_moveSpd = 0.1f;
-	}
-	else
-	{
-		GetVecNowMove(Math::Vector3::Down, m_transMat);
-		m_moveSpd = 0.05f;
+		// 現在位置と移動速度
+		m_nowPos = GetPos();
+		m_moveVec = Math::Vector3::Zero;
 
-		if (m_lightTime > 5.0f) { m_lightAct = true; }
-		else { m_lightAct = false; }
-
-		if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
+		if (m_act)
 		{
-			m_act = true;
-			m_survive = true;
+			// 前方
+			GetVecNowMove(Math::Vector3::Backward, m_transMat);
+			m_moveSpd = 0.1f;
 		}
+		else
+		{
+			GetVecNowMove(Math::Vector3::Down, m_transMat);
+			m_moveSpd = 0.05f;
+
+			if (m_lightTime > 5.0f) { m_lightAct = true; }
+			else { m_lightAct = false; }
+
+			if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
+			{
+				m_act = true;
+				m_survive = true;
+			}
+		}
+
+		// 座標更新
+		m_nowPos += m_moveVec * m_moveSpd;
+		if (m_nowPos.z >= 50.0f) { m_nowPos.z = -50.0f; }
+		if (m_nowPos.y <= -50.0f) { m_nowPos.y = 50.0f; }
+
+		// 発光時間
+		m_lightTime += 0.5f;
+		if (m_lightTime > 10.0f) { m_lightTime = 0.0f; }
 	}
-
-	// 座標更新
-	m_nowPos += m_moveVec * m_moveSpd;
-	if (m_nowPos.z >= 50.0f) { m_nowPos.z = -50.0f; }
-	if (m_nowPos.y <= -50.0f) { m_nowPos.y = 50.0f; }
-
-	// 発光時間
-	m_lightTime += 0.5f;
-	if (m_lightTime > 10.0f) { m_lightTime = 0.0f; }
 }
 
 void Enemy::PostUpdate()
 {
-	SphereUpdateCollision();
+	if (m_survive)
+	{
+		SphereUpdateCollision();
 
-	if (!m_act) 
-	{ 
-		m_scaleMat = Math::Matrix::CreateScale(1.0f);
-		m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f)); 
+		if (!m_act)
+		{
+			m_scaleMat = Math::Matrix::CreateScale(1.0f);
+			m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f));
+		}
+		else
+		{
+			m_scaleMat = Math::Matrix::CreateScale(2.5f);
+			m_rotMat = Math::Matrix::Identity;
+		}
+
+		m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
+
+		// キャラの座標行列
+		m_mWorld = m_scaleMat * m_rotMat * m_transMat;
 	}
-	else 
-	{ 
-		m_scaleMat = Math::Matrix::CreateScale(2.5f); 
-		m_rotMat = Math::Matrix::Identity;
-	}
-
-	m_transMat = Math::Matrix::CreateTranslation(m_nowPos);
-
-	// キャラの座標行列
-	m_mWorld = m_scaleMat * m_rotMat * m_transMat;
 }
 
 void Enemy::DrawLit()

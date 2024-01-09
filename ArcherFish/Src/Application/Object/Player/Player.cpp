@@ -113,6 +113,16 @@ void Player::SphereUpdateCollision()
 					// ‰Ÿ‚µ•Ô‚µ
 					m_nowPos = GetPos() + (dir * maxOverLap);
 					SetPos(m_nowPos);
+
+					// “G•ßH”»’è
+					std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
+					if (spEnemy) 
+					{
+						if (!spEnemy->GetActFlg())
+						{
+							spEnemy->SetSurviveFlg(false);
+						}
+					}
 				}
 			}
 		}
