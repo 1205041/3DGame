@@ -35,8 +35,8 @@ protected:
 	// BGM・SE
 	std::shared_ptr<KdSoundInstance> m_SESound;
 	std::shared_ptr<KdSoundInstance> m_BGMSound;
-	float m_BGMVol = 0.3f;
-	float m_SEVol = 0.3f;
+	float m_BGMVol = 0.15f;
+	float m_SEVol = 0.15f;
 
 	// シーン切替用フラグ
 	bool m_SceneFlg = false;

@@ -43,7 +43,7 @@ void Player::PostUpdate()
 	SphereUpdateCollision();
 }
 
-// ”Âƒ|ƒŠ•`‰æŠÖ”
+// •`‰æŠÖ”
 void Player::DrawLit()
 {
 	if (!m_spModelWork) { return; }
