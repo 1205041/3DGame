@@ -8,10 +8,7 @@
 void SceneManager::PreUpdate()
 {
 	// ƒV[ƒ“Ø‘Ö
-	if (m_curtSceneType != m_nextSceneType)
-	{
-		ChangeScene(m_nextSceneType);
-	}
+	if (m_curtSceneType != m_nextSceneType) { ChangeScene(m_nextSceneType); }
 
 	m_spCurtScene->PreUpdate();
 }

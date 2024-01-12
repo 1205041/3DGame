@@ -20,7 +20,8 @@ void TitleScene::Event()
 	}
 	else { m_SceneFlg = false; }
 
-	m_BGMSound->SetVolume(m_BGMVol);
+	m_BGMSound->SetVolume(GetBGMVol());
+	SetBGMVol(m_BGMVol);
 }
 
 void TitleScene::Init()
@@ -43,17 +44,4 @@ void TitleScene::Init()
 	spEnter = std::make_shared<Enter>();
 	spEnter->SetTextPixel({ 0.0f, -140.0f });
 	m_objList.push_back(spEnter);
-}
-
-void TitleScene::ImGuiUpdate()
-{
-	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
-
-	// デバッグウィンドウ
-	if (ImGui::Begin("TitleScene : Debug Window"))
-	{
-		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
-	}
-	ImGui::End();
 }

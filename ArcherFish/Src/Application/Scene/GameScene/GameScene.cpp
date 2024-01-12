@@ -33,7 +33,8 @@ void GameScene::Event()
 	}
 	else { m_SceneFlg = false; }	
 
-	m_BGMSound->SetVolume(m_BGMVol);
+	m_BGMSound->SetVolume(GetBGMVol());
+	SetBGMVol(m_BGMVol);
 	/* ※ この段階では更新されません ！！ */
 }
 
@@ -107,29 +108,4 @@ void GameScene::Init()
 	spPlayer->SetCamera(spTps);
 
 	spTps->RegistHitObj(spEnemy);	/* spEnemyとの当たり判定 */
-}
-
-void GameScene::ImGuiUpdate()
-{
-	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
-
-	if (KdInputManager::Instance().GetButtonState("BGMVolUp"))
-	{
-		m_BGMVol += 0.01f;
-		if (m_BGMVol >= 1.0f) { m_BGMVol = 1.0f; }
-	}
-	if (KdInputManager::Instance().GetButtonState("BGMVolDown"))
-	{
-		m_BGMVol -= 0.01f;
-		if (m_BGMVol <= 0.1f) { m_BGMVol = 0.1f; }
-	}
-
-	// デバッグウィンドウ
-	if (ImGui::Begin("GameScene : Debug Window"))
-	{
-		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
-//		ImGui::SliderFloat("SEVol", &m_SEVol, 0.1f, 1.0f);
-	}
-	ImGui::End();
 }

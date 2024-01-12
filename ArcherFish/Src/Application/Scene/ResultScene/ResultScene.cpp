@@ -19,7 +19,8 @@ void ResultScene::Event()
 	}
 	else { m_SceneFlg = false; }
 
-	m_BGMSound->SetVolume(m_BGMVol);
+	m_BGMSound->SetVolume(GetBGMVol());
+	SetBGMVol(m_BGMVol);
 }
 
 void ResultScene::Init()
@@ -52,18 +53,4 @@ void ResultScene::Init()
 	spPKey = std::make_shared<PKey>();
 	spPKey->SetTextPixel({ 450.0f, -300.0f });
 	m_objList.push_back(spPKey);
-}
-
-void ResultScene::ImGuiUpdate()
-{
-	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
-	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
-
-	// デバッグウィンドウ
-	if (ImGui::Begin("ResultScene : Debug Window"))
-	{
-		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
-//		ImGui::SliderFloat("SEVol", &m_SEVol, 0.1f, 1.0f);
-	}
-	ImGui::End();
 }

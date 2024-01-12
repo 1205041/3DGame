@@ -19,15 +19,17 @@ public:
 	/* ゲッター */
 	// オブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList() { return m_objList; }
-	
+	const float GetBGMVol()const { return m_BGMVol; }
+
 	/* セッター */
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj) { m_objList.push_back(_obj); }
+	const void SetBGMVol(const float& _vol) { m_BGMVol = _vol; }
 protected:
 	virtual void Init() {}
 	virtual void Event() {}
 
 	// GUI処理
-	virtual void ImGuiUpdate() {};
+	void ImGuiUpdate();
 
 	// オブジェクトリスト
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
