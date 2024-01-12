@@ -41,7 +41,7 @@ void TitleScene::Init()
 
 	std::shared_ptr<Enter> spEnter;
 	spEnter = std::make_shared<Enter>();
-	spEnter->SetTextPixel({ 0.0f, -150.0f });
+	spEnter->SetTextPixel({ 0.0f, -140.0f });
 	m_objList.push_back(spEnter);
 }
 
