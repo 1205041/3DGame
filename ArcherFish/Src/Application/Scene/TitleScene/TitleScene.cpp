@@ -7,7 +7,7 @@
 void TitleScene::Event()
 {
 	// ƒV[ƒ“Ø‘Ö(Title¨Game)
-	if (KdInputManager::Instance().GetButtonState("ChangeScene"))
+	if (KdInputManager::Instance().GetButtonState("ChangeGame"))
 	{
 		if (!m_SceneFlg)
 		{

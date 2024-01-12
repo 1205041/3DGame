@@ -21,7 +21,7 @@
 void GameScene::Event()
 {
 	// ƒV[ƒ“Ø‘Ö(Game¨Result)
-	if (KdInputManager::Instance().GetButtonState("ChangeGame"))
+	if (KdInputManager::Instance().GetButtonState("ChangeResult"))
 	{
 		if (!m_SceneFlg)
 		{

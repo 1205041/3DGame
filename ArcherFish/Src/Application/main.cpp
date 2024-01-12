@@ -169,14 +169,18 @@ void Application::InputButtonInit()
 
 	// シーン切替
 	/* キーボードキーの入力受付クラスを作成 */
-	std::shared_ptr<KdInputButtonForWindows> changeScene;	// Title→Game,Result→Title
-	changeScene = std::make_shared<KdInputButtonForWindows>(VK_RETURN);
+	std::shared_ptr<KdInputButtonForWindows> changeGame;	// Title→Game
+	changeGame = std::make_shared<KdInputButtonForWindows>(VK_RETURN);
 	/* 入力デバイス①にそれぞれの名前でボタンを登録 */
-	keyboardCollector->AddButton("ChangeScene", changeScene);
-
-	std::shared_ptr<KdInputButtonForWindows> changeGame;	// Game→Result
-	changeGame = std::make_shared<KdInputButtonForWindows>('P');
 	keyboardCollector->AddButton("ChangeGame", changeGame);
+
+	std::shared_ptr<KdInputButtonForWindows> changeResult;	// Game→Result
+	changeResult = std::make_shared<KdInputButtonForWindows>('O');
+	keyboardCollector->AddButton("ChangeResult", changeResult);
+
+	std::shared_ptr<KdInputButtonForWindows> changeTitle;	// Result→Title
+	changeTitle = std::make_shared<KdInputButtonForWindows>('P');
+	keyboardCollector->AddButton("ChangeTitle", changeTitle);
 
 	// プレイヤーの操作
 	std::shared_ptr<KdInputButtonForWindows> moveForward;

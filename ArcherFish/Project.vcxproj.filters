@@ -124,6 +124,9 @@
     <Filter Include="Src\Application\Object\Terrain\SphereDome\UnderWater">
       <UniqueIdentifier>{4733e5db-9f61-4a6e-895d-6e055a1297b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\PKey">
+      <UniqueIdentifier>{29d65f12-1f1e-40da-8241-9aadc4816912}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.h">
       <Filter>Src\Application\Object\Terrain\SphereDome\UnderWater</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\PKey\PKey.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\PKey</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -496,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.cpp">
       <Filter>Src\Application\Object\Terrain\SphereDome\UnderWater</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\PKey\PKey.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\PKey</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

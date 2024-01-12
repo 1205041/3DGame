@@ -1,12 +1,12 @@
 #include "ResultScene.h"
 
 #include "../../Object/TextDraw/TextDraw.h"
-#include "../../Object/TextDraw/SceneUI/Enter/Enter.h"
+#include "../../Object/TextDraw/SceneUI/PKey/PKey.h"
 
 void ResultScene::Event()
 {
 	// ƒV[ƒ“Ø‘Ö(Result¨Title)
-	if (KdInputManager::Instance().GetButtonState("ChangeScene"))
+	if (KdInputManager::Instance().GetButtonState("ChangeTitle"))
 	{
 		if (!m_SceneFlg)
 		{
@@ -48,10 +48,10 @@ void ResultScene::Init()
 	spText->SetTextPixel({ -250.0f,0.0f });
 	m_objList.push_back(spText);
 
-	std::shared_ptr<Enter> spEnter;
-	spEnter = std::make_shared<Enter>();
-	spEnter->SetTextPixel({ 450.0f, -300.0f });
-	m_objList.push_back(spEnter);
+	std::shared_ptr<PKey> spPKey;
+	spPKey = std::make_shared<PKey>();
+	spPKey->SetTextPixel({ 450.0f, -300.0f });
+	m_objList.push_back(spPKey);
 }
 
 void ResultScene::ImGuiUpdate()

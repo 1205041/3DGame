@@ -13,5 +13,5 @@ void Enter::PostUpdate()
 
 void Enter::Init()
 {
-	SetLoadText("Asset/Textures/SceneUI/Key/Enter.png", { 0,0, 300, 60 });
+	SetLoadText("Asset/Textures/SceneUI/Key/Enter.png", { 0,0, 400, 60 });
 }

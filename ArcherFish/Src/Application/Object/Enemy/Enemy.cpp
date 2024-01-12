@@ -21,12 +21,12 @@ void Enemy::Update()
 
 			if (m_lightTime > 5.0f) { m_lightAct = true; }
 			else { m_lightAct = false; }
+		}
 
-			if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
-			{
-				m_act = true;
-				m_survive = true;
-			}
+		if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
+		{
+			m_act = true;
+			m_survive = true;
 		}
 
 		// 座標更新
@@ -142,6 +142,9 @@ void Enemy::SphereUpdateCollision()
 					// 押し返し
 					m_nowPos = GetPos() + (dir * maxOverLap);
 					SetPos(m_nowPos);
+
+					// 敵捕食判定
+					if (!m_act) { m_survive = false; }
 				}
 			}
 		}
