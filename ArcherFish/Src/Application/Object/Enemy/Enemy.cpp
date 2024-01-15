@@ -108,7 +108,7 @@ void Enemy::SphereUpdateCollision()
 	sphereInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用(球) === */
-	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
+//	m_debugWire.AddDebugSphere(sphereInfo.m_sphere.Center, sphereInfo.m_sphere.Radius);
 
 	// ②HIT判定対象オブジェクトに総当たり
 	Math::Vector3 newPos = Math::Vector3::Zero;
