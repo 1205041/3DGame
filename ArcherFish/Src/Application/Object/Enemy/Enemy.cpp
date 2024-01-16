@@ -144,7 +144,11 @@ void Enemy::SphereUpdateCollision()
 					SetPos(m_nowPos);
 
 					// ìGïﬂêHîªíË
-					if (!m_act) { m_survive = false; }
+					if (!m_act) 
+					{ 
+						m_survive = false;
+						KdAudioManager::Instance().Play("Asset/Sounds/SE/Predation/Predation.wav", false);
+					}
 				}
 			}
 		}

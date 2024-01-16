@@ -19,8 +19,7 @@ void ResultScene::Event()
 	}
 	else { m_SceneFlg = false; }
 
-	m_BGMSound->SetVolume(GetBGMVol());
-	SetBGMVol(m_BGMVol);
+	m_BGMSound->SetVolume(m_BGMVol);
 }
 
 void ResultScene::Init()

@@ -11,7 +11,6 @@ void TitleScene::Event()
 	{
 		if (!m_SceneFlg)
 		{
-//			KdAudioManager::Instance().Play("Asset/Sounds/SE/PushButton.wav");
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
 			KdAudioManager::Instance().StopAllSound();
 			Sleep(300);
@@ -20,13 +19,12 @@ void TitleScene::Event()
 	}
 	else { m_SceneFlg = false; }
 
-	m_BGMSound->SetVolume(GetBGMVol());
-	SetBGMVol(m_BGMVol);
+	m_BGMSound->SetVolume(m_BGMVol);
 }
 
 void TitleScene::Init()
 {
-	// BGM・SE
+	// BGM
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/TitleRipple.wav", true);
 	
 	// オブジェクトの初期化

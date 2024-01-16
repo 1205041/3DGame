@@ -2,7 +2,7 @@
 
 // エントリーポイント
 // アプリケーションはこの関数から進行する
-int WINAPI WinMain(HINSTANCE, HINSTANCE , LPSTR , int )
+int WINAPI WinMain(_In_ HINSTANCE, _In_opt_  HINSTANCE, _In_ LPSTR, _In_ int)
 {
 	// メモリリークを知らせる
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -156,6 +156,11 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	InputButtonInit();
 
+	//===================================================================
+	// サウンドアセット取得
+	//===================================================================
+	SetSoundInit();
+
 	return true;
 }
 
@@ -213,19 +218,23 @@ void Application::InputButtonInit()
 	imguiOff = std::make_shared<KdInputButtonForWindows>('N');
 	keyboardCollector->AddButton("ImGuiOff", imguiOff);
 
-	// 音量 上昇/減少
-	std::shared_ptr<KdInputButtonForWindows> bgmVolUp;
-	bgmVolUp = std::make_shared<KdInputButtonForWindows>(VK_UP);
-	keyboardCollector->AddButton("BGMVolUp", bgmVolUp);
-
-	std::shared_ptr<KdInputButtonForWindows> bgmVolDown;
-	bgmVolDown = std::make_shared<KdInputButtonForWindows>(VK_DOWN);
-	keyboardCollector->AddButton("BGMVolDown", bgmVolDown);
-
 	// アプリケーション終了
 	std::shared_ptr<KdInputButtonForWindows> endButton;
 	endButton = std::make_shared<KdInputButtonForWindows>(VK_ESCAPE);
 	keyboardCollector->AddButton("EndButton", endButton);
+}
+
+void Application::SetSoundInit()
+{
+	std::initializer_list<std::string_view> soundFiles = {
+	"Asset/Sounds/BGM/TitleRipple.wav",
+	"Asset/Sounds/SE/GameStart.wav",
+	"Asset/Sounds/BGM/GameUnderWater.wav",
+	"Asset/Sounds/SE/Predation/Predation.wav",
+	"Asset/Sounds/BGM/ResultCoast.wav"
+	};
+
+	KdAudioManager::Instance().LoadSoundAssets(soundFiles);
 }
 
 // アプリケーション実行
@@ -326,6 +335,9 @@ void Application::Release()
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+
+	// フルスクリーンを戻す(フルスクリーン前提で記載)
+//	KdDirect3D::Instance().WorkSwapChain()->SetFullscreenState(FALSE, 0);
 
 	// Direct3D解放
 	KdDirect3D::Instance().Release();

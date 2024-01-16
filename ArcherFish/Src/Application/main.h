@@ -37,6 +37,9 @@ private:
 	// インプット初期化
 	void InputButtonInit();
 
+	// サウンド初期化
+	void SetSoundInit();
+
 	// アプリケーション解放
 	void Release();
 

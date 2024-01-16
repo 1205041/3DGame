@@ -109,22 +109,10 @@ void SceneBase::ImGuiUpdate()
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(250, 100), ImGuiCond_Once);
 
-	if (KdInputManager::Instance().GetButtonState("BGMVolUp"))
-	{
-		m_BGMVol += 0.01f;
-		if (m_BGMVol >= 1.0f) { m_BGMVol = 1.0f; }
-	}
-	if (KdInputManager::Instance().GetButtonState("BGMVolDown"))
-	{
-		m_BGMVol -= 0.01f;
-		if (m_BGMVol <= 0.1f) { m_BGMVol = 0.1f; }
-	}
-
 	// デバッグウィンドウ
 	if (ImGui::Begin("Scene : Debug Window"))
 	{
 		ImGui::SliderFloat("BGMVol", &m_BGMVol, 0.1f, 1.0f);
-//		ImGui::SliderFloat("SEVol", &m_SEVol, 0.1f, 1.0f);
 	}
 	ImGui::End();
 }

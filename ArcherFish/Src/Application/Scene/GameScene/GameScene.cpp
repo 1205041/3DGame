@@ -33,15 +33,18 @@ void GameScene::Event()
 	}
 	else { m_SceneFlg = false; }	
 
-	m_BGMSound->SetVolume(GetBGMVol());
-	SetBGMVol(m_BGMVol);
+	m_BGMSound->SetVolume(m_BGMVol);
+
 	/* ※ この段階では更新されません ！！ */
 }
 
 void GameScene::Init()
 {
 	// BGM・SE
-//	m_SESound = KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav");
+	std::shared_ptr<KdSoundInstance> m_SESound = 
+		KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav", false);
+	m_SESound->SetVolume(0.6);
+
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/GameUnderWater.wav", true);
 
 	// マウスポインタ非表示

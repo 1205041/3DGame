@@ -19,11 +19,10 @@ public:
 	/* ゲッター */
 	// オブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList() { return m_objList; }
-	const float GetBGMVol()const { return m_BGMVol; }
+
 
 	/* セッター */
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj) { m_objList.push_back(_obj); }
-	const void SetBGMVol(const float& _vol) { m_BGMVol = _vol; }
 protected:
 	virtual void Init() {}
 	virtual void Event() {}
@@ -34,11 +33,9 @@ protected:
 	// オブジェクトリスト
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
 
-	// BGM・SE
-	std::shared_ptr<KdSoundInstance> m_SESound;
+	// BGM
 	std::shared_ptr<KdSoundInstance> m_BGMSound;
-	float m_BGMVol = 0.15f;
-	float m_SEVol = 0.15f;
+	float m_BGMVol = 0.2f;
 
 	// シーン切替用フラグ
 	bool m_SceneFlg = false;
