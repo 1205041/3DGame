@@ -122,7 +122,7 @@ void Enemy::SphereUpdateCollision()
 				std::list<KdCollider::CollisionResult> retBumpList;
 				spGameObj->Intersects(sphereInfo, &retBumpList);
 
-				float		  maxOverLap = 0.0f;
+				float  maxOverLap = 0.0f;
 				bool		  hit = false;
 				Math::Vector3 dir = Math::Vector3::Zero;
 				for (auto& ret : retBumpList)
