@@ -3,7 +3,7 @@
 void TPSCam::Init()
 {
 	// 基準点(ターゲット)の目線の位置
-	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.8f, 1.5f, -3.5f));
+	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.9f, 1.3f, -3.5f));
 
 	// カーソル初期化
 	m_FixMousePos.x = 1280 / 2;
