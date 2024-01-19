@@ -13,6 +13,7 @@
 
 // ÉQÅ[ÉÄUI
 #include "../../Object/TextDraw/TextDraw.h"
+#include "../../Object/TextDraw/SceneUI/ShootBar/WaterBar.h"
 #include "../../Object/TextDraw/SceneUI/MaxWaterLv/MaxWaterLv.h"
 
 // ÉJÉÅÉâ
@@ -43,7 +44,7 @@ void GameScene::Init()
 	// BGMÅESE
 	std::shared_ptr<KdSoundInstance> m_SESound = 
 		KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav", false);
-	m_SESound->SetVolume(0.6);
+	m_SESound->SetVolume(0.6f);
 
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/GameUnderWater.wav", true);
 
@@ -94,6 +95,10 @@ void GameScene::Init()
 	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0,0,32, 32 });
 	spText->SetColor({ 5.0f,0.0f,0.0f,0.8f });
 	m_objList.push_back(spText);
+
+	std::shared_ptr<WaterBar> spBar;
+	spBar = std::make_shared<WaterBar>();
+	m_objList.push_back(spBar);
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
 	spWaterLv = std::make_shared<MaxWaterLv>();

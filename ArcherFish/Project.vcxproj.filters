@@ -127,6 +127,9 @@
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\PKey">
       <UniqueIdentifier>{29d65f12-1f1e-40da-8241-9aadc4816912}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\ShootBar">
+      <UniqueIdentifier>{316daa56-990b-429a-aa49-070ab3812ae6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\PKey\PKey.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\PKey</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\ShootBar\WaterBar.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\ShootBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -505,6 +511,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\PKey\PKey.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\PKey</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\ShootBar\WaterBar.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\ShootBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -94,23 +94,18 @@ void KdSpriteShader::Begin(bool linear, bool disableZBuffer)
 	// 使用するステートをセット
 	//---------------------------------------
 	// Z判定、Z書き込み無効のステートをセット
-	if (disableZBuffer) {
-		KdShaderManager::Instance().ChangeDepthStencilState(KdDepthStencilState::ZDisable);
-	}
+	if (disableZBuffer) { KdShaderManager::Instance().ChangeDepthStencilState(KdDepthStencilState::ZDisable); }
+
 	// Samplerステートをセット
-	if (linear) {
-		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp);
-	}
-	else {
-		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Point_Clamp);
-	}
+	if (linear) { KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp); }
+	else { KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Point_Clamp); }
+
 	// Rasterizerステートをセット
 	KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
 
 	//---------------------------------------
 	// シェーダ
 	//---------------------------------------
-
 	// シェーダをセット
 	KdDirect3D::Instance().WorkDevContext()->VSSetShader(m_VS, 0, 0);
 	KdDirect3D::Instance().WorkDevContext()->PSSetShader(m_PS, 0, 0);
@@ -151,9 +146,7 @@ void KdSpriteShader::DrawTex(const KdTexture* tex, int x, int y, int w, int h, c
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, 1, tex->WorkSRViewAddress());
 
 	// 色
-	if (color) {
-		m_cb0.Work().Color = *color;
-	}
+	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
 
 	// UV
@@ -209,16 +202,11 @@ void KdSpriteShader::DrawPoint(int x, int y, const Math::Color* color)
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, 1, KdDirect3D::Instance().GetWhiteTex()->WorkSRViewAddress());
 
 	// 色
-	if (color) {
-		m_cb0.Work().Color = *color;
-	}
+	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
 
-
 	// 描画
-	Vertex vertex[] = {
-		{ {(float)x, (float)y, 0},	{0, 0} },
-	};
+	Vertex vertex[] = { { {(float)x, (float)y, 0},	{0, 0} }, };
 	KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_POINTLIST, 1, vertex, sizeof(Vertex));
 
 	// この関数でBeginした場合は、Endしておく
@@ -235,11 +223,8 @@ void KdSpriteShader::DrawLine(int x1, int y1, int x2, int y2, const Math::Color*
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, 1, KdDirect3D::Instance().GetWhiteTex()->WorkSRViewAddress());
 
 	// 色
-	if (color) {
-		m_cb0.Work().Color = *color;
-	}
+	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
-
 
 	// 描画
 	Vertex vertex[] = {
@@ -262,9 +247,7 @@ void KdSpriteShader::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, 1, KdDirect3D::Instance().GetWhiteTex()->WorkSRViewAddress());
 
 	// 色
-	if (color) {
-		m_cb0.Work().Color = *color;
-	}
+	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
 
 
@@ -296,9 +279,7 @@ void KdSpriteShader::DrawCircle(int x, int y, int radius, const Math::Color* col
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, 1, KdDirect3D::Instance().GetWhiteTex()->WorkSRViewAddress());
 
 	// 色
-	if (color) {
-		m_cb0.Work().Color = *color;
-	}
+	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
 
 	// 頂点
@@ -357,9 +338,7 @@ void KdSpriteShader::DrawBox(int x, int y, int extentX, int extentY, const Math:
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, 1, KdDirect3D::Instance().GetWhiteTex()->WorkSRViewAddress());
 
 	// 色
-	if (color) {
-		m_cb0.Work().Color = *color;
-	}
+	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
 
 	Math::Vector3 p1 = { (float)x - extentX, (float)y - extentY, 0 };
@@ -397,8 +376,7 @@ void KdSpriteShader::DrawBox(int x, int y, int extentX, int extentY, const Math:
 }
 
 // 切り抜き範囲を設定する
-// ・rect			… 範囲
-
+// ・rect … 範囲
 void KdSpriteShader::SetScissorRect(const Math::Rectangle& rect)
 {
 	// ラスタライザステート作成・セット
@@ -406,7 +384,7 @@ void KdSpriteShader::SetScissorRect(const Math::Rectangle& rect)
 	KdDirect3D::Instance().WorkDevContext()->RSSetState(rs);
 	rs->Release();
 
-	D3D11_RECT rc;
+	D3D11_RECT rc{};
 	rc.left = rect.x;
 	rc.top = rect.y;
 	rc.right = rect.x + rect.width;

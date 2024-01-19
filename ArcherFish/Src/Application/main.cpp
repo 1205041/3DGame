@@ -218,6 +218,11 @@ void Application::InputButtonInit()
 	imguiOff = std::make_shared<KdInputButtonForWindows>('N');
 	keyboardCollector->AddButton("ImGuiOff", imguiOff);
 
+	// waterBarMax
+	std::shared_ptr<KdInputButtonForWindows> waterBar;
+	waterBar = std::make_shared<KdInputButtonForWindows>('L');
+	keyboardCollector->AddButton("WaterBarMax", waterBar);
+
 	// アプリケーション終了
 	std::shared_ptr<KdInputButtonForWindows> endButton;
 	endButton = std::make_shared<KdInputButtonForWindows>(VK_ESCAPE);
@@ -228,10 +233,13 @@ void Application::SetSoundInit()
 {
 	std::initializer_list<std::string_view> soundFiles = {
 	"Asset/Sounds/BGM/TitleRipple.wav",
-	"Asset/Sounds/SE/GameStart.wav",
 	"Asset/Sounds/BGM/GameUnderWater.wav",
+	"Asset/Sounds/BGM/ResultCoast.wav",
 	"Asset/Sounds/SE/Predation/Predation.wav",
-	"Asset/Sounds/BGM/ResultCoast.wav"
+	"Asset/Sounds/SE/Shoot/ShootSE.wav",
+	"Asset/Sounds/SE/GameSet.wav",
+	"Asset/Sounds/SE/GameStart.wav",
+	"Asset/Sounds/SE/PushButton.wav"
 	};
 
 	KdAudioManager::Instance().LoadSoundAssets(soundFiles);

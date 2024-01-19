@@ -17,7 +17,7 @@ void Enemy::Update()
 		else
 		{
 			GetVecNowMove(Math::Vector3::Down, m_transMat);
-			m_moveSpd = 0.05f;
+			m_moveSpd = 0.07f;
 
 			if (m_lightTime > 5.0f) { m_lightAct = true; }
 			else { m_lightAct = false; }

@@ -171,7 +171,14 @@ void Player::ShotRayUpdateCollision()
 				if (hit) // レイがエネミーに当たっている
 				{
 					std::shared_ptr<Enemy> spEnemy = m_wpEnemy.lock();
-					if (spEnemy) { spEnemy->SetActFlg(false); }
+					if (spEnemy) 
+					{
+						if (spEnemy->GetActFlg())
+						{
+							spEnemy->SetActFlg(false);
+							KdAudioManager::Instance().Play("Asset/Sounds/SE/Shoot/ShootSE.wav", false);
+						}
+					}
 				}
 			}
 		}
