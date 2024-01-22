@@ -32,7 +32,7 @@ void GameScene::Event()
 			m_SceneFlg = true;
 		}
 	}
-	else { m_SceneFlg = false; }	
+	else { m_SceneFlg = false; }
 
 	m_BGMSound->SetVolume(m_BGMVol);
 
@@ -96,9 +96,9 @@ void GameScene::Init()
 	spText->SetColor({ 5.0f,0.0f,0.0f,0.8f });
 	m_objList.push_back(spText);
 
-	std::shared_ptr<WaterBar> spBar;
-	spBar = std::make_shared<WaterBar>();
-	m_objList.push_back(spBar);
+//	std::shared_ptr<WaterBar> spBar;
+//	spBar = std::make_shared<WaterBar>();
+//	m_objList.push_back(spBar);
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
 	spWaterLv = std::make_shared<MaxWaterLv>();
