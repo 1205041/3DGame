@@ -14,10 +14,11 @@ void MaxWaterLv::Update()
 
 void MaxWaterLv::PostUpdate()
 {
-	m_color = { 1.0f,1.0f,1.0f,(float)m_AlphC };
+	SetColor({ 1.0f,1.0f,1.0f,(float)m_AlphC });
 }
 
 void MaxWaterLv::Init()
 {
-	SetLoadText("Asset/Textures/SceneUI/Game/MaxWaterLv.png", { 0,0, 500, 64 });
+	SetLoadText("Asset/Textures/SceneUI/Game/MaxWaterLv.png");
+	SetRectAng({ 0,0, 500, 64 });
 }

@@ -2,13 +2,13 @@
 
 void Enemy::Update()
 {
-	if (m_survive)
+	if (GetAliveFlg())
 	{
 		// 現在位置と移動速度
 		m_nowPos = GetPos();
 		m_moveVec = Math::Vector3::Zero;
 
-		if (m_act)
+		if (GetActFlg())
 		{
 			// 前方
 			GetVecNowMove(Math::Vector3::Backward, m_transMat);
@@ -19,14 +19,14 @@ void Enemy::Update()
 			GetVecNowMove(Math::Vector3::Down, m_transMat);
 			m_moveSpd = 0.07f;
 
-			if (m_lightTime > 5.0f) { m_lightAct = true; }
-			else { m_lightAct = false; }
+			if (m_lightTime > 5.0f) { SetLightAct(true); }
+			else { SetLightAct(false); }
 		}
 
 		if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
 		{
-			m_act = true;
-			m_survive = true;
+			SetActFlg(true);
+			SetAliveFlg(true);
 		}
 
 		// 座標更新
@@ -42,11 +42,11 @@ void Enemy::Update()
 
 void Enemy::PostUpdate()
 {
-	if (m_survive)
+	if (GetAliveFlg())
 	{
 		SphereUpdateCollision();
 
-		if (!m_act)
+		if (!GetActFlg())
 		{
 			m_scaleMat = Math::Matrix::CreateScale(1.0f);
 			m_rotMat = Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90.0f));
@@ -66,12 +66,12 @@ void Enemy::PostUpdate()
 
 void Enemy::DrawLit()
 {
-	if (!m_act)
+	if (!GetActFlg())
 	{
-		KdShaderManager::Instance().m_HD2DShader.SetColorEnable(m_lightAct);
+		KdShaderManager::Instance().m_HD2DShader.SetColorEnable(GetLightAct());
 	}
 
-	if (m_survive)
+	if (GetAliveFlg())
 	{
 		if (!m_spModelWork) { return; }
 		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
@@ -144,9 +144,9 @@ void Enemy::SphereUpdateCollision()
 					SetPos(m_nowPos);
 
 					// 敵捕食判定
-					if (!m_act) 
+					if (!GetActFlg()) 
 					{ 
-						m_survive = false;
+						SetAliveFlg(false);
 						KdAudioManager::Instance().Play("Asset/Sounds/SE/Predation/Predation.wav", false);
 					}
 				}

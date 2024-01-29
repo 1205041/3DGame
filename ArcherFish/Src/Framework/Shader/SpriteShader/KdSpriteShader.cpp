@@ -341,10 +341,10 @@ void KdSpriteShader::DrawBox(int x, int y, int extentX, int extentY, const Math:
 	if (color) { m_cb0.Work().Color = *color; }
 	m_cb0.Write();
 
-	Math::Vector3 p1 = { (float)x - extentX, (float)y - extentY, 0 };
-	Math::Vector3 p2 = { (float)x - extentX, (float)y + extentY, 0 };
-	Math::Vector3 p3 = { (float)x + extentX, (float)y + extentY, 0 };
-	Math::Vector3 p4 = { (float)x + extentX, (float)y - extentY, 0 };
+	Math::Vector2 p1 = { (float)x - extentX, (float)y - extentY };
+	Math::Vector2 p2 = { (float)x - extentX, (float)y + extentY };
+	Math::Vector2 p3 = { (float)x + extentX, (float)y + extentY };
+	Math::Vector2 p4 = { (float)x + extentX, (float)y - extentY };
 
 	// 描画
 	if (fill)

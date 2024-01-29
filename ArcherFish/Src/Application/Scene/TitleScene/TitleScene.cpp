@@ -1,8 +1,8 @@
 #include "TitleScene.h"
 
-// 背景＆タイトルロゴ
+// 2D表示
 #include "../../Object/TextDraw/TextDraw.h"
-#include "../../Object/TextDraw/SceneUI/Enter/Enter.h"
+#include "../../Object/TextDraw/SceneUI/PushKey/PushKey.h"
 
 void TitleScene::Event()
 {
@@ -30,16 +30,20 @@ void TitleScene::Init()
 	// オブジェクトの初期化
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png", { 0,0,1280,720 });
+	spText->SetLoadText("Asset/Textures/BackDrop/BDimg.png");
+	spText->SetRectAng({ 0,0,1280,720 });
 	m_objList.push_back(spText);
 
 	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Logo/Logo.png", { 0,0,450, 90 });
-	spText->SetTextPixel({ 0.0f,80.0f });
+	spText->SetLoadText("Asset/Textures/SceneUI/Logo/Logo.png");
+	spText->SetPixel({ 0.0f,80.0f });
+	spText->SetRectAng({ 0,0,450, 90 });
 	m_objList.push_back(spText);
 
-	std::shared_ptr<Enter> spEnter;
-	spEnter = std::make_shared<Enter>();
-	spEnter->SetTextPixel({ 0.0f, -140.0f });
-	m_objList.push_back(spEnter);
+	std::shared_ptr<PushKey> spPushKey;
+	spPushKey = std::make_shared<PushKey>();
+	spPushKey->SetLoadText("Asset/Textures/SceneUI/Key/Enter.png");
+	spPushKey->SetPixel({ 0.0f, -140.0f });
+	spPushKey->SetRectAng({ 0, 0, 400, 60 });
+	m_objList.push_back(spPushKey);
 }

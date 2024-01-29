@@ -7,22 +7,22 @@ public:
 	TextDraw() { Init(); }
 	virtual ~TextDraw() {}
 
-	void SetLoadText(const std::string _tex, const Math::Rectangle _recAng);
-
-	void SetColor(const Math::Color _color) { m_color = _color; }
-
 	virtual void DrawSprite()	override;
 	virtual void Update()		override{}
 	virtual void PostUpdate()	override{}
 	virtual void Init()			override{}
 
-	void SetTextPixel(const Math::Vector2& _pixel) { m_pixel = _pixel; }
-protected:
-	Math::Color		m_color = { 1.0f,1.0f,1.0f,1.0f };
+	void SetLoadText(const std::string& _tex) { m_tex.Load(_tex); }
+	void SetPixel(const Math::Vector2& _pixel) { m_pixel = _pixel; }
+	void SetRectAng(const Math::Rectangle& _rect) { m_rectAng = _rect; }
+	void SetColor(const Math::Color& _color) { m_color = _color; }
+	void SetPivot(const Math::Vector2& _pivot) { m_pivot = _pivot; }
 
 private:
 	// テクスチャ表示
 	KdTexture		m_tex;
 	Math::Vector2	m_pixel		= Math::Vector2::Zero;
-	Math::Rectangle	m_recAngle	= { 0,0,0,0 };
+	Math::Rectangle	m_rectAng	= { 0,0,0,0 };
+	Math::Color		m_color		= kWhiteColor;
+	Math::Vector2	m_pivot		= { 0.5, 0.5f };
 };

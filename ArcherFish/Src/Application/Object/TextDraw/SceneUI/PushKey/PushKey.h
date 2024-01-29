@@ -1,15 +1,14 @@
 #pragma once
 #include "../../TextDraw.h"
 
-class PKey :public TextDraw
+class PushKey :public TextDraw
 {
 public:
-	PKey() { Init(); }
-	virtual ~PKey() {}
+	PushKey() { Init(); }
+	virtual ~PushKey() {}
 
 	void Update()		override;
 	void PostUpdate()	override;
-	void Init()			override;
 
 private:
 	// 色チェンジ

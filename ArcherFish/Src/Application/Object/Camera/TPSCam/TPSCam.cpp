@@ -1,3 +1,4 @@
+#include <Application/main.h>
 #include "TPSCam.h"
 
 void TPSCam::Init()
@@ -8,9 +9,9 @@ void TPSCam::Init()
 	// ÉJÅ[É\Éãèâä˙âª
 	m_FixMousePos.x = 1280 / 2;
 	m_FixMousePos.y = 720 / 2;
-
+	
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
-
+	
 	CamBase::Init();
 }
 
@@ -31,6 +32,7 @@ void TPSCam::PostUpdate()
 	m_mWorld = m_transMat * m_rotMat * targetMat;
 
 	CamBase::PostUpdate();
+	Application::Instance().GetMouseWheelValue();
 }
 
 void TPSCam::UpdateRotateByMouse()

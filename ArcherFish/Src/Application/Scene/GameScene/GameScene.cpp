@@ -49,7 +49,7 @@ void GameScene::Init()
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/GameUnderWater.wav", true);
 
 	// マウスポインタ非表示
-	ShowCursor(false);
+//	ShowCursor(false);
 
 	/* オブジェクトの初期化 */
 	// 地形
@@ -92,17 +92,18 @@ void GameScene::Init()
 	// ゲームUI
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png", { 0,0,32, 32 });
-	spText->SetColor({ 5.0f,0.0f,0.0f,0.8f });
+	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png");
+	spText->SetColor({ 5.0f,0.0f,0.0f,0.7f });
+	spText->SetRectAng({ 0,0,32, 32 });
 	m_objList.push_back(spText);
 
-//	std::shared_ptr<WaterBar> spBar;
-//	spBar = std::make_shared<WaterBar>();
-//	m_objList.push_back(spBar);
+	std::shared_ptr<WaterBar> spBar;
+	spBar = std::make_shared<WaterBar>();
+	m_objList.push_back(spBar);
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
 	spWaterLv = std::make_shared<MaxWaterLv>();
-	spWaterLv->SetTextPixel({ 0.0f,180.0f });
+	spWaterLv->SetPixel({ 0.0f,180.0f });
 	m_objList.push_back(spWaterLv);
 
 	spWaterLv->SetPlayer(spPlayer);

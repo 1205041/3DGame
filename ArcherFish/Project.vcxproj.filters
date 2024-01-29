@@ -103,9 +103,6 @@
     <Filter Include="Src\Application\Object\TextDraw\SceneUI">
       <UniqueIdentifier>{aafe3a2b-5ab1-473f-8311-82f93b9e9c7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Eneter">
-      <UniqueIdentifier>{66c72225-e92f-4cbd-837f-b637bacaa4d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\Camera\TPSCam">
       <UniqueIdentifier>{0c20af6f-c365-4fbf-a078-76a5ce6ef732}</UniqueIdentifier>
     </Filter>
@@ -124,11 +121,11 @@
     <Filter Include="Src\Application\Object\Terrain\SphereDome\UnderWater">
       <UniqueIdentifier>{4733e5db-9f61-4a6e-895d-6e055a1297b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\TextDraw\SceneUI\PKey">
-      <UniqueIdentifier>{29d65f12-1f1e-40da-8241-9aadc4816912}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Object\TextDraw\SceneUI\ShootBar">
       <UniqueIdentifier>{316daa56-990b-429a-aa49-070ab3812ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\PushKey">
+      <UniqueIdentifier>{c31e3b26-fe1d-40f6-94cd-c01566508e76}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -312,9 +309,6 @@
     <ClInclude Include="..\Library\imgui\backends\imgui_impl_win32.h">
       <Filter>Library\imgui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.h">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\Camera\TPSCam\TPSCam.h">
       <Filter>Src\Application\Object\Camera\TPSCam</Filter>
     </ClInclude>
@@ -330,11 +324,11 @@
     <ClInclude Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.h">
       <Filter>Src\Application\Object\Terrain\SphereDome\UnderWater</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\PKey\PKey.h">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\PKey</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\ShootBar\WaterBar.h">
       <Filter>Src\Application\Object\TextDraw\SceneUI\ShootBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\PushKey\PushKey.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\PushKey</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,9 +485,6 @@
     <ClCompile Include="..\Library\imgui\backends\imgui_impl_win32.cpp">
       <Filter>Library\imgui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Enter\Enter.cpp">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\Eneter</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\Camera\TPSCam\TPSCam.cpp">
       <Filter>Src\Application\Object\Camera\TPSCam</Filter>
     </ClCompile>
@@ -509,11 +500,11 @@
     <ClCompile Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.cpp">
       <Filter>Src\Application\Object\Terrain\SphereDome\UnderWater</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\PKey\PKey.cpp">
-      <Filter>Src\Application\Object\TextDraw\SceneUI\PKey</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\ShootBar\WaterBar.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneUI\ShootBar</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\PushKey\PushKey.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\PushKey</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -54,9 +54,6 @@ protected:
 	// ウィークポインタ
 	std::weak_ptr<KdGameObject>	 m_wpTarget;
 
-	// マウス座標
-	POINT m_FixMousePos;
-
 	// デバック用
 	KdDebugWireFrame m_debugWire;
 };

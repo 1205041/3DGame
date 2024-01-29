@@ -322,8 +322,8 @@ void Application::Execute()
 		m_fpsController.Update();
 
 		// タイトルバーにfps表示
-		std::string titleBar = "Archer Fish Fps：" + std::to_string(m_fpsController.m_nowfps);
-		SetWindowTextA(m_window.GetWndHandle(), titleBar.c_str());
+		std::string titleBar = "Archer Fish Fps：" + std::to_string(GetNowFPS());
+		SetWindowTextA(GetWindowHandle(), titleBar.c_str());
 	}
 
 	//===================================================================

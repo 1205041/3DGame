@@ -20,7 +20,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 	WNDCLASSEX wc;											// ウィンドウクラスの定義用
 	wc.cbSize = sizeof(WNDCLASSEX);							// 構造体のサイズ
 	wc.style = 0;											// スタイル
-	wc.lpfnWndProc = &KdWindow::callWindowProc;			// ウインドウ関数
+	wc.lpfnWndProc = &KdWindow::callWindowProc;				// ウインドウ関数
 	wc.cbClsExtra = 0;										// エキストラクラス情報 
 	wc.cbWndExtra = 0;										// エキストラウィンドウ情報
 	wc.hInstance = hInst;									// インスタンスハンドル
@@ -249,12 +249,12 @@ bool KdWindow::SaveFileDialog(std::string& filepath, std::string_view title, con
 	OPENFILENAMEA o;
 	ZeroMemory(&o, sizeof(o));
 
-	o.lStructSize = sizeof(o);									// 構造体サイズ
-	o.hwndOwner = nullptr;										// 親ウィンドウのハンドル
-	o.lpstrInitialDir = dir.c_str();						// 初期フォルダー
-	o.lpstrFile = fname;										// 取得したファイル名を保存するバッファ
-	o.nMaxFile = sizeof(fname);									// 取得したファイル名を保存するバッファサイズ
-	o.lpstrFilter = filters;									// (例) "TXTファイル(*.TXT)\0*.TXT\0全てのファイル(*.*)\0*.*\0";
+	o.lStructSize = sizeof(o);			// 構造体サイズ
+	o.hwndOwner = nullptr;				// 親ウィンドウのハンドル
+	o.lpstrInitialDir = dir.c_str();	// 初期フォルダー
+	o.lpstrFile = fname;				// 取得したファイル名を保存するバッファ
+	o.nMaxFile = sizeof(fname);			// 取得したファイル名を保存するバッファサイズ
+	o.lpstrFilter = filters;			// (例) "TXTファイル(*.TXT)\0*.TXT\0全てのファイル(*.*)\0*.*\0";
 	o.lpstrDefExt = defExt.data();
 	o.lpstrTitle = title.data();
 	o.nFilterIndex = 1;
