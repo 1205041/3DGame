@@ -146,7 +146,7 @@ void Player::ShotRayUpdateCollision()
 	rayInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用 === */
-//	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
+	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
 
 	// ②HIT判定対象オブジェクトに総当たり
 	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)

@@ -10,6 +10,8 @@ void TPSCam::Init()
 	m_FixMousePos.x = 1280 / 2;
 	m_FixMousePos.y = 720 / 2;
 	
+//	ScreenToClient(Application::Instance().GetWindowHandle(), &m_FixMousePos);
+	
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 	
 	CamBase::Init();
@@ -40,7 +42,7 @@ void TPSCam::UpdateRotateByMouse()
 	// マウス位置の差分を得る
 	POINT nowPos{};
 	GetCursorPos(&nowPos);
-
+	
 	POINT mouseMove{};
 	mouseMove.x = nowPos.x - m_FixMousePos.x;
 	mouseMove.y = nowPos.y - m_FixMousePos.y;
