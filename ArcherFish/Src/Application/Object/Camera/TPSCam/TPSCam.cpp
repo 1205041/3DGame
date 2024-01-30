@@ -27,12 +27,12 @@ void TPSCam::PostUpdate()
 
 	// çsóÒçáê¨
 	UpdateRotateByMouse();
+
 	m_rotMat = GetRotCameraMatrix();
 
 	m_mWorld = m_transMat * m_rotMat * targetMat;
 
 	CamBase::PostUpdate();
-	Application::Instance().GetMouseWheelValue();
 }
 
 void TPSCam::UpdateRotateByMouse()

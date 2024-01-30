@@ -6,17 +6,27 @@ void WaterBar::Update()
 //	if (m_water < m_waterMax) { m_water += 2; }
 	if (m_water > 0) { m_water -= 2; }
 
-	if (m_water > m_waterWarning) { color = blue; }
-	else if (m_water > m_waterDanger) { color = yellow; }
-	else { color = red; }
+	if (m_water > m_waterWarning) 
+	{ 
+		m_color = kBlueColor; 
+	}
+	else if (m_water > m_waterDanger) 
+	{ 
+		m_color = kYellowColor; 
+	}
+	else 
+	{ 
+		m_color = kRedColor; 
+	}
 }
 
 void WaterBar::Init()
 {
+	m_text.Load("Asset/Textures/SceneUI/Game/Bar.png");
 }
 
 void WaterBar::DrawSprite()
 {
-	KdShaderManager::Instance().m_spriteShader.DrawBox((int)pixel.x, (int)pixel.y, m_waterMax, height, &barColor, true);
-	KdShaderManager::Instance().m_spriteShader.DrawBox((int)pixel.x, (int)pixel.y, m_water, height, &color, true);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_text, (int)m_pixel.x, (int)m_pixel.y, m_waterMax, m_height, &m_rectAng, &m_barColor, m_pivot);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_text, (int)m_pixel.x, (int)m_pixel.y, m_water, m_height, &m_rectAng, &m_color, m_pivot);
 }

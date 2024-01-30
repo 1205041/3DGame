@@ -48,12 +48,13 @@ void DebugOutputNumber(T num)
 //===========================================
 // 色定数
 //===========================================
-static const Math::Color	kWhiteColor		= Math::Color(1.0f, 1.0f, 1.0f, 1.0f);
-static const Math::Color	kBlackColor		= Math::Color(0.0f, 0.0f, 0.0f, 1.0f);
-static const Math::Color	kRedColor		= Math::Color(1.0f, 0.0f, 0.0f, 1.0f);
-static const Math::Color	kGreenColor		= Math::Color(0.0f, 1.0f, 0.0f, 1.0f);
-static const Math::Color	kBlueColor		= Math::Color(0.0f, 0.0f, 1.0f, 1.0f);
-static const Math::Color	kNormalColor	= Math::Color(0.5f, 0.5f, 1.0f, 1.0f);	// 垂直に伸びる法線情報
+static const Math::Color	kWhiteColor		= Math::Color(1.0f, 1.0f, 1.0f, 1.0f); // 白
+static const Math::Color	kBlackColor		= Math::Color(0.0f, 0.0f, 0.0f, 1.0f); // 黒
+static const Math::Color	kRedColor		= Math::Color(1.0f, 0.0f, 0.0f, 1.0f); // 赤
+static const Math::Color	kGreenColor		= Math::Color(0.0f, 1.0f, 0.0f, 1.0f); // 緑
+static const Math::Color	kBlueColor		= Math::Color(0.0f, 0.0f, 1.0f, 1.0f); // 青
+static const Math::Color	kYellowColor	= Math::Color(1.0f, 1.0f, 0.0f, 1.0f); // 黄
+static const Math::Color	kNormalColor	= Math::Color(0.5f, 0.5f, 1.0f, 1.0f); // 垂直に伸びる法線情報
 
 
 //===========================================
