@@ -17,7 +17,7 @@ bool KdWindow::Create(int clientWidth, int clientHeight, std::string_view titleN
 	std::wstring wndClsName = sjis_to_wide(windowClassName.data());
 
 	//ウィンドウクラスの定義
-	WNDCLASSEX wc;											// ウィンドウクラスの定義用
+	WNDCLASSEX wc{};										// ウィンドウクラスの定義用
 	wc.cbSize = sizeof(WNDCLASSEX);							// 構造体のサイズ
 	wc.style = 0;											// スタイル
 	wc.lpfnWndProc = &KdWindow::callWindowProc;				// ウインドウ関数

@@ -41,15 +41,25 @@ void GameScene::Event()
 
 void GameScene::Init()
 {
+	// マウスポインタ非表示
+//	ShowCursor(false);
+
+	// 距離フォグ
+	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(true, true);
+ 	// 距離フォグの設定
+	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog(disColor, density);
+	// 高さフォグの設定
+	KdShaderManager::Instance().WorkAmbientController().SetheightFog(heigtColor, topVal, bottomVal, distance);
+
 	// BGM・SE
-	std::shared_ptr<KdSoundInstance> m_SESound = 
+	std::shared_ptr<KdSoundInstance> m_SESound =
 		KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav", false);
 	m_SESound->SetVolume(0.6f);
 
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/GameUnderWater.wav", true);
 
-	// マウスポインタ非表示
-//	ShowCursor(false);
+	// ディレクショナルライト(平行光)
+//	KdShaderManager::Instance().WorkAmbientController().SetDirLight({ 0,-1,0.3f }, { 3,3,3 });
 
 	/* オブジェクトの初期化 */
 	// 地形
@@ -100,6 +110,8 @@ void GameScene::Init()
 	std::shared_ptr<WaterBar> spBar;
 	spBar = std::make_shared<WaterBar>();
 	m_objList.push_back(spBar);
+
+	spPlayer->SetWaterBar(spBar);
 
 	std::shared_ptr<MaxWaterLv> spWaterLv;
 	spWaterLv = std::make_shared<MaxWaterLv>();

@@ -24,12 +24,12 @@ void ResultScene::Event()
 
 void ResultScene::Init()
 {
+	// マウスポインタ表示
+//	ShowCursor(true);
+
 	// BGM・SE
 //	m_SESound = KdAudioManager::Instance().Play("Asset/Sounds/SE/GameSet.wav");
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/ResultCoast.wav", true);
-
-	// マウスポインタ表示
-//	ShowCursor(true);
 
 	/* オブジェクトの初期化 */
 	// シーン

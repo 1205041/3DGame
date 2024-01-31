@@ -110,7 +110,6 @@ std::string KdFormat(std::string_view fmt, Args ... args)
 
 void KdGetTextureInfo(ID3D11View* view, D3D11_TEXTURE2D_DESC& outDesc);
 
-
 //===========================================
 // 座標変換関係
 //===========================================

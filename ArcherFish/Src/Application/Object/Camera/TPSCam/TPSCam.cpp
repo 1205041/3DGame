@@ -9,10 +9,9 @@ void TPSCam::Init()
 	// ÉJÅ[É\Éãèâä˙âª
 	m_FixMousePos.x = 1280 / 2;
 	m_FixMousePos.y = 720 / 2;
-	
-//	ScreenToClient(Application::Instance().GetWindowHandle(), &m_FixMousePos);
-	
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
+
+//	GetCursorPos(&m_FixMousePos);	
 	
 	CamBase::Init();
 }

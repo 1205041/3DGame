@@ -184,17 +184,12 @@
 	"materials":[
 		{
 			"doubleSided":true,
-			"emissiveFactor":[
-				0.21651901304721832,
-				0.005832066293805838,
-				0.006132540758699179
-			],
 			"name":"BodyColor",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.8000000715255737,
-					0.014541755430400372,
-					0.015450241975486279,
+					0.06124597787857056,
+					0.05951118469238281,
+					0.06480326503515244,
 					1
 				],
 				"metallicFactor":0,
@@ -203,20 +198,113 @@
 		},
 		{
 			"doubleSided":true,
-			"emissiveFactor":[
-				0.18781623244285583,
-				0.12044566869735718,
-				0.015080074779689312
-			],
 			"name":"BottomColor",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.8000000715255737,
-					0.4998759925365448,
-					0.05019303411245346,
+					0.5149170756340027,
+					0.45641058683395386,
+					0.4125427305698395,
 					1
 				],
 				"metallicFactor":0
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"CaudalColor",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.7156932950019836,
+					0.5711245536804199,
+					0.09305910766124725,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"DorsalColor",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.5394791960716248,
+					0.4396567642688751,
+					0.25818300247192383,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"PelvicColor.001",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.5647110939025879,
+					0.5457242727279663,
+					0.5271151661872864,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"PelvicColor",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.5647110939025879,
+					0.5457242727279663,
+					0.5271151661872864,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"AnalFinColor",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.5394791960716248,
+					0.4396567642688751,
+					0.25818300247192383,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"RectoralColor",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.8148457407951355,
+					0.7835371494293213,
+					0.7529423832893372,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"RectoralColor.001",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.8148457407951355,
+					0.7835371494293213,
+					0.7529423832893372,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
 			}
 		}
 	],
@@ -254,7 +342,7 @@
 						"TEXCOORD_0":10
 					},
 					"indices":11,
-					"material":0
+					"material":2
 				}
 			]
 		},
@@ -268,7 +356,7 @@
 						"TEXCOORD_0":14
 					},
 					"indices":15,
-					"material":0
+					"material":3
 				}
 			]
 		},
@@ -282,7 +370,7 @@
 						"TEXCOORD_0":18
 					},
 					"indices":19,
-					"material":0
+					"material":4
 				}
 			]
 		},
@@ -296,7 +384,7 @@
 						"TEXCOORD_0":22
 					},
 					"indices":23,
-					"material":0
+					"material":5
 				}
 			]
 		},
@@ -310,7 +398,7 @@
 						"TEXCOORD_0":26
 					},
 					"indices":27,
-					"material":0
+					"material":6
 				}
 			]
 		},
@@ -324,7 +412,7 @@
 						"TEXCOORD_0":30
 					},
 					"indices":31,
-					"material":0
+					"material":7
 				}
 			]
 		},
@@ -338,7 +426,7 @@
 						"TEXCOORD_0":34
 					},
 					"indices":23,
-					"material":0
+					"material":8
 				}
 			]
 		}

@@ -26,7 +26,7 @@ void TitleScene::Init()
 {
 	// BGM
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/TitleRipple.wav", true);
-	
+
 	// オブジェクトの初期化
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();

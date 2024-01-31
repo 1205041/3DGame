@@ -2,6 +2,7 @@
 
 #include "../Camera/TPSCam/TPSCam.h"
 #include "../Enemy/Enemy.h"
+#include "../TextDraw/SceneUI/ShootBar/WaterBar.h"
 
 // 更新関数
 void Player::Update()
@@ -19,9 +20,20 @@ void Player::Update()
 	if (KdInputManager::Instance().GetButtonState("MoveUp")) { GetVecNowMove(Math::Vector3::Up, camRotMat); }
 	// 下方移動
 	if (KdInputManager::Instance().GetButtonState("MoveDown")) { GetVecNowMove(Math::Vector3::Down, camRotMat); }
-	
+
 	// 射撃処理
-	if (KdInputManager::Instance().GetButtonState("ShotRay")) { ShotRayUpdateCollision(); }
+	std::shared_ptr<WaterBar> spWaterBar = m_wpWaterBar.lock();
+	if (spWaterBar)
+	{
+		if (KdInputManager::Instance().GetButtonState("ShotRay"))
+		{	
+			if (spWaterBar->GetWater() == spWaterBar->GetWaterMax())
+			{
+				ShotRayUpdateCollision();
+				spWaterBar->SetWater(0);
+			}
+		}
+	}
 
 	// 移動
 	m_nowPos += m_moveVec * m_moveSpd;
@@ -146,7 +158,7 @@ void Player::ShotRayUpdateCollision()
 	rayInfo.m_type = KdCollider::TypeBump;
 
 	/* === デバック用 === */
-	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
+//	m_debugWire.AddDebugLine(rayInfo.m_pos, rayInfo.m_dir, rayInfo.m_range);
 
 	// ②HIT判定対象オブジェクトに総当たり
 	for (std::weak_ptr<KdGameObject>wpGameObj : m_wpHitObjList)
