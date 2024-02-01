@@ -2,5 +2,5 @@
 
 void TextDraw::DrawSprite()
 {
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, &m_rectAng, &m_color, m_pivot);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_text, (int)m_textPixel.x, (int)m_textPixel.y, &m_textRectAng, &m_textColor, m_textPivot);
 }

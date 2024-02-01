@@ -51,6 +51,7 @@ void GameScene::Init()
 	// 高さフォグの設定
 	KdShaderManager::Instance().WorkAmbientController().SetheightFog(heigtColor, topVal, bottomVal, distance);
 
+	/* 音響初期化 */
 	// BGM・SE
 	std::shared_ptr<KdSoundInstance> m_SESound =
 		KdAudioManager::Instance().Play("Asset/Sounds/SE/GameStart.wav", false);
@@ -61,8 +62,8 @@ void GameScene::Init()
 	// ディレクショナルライト(平行光)
 //	KdShaderManager::Instance().WorkAmbientController().SetDirLight({ 0,-1,0.3f }, { 3,3,3 });
 
-	/* オブジェクトの初期化 */
-	// 地形
+	/* オブジェクト初期化 */
+	/* === 地形 === */
 	std::shared_ptr<UnderWater> spUnWater;
 	spUnWater = std::make_shared<UnderWater>();
 	m_objList.push_back(spUnWater);
@@ -75,31 +76,31 @@ void GameScene::Init()
 	spWaterSf = std::make_shared<WaterSurface>();
 	m_objList.push_back(spWaterSf);
 
-	// キャラ
+	/* === キャラ === */
 	std::shared_ptr<Player> spPlayer;
 	spPlayer = std::make_shared<Player>();
 	m_objList.push_back(spPlayer);
 
-	/* === 地形の当たり判定 === */
+	// 地形の当たり判定①
 	spUnWater->RegistHitObj(spPlayer); // Playerとの当たり判定
 	spPlayer->RegistHitObj(spUnWater); // SkySphereとの当たり判定
 
-	// エネミー
+	/* === エネミー === */
 	std::shared_ptr<Enemy> spEnemy;
 	spEnemy = std::make_shared<Enemy>();
 	spEnemy->SetPos({ 0.0f,15.0f ,3.0f });
 	m_objList.push_back(spEnemy);
 
-	/* === 射撃の当たり判定 === */
+	// 射撃の当たり判定
 	spEnemy->RegistHitObj(spPlayer); // spPlayerとの当たり判定
 	spPlayer->RegistHitObj(spEnemy); // spEnemyとの当たり判定
 	spPlayer->SetEnemy(spEnemy);
 
-	/* === 地形の当たり判定 === */
+	// 地形の当たり判定②
 //	spGrndDm->RegistHitObj(spEnemy); // spEnemyとの当たり判定
 //	spEnemy->RegistHitObj(spGrndDm); // SkySphereとの当たり判定
 
-	// ゲームUI
+	/* ゲームUI初期化 */
 	std::shared_ptr<TextDraw> spText;
 	spText = std::make_shared<TextDraw>();
 	spText->SetLoadText("Asset/Textures/SceneUI/Game/SightTP.png");
@@ -120,7 +121,7 @@ void GameScene::Init()
 
 	spWaterLv->SetPlayer(spPlayer);
 
-	// カメラの初期化
+	/* カメラ初期化 */
 	std::shared_ptr<TPSCam> spTps;
 	spTps = std::make_shared<TPSCam>();
 	m_objList.push_back(spTps);

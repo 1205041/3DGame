@@ -165,6 +165,7 @@
     <ClInclude Include="Src\Application\Object\Terrain\SphereDome\SphereGround.h" />
     <ClInclude Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.h" />
     <ClInclude Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.h" />
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneEffect\Bubble\Bubble.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\PushKey\PushKey.h" />
     <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\ShootBar\WaterBar.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="Src\Application\Object\Terrain\SphereDome\SphereGround.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\SphereDome\UnderWater\UnderWater.cpp" />
     <ClCompile Include="Src\Application\Object\Terrain\WaterSurface\WaterSurface.cpp" />
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneEffect\Bubble\Bubble.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\MaxWaterLv\MaxWaterLv.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\PushKey\PushKey.cpp" />
     <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\ShootBar\WaterBar.cpp" />

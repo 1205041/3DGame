@@ -7,8 +7,8 @@ void TPSCam::Init()
 	m_transMat = Math::Matrix::CreateTranslation(Math::Vector3(0.9f, 1.3f, -3.5f));
 
 	// ƒJ[ƒ\ƒ‹‰Šú‰»
-	m_FixMousePos.x = 1280 / 2;
-	m_FixMousePos.y = 720 / 2;
+	m_FixMousePos.x = 640;
+	m_FixMousePos.y = 360;
 	SetCursorPos(m_FixMousePos.x, m_FixMousePos.y);
 
 //	GetCursorPos(&m_FixMousePos);	

@@ -219,9 +219,9 @@ void Application::InputButtonInit()
 	keyboardCollector->AddButton("ImGuiOff", imguiOff);
 
 	// waterBarMax
-	std::shared_ptr<KdInputButtonForWindows> waterBar;
-	waterBar = std::make_shared<KdInputButtonForWindows>('L');
-	keyboardCollector->AddButton("WaterBarMax", waterBar);
+//	std::shared_ptr<KdInputButtonForWindows> waterBar;
+//	waterBar = std::make_shared<KdInputButtonForWindows>('L');
+//	keyboardCollector->AddButton("WaterBarMax", waterBar);
 
 	// アプリケーション終了
 	std::shared_ptr<KdInputButtonForWindows> endButton;
