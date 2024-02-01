@@ -2,12 +2,6 @@
 
 void Bubble::Update()
 {
-	/*
-	//i < pointNum , i % 2 == 0 , m_pos[i].x < 0 “™
-	if (i % 2) { m_pos[i].x -= 1; }	//¶‚Ö
-	else { m_pos[i].x += 1; }		//‰E‚Ö
-	*/
-
 	m_pixel.y += 2;
 	if (m_pixel.y > 360) { m_pixel.y = -360; }
 }
