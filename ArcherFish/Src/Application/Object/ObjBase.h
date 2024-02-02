@@ -30,7 +30,7 @@ public:
 	float GetNowYPos() const { return m_nowPos.y; }
 
 protected:
-	// 当たり判定用ベクター
+	// 当たり判定用リスト
 	std::vector<std::weak_ptr<KdGameObject>>	m_wpHitObjList;
 
 	// 移動関数

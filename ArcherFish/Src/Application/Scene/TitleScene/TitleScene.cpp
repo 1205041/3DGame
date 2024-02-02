@@ -37,17 +37,11 @@ void TitleScene::Init()
 	spText->SetRectAng({ 0,0,1280,720 });
 	m_objList.push_back(spText);
 
-	// óêêî
-	std::mt19937		mt(std::random_device{}());
-	std::uniform_int_distribution<int> intRand_xPixel(-640, 640);
-	std::uniform_int_distribution<int> intRand_yPixel(-360, 360);
-
 	// ñA
 	std::shared_ptr<Bubble> spBub;
 	for (int i = 0; i < spBub->GetBubbleNum(); i++)
 	{
 		spBub = std::make_shared<Bubble>();
-		spBub->SetPixel({ (float)intRand_xPixel(mt), (float)intRand_yPixel(mt) });
 		m_objList.push_back(spBub);
 	}
 

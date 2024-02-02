@@ -21,9 +21,14 @@ public:
 
 	void SetLightAct(const bool _flg) { m_lightAct = _flg; }
 	const bool GetLightAct() const { return m_lightAct; }
+
+	const int GetEnemyNum() const { return m_EnemyNum; }
 private:
 	// 衝突判定とそれに伴う座標の更新
 	void SphereUpdateCollision();
+
+	// 獲物総数
+	static const int m_EnemyNum = 5;
 
 	// 活動中フラグ & 生存中フラグ
 	bool m_act = true;

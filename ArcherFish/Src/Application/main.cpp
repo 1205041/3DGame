@@ -218,11 +218,6 @@ void Application::InputButtonInit()
 	imguiOff = std::make_shared<KdInputButtonForWindows>('N');
 	keyboardCollector->AddButton("ImGuiOff", imguiOff);
 
-	// waterBarMax
-//	std::shared_ptr<KdInputButtonForWindows> waterBar;
-//	waterBar = std::make_shared<KdInputButtonForWindows>('L');
-//	keyboardCollector->AddButton("WaterBarMax", waterBar);
-
 	// アプリケーション終了
 	std::shared_ptr<KdInputButtonForWindows> endButton;
 	endButton = std::make_shared<KdInputButtonForWindows>(VK_ESCAPE);

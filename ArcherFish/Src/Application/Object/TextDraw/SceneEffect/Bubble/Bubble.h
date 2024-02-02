@@ -11,11 +11,14 @@ public:
 	void Init()			override;
 	void DrawSprite()	override;
 
-	void SetPixel(const Math::Vector2& _pixel) { m_pixel.x = _pixel.x, m_pixel.y = _pixel.y; }
-	const int GetBubbleNum() const { return m_bubbleNum; }
-
+	const int GetBubbleNum()const { return m_bubbleNum; }
 private:
-	static const int m_bubbleNum = 250;		// –A‘”
-	int				 m_radius	 = 30;		// ”¼Œa
-	bool			 m_fill		 = false;	// “h‚è’×‚µ
+	// –A‘”
+	static const int m_bubbleNum = 50;
+	
+	float		  m_radius	= 0.0f;
+	Math::Vector2 m_move	= Math::Vector2::Zero;
+
+	bool m_fill = true;	// “h‚è’×‚µ
+	bool m_act	= true; // ‘¶‘±ƒtƒ‰ƒO
 };

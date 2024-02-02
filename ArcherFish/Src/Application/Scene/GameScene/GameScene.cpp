@@ -42,7 +42,7 @@ void GameScene::Event()
 void GameScene::Init()
 {
 	// マウスポインタ非表示
-//	ShowCursor(false);
+	ShowCursor(false);
 
 	// 距離フォグ
 	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(true, true);
@@ -95,6 +95,7 @@ void GameScene::Init()
 	spEnemy->RegistHitObj(spPlayer); // spPlayerとの当たり判定
 	spPlayer->RegistHitObj(spEnemy); // spEnemyとの当たり判定
 	spPlayer->SetEnemy(spEnemy);
+	
 
 	// 地形の当たり判定②
 //	spGrndDm->RegistHitObj(spEnemy); // spEnemyとの当たり判定
