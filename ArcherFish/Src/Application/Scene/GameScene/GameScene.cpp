@@ -42,10 +42,10 @@ void GameScene::Event()
 void GameScene::Init()
 {
 	// マウスポインタ非表示
-	ShowCursor(false);
+//	ShowCursor(false);
 
 	// 距離フォグ
-	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(true, true);
+	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(false, true);
  	// 距離フォグの設定
 	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog(m_disColor, m_density);
 	// 高さフォグの設定

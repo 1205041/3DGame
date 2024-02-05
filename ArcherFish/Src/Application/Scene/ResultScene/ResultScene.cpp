@@ -26,7 +26,7 @@ void ResultScene::Event()
 void ResultScene::Init()
 {
 	// マウスポインタ表示
-	ShowCursor(true);
+//	ShowCursor(true);
 
 	/* 音響初期化 */
 	// BGM・SE
