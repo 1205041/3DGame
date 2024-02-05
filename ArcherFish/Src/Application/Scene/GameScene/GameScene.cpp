@@ -47,9 +47,9 @@ void GameScene::Init()
 	// 距離フォグ
 	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(true, true);
  	// 距離フォグの設定
-	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog(disColor, density);
+	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog(m_disColor, m_density);
 	// 高さフォグの設定
-	KdShaderManager::Instance().WorkAmbientController().SetheightFog(heigtColor, topVal, bottomVal, distance);
+	KdShaderManager::Instance().WorkAmbientController().SetheightFog(m_heigtColor, m_topVal, m_bottomVal, m_distance);
 
 	/* 音響初期化 */
 	// BGM・SE

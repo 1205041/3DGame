@@ -12,10 +12,10 @@ private:
 	void Init()			override;
 
 	/* フォグ(霧) */
-	Math::Vector3 disColor	 = { 0.1f,0.1f,0.5f };	// 距離フォグの色
-	float		  density	 = 0.015f;				// フォグ減衰率
-	Math::Vector3 heigtColor = { 0.1f,0.5f,0.5f };	// 高さフォグの色
-	float		  topVal	 = 0.0f;	// フォグを開始する上限の高さ
-	float		  bottomVal  = -23.0f;	// フォグ色に染まる下限の高さ
-	float		  distance	 = 5.0f;	// フォグの開始する距離
+	Math::Vector3 m_disColor	= { 0.1f,0.1f,0.5f };	// 距離フォグの色
+	float		  m_density		= 0.02f;				// フォグ減衰率
+	Math::Vector3 m_heigtColor	= { 0.1f,0.5f,0.5f };	// 高さフォグの色
+	float		  m_topVal		= 10.0f;	// フォグを開始する上限の高さ
+	float		  m_bottomVal	= -20.0f;	// フォグ色に染まる下限の高さ
+	float		  m_distance	= 6.0f;		// フォグの開始する距離
 };
