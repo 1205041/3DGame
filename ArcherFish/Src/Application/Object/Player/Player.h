@@ -15,6 +15,8 @@ public:
 	void PostUpdate()	override;
 
 	void DrawLit()		override;
+	void GenerateDepthMapFromLight() override;
+
 	void Init()			override;
 
 	void SetCamera(const std::shared_ptr<TPSCam>& _camera) { m_wpCamera = _camera; }

@@ -62,6 +62,12 @@ void Player::DrawLit()
 	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
 }
 
+void Player::GenerateDepthMapFromLight()
+{
+	if (!m_spModelWork) { return; }
+	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+}
+
 // ‰Šú‰»ŠÖ”
 void Player::Init()
 {
