@@ -45,7 +45,7 @@ void GameScene::Init()
 //	ShowCursor(false);
 
 	// 距離フォグ
-	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(false, true);
+	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(false, false);
  	// 距離フォグの設定
 	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog(m_disColor, m_density);
 	// 高さフォグの設定
@@ -88,7 +88,7 @@ void GameScene::Init()
 	/* === エネミー === */
 	std::shared_ptr<Enemy> spEnemy;
 	spEnemy = std::make_shared<Enemy>();
-	spEnemy->SetPos({ 0.0f,15.0f ,3.0f });
+	spEnemy->SetPos({ 0.0f,0.0f ,3.0f });
 	m_objList.push_back(spEnemy);
 
 	// 射撃の当たり判定

@@ -11,12 +11,12 @@ void Enemy::Update()
 		if (GetActFlg())
 		{
 			// ‘O•û
-			GetVecNowMove(Math::Vector3::Backward, m_transMat);
+//			GetVecNowMove(Math::Vector3::Backward, m_transMat);
 			m_moveSpd = 0.1f;
 		}
 		else
 		{
-			GetVecNowMove(Math::Vector3::Down, m_transMat);
+//			GetVecNowMove(Math::Vector3::Down, m_transMat);
 			m_moveSpd = 0.07f;
 
 			if (m_lightTime > 5.0f) { SetLightAct(true); }

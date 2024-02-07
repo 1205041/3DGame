@@ -15,7 +15,7 @@ void WaterSurface::PostUpdate()
 	m_scaleMat = Math::Matrix::CreateScale({33.0f,1.0f,33.0f});
 
 	// À•Ws—ñ
-	m_transMat = Math::Matrix::CreateTranslation({ 0,1.3f,0 });
+	m_transMat = Math::Matrix::CreateTranslation({ 0.0f,1.3f,0.0f });
 
 	// s—ñ‡¬(‚r‚q‚s)
 	m_mWorld = m_scaleMat * m_transMat;
