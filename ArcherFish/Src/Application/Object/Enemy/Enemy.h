@@ -7,11 +7,11 @@ public:
 	Enemy() { Init(); }
 	virtual ~Enemy() {}
 
-	void Update()					override;
-	void PostUpdate()				override;
+	void Update()		override;
+	void PostUpdate()	override;
 
-	void DrawLit()					override;
-	void Init()						override;
+	void DrawLit()		override;
+	void Init()			override;
 
 	void SetActFlg(const bool _flg) { m_act = _flg; }
 	const bool GetActFlg() const { return m_act; }
