@@ -89,6 +89,7 @@ void Enemy::Init()
 		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Enemy/SkyEnemy.gltf"));
 	}
 
+
 	// ‘¬“x
 	m_moveSpd = 0.1f;
 
