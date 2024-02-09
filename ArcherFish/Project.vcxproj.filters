@@ -133,12 +133,6 @@
     <Filter Include="Src\Application\Object\TextDraw\SceneEffect\Bubble">
       <UniqueIdentifier>{d18f73fd-30cb-45af-9f39-c0eee8e852e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Object\CharaManager">
-      <UniqueIdentifier>{f3a09579-7e2b-4cd3-96b9-962c2c04531d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Object\Bullet">
-      <UniqueIdentifier>{cad1a1a0-6ab3-4ce6-a9da-6962dd045a65}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -345,12 +339,6 @@
     <ClInclude Include="Src\Application\Object\TextDraw\SceneEffect\Bubble\Bubble.h">
       <Filter>Src\Application\Object\TextDraw\SceneEffect\Bubble</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\CharaManager\CharaManager.h">
-      <Filter>Src\Application\Object\CharaManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Object\Bullet\Bullet.h">
-      <Filter>Src\Application\Object\Bullet</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -529,12 +517,6 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneEffect\Bubble\Bubble.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneEffect\Bubble</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\CharaManager\CharaManager.cpp">
-      <Filter>Src\Application\Object\CharaManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Object\Bullet\Bullet.cpp">
-      <Filter>Src\Application\Object\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

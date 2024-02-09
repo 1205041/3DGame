@@ -1,7 +1,7 @@
 #pragma once
-#include "../CharaManager/CharaManager.h"
+#include "../ObjBase.h"
 
-class Enemy :public EnemyManager
+class Enemy :public ObjBase
 {
 public:
 	Enemy() { Init(); }

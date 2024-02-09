@@ -157,10 +157,8 @@
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\main.h" />
-    <ClInclude Include="Src\Application\Object\Bullet\Bullet.h" />
     <ClInclude Include="Src\Application\Object\Camera\CamBase.h" />
     <ClInclude Include="Src\Application\Object\Camera\TPSCam\TPSCam.h" />
-    <ClInclude Include="Src\Application\Object\CharaManager\CharaManager.h" />
     <ClInclude Include="Src\Application\Object\Enemy\Enemy.h" />
     <ClInclude Include="Src\Application\Object\ObjBase.h" />
     <ClInclude Include="Src\Application\Object\Player\Player.h" />
@@ -222,10 +220,8 @@
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\Library\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
-    <ClCompile Include="Src\Application\Object\Bullet\Bullet.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\CamBase.cpp" />
     <ClCompile Include="Src\Application\Object\Camera\TPSCam\TPSCam.cpp" />
-    <ClCompile Include="Src\Application\Object\CharaManager\CharaManager.cpp" />
     <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Src\Application\Object\ObjBase.cpp" />
     <ClCompile Include="Src\Application\Object\Player\Player.cpp" />
