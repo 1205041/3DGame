@@ -387,7 +387,7 @@ void KdShaderManager::WriteCBPointLight(const std::list<PointLight>& pointLights
 {
 	cbLight& light = m_cb9_Light.Work();
 
-	light.PointLight_Num = pointLights.size();
+	light.PointLight_i = pointLights.size();
 
 	UINT pointIndex = 0;
 
@@ -406,14 +406,14 @@ void KdShaderManager::AddPointLight(const Math::Vector3& pos, const Math::Vector
 {
 	KdShaderManager::cbLight& cbLight = m_cb9_Light.Work();
 
-	PointLight& modifyPointLight = cbLight.PointLights[cbLight.PointLight_Num];
+	PointLight& modifyPointLight = cbLight.PointLights[cbLight.PointLight_i];
 
 	modifyPointLight.Pos = pos;
 	modifyPointLight.Color = color;
 	modifyPointLight.Radius = radius;
 	modifyPointLight.IsBright = isBright;
 
-	++cbLight.PointLight_Num;
+	++cbLight.PointLight_i;
 }
 
 /* パラメータの解放 */

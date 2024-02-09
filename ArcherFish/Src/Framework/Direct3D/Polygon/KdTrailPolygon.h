@@ -56,7 +56,7 @@ public:
 	}
 
 	// リストの数を取得
-	inline int GetNumPoints() const
+	inline int GetiPoints() const
 	{
 		return (int)m_pointList.size();
 	}

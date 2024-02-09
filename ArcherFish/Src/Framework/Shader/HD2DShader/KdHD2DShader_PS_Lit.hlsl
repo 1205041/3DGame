@@ -191,7 +191,7 @@ float4 main(VSOutput In) : SV_Target0
 	//-------------------------
 	// 点光
 	//-------------------------
-	for( int i = 0; i < g_PointLightNum.x; i++ )
+	for( int i = 0; i < g_PointLighti.x; i++ )
 	{
 		// ピクセルから点光への方向
 		float3 dir = g_PointLights[ i ].Pos - In.wPos;

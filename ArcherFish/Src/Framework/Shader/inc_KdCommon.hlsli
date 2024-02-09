@@ -49,7 +49,7 @@ cbuffer cbLight : register(b9)
 	// 点光
 	//--------------
 	// 使用数
-	int4			g_PointLightNum;   // パッキング規則が大変なので、int4のxのみを使用する
+	int4			g_PointLighti;   // パッキング規則が大変なので、int4のxのみを使用する
 	// データ
 	struct PointLight 
 	{

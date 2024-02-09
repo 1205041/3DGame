@@ -78,10 +78,10 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 	// 頂点リスト取得
 	std::vector<Math::Vector3> positions;
 	poly.GetPositions(positions);
-	size_t faceNum = positions.size() - 2;
+	size_t facei = positions.size() - 2;
 
 	// 全ての面(三角形)
-	for (UINT faceIdx = 0; faceIdx < faceNum; ++faceIdx)
+	for (UINT faceIdx = 0; faceIdx < facei; ++faceIdx)
 	{
 		// レイと三角形の判定
 		float hitDist = FLT_MAX;
@@ -148,10 +148,10 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 	// DEBUGビルドでも速度を維持するため、別変数に拾っておく
 	const KdMeshFace* pFaces = &mesh.GetFaces()[0];
 	auto& vertices = mesh.GetVertexPositions();
-	UINT faceNum = mesh.GetFaces().size();
+	UINT facei = mesh.GetFaces().size();
 
 	// 全ての面(三角形)
-	for (UINT faceIdx = 0; faceIdx < faceNum; ++faceIdx)
+	for (UINT faceIdx = 0; faceIdx < facei; ++faceIdx)
 	{
 		// 三角形を構成する３つの頂点のIndex
 		const UINT* idx = pFaces[faceIdx].Idx;
@@ -263,7 +263,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::BoundingSphere& sph
 	// 頂点リスト取得
 	std::vector<Math::Vector3> positions;
 	poly.GetPositions(positions);
-	size_t faceNum = positions.size() - 2;
+	size_t facei = positions.size() - 2;
 
 	DirectX::XMVECTOR finalHitPos = {};	// 当たった座標の中でも最後の座標
 	DirectX::XMVECTOR finalPos = {};	// 各面に押されて最終的に到達する座標：判定する球の中心
@@ -273,7 +273,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::BoundingSphere& sph
 
 	// 全ての面と判定
 	// ※判定はポリゴンのローカル空間で行われる
-	for (UINT faceIndx = 0; faceIndx < faceNum; faceIndx++)
+	for (UINT faceIndx = 0; faceIndx < facei; faceIndx++)
 	{
 		DirectX::XMVECTOR nearPoint;
 
@@ -329,7 +329,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 
 	// DEBUGビルドでも速度を維持するため、別変数に拾っておく
 	const auto* pFaces = &mesh.GetFaces()[0];
-	UINT faceNum = mesh.GetFaces().size();
+	UINT facei = mesh.GetFaces().size();
 	auto& vertices = mesh.GetVertexPositions();
 
 	DirectX::XMVECTOR finalHitPos = {};	// 当たった座標の中でも最後の座標
@@ -340,7 +340,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 
 	// 全ての面と判定
 	// ※判定はメッシュのローカル空間で行われる
-	for (UINT faceIdx = 0; faceIdx < faceNum; faceIdx++)
+	for (UINT faceIdx = 0; faceIdx < facei; faceIdx++)
 	{
 		DirectX::XMVECTOR nearPoint;
 

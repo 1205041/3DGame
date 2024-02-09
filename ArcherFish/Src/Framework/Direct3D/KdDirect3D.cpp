@@ -2,9 +2,9 @@
 
 void KdDirect3D::CopyViewportInfo(Math::Viewport& out) const
 {
-	UINT numVPs = 1;
+	UINT iVPs = 1;
 	D3D11_VIEWPORT vp;
-	m_pDeviceContext->RSGetViewports(&numVPs, &vp);
+	m_pDeviceContext->RSGetViewports(&iVPs, &vp);
 	out = vp;
 }
 

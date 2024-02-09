@@ -99,7 +99,7 @@ bool KdRenderTargetChanger::ChangeRenderTarget(ID3D11RenderTargetView* pRTV,
 	if (pVP)
 	{
 		// 情報保存
-		DevCon->RSGetViewports(&m_numVP, &m_saveVP);
+		DevCon->RSGetViewports(&m_iVP, &m_saveVP);
 		DevCon->RSSetViewports(1, pVP);
 		m_changeVP = true;
 	}

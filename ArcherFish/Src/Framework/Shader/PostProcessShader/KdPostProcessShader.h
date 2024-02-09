@@ -64,7 +64,7 @@ private:
 	{
 		Math::Vector4 Info[kMaxSampling];
 	
-		int SamplingNum = 0;
+		int Samplingi = 0;
 		int _blank[3] = { 0, 0 ,0 };
 	};
 	KdConstantBuffer<cbBlur>	m_cb0_BlurInfo;
@@ -96,8 +96,8 @@ private:
 	KdRenderTargetPack	m_depthOfFieldRTPack;
 
 	KdRenderTargetPack	m_brightEffectRTPack;
-	static const int	kLightBloomNum = 4;
-	KdRenderTargetPack	m_lightBloomRTPack[kLightBloomNum];
+	static const int	kLightBloomi = 4;
+	KdRenderTargetPack	m_lightBloomRTPack[kLightBloomi];
 
 	KdRenderTargetChanger m_postEffectRTChanger;
 	KdRenderTargetChanger m_brightRTChanger;

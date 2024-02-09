@@ -95,7 +95,7 @@ bool KdPostProcessShader::Init()
 	int lightBloomHeight = m_brightEffectRTPack.m_RTTexture->GetHeight();
 
 	// 光源ぼかし画像
-	for (int i = 0; i < kLightBloomNum; ++i)
+	for (int i = 0; i < kLightBloomi; ++i)
 	{
 		m_lightBloomRTPack[i].CreateRenderTarget(lightBloomWidth, lightBloomHeight);
 
@@ -202,7 +202,7 @@ void KdPostProcessShader::LightBloomProcess()
 
 	std::shared_ptr<KdTexture> srcRTTex = m_brightEffectRTPack.m_RTTexture;
 
-	for (int i = 0; i < kLightBloomNum; ++i)
+	for (int i = 0; i < kLightBloomi; ++i)
 	{
 		GenerateBlurTexture(srcRTTex, m_lightBloomRTPack[i].m_RTTexture, m_lightBloomRTPack[i].m_viewPort, kBlurSamplingRadius);
 			
@@ -217,7 +217,7 @@ void KdPostProcessShader::LightBloomProcess()
 	KdShaderManager::Instance().ChangeBlendState(KdBlendState::Add);
 
 	// 光源ぼかし画像の合成
-	for (int i = 0; i < kLightBloomNum; ++i)
+	for (int i = 0; i < kLightBloomi; ++i)
 	{
 		KdShaderManager::Instance().m_spriteShader.DrawTex(m_lightBloomRTPack[i].m_RTTexture.get(), 0, 0, m_postEffectRTPack.m_RTTexture->GetWidth(), m_postEffectRTPack.m_RTTexture->GetHeight());
 	}
@@ -259,17 +259,17 @@ void KdPostProcessShader::CreateBlurOffsetList(std::vector<Math::Vector3>& dstIn
 	blurDir.Normalize();
 
 	// 両サイドのサンプリング回数 ＋ サンプル開始中央のピクセル
-	int totalSamplingNum = samplingRadius * 2 + 1;
+	int totalSamplingi = samplingRadius * 2 + 1;
 
 	// サンプリングするテクセルのオフセット値
 	Math::Vector2 texelSize;
 	texelSize.x = 1.0f / spSrcTex->GetWidth();
 	texelSize.y = 1.0f / spSrcTex->GetHeight();
 
-	dstInfo.resize(totalSamplingNum);
+	dstInfo.resize(totalSamplingi);
 
 	float totalWeight = 0;
-	for (int i = 0; i < totalSamplingNum; ++i)
+	for (int i = 0; i < totalSamplingi; ++i)
 	{
 		int samplingOffset = i - samplingRadius;
 		dstInfo[i].x = blurDir.x * (samplingOffset * texelSize.x);
@@ -285,7 +285,7 @@ void KdPostProcessShader::CreateBlurOffsetList(std::vector<Math::Vector3>& dstIn
 
 	// ウェイトを全体のウェイトから割り算し、各ピクセルのウェイトの意味を割合に置き換える
 	// 全部足して1になるように数値を調整する
-	for (int i = 0; i < totalSamplingNum; ++i)
+	for (int i = 0; i < totalSamplingi; ++i)
 	{
 		dstInfo[i].z /= totalWeight;
 	}
@@ -361,18 +361,18 @@ void KdPostProcessShader::SetBlurInfo(const std::vector<Math::Vector3>& srcInfo)
 {
 	KdPostProcessShader::cbBlur& blurInfo = m_cb0_BlurInfo.Work();
 
-	blurInfo.SamplingNum = srcInfo.size();
+	blurInfo.Samplingi = srcInfo.size();
 
-	if (blurInfo.SamplingNum > kMaxSampling)
+	if (blurInfo.Samplingi > kMaxSampling)
 	{
 		assert(0 && "サンプリング指定回数が上限を超えています。");
 
-		blurInfo.SamplingNum = 0;
+		blurInfo.Samplingi = 0;
 
 		return;
 	}
 
-	for (int i = 0; i < blurInfo.SamplingNum; ++i)
+	for (int i = 0; i < blurInfo.Samplingi; ++i)
 	{
 		blurInfo.Info[i].x = srcInfo[i].x;
 		blurInfo.Info[i].y = srcInfo[i].y;

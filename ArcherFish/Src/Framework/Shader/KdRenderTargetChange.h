@@ -26,7 +26,7 @@ struct KdRenderTargetChanger
 	ID3D11RenderTargetView* m_saveRTV = nullptr;
 	ID3D11DepthStencilView* m_saveDSV = nullptr;
 	D3D11_VIEWPORT			m_saveVP = {};
-	UINT					m_numVP = 1;
+	UINT					m_iVP = 1;
 	bool					m_changeVP = false;
 
 	bool Validate(ID3D11RenderTargetView* pRTV);

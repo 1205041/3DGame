@@ -67,15 +67,15 @@ void KdSquarePolygon::SetScale(float scalar)
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdSquarePolygon::SetVertexColor(const std::vector<Math::Color>& _vertCols)
 {
-	size_t colNum = _vertCols.size();
+	size_t coli = _vertCols.size();
 
-	if(!colNum)
+	if(!coli)
 	{
 		assert(0 && "KdSquarePolygon::SetVertexColor 色が一色も指定されていません");
 	}
 
 	// 送られた色数分頂点色を書き換える
-	for (size_t i = 0; i < colNum; ++i)
+	for (size_t i = 0; i < coli; ++i)
 	{
 		// 送られてきた色の数が板ポリの頂点数4つを越えた場合も終了
 		if (i >= m_vertices.size()) { return; }
