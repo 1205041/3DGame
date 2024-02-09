@@ -57,25 +57,25 @@
 #include <DirectXCollision.h>
 
 // DirectX Tool Kit
-#pragma comment(lib, "DirectXTK.lib")
-#pragma comment(lib, "DirectXTKAudioWin8.lib")
-#include <SimpleMath.h>
-#include <Audio.h>
+#pragma comment(lib, "Lib/Win32/Debug/DirectXTK.lib")
+#pragma comment(lib, "Lib/Win32/Debug/Audio/DirectXTKAudioWin8.lib")
+#include <DirectXTK/Inc/SimpleMath.h>
+#include <DirectXTK/Inc/Audio.h>
 
 // DirectX Tex
-#pragma comment(lib, "DirectXTex.lib")
-#include <DirectXTex.h>
+#pragma comment(lib, "Lib/Win32/Debug/DirectXTex.lib")
+#include <DirectXTex/DirectXTex/DirectXTex.h>
 
 //===============================================
 // imGui
 //===============================================
 #define IMGUI_DEFINE_MATH_OPERATORS
 #define IMGUI_DEFINE_PLACEMENT_NEW
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
-#include "imgui/backends/imgui_impl_win32.h"
-#include "imgui/backends/imgui_impl_dx11.h"
-#include "imgui/misc/cpp/imgui_stdlib.h"
+#include "imGui/imgui.h"
+#include "imGui/imgui_internal.h"
+#include "imGui/backends/imgui_impl_win32.h"
+#include "imGui/backends/imgui_impl_dx11.h"
+#include "imGui/misc/cpp/imgui_stdlib.h"
 
 //===============================================
 // 文字コード変換
