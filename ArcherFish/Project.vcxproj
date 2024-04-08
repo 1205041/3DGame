@@ -847,7 +847,12 @@
     <None Include="Src\Framework\Shader\SpriteShader\inc_KdSpriteShader.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Library\DirectXTex\DirectXTex\Shaders\BC6HEncode.hlsl" />
+    <FxCompile Include="..\Library\DirectXTex\DirectXTex\Shaders\BC6HEncode.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">3.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Library</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Library</ShaderType>
+    </FxCompile>
     <FxCompile Include="..\Library\DirectXTex\DirectXTex\Shaders\BC7Encode.hlsl" />
     <FxCompile Include="..\Library\DirectXTK\Src\Shaders\AlphaTestEffect.fx" />
     <FxCompile Include="..\Library\DirectXTK\Src\Shaders\BasicEffect.fx" />
