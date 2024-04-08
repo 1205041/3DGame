@@ -853,7 +853,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Library</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Library</ShaderType>
     </FxCompile>
-    <FxCompile Include="..\Library\DirectXTex\DirectXTex\Shaders\BC7Encode.hlsl" />
+    <FxCompile Include="..\Library\DirectXTex\DirectXTex\Shaders\BC7Encode.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ShaderType>
+    </FxCompile>
     <FxCompile Include="..\Library\DirectXTK\Src\Shaders\AlphaTestEffect.fx" />
     <FxCompile Include="..\Library\DirectXTK\Src\Shaders\BasicEffect.fx" />
     <FxCompile Include="..\Library\DirectXTK\Src\Shaders\DebugEffect.fx" />
