@@ -1,5 +1,6 @@
 #pragma once
 #include "../../TextDraw.h"
+
 #define BUBBLE_NUM 50 // ñAëçêî
 
 class Bubble :public TextDraw
