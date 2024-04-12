@@ -81,9 +81,9 @@ void KdSpriteShader::Begin(bool linear, bool disableZBuffer)
 	//---------------------------------------
 	// 2D用正射影行列作成
 	//---------------------------------------
-	UINT piVierports = 1;
+	UINT pNumVierports = 1;
 	D3D11_VIEWPORT vp;
-	KdDirect3D::Instance().WorkDevContext()->RSGetViewports(&piVierports, &vp);
+	KdDirect3D::Instance().WorkDevContext()->RSGetViewports(&pNumVierports, &vp);
 	m_mProj2D = DirectX::XMMatrixOrthographicLH(vp.Width, vp.Height, 0, 1);
 
 	// 定数バッファ書き込み
@@ -285,23 +285,23 @@ void KdSpriteShader::DrawCircle(int x, int y, int radius, const Math::Color* col
 	// 頂点
 	if (fill)
 	{
-		int facei = radius + 1;
-		if (facei > 300)facei = 300;
-		std::vector<Vertex> vertex(facei * 3);		// 半径により頂点数を調整
+		int faceNum = radius + 1;
+		if (faceNum > 300)faceNum = 300;
+		std::vector<Vertex> vertex(faceNum * 3);		// 半径により頂点数を調整
 
 		// 描画
-		for (int i = 0; i < facei; i++)
+		for (int i = 0; i < faceNum; i++)
 		{
 			int idx = i * 3;
 			vertex[idx].Pos.x = (float)x;
 			vertex[idx].Pos.y = (float)y;
 
-			vertex[idx+1].Pos.x = x + cos(DirectX::XMConvertToRadians(i * (360.0f / (facei - 1)))) * (float)radius;
-			vertex[idx+1].Pos.y = y + sin(DirectX::XMConvertToRadians(i * (360.0f / (facei - 1)))) * (float)radius;
+			vertex[idx+1].Pos.x = x + cos(DirectX::XMConvertToRadians(i * (360.0f / (faceNum - 1)))) * (float)radius;
+			vertex[idx+1].Pos.y = y + sin(DirectX::XMConvertToRadians(i * (360.0f / (faceNum - 1)))) * (float)radius;
 			vertex[idx+1].Pos.z = 0;
 
-			vertex[idx+2].Pos.x = x + cos(DirectX::XMConvertToRadians((i+1) * (360.0f / (facei - 1)))) * (float)radius;
-			vertex[idx+2].Pos.y = y + sin(DirectX::XMConvertToRadians((i+1) * (360.0f / (facei - 1)))) * (float)radius;
+			vertex[idx+2].Pos.x = x + cos(DirectX::XMConvertToRadians((i+1) * (360.0f / (faceNum - 1)))) * (float)radius;
+			vertex[idx+2].Pos.y = y + sin(DirectX::XMConvertToRadians((i+1) * (360.0f / (faceNum - 1)))) * (float)radius;
 			vertex[idx+2].Pos.z = 0;
 		}
 
@@ -309,19 +309,19 @@ void KdSpriteShader::DrawCircle(int x, int y, int radius, const Math::Color* col
 	}
 	else
 	{
-		int iVertex = radius + 1;
-		if (iVertex > 300)iVertex = 300;
-		std::vector<Vertex> vertex(iVertex);		// 半径により頂点数を調整
+		int numVertex = radius + 1;
+		if (numVertex > 300)numVertex = 300;
+		std::vector<Vertex> vertex(numVertex);		// 半径により頂点数を調整
 
 		// 描画
-		for (int i = 0; i < iVertex; i++)
+		for (int i = 0; i < numVertex; i++)
 		{
-			vertex[i].Pos.x = x + cos(DirectX::XMConvertToRadians(i * (360.0f / (iVertex - 1)))) * (float)radius;
-			vertex[i].Pos.y = y + sin(DirectX::XMConvertToRadians(i * (360.0f / (iVertex - 1)))) * (float)radius;
+			vertex[i].Pos.x = x + cos(DirectX::XMConvertToRadians(i * (360.0f / (numVertex - 1)))) * (float)radius;
+			vertex[i].Pos.y = y + sin(DirectX::XMConvertToRadians(i * (360.0f / (numVertex - 1)))) * (float)radius;
 			vertex[i].Pos.z = 0;
 		}
 
-		KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, iVertex, &vertex[0], sizeof(Vertex));
+		KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, numVertex, &vertex[0], sizeof(Vertex));
 	}
 
 	// この関数でBeginした場合は、Endしておく

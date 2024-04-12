@@ -26,7 +26,7 @@ void ResultScene::Event()
 void ResultScene::Init()
 {
 	// マウスポインタ表示
-//	ShowCursor(true);
+	ShowCursor(true);
 
 	/* 音響初期化 */
 	// BGM・SE
@@ -43,7 +43,7 @@ void ResultScene::Init()
 
 	// 泡
 	std::shared_ptr<Bubble> spBub;
-	for (int i = 0; i < spBub->GetBubblei(); i++)
+	for (int i = 0; i < spBub->GetBubbleNum(); i++)
 	{
 		spBub = std::make_shared<Bubble>();
 		m_objList.push_back(spBub);

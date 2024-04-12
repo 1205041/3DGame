@@ -166,9 +166,9 @@
 			"name":"headColor",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.597201943397522,
-					0.09989873319864273,
-					0.054480284452438354,
+					0.6172059774398804,
+					0.6375965476036072,
+					0.6514057517051697,
 					1
 				],
 				"metallicFactor":0
@@ -179,9 +179,9 @@
 			"name":"BottomColor",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.6583748459815979,
-					0.26225045323371887,
-					0,
+					1,
+					0.07639579474925995,
+					0.03943577781319618,
 					1
 				],
 				"metallicFactor":0
@@ -245,9 +245,9 @@
 			"name":"abdomenColor",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.597201943397522,
-					0.09758733212947845,
-					0.04970657452940941,
+					0.6172059774398804,
+					0.6375965476036072,
+					0.6514057517051697,
 					1
 				],
 				"metallicFactor":0
@@ -258,9 +258,9 @@
 			"name":"thoraxColor",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					1,
-					0.07618512958288193,
-					0.03954627364873886,
+					0.6172059774398804,
+					0.6375965476036072,
+					0.6514057517051697,
 					1
 				],
 				"metallicFactor":0

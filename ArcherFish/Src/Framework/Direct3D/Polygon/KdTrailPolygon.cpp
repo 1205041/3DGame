@@ -137,7 +137,7 @@ void KdTrailPolygon::CreateVerticesWithVerticesPattern()
 	m_vertices.resize(pointListSize);
 
 	// 軌跡画像の分割数
-	float slicei = pointListSize * 0.5f;
+	float sliceNum = pointListSize * 0.5f;
 
 	// 頂点データ作成
 	for (UINT i = 0; i < pointListSize; i++)
@@ -149,6 +149,6 @@ void KdTrailPolygon::CreateVerticesWithVerticesPattern()
 
 		// UV
 		v.UV.x = (float)(i % 2);
-		v.UV.y = std::clamp((i * 0.5f) / slicei, 0.0f, 0.99f);
+		v.UV.y = std::clamp((i * 0.5f) / sliceNum, 0.0f, 0.99f);
 	}
 }

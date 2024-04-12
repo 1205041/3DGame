@@ -1067,8 +1067,8 @@ static std::string Indent(const int indent) {
 }
 
 static std::string PrintParameterValue(const tinygltf::Parameter &param) {
-	if (!param.iber_array.empty()) {
-		return PrintFloatArray(param.iber_array);
+	if (!param.number_array.empty()) {
+		return PrintFloatArray(param.number_array);
 	}
 	else {
 		return param.string_value;
@@ -1117,7 +1117,7 @@ static std::string PrintValue(const std::string &name,
 			ss << Indent(indent) << value.Get<bool>() << " ";
 		}
 	}
-	else if (value.Isiber()) {
+	else if (value.IsNumber()) {
 		if (tag) {
 			ss << Indent(indent) << name << " : " << value.Get<double>();
 		}

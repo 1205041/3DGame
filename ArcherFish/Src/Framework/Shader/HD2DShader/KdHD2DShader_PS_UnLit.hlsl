@@ -47,7 +47,7 @@ float4 main(VSOutputNoLighting In) : SV_Target0
 		//-------------------------
 		// 全体の明度への点光源影響
 		//-------------------------
-		for (int i = 0; i < g_PointLighti.x; i++)
+		for (int i = 0; i < g_PointLightNum.x; i++)
 		{
 		// ピクセルから点光への方向
 			float3 dir = g_PointLights[i].Pos - In.wPos;

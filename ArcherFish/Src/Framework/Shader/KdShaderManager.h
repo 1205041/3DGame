@@ -93,7 +93,7 @@ public:
 	// ライト定数バッファ用構造体
 	struct cbLight
 	{
-		static const int	MaxPointLighti = 100;
+		static const int	MaxPointLightNum = 100;
 
 		// 環境光
 		Math::Vector4		AmbientLight = { 0.3f, 0.3f, 0.3f, 1.0f };
@@ -110,10 +110,10 @@ public:
 		// 点光
 		//-----------------
 		// 使用数
-		int				PointLight_i = 0;
+		int				PointLight_Num = 0;
 		float			_blank3[3] = { 0.0f, 0.0f ,0.0f };
 
-		std::array<PointLight, MaxPointLighti> PointLights;
+		std::array<PointLight, MaxPointLightNum> PointLights;
 	};
 
 	static KdShaderManager& Instance()

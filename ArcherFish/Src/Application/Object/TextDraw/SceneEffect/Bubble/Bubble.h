@@ -13,7 +13,7 @@ public:
 	void Init()			override;
 	void DrawSprite()	override;
 
-	const int GetBubblei()const { return BUBBLE_NUM; }
+	const int GetBubbleNum()const { return BUBBLE_NUM; }
 private:
 	float		  m_radius	= 0.0f;
 	Math::Vector2 m_move	= Math::Vector2::Zero;

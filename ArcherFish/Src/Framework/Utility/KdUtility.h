@@ -35,10 +35,10 @@ void KdSafeDelete(T*& p)
 }
 
 template<class T>
-void DebugOutputiber(T i)
+void DebugOutputNumber(T num)
 {
 	std::stringstream stream;
-	stream << std::fixed << std::setprecision(2) << i;
+	stream << std::fixed << std::setprecision(2) << num;
 	std::string str = stream.str();
 
 	OutputDebugStringA(str.c_str());

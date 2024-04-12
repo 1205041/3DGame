@@ -42,7 +42,7 @@ void GameScene::Event()
 void GameScene::Init()
 {
 	// マウスポインタ非表示
-//	ShowCursor(false);
+	ShowCursor(false);
 
 	// 距離フォグ
 	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(true, true);

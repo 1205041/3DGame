@@ -12,12 +12,12 @@ void Enemy::Update()
 		{
 			// ‘O•û
 			GetVecNowMove(Math::Vector3::Backward, m_transMat);
-			m_moveSpd = 0.1f;
+			m_moveSpd = 0.15f;
 		}
 		else
 		{
 			GetVecNowMove(Math::Vector3::Down, m_transMat);
-			m_moveSpd = 0.07f;
+			m_moveSpd = 0.1f;
 
 			if (m_lightTime > 5.0f) { SetLightAct(true); }
 			else { SetLightAct(false); }
@@ -88,7 +88,6 @@ void Enemy::Init()
 		m_spModelWork = std::make_shared<KdModelWork>();
 		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Enemy/SkyEnemy.gltf"));
 	}
-
 
 	// ‘¬“x
 	m_moveSpd = 0.1f;
