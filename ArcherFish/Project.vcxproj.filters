@@ -133,6 +133,9 @@
     <Filter Include="Src\Application\Object\TextDraw\SceneEffect\Bubble">
       <UniqueIdentifier>{d18f73fd-30cb-45af-9f39-c0eee8e852e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TextDraw\SceneUI\Score">
+      <UniqueIdentifier>{03a4c655-52fe-4216-b9d4-56c195a14b0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -339,6 +342,9 @@
     <ClInclude Include="Src\Application\Object\TextDraw\SceneEffect\Bubble\Bubble.h">
       <Filter>Src\Application\Object\TextDraw\SceneEffect\Bubble</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\TextDraw\SceneUI\Score\Score.h">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -517,6 +523,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\TextDraw\SceneEffect\Bubble\Bubble.cpp">
       <Filter>Src\Application\Object\TextDraw\SceneEffect\Bubble</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TextDraw\SceneUI\Score\Score.cpp">
+      <Filter>Src\Application\Object\TextDraw\SceneUI\Score</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
