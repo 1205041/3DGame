@@ -22,7 +22,7 @@ protected:
 	Math::Vector2	m_pixel = Math::Vector2::Zero;
 	Math::Rectangle	m_rectAng = { 0,0,0,0 };
 	Math::Color		m_color = kWhiteColor;
-	Math::Vector2	m_pivot = { 0.5, 0.5f };
+	Math::Vector2	m_pivot = { 0.5f, 0.5f };
 
 private:
 	KdTexture		m_text;

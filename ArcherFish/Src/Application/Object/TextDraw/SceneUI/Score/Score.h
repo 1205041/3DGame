@@ -2,13 +2,13 @@
 #include "../../TextDraw.h"
 
 //スコアの文字描画の基準となるX座標
-#define SCORE_X 390
+#define SCORE_X -300
 
 enum ScoreData
 {
-	Hige_Score,
+	High_Score,
 	Current_Score,
-	Greaze_Score,
+	Graze_Score,
 	Life_Score
 };
 
@@ -24,13 +24,15 @@ public:
 
 	void SetScore(ScoreData _data, int _val);
 	int GetScore(ScoreData _data);
-	void All();
-
+	
 private:
-	void Draw();
+	KdTexture	m_txt;
 
 	// グラフィックハンドル
-	int g_board[4], g_number[10];
+	int g_number[10];
 	
-	int high_score, score, graze, life;
+	int m_high = 0;
+	int m_score = 0;
+	int m_graze = 0;
+	int m_life = 0;
 };

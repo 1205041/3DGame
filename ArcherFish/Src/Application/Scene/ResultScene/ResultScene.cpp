@@ -3,6 +3,7 @@
 #include "../../Object/TextDraw/TextDraw.h"
 #include "../../Object/TextDraw/SceneUI/PushKey/PushKey.h"
 #include "../../Object/TextDraw/SceneEffect/Bubble/Bubble.h"
+#include "../../Object/TextDraw/SceneUI/Score/Score.h"
 
 void ResultScene::Event()
 {
@@ -57,11 +58,9 @@ void ResultScene::Init()
 	m_objList.push_back(spText);
 
 	// スコア
-	spText = std::make_shared<TextDraw>();
-	spText->SetLoadText("Asset/Textures/SceneUI/Score/Score.png");
-	spText->SetPixel({ -250.0f,0.0f });
-	spText->SetRectAng({ 0,0,237,82 });
-	m_objList.push_back(spText);
+	std::shared_ptr<Score> spScore;
+	spScore = std::make_shared<Score>();
+	m_objList.push_back(spScore);
 
 	// ボタン
 	std::shared_ptr<PushKey> spPushKey;

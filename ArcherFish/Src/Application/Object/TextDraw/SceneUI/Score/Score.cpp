@@ -6,50 +6,48 @@ void Score::Update()
 
 void Score::Init()
 {
+	m_txt.Load("Asset/Textures/SceneUI/Score/board.png");
+	m_tex.Load("Asset/Textures/SceneUI/Score/number.png");
+
+	m_pixel = { SCORE_X,0 };
+	m_rectAng = { 0,0,200,230 };
+	m_color = kWhiteColor;
+	m_pivot = { 0.5f, 0.5f };
 }
 
 void Score::DrawSprite()
 {
 	char buf[100];
-	int num;
+	int num = 0;
 	//スコアボードの文字の描画
-	DrawGraph(SCORE_X, 10, g_board[0], TRUE);
-	DrawGraph(SCORE_X, 70, g_board[1], TRUE);
-	DrawGraph(SCORE_X, 140, g_board[2], TRUE);
-	DrawGraph(SCORE_X, 170, g_board[3], TRUE);
-
-	//ハイスコア描画
-	num = sprintf(buf, "%d", high_score);
-	for (int i = 0; i < num; ++i) { DrawGraph(SCORE_X + 20 + i * 19, 35, g_number[(buf[i] - '0')], TRUE); }
-
+	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_txt, (int)m_pixel.x, (int)m_pixel.y, &m_rectAng, &m_color, m_pivot);
+	
 	//スコア描画
-	num = sprintf(buf, "%d", score);
-	for (int i = 0; i < num; ++i) { DrawGraph(SCORE_X + 20 + i * 19, 95, g_number[(buf[i] - '0')], TRUE); }
+//	num = sprintf(buf, "%d", m_score);
+//	for (int i = 0; i < num; ++i) 
+//	{ 
+//		DrawGraph(SCORE_X + 20 + i * 19, 95, g_number[(buf[i] - '0')], TRUE); 
+//	}
 
-	//グレイズ数描画
-	num = sprintf(buf, "%d", graze);
-	for (int i = 0; i < num; ++i) { DrawGraph(SCORE_X + 100 + i * 19, 145, g_number[(buf[i] - '0')], TRUE); }
+//	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_waterMax, m_height, &m_rectAng, &m_barColor, m_pivot);
 
-	//ライフ数描画
-	num = sprintf(buf, "%d", life);
-	for (int i = 0; i < num; ++i) { DrawGraph(SCORE_X + 100 + i * 19, 175, g_number[(buf[i] - '0')], TRUE); }
 }
 
 void Score::SetScore(ScoreData _data, int _val)
 {
 	switch (_data)
 	{
-	case Hige_Score:
-		high_score += _val;
+	case High_Score:
+		m_high += _val;
 		break;
 	case Current_Score:
-		score += _val;
+		m_score += _val;
 		break;
-	case Greaze_Score:
-		graze += _val;
+	case Graze_Score:
+		m_graze += _val;
 		break;
 	case Life_Score:
-		life += _val;
+		m_life += _val;
 		break;
 	}
 }
@@ -58,17 +56,17 @@ int Score::GetScore(ScoreData _data)
 {
 	switch (_data)
 	{
-	case Hige_Score:
-		return high_score;
+	case High_Score:
+		return m_high;
 		break;
 	case Current_Score:
-		return score;
+		return m_score;
 		break;
-	case Greaze_Score:
-		return graze;
+	case Graze_Score:
+		return m_graze;
 		break;
 	case Life_Score:
-		return life;
+		return m_life;
 		break;
 	}
 
