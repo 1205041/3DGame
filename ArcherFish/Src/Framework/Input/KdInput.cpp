@@ -19,14 +19,14 @@ void KdInputManager::Update()
 // ・全ての有効状態の入力デバイスから
 // 　任意のボタンの入力状状態を取得する
 /* = = = = = = = = = = = = = = = = = = = = = = = = */
-short KdInputManager::GetButtonState(std::string_view name) const
+short KdInputManager::GetButtonState(std::string_view _name) const
 {
 	short buttonState = KdInputButtonBase::Free;
 
 	for (auto& device : m_pInputDevices)
 	{
 		// 有効な時のみ入力に影響を与える
-		if (device.second->GetActiveState() == KdInputCollector::ActiveState::Enable) { buttonState |= device.second->GetButtonState(name); }
+		if (device.second->GetActiveState() == KdInputCollector::ActiveState::Enable) { buttonState |= device.second->GetButtonState(_name); }
 	}
 
 	return buttonState;
@@ -36,36 +36,36 @@ short KdInputManager::GetButtonState(std::string_view name) const
 // 任意のアプリケーションボタンが
 // 「押されていない状態」か判定
 /* = = = = = = = = = = = = = = = = */
-bool KdInputManager::IsFree(std::string_view name) const
+bool KdInputManager::IsFree(std::string_view _name) const
 {
-	return (GetButtonState(name) == KdInputButtonBase::Free);
+	return (GetButtonState(_name) == KdInputButtonBase::Free);
 }
 
 /* = = = = = = = = = = = = = = = = */
 // 任意のアプリケーションボタンが
 // 「押された瞬間」か判定
 /* = = = = = = = = = = = = = = = = */
-bool KdInputManager::IsPress(std::string_view name) const
+bool KdInputManager::IsPress(std::string_view _name) const
 {
-	return (GetButtonState(name) & KdInputButtonBase::Press);
+	return (GetButtonState(_name) & KdInputButtonBase::Press);
 }
 
 /* = = = = = = = = = = = = = = = = */
 // 任意のアプリケーションボタンが
 // 「押されている状態」か判定
 /* = = = = = = = = = = = = = = = = */
-bool KdInputManager::IsHold(std::string_view name) const
+bool KdInputManager::IsHold(std::string_view _name) const
 {
-	return (GetButtonState(name) & KdInputButtonBase::Hold);
+	return (GetButtonState(_name) & KdInputButtonBase::Hold);
 }
 
 /* = = = = = = = = = = = = = = = = */
 // 任意のアプリケーションボタンが
 // 「離された瞬間」か判定
 /* = = = = = = = = = = = = = = = = */
-bool KdInputManager::IsRelease(std::string_view name) const
+bool KdInputManager::IsRelease(std::string_view _name) const
 {
-	return (GetButtonState(name) & KdInputButtonBase::Release);
+	return (GetButtonState(_name) & KdInputButtonBase::Release);
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -74,7 +74,7 @@ bool KdInputManager::IsRelease(std::string_view name) const
 // ・指定した入力デバイスの任意の軸の入力状状態を
 // 　2次元ベクトルで取得する
 /* = = = = = = = = = = = = = = = = = = = = = = = = */
-Math::Vector2 KdInputManager::GetAxisState(std::string_view name) const
+Math::Vector2 KdInputManager::GetAxisState(std::string_view _name) const
 {
 	float leftValue = 0.0f, rightValue = 0.0f, topValue = 0.0f, bottomValue = 0.0f;
 
@@ -85,7 +85,7 @@ Math::Vector2 KdInputManager::GetAxisState(std::string_view name) const
 		{
 			Math::Vector2 nowDeviceAxis;
 
-			nowDeviceAxis = collector.second->GetAxisState(name);
+			nowDeviceAxis = collector.second->GetAxisState(_name);
 
 			// 入力が無ければスキップ
 			if (nowDeviceAxis.LengthSquared() == 0.0f) { continue; }
@@ -109,31 +109,31 @@ Math::Vector2 KdInputManager::GetAxisState(std::string_view name) const
 /* = = = = = = = = = = = = = = = = = = = */
 // 入力コレクター（入力デバイス）の追加
 /* = = = = = = = = = = = = = = = = = = = */
-void KdInputManager::AddDevice(std::string_view name, KdInputCollector* pDevice)
+void KdInputManager::AddDevice(std::string_view _name, KdInputCollector* _pDevice)
 {
-	std::unique_ptr<KdInputCollector> pNewDevice(pDevice);
+	std::unique_ptr<KdInputCollector> pNewDevice(_pDevice);
 
-	AddDevice(name, pNewDevice);
+	AddDevice(_name, pNewDevice);
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdInputManager::AddDevice(std::string_view name, std::unique_ptr<KdInputCollector>& pDevice)
+void KdInputManager::AddDevice(std::string_view _name, std::unique_ptr<KdInputCollector>& _pDevice)
 {
-	m_pInputDevices[name.data()] = std::move(pDevice);
+	m_pInputDevices[_name.data()] = std::move(_pDevice);
 }
 
-const std::unique_ptr<KdInputCollector>& KdInputManager::GetDevice(std::string_view name) const
+const std::unique_ptr<KdInputCollector>& KdInputManager::GetDevice(std::string_view _name) const
 {
-	auto device = m_pInputDevices.find(name.data());
+	auto device = m_pInputDevices.find(_name.data());
 
 	if (device == m_pInputDevices.end()) { assert(0 && "KdInputManager::GetDevice:未登録のデバイスです、名前を確認してください"); }
 
 	return device->second;
 }
 
-std::unique_ptr<KdInputCollector>& KdInputManager::WorkDevice(std::string_view name)
+std::unique_ptr<KdInputCollector>& KdInputManager::WorkDevice(std::string_view _name)
 {
-	auto device = m_pInputDevices.find(name.data());
+	auto device = m_pInputDevices.find(_name.data());
 
 	if (device == m_pInputDevices.end()) { assert(0 && "KdInputManager::WorkDevice:未登録のデバイスです、名前を確認してください"); }
 
@@ -213,9 +213,9 @@ bool KdInputCollector::IsSomethingInput()
 /* = = = = = = = = = = = = = = = = = = = = = = */
 // 任意のアプリケーションボタンの入力情報取得
 /* = = = = = = = = = = = = = = = = = = = = = = */
-short KdInputCollector::GetButtonState(std::string_view name) const
+short KdInputCollector::GetButtonState(std::string_view _name) const
 {
-	const std::shared_ptr<KdInputButtonBase>& spButton = GetButton(name);
+	const std::shared_ptr<KdInputButtonBase>& spButton = GetButton(_name);
 
 	if (!spButton) { return KdInputButtonBase::Free; }
 
@@ -225,9 +225,9 @@ short KdInputCollector::GetButtonState(std::string_view name) const
 /* = = = = = = = = = = = = */
 // 任意の軸の入力情報取得
 /* = = = = = = = = = = = = */
-Math::Vector2 KdInputCollector::GetAxisState(std::string_view name) const
+Math::Vector2 KdInputCollector::GetAxisState(std::string_view _name) const
 {
-	const std::shared_ptr<KdInputAxisBase>& spAxis = GetAxis(name);
+	const std::shared_ptr<KdInputAxisBase>& spAxis = GetAxis(_name);
 
 	if (!spAxis) { return Math::Vector2::Zero; }
 
@@ -239,32 +239,32 @@ Math::Vector2 KdInputCollector::GetAxisState(std::string_view name) const
 // ・生ポインタの追加関数も用意
 // 　（必ず new した生ポインタを引数として渡す事
 /* = = = = = = = = = = = = = = = = = = = = = = = */
-void KdInputCollector::AddButton(std::string_view name, KdInputButtonBase* pButton)
+void KdInputCollector::AddButton(std::string_view _name, KdInputButtonBase* _pButton)
 {
-	AddButton(name.data(), std::shared_ptr<KdInputButtonBase>(pButton));
+	AddButton(_name.data(), std::shared_ptr<KdInputButtonBase>(_pButton));
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdInputCollector::AddButton(std::string_view name, std::shared_ptr<KdInputButtonBase> spButton)
+void KdInputCollector::AddButton(std::string_view _name, std::shared_ptr<KdInputButtonBase> _spButton)
 {
-	m_spButtons[name.data()] = spButton;
+	m_spButtons[_name.data()] = _spButton;
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdInputCollector::AddAxis(std::string_view name, KdInputAxisBase* pAxis)
+void KdInputCollector::AddAxis(std::string_view _name, KdInputAxisBase* _pAxis)
 {
-	AddAxis(name.data(), std::shared_ptr<KdInputAxisBase>(pAxis));
+	AddAxis(_name.data(), std::shared_ptr<KdInputAxisBase>(_pAxis));
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdInputCollector::AddAxis(std::string_view name, std::shared_ptr<KdInputAxisBase> spAxis)
+void KdInputCollector::AddAxis(std::string_view _name, std::shared_ptr<KdInputAxisBase> _spAxis)
 {
-	m_spAxes[name.data()] = spAxis;
+	m_spAxes[_name.data()] = _spAxis;
 }
 
-const std::shared_ptr<KdInputButtonBase> KdInputCollector::GetButton(std::string_view name) const
+const std::shared_ptr<KdInputButtonBase> KdInputCollector::GetButton(std::string_view _name) const
 {
-	auto buttonIter = m_spButtons.find(name.data());
+	auto buttonIter = m_spButtons.find(_name.data());
 
 	if (buttonIter == m_spButtons.end())
 	{
@@ -276,9 +276,9 @@ const std::shared_ptr<KdInputButtonBase> KdInputCollector::GetButton(std::string
 	return buttonIter->second;
 }
 
-const std::shared_ptr<KdInputAxisBase> KdInputCollector::GetAxis(std::string_view name) const
+const std::shared_ptr<KdInputAxisBase> KdInputCollector::GetAxis(std::string_view _name) const
 {
-	auto AxisIter = m_spAxes.find(name.data());
+	auto AxisIter = m_spAxes.find(_name.data());
 
 	if (AxisIter == m_spAxes.end())
 	{
@@ -309,19 +309,19 @@ void KdInputCollector::Release()
 // ・複数のキーコード（初期化リスト：整数）
 // ・複数のキーコード（Vector配列：整数）
 /* = = = = = = = = = = = = = = = = = = = = = */
-KdInputButtonForWindows::KdInputButtonForWindows(int keyCode)
+KdInputButtonForWindows::KdInputButtonForWindows(int _keyCode)
 {
-	m_keyCodes.push_back(keyCode); 
+	m_keyCodes.push_back(_keyCode); 
 }
 
-KdInputButtonForWindows::KdInputButtonForWindows(std::initializer_list<int> keyCodeList)
+KdInputButtonForWindows::KdInputButtonForWindows(std::initializer_list<int> _keyCodeList)
 {
-	for (int keyCode : keyCodeList) m_keyCodes.push_back(keyCode);
+	for (int keyCode : _keyCodeList) m_keyCodes.push_back(keyCode);
 }
 
-KdInputButtonForWindows::KdInputButtonForWindows(const std::vector<int>& keyCodeList)
+KdInputButtonForWindows::KdInputButtonForWindows(const std::vector<int>& _keyCodeList)
 {
-	for (int keyCode : keyCodeList) m_keyCodes.push_back(keyCode);
+	for (int keyCode : _keyCodeList) m_keyCodes.push_back(keyCode);
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = */
@@ -359,10 +359,10 @@ void KdInputButtonForWindows::Update()
 	m_needUpdate = false;
 }
 
-void KdInputButtonForWindows::GetCode(std::vector<int>& ret) const
+void KdInputButtonForWindows::GetCode(std::vector<int>& _ret) const
 {
 	// 登録された全ての入力コードを受け取る
-	for (int code : m_keyCodes) { ret.push_back(code); }
+	for (int code : m_keyCodes) { _ret.push_back(code); }
 }
 
 /* === InputAxisBase === */
@@ -394,47 +394,47 @@ Math::Vector2 KdInputAxisBase::GetState() const
 // ・上下左右4ボタンに複数のキーコード（初期化リスト：整数）
 // ・上下左右4ボタンに複数のキーコード（Vector配列：整数）
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-KdInputAxisForWindows::KdInputAxisForWindows(int upCode, int rightCode, int downCode, int leftCode)
+KdInputAxisForWindows::KdInputAxisForWindows(int _upCode, int _rightCode, int _downCode, int _leftCode)
 {
 	m_spDirButtons.resize(DIR::Max);
 
-	m_spDirButtons[Up] = std::make_shared<KdInputButtonForWindows>(upCode);
-	m_spDirButtons[Right] = std::make_shared<KdInputButtonForWindows>(rightCode);
-	m_spDirButtons[Down] = std::make_shared<KdInputButtonForWindows>(downCode);
-	m_spDirButtons[Left] = std::make_shared<KdInputButtonForWindows>(leftCode);
+	m_spDirButtons[Up] = std::make_shared<KdInputButtonForWindows>(_upCode);
+	m_spDirButtons[Right] = std::make_shared<KdInputButtonForWindows>(_rightCode);
+	m_spDirButtons[Down] = std::make_shared<KdInputButtonForWindows>(_downCode);
+	m_spDirButtons[Left] = std::make_shared<KdInputButtonForWindows>(_leftCode);
 }
 
-KdInputAxisForWindows::KdInputAxisForWindows(std::initializer_list<int> upCodes,
-	std::initializer_list<int> rightCodes, std::initializer_list<int> downCodes, std::initializer_list<int> leftCodes)
+KdInputAxisForWindows::KdInputAxisForWindows(std::initializer_list<int> _upCodes,
+	std::initializer_list<int> _rightCodes, std::initializer_list<int> _downCodes, std::initializer_list<int> _leftCodes)
 {
 	m_spDirButtons.resize(DIR::Max);
 
-	m_spDirButtons[Up] = std::make_shared<KdInputButtonForWindows>(upCodes);
-	m_spDirButtons[Right] = std::make_shared<KdInputButtonForWindows>(rightCodes);
-	m_spDirButtons[Down] = std::make_shared<KdInputButtonForWindows>(downCodes);
-	m_spDirButtons[Left] = std::make_shared<KdInputButtonForWindows>(leftCodes);
+	m_spDirButtons[Up] = std::make_shared<KdInputButtonForWindows>(_upCodes);
+	m_spDirButtons[Right] = std::make_shared<KdInputButtonForWindows>(_rightCodes);
+	m_spDirButtons[Down] = std::make_shared<KdInputButtonForWindows>(_downCodes);
+	m_spDirButtons[Left] = std::make_shared<KdInputButtonForWindows>(_leftCodes);
 }
 
-KdInputAxisForWindows::KdInputAxisForWindows(const std::vector<int>& upCodes, const std::vector<int>& rightCodes,
-	const std::vector<int>& downCodes, const std::vector<int>& leftCodes)
+KdInputAxisForWindows::KdInputAxisForWindows(const std::vector<int>& _upCodes, const std::vector<int>& _rightCodes,
+	const std::vector<int>& _downCodes, const std::vector<int>& _leftCodes)
 {
 	m_spDirButtons.resize(DIR::Max);
 
-	m_spDirButtons[Up] = std::make_shared<KdInputButtonForWindows>(upCodes);
-	m_spDirButtons[Right] = std::make_shared<KdInputButtonForWindows>(rightCodes);
-	m_spDirButtons[Down] = std::make_shared<KdInputButtonForWindows>(downCodes);
-	m_spDirButtons[Left] = std::make_shared<KdInputButtonForWindows>(leftCodes);
+	m_spDirButtons[Up] = std::make_shared<KdInputButtonForWindows>(_upCodes);
+	m_spDirButtons[Right] = std::make_shared<KdInputButtonForWindows>(_rightCodes);
+	m_spDirButtons[Down] = std::make_shared<KdInputButtonForWindows>(_downCodes);
+	m_spDirButtons[Left] = std::make_shared<KdInputButtonForWindows>(_leftCodes);
 }
 
-KdInputAxisForWindows::KdInputAxisForWindows(const std::shared_ptr<KdInputButtonBase> upButton,
-	const std::shared_ptr<KdInputButtonBase> rightButton,
-	const std::shared_ptr<KdInputButtonBase> downButton, 
-	const std::shared_ptr<KdInputButtonBase> leftButton)
+KdInputAxisForWindows::KdInputAxisForWindows(const std::shared_ptr<KdInputButtonBase> _upButton,
+	const std::shared_ptr<KdInputButtonBase> _rightButton,
+	const std::shared_ptr<KdInputButtonBase> _downButton, 
+	const std::shared_ptr<KdInputButtonBase> _leftButton)
 {
-	m_spDirButtons.push_back(upButton);
-	m_spDirButtons.push_back(rightButton);
-	m_spDirButtons.push_back(downButton);
-	m_spDirButtons.push_back(leftButton);
+	m_spDirButtons.push_back(_upButton);
+	m_spDirButtons.push_back(_rightButton);
+	m_spDirButtons.push_back(_downButton);
+	m_spDirButtons.push_back(_leftButton);
 }
 
 void KdInputAxisForWindows::PreUpdate()
@@ -461,24 +461,24 @@ void KdInputAxisForWindows::Update()
 }
 
 /* === InputAxisForWindowsMouse === */
-KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(int fixCode)
+KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(int _fixCode)
 {
-	m_spFixButton = std::make_shared<KdInputButtonForWindows>(fixCode);
+	m_spFixButton = std::make_shared<KdInputButtonForWindows>(_fixCode);
 }
 
-KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(std::initializer_list<int> fixCodes)
+KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(std::initializer_list<int> _fixCodes)
 {
-	m_spFixButton = std::make_shared<KdInputButtonForWindows>(fixCodes);
+	m_spFixButton = std::make_shared<KdInputButtonForWindows>(_fixCodes);
 }
 
-KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(const std::vector<int>& fixCodes)
+KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(const std::vector<int>& _fixCodes)
 {
-	m_spFixButton = std::make_shared<KdInputButtonForWindows>(fixCodes);
+	m_spFixButton = std::make_shared<KdInputButtonForWindows>(_fixCodes);
 }
 
-KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(const std::shared_ptr<KdInputButtonBase> fixButton)
+KdInputAxisForWindowsMouse::KdInputAxisForWindowsMouse(const std::shared_ptr<KdInputButtonBase> _fixButton)
 {
-	m_spFixButton = fixButton;
+	m_spFixButton = _fixButton;
 }
 
 void KdInputAxisForWindowsMouse::PreUpdate()

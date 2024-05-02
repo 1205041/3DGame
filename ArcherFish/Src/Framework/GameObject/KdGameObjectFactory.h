@@ -13,7 +13,7 @@ public:
 
 	~KdGameObjectFactory() { Release(); }
 
-	void RegisterCreateFunction(const std::string_view, const std::function <std::shared_ptr<KdGameObject>(void)> func);
+	void RegisterCreateFunction(const std::string_view _str, const std::function <std::shared_ptr<KdGameObject>(void)> _func);
 
 	template<class T>
 	std::shared_ptr<T> CreateGameObject()
@@ -25,7 +25,7 @@ public:
 		return spObj;
 	}
 
-	std::shared_ptr<KdGameObject> CreateGameObject(const std::string_view objName) const;
+	std::shared_ptr<KdGameObject> CreateGameObject(const std::string_view _objName) const;
 
 	static KdGameObjectFactory& Instance()
 	{

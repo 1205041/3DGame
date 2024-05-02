@@ -44,26 +44,26 @@ public:
 
 	void PreDraw();
 
-	void AddPointLight(const Math::Vector3& Color, float Radius, const Math::Vector3& Pos, bool IsBright = true);
-	void AddPointLight(const PointLight& pointLight);
+	void AddPointLight(const Math::Vector3& _Color, float _Radius, const Math::Vector3& _Pos, bool _IsBright = true);
+	void AddPointLight(const PointLight& _pointLight);
 
 	// 平行光の影生成用の射影行列設定：エリアを指定 x:幅 y:奥行
-	void SetDirLightShadowArea(const Math::Vector2& lightingArea, float dirLightHeight);
+	void SetDirLightShadowArea(const Math::Vector2& _lightingArea, float _dirLightHeight);
 
 	// 平行光の方向と色を設定
-	void SetDirLight(const Math::Vector3& dir, const Math::Vector3& col);
+	void SetDirLight(const Math::Vector3& _dir, const Math::Vector3& _col);
 
 	// 環境光の色を設定
-	void SetAmbientLight(const Math::Vector4& col);
+	void SetAmbientLight(const Math::Vector4& _col);
 
 	// フォグの有効と無効を切り替える
-	void SetFogEnable(bool distance, bool height);
+	void SetFogEnable(bool _distance, bool _height);
 
 	// 距離フォグの設定
-	void SetDistanceFog(const Math::Vector3& col, float density = 0.001f);
+	void SetDistanceFog(const Math::Vector3& _col, float _density = 0.001f);
 
 	// 高さフォグの設定
-	void SetheightFog(const Math::Vector3& col, float topValue, float bottomValue, float distance);
+	void SetheightFog(const Math::Vector3& _col, float _topValue, float _bottomValue, float _distance);
 
 private:
 	void WriteLightParams(); 

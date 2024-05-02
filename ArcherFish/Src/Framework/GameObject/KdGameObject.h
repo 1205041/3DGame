@@ -37,32 +37,31 @@ public:
 
 	virtual void SetAsset(const std::string&) {}
 
-	virtual void SetPos(const Math::Vector3& pos) { m_mWorld.Translation(pos); }
-	virtual Math::Vector3 GetPos() const { return m_mWorld.Translation(); }
+	virtual void			SetPos(const Math::Vector3& _pos) { m_mWorld.Translation(_pos); }
+	virtual Math::Vector3	GetPos() const { return m_mWorld.Translation(); }
 
 	// 拡大率を変更する関数
-	void SetScale(float scalar);
-	virtual void SetScale(const Math::Vector3& scale);
-	virtual Math::Vector3 GetScale() const;
+	void					SetScale(float _scale);
+	virtual void			SetScale(const Math::Vector3& _scale);
+	virtual Math::Vector3	GetScale() const;
 
-	const Math::Matrix& GetMatrix() const { return m_mWorld; }
+	const Math::Matrix&		GetMatrix() const { return m_mWorld; }
 
 	virtual bool IsExpired() const { return m_isExpired; }
-
 	virtual bool IsVisible() const { return false; }
 
 	// 視錐台範囲内に入っているかどうか
 	virtual bool CheckInScreen(const DirectX::BoundingFrustum&) const { return false; }
 
 	// カメラからの距離を計算
-	virtual void CalcDistSqrFromCamera(const Math::Vector3& camPos);
+	virtual void CalcDistSqrFromCamera(const Math::Vector3& _camPos);
 
 	float GetDistSqrFromCamera() const { return m_distSqrFromCamera; }
 
 	UINT GetDrawType() const { return m_drawType; }
 
-	bool Intersects(const KdCollider::SphereInfo& targetShape, std::list<KdCollider::CollisionResult>* pResults);
-	bool Intersects(const KdCollider::RayInfo& targetShape, std::list<KdCollider::CollisionResult>* pResults);
+	bool Intersects(const KdCollider::SphereInfo& _targetShape, std::list<KdCollider::CollisionResult>* _pResults);
+	bool Intersects(const KdCollider::RayInfo& _targetShape, std::list<KdCollider::CollisionResult>* _pResults);
 
 protected:
 	void Release() {}

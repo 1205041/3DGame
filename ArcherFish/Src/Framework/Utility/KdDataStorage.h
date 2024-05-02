@@ -19,38 +19,38 @@ public:
 	// ===== ===== ===== ===== ===== ===== =====
 	// ・強制的にデータを読み込ませて更新する
 	/* = = = = = = = = = = = = = = = = = = = = = */
-	std::shared_ptr<DataType> LoadData(std::string_view fileName)
+	std::shared_ptr<DataType> LoadData(std::string_view _fileName)
 	{
 		std::shared_ptr<DataType> newData = std::make_shared<DataType>();
 
-		if (!newData->Load(fileName))
+		if (!newData->Load(_fileName))
 		{
 			assert(0 && "KdDataStorage::LoadData ファイルが存在しません。ファイルパスを確認してください");
 
 			return nullptr;
 		}
 
-		m_spDatas[fileName.data()] = newData;
+		m_spDatas[_fileName.data()] = newData;
 
 		return newData;
 	}
 
 	// データの取得：リスト内に存在しない場合は新しくロードする
-	std::shared_ptr<DataType> GetData(std::string_view fileName)
+	std::shared_ptr<DataType> GetData(std::string_view _fileName)
 	{
 		// リストの中に欲しいデータがあるか検索
-		auto findData = m_spDatas.find(fileName.data());
+		auto findData = m_spDatas.find(_fileName.data());
 
 		// データがあった場合：そのままデータを共有
 		if (findData != m_spDatas.end()) { return (*findData).second; }
 		// データが無かった場合：新たにデータをロードする
-		else { return LoadData(fileName); }
+		else { return LoadData(_fileName); }
 	}
 
 	// 保持しているデータの破棄
-	void ClearData(bool force)
+	void ClearData(bool _force)
 	{
-		if (force)
+		if (_force)
 		{
 			// 強制的にすべてのデータを消去
 			m_spDatas.clear();
@@ -67,7 +67,6 @@ public:
 
 				continue;
 			}
-
 			++dataIter;
 		}
 	}
@@ -88,21 +87,23 @@ public:
 	KdDataStorage<KdTexture>	m_textures;
 	KdDataStorage<KdModelData>	m_modeldatas;
 
-	static KdAssets& Instance()
+	void ClearData(bool _force)
 	{
-		static KdAssets instance;
-		return instance;
-	}
-
-	void ClearData(bool force)
-	{
-		m_textures.ClearData(force);
-		m_modeldatas.ClearData(force);
+		m_textures.ClearData(_force);
+		m_modeldatas.ClearData(_force);
 	}
 
 private:
 	void Release() { ClearData(true); }
 
+public:
+	static KdAssets& GetInstance()
+	{
+		static KdAssets instance;
+		return instance;
+	}
+
+private:
 	KdAssets() {}
 	~KdAssets() { Release(); }
 };

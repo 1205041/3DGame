@@ -34,15 +34,17 @@ public:
 		SphereInfo() {}
 
 		// BoundingSphereを直接指定
-		SphereInfo(UINT type, const DirectX::BoundingSphere sphere)
-			: m_type(type), m_sphere(sphere) {}
+		SphereInfo(UINT _type, const DirectX::BoundingSphere _sphere)
+			: m_type(_type), m_sphere(_sphere) 
+		{
+		}
 
 		// 座標と半径からBoundingSphereを指定
-		SphereInfo(UINT type, const Math::Vector3& pos, float radius)
-			: m_type(type)
+		SphereInfo(UINT _type, const Math::Vector3& _pos, float _radius)
+			: m_type(_type)
 		{
-			m_sphere.Center = pos;
-			m_sphere.Radius = radius;
+			m_sphere.Center = _pos;
+			m_sphere.Radius = _radius;
 		}
 
 		DirectX::BoundingSphere m_sphere;
@@ -56,18 +58,17 @@ public:
 		RayInfo() {}
 
 		// レイの情報を全て指定：自動的に方向ベクトルは正規化
-		RayInfo(UINT type,const Math::Vector3& pos,
-			const Math::Vector3& dir,float range)
-			: m_type(type), m_pos(pos), m_dir(dir), m_range(range)
+		RayInfo(UINT _type,const Math::Vector3& _pos,const Math::Vector3& _dir,float _range)
+			: m_type(_type), m_pos(_pos), m_dir(_dir), m_range(_range)
 		{
 			m_dir.Normalize();
 		}
 
 		// 開始地点と終了地点からレイの情報を作成：自動的に方向ベクトルは正規化
-		RayInfo(UINT type, const Math::Vector3& start, const Math::Vector3& end)
-			: m_type(type), m_pos(start)
+		RayInfo(UINT _type, const Math::Vector3& _start, const Math::Vector3& _end)
+			: m_type(_type), m_pos(_start)
 		{
-			m_dir = end - start;
+			m_dir = _end - _start;
 			m_range = m_dir.Length();
 			m_dir.Normalize();
 		}
@@ -92,35 +93,35 @@ public:
 
 	/* === 当たり判定の形状登録関数群 === */
 	// 当たり判定形状登録関数
-	void RegisterCollisionShape(std::string_view name, std::unique_ptr<KdCollisionShape> spShape);
+	void RegisterCollisionShape(std::string_view _name, std::unique_ptr<KdCollisionShape> _spShape);
 	// 球情報の当たり判定
-	void RegisterCollisionShape(std::string_view name, const DirectX::BoundingSphere& sphere, UINT type);
+	void RegisterCollisionShape(std::string_view _name, const DirectX::BoundingSphere& _sphere, UINT _type);
 	// ローカル座標と半径の当たり判定
-	void RegisterCollisionShape(std::string_view name, const Math::Vector3& localPos, float radius, UINT type);
+	void RegisterCollisionShape(std::string_view _name, const Math::Vector3& _localPos, float _radius, UINT _type);
 	// スマポのモデルデータの当たり判定
-	void RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdModelData>& model, UINT type);
+	void RegisterCollisionShape(std::string_view _name, const std::shared_ptr<KdModelData>& _model, UINT _type);
 	// 生ポのモデルデータの当たり判定
-	void RegisterCollisionShape(std::string_view name, KdModelData* model, UINT type);
+	void RegisterCollisionShape(std::string_view _name, KdModelData* _model, UINT _type);
 	// スマポのモデルワークの当たり判定
-	void RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdModelWork>& model, UINT type);
+	void RegisterCollisionShape(std::string_view _name, const std::shared_ptr<KdModelWork>& _model, UINT _type);
 	// 生ポのモデルワークの当たり判定
-	void RegisterCollisionShape(std::string_view name, KdModelWork* model, UINT type);
+	void RegisterCollisionShape(std::string_view _name, KdModelWork* _model, UINT _type);
 	// スマポのポリゴンの当たり判定
-	void RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdPolygon> polygon, UINT type);
+	void RegisterCollisionShape(std::string_view _name, const std::shared_ptr<KdPolygon> _polygon, UINT _type);
 	// 生ポのポリゴンの当たり判定
-	void RegisterCollisionShape(std::string_view name, KdPolygon* polygon, UINT type);
+	void RegisterCollisionShape(std::string_view _name, KdPolygon* _polygon, UINT _type);
 
 	// 当たり判定実行
-	bool Intersects(const SphereInfo& targetShape, const Math::Matrix& ownerMatrix, std::list<KdCollider::CollisionResult>* pResults) const;
-	bool Intersects(const RayInfo& targetShape, const Math::Matrix& ownerMatrix, std::list<KdCollider::CollisionResult>* pResults) const;
+	bool Intersects(const SphereInfo& _targetShape, const Math::Matrix& _ownerMatrix, std::list<KdCollider::CollisionResult>* _pResults) const;
+	bool Intersects(const RayInfo& _targetShape, const Math::Matrix& _ownerMatrix, std::list<KdCollider::CollisionResult>* _pResults) const;
 
 	/* === 登録した当たり判定の有効/無効の設定 === */
 	// 任意のCollisionShapeを検索して有効/無効を切り替える
-	void SetEnable(std::string_view name, bool flag);
+	void SetEnable(std::string_view _name, bool _flag);
 	// 特定のタイプの有効/無効を切り替える
-	void SetEnable(int type, bool flag);
+	void SetEnable(int _type, bool _flag);
 	// 全てのCollisionShapeの有効/無効を一気に切り替える
-	void SetEnableAll(bool flag);
+	void SetEnableAll(bool _flag);
 
 private:
 	std::unordered_map<std::string, std::unique_ptr<KdCollisionShape>> m_collisionShapes;
@@ -138,15 +139,15 @@ private:
 class KdCollisionShape
 {
 public:
-	KdCollisionShape(UINT type) { m_type = type; }
+	KdCollisionShape(UINT _type) { m_type = _type; }
 	virtual ~KdCollisionShape() {}
 
 	UINT GetType() const { return m_type; }
 
-	virtual bool Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) = 0;
-	virtual bool Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) = 0;
+	virtual bool Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) = 0;
+	virtual bool Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) = 0;
 
-	void SetEnable(bool flag) { m_enable = flag; }
+	void SetEnable(bool _flag) { m_enable = _flag; }
 
 protected:
 	bool m_enable = true;
@@ -163,16 +164,21 @@ private:
 class KdSphereCollision : public KdCollisionShape
 {
 public:
-	KdSphereCollision(const DirectX::BoundingSphere& sphere, UINT type) :
-		KdCollisionShape(type), m_shape(sphere) {}
+	KdSphereCollision(const DirectX::BoundingSphere& _sphere, UINT _type)
+		:KdCollisionShape(_type), m_shape(_sphere)
+	{
+	}
 
-	KdSphereCollision(const Math::Vector3& localPos, float radius, UINT type) :
-		KdCollisionShape(type) { m_shape.Center = localPos; m_shape.Radius = radius; }
+	KdSphereCollision(const Math::Vector3& _localPos, float _radius, UINT _type) 
+		:KdCollisionShape(_type) 
+	{ 
+		m_shape.Center = _localPos; m_shape.Radius = _radius; 
+	}
 
 	virtual ~KdSphereCollision() {}
 
-	bool Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) override;
-	bool Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) override;
+	bool Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) override;
+	bool Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) override;
 
 private:
 	DirectX::BoundingSphere m_shape;
@@ -186,16 +192,20 @@ private:
 class KdModelCollision : public KdCollisionShape
 {
 public:
-	KdModelCollision(const std::shared_ptr<KdModelData>& model, UINT type) :
-		KdCollisionShape(type), m_shape(std::make_shared<KdModelWork>(model)) {}
+	KdModelCollision(const std::shared_ptr<KdModelData>& _model, UINT _type)
+		:KdCollisionShape(_type), m_shape(std::make_shared<KdModelWork>(_model))
+	{
+	}
 
-	KdModelCollision(const std::shared_ptr<KdModelWork>& model, UINT type) :
-		KdCollisionShape(type), m_shape(model) {}
+	KdModelCollision(const std::shared_ptr<KdModelWork>& _model, UINT _type)
+		:KdCollisionShape(_type), m_shape(_model) 
+	{
+	}
 
 	virtual ~KdModelCollision() { m_shape.reset(); }
 
-	bool Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) override;
-	bool Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) override;
+	bool Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) override;
+	bool Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) override;
 
 private:
 	std::shared_ptr<KdModelWork> m_shape;
@@ -209,13 +219,13 @@ private:
 class KdPolygonCollision : public KdCollisionShape
 {
 public:
-	KdPolygonCollision(const std::shared_ptr<KdPolygon>& polygon, UINT type) :
-		KdCollisionShape(type), m_shape(polygon) {}
+	KdPolygonCollision(const std::shared_ptr<KdPolygon>& _polygon, UINT _type)
+		:KdCollisionShape(_type), m_shape(_polygon) {}
 
 	virtual ~KdPolygonCollision() { m_shape.reset(); }
 
-	bool Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) override;
-	bool Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes) override;
+	bool Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) override;
+	bool Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes) override;
 
 private:
 	std::shared_ptr<KdPolygon> m_shape;

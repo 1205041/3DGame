@@ -31,7 +31,6 @@ enum class KdBlendMode
 class KdDirect3D 
 {
 public:
-
 	//==============================================================
 	// 取得
 	//==============================================================
@@ -56,7 +55,7 @@ public:
 	std::shared_ptr<KdTexture>		 WorkZBuffer() { return m_zBuffer; }
 
 	// ビューポート取得
-	void						CopyViewportInfo(Math::Viewport& out) const;
+	void						CopyViewportInfo(Math::Viewport& _out) const;
 
 	// 1x1 白テクスチャ取得
 	const std::shared_ptr<KdTexture>	GetWhiteTex() const { return m_texWhite; }
@@ -65,8 +64,9 @@ public:
 	const std::shared_ptr<KdTexture>	GetNormalTex() const { return m_texNormal; }
 
 	// スクリーン座標から3D座標への変換
-	void ClientToWorld(const POINT& screenPos, float porjZ, Math::Vector3& dst, const Math::Matrix& mCam, const Math::Matrix& mProj);
-	void WorldToClient(const Math::Vector3& srcWorld, POINT& dst, const Math::Matrix& mCam, const Math::Matrix& mProj);
+	void ClientToWorld(const POINT& _screenPos, float _porjZ, Math::Vector3& _dst, 
+		const Math::Matrix& _mCam, const Math::Matrix& _mProj);
+	void WorldToClient(const Math::Vector3& _srcWorld, POINT& _dst, const Math::Matrix& _mCam, const Math::Matrix& _mProj);
 
 	//==============================================================
 	// 初期化・解放
@@ -77,7 +77,7 @@ public:
 	// ・h				… Y解像度
 	// ・debugDevice	… デバッグモード
 	// ・errMsg			… (出力)エラーメッセージが入ってくる
-	bool Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& errMsg);
+	bool Init(HWND _hWnd, int _w, int _h, bool _deviceDebug, std::string& _errMsg);
 
 	// 解放
 	void Release();
@@ -89,7 +89,7 @@ public:
 	// ・device				… D3Dデバイス
 	// ・zEnable			… 深度テスト有効
 	// ・zWriteEnable		… 深度書き込み有効
-	ID3D11DepthStencilState* CreateDepthStencilState(bool zEnable, bool zWriteEnable) const;
+	ID3D11DepthStencilState* CreateDepthStencilState(bool _zEnable, bool _zWriteEnable) const;
 
 	/* ラスタライザーステート作成 */
 	// ・device				… D3Dデバイス
@@ -97,7 +97,7 @@ public:
 	// ・fillMode			… 三角形の描画モード
 	// ・depthClipEnable	… Zクリッピングを有効にする
 	// ・scissorEnable		… 切り抜き範囲を有効にする
-	ID3D11RasterizerState* CreateRasterizerState(D3D11_CULL_MODE cullMode, D3D11_FILL_MODE fillMode, bool depthClipEnable, bool scissorEnable) const;
+	ID3D11RasterizerState* CreateRasterizerState(D3D11_CULL_MODE _cullMode, D3D11_FILL_MODE _fillMode, bool _depthClipEnable, bool _scissorEnable) const;
 
 	/* サンプラーステート作成 */
 	// ・device				… D3Dデバイス
@@ -105,12 +105,12 @@ public:
 	// ・maxAnisotropy		… 異方性フィルタ時の最大値　2, 4, 6, 8, 10, 12, 14, 16 のいずれか
 	// ・addressingMode		… テクスチャアドレッシングモード 0:Wrap 1:Clamp
 	// ・comparisonModel	… 比較モードON　シャドウマッピングなどで使用する
-	ID3D11SamplerState* CreateSamplerState(KdSamplerFilterMode filterType, UINT maxAnisotropy, KdSamplerAddressingMode addressingMode, bool comparisonModel) const;
+	ID3D11SamplerState* CreateSamplerState(KdSamplerFilterMode _filterType, UINT _maxAnisotropy, KdSamplerAddressingMode _addressingMode, bool _comparisonModel) const;
 
 	/* ブレンドステート作成 */
 	// ・device				… D3Dデバイス
 	// ・mode				… 合成モード
-	ID3D11BlendState* CreateBlendState(KdBlendMode mode) const;
+	ID3D11BlendState* CreateBlendState(KdBlendMode _mode) const;
 
 	//==============================================================
 	// 頂点を描画する簡易的な関数
@@ -118,10 +118,10 @@ public:
 	// ・vertexCount	… 頂点数
 	// ・pVertexStream	… 頂点配列の先頭アドレス
 	// ・stride			… １頂点のバイトサイズ
-	void DrawVertices(D3D_PRIMITIVE_TOPOLOGY topology, int vertexCount, const void* pVertexStream, UINT stride);
+	void DrawVertices(D3D_PRIMITIVE_TOPOLOGY _topology, int _vertexCount, const void* _pVertexStream, UINT _stride);
 	//==============================================================
 
-	void SetBackBufferColor(const Math::Color& col) { m_backBafferClearColor = col; }
+	void SetBackBufferColor(const Math::Color& _col) { m_backBafferClearColor = _col; }
 	void ClearBackBuffer();
 
 private:
@@ -171,14 +171,14 @@ private:
 //-------------------------------
 // シングルトン
 //-------------------------------
-private:
-	KdDirect3D() {}
-	~KdDirect3D() { Release(); }
-
 public:
-	static KdDirect3D &Instance() 
+	static KdDirect3D &GetInstance() 
 	{
 		static KdDirect3D instance;
 		return instance;
 	}
+
+private:
+	KdDirect3D() {}
+	~KdDirect3D() { Release(); }
 };

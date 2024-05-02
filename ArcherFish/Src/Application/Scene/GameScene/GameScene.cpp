@@ -22,7 +22,7 @@
 void GameScene::Event()
 {
 	// シーン切替(Game→Result)
-	if (KdInputManager::Instance().GetButtonState("ChangeResult"))
+	if (KdInputManager::GetInstance().GetButtonState("ChangeResult"))
 	{
 		if (!m_SceneFlg)
 		{
@@ -45,11 +45,11 @@ void GameScene::Init()
 	ShowCursor(false);
 
 	// 距離フォグ
-	KdShaderManager::Instance().WorkAmbientController().SetFogEnable(true, true);
+	KdShaderManager::GetInstance().WorkAmbientController().SetFogEnable(true, true);
  	// 距離フォグの設定
-	KdShaderManager::Instance().WorkAmbientController().SetDistanceFog(m_disColor, m_density);
+	KdShaderManager::GetInstance().WorkAmbientController().SetDistanceFog(m_disColor, m_density);
 	// 高さフォグの設定
-	KdShaderManager::Instance().WorkAmbientController().SetheightFog(m_heigtColor, m_topVal, m_bottomVal, m_distance);
+	KdShaderManager::GetInstance().WorkAmbientController().SetheightFog(m_heigtColor, m_topVal, m_bottomVal, m_distance);
 
 	/* 音響初期化 */
 	// BGM・SE
@@ -60,7 +60,7 @@ void GameScene::Init()
 	m_BGMSound = KdAudioManager::Instance().Play("Asset/Sounds/BGM/GameUnderWater.wav", true);
 
 	// ディレクショナルライト(平行光)
-//	KdShaderManager::Instance().WorkAmbientController().SetDirLight({ 0,-1,0.3f }, { 3,3,3 });
+//	KdShaderManager::GetInstance().WorkAmbientController().SetDirLight({ 0,-1,0.3f }, { 3,3,3 });
 
 	/* オブジェクト初期化 */
 	/* === 地形 === */

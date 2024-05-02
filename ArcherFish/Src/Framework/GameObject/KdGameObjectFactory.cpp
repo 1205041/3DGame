@@ -1,13 +1,13 @@
 ﻿#include "KdGameObjectFactory.h"
 
-void KdGameObjectFactory::RegisterCreateFunction(const std::string_view str, const std::function<std::shared_ptr<KdGameObject>(void)> func)
+void KdGameObjectFactory::RegisterCreateFunction(const std::string_view _str, const std::function<std::shared_ptr<KdGameObject>(void)> _func)
 {
-	m_createFunctions[str.data()] = func;
+	m_createFunctions[_str.data()] = _func;
 }
 
-std::shared_ptr<KdGameObject> KdGameObjectFactory::CreateGameObject(const std::string_view objName) const
+std::shared_ptr<KdGameObject> KdGameObjectFactory::CreateGameObject(const std::string_view _objName) const
 {
-	auto creater = m_createFunctions.find(objName);
+	auto creater = m_createFunctions.find(_objName);
 
 	if (creater == m_createFunctions.end())
 	{

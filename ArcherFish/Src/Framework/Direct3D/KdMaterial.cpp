@@ -1,22 +1,25 @@
 ﻿#include "KdMaterial.h"
 
-void KdMaterial::SetTextures(const std::shared_ptr<KdTexture>& spBaseColTex, const std::shared_ptr<KdTexture>& spMtRfColTex,
-	const std::shared_ptr<KdTexture>& spEmiColTex, const std::shared_ptr<KdTexture>& spNmlColTex)
+void KdMaterial::SetTextures(const std::shared_ptr<KdTexture>& _spBaseColTex, 
+	const std::shared_ptr<KdTexture>& _spMtRfColTex,
+	const std::shared_ptr<KdTexture>& _spEmiColTex, 
+	const std::shared_ptr<KdTexture>& _spNmlColTex)
 {
-	m_baseColorTex = spBaseColTex;
-	m_metallicRoughnessTex = spMtRfColTex;
-	m_emissiveTex = spEmiColTex;
-	m_normalTex = spNmlColTex;
+	m_baseColorTex = _spBaseColTex;
+	m_metallicRoughnessTex = _spMtRfColTex;
+	m_emissiveTex = _spEmiColTex;
+	m_normalTex = _spNmlColTex;
 
-	if (spMtRfColTex)
+	if (_spMtRfColTex)
 	{
 		m_metallicRate = 1.0f;
 		m_roughnessRate = 1.0f;
 	}
 }
 
-void KdMaterial::SetTextures(const std::string& fileDir, const std::string& baseColName,
-	const std::string& mtRfColName, const std::string& emiColName, const std::string& nmlColName)
+void KdMaterial::SetTextures(const std::string& _fileDir, const std::string& _baseColName,
+	const std::string& _mtRfColName, const std::string& _emiColName,
+	const std::string& _nmlColName)
 {
 	std::shared_ptr<KdTexture>	BaseColorTex = nullptr;
 	std::shared_ptr<KdTexture>	MetallicRoughnessTex = nullptr;
@@ -24,19 +27,19 @@ void KdMaterial::SetTextures(const std::string& fileDir, const std::string& base
 	std::shared_ptr<KdTexture>	NormalTex = nullptr;
 
 	// 基本色テクスチャ
-	if (!baseColName.empty() && KdFileExistence(fileDir + baseColName)) { BaseColorTex = KdAssets::Instance().m_textures.GetData(fileDir + baseColName); }
+	if (!_baseColName.empty() && KdFileExistence(_fileDir + _baseColName)) { BaseColorTex = KdAssets::GetInstance().m_textures.GetData(_fileDir + _baseColName); }
 
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 	// 金属性・粗さマップ
-	if (!mtRfColName.empty() && KdFileExistence(fileDir + mtRfColName)) { MetallicRoughnessTex = KdAssets::Instance().m_textures.GetData(fileDir + mtRfColName); }
+	if (!_mtRfColName.empty() && KdFileExistence(_fileDir + _mtRfColName)) { MetallicRoughnessTex = KdAssets::GetInstance().m_textures.GetData(_fileDir + _mtRfColName); }
 
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 	// 自己発光・エミッシブマップ
-	if (!emiColName.empty() && KdFileExistence(fileDir + emiColName)) { EmissiveTex = KdAssets::Instance().m_textures.GetData(fileDir + emiColName); }
+	if (!_emiColName.empty() && KdFileExistence(_fileDir + _emiColName)) { EmissiveTex = KdAssets::GetInstance().m_textures.GetData(_fileDir + _emiColName); }
 
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 	// 法線マップ
-	if (!nmlColName.empty() && KdFileExistence(fileDir + nmlColName)) { NormalTex = KdAssets::Instance().m_textures.GetData(fileDir + nmlColName); }
+	if (!_nmlColName.empty() && KdFileExistence(_fileDir + _nmlColName)) { NormalTex = KdAssets::GetInstance().m_textures.GetData(_fileDir + _nmlColName); }
 
 	SetTextures(BaseColorTex, MetallicRoughnessTex, EmissiveTex, NormalTex);
 }

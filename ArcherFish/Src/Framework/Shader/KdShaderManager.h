@@ -8,8 +8,10 @@
 struct PointLight
 {
 	PointLight() {}
-	PointLight(const Math::Vector3& color, float radius, const Math::Vector3& pos, int isBright)
-		:Color(color), Radius(radius), Pos(pos), IsBright(isBright) {}
+	PointLight(const Math::Vector3& _color, float _radius, const Math::Vector3& _pos, int _isBright)
+		:Color(_color), Radius(_radius), Pos(_pos), IsBright(_isBright)
+	{
+	}
 
 	Math::Vector3 Color;	// 色
 	float	Radius = 0.0f;	// 半径
@@ -116,12 +118,6 @@ public:
 		std::array<PointLight, MaxPointLightNum> PointLights;
 	};
 
-	static KdShaderManager& Instance()
-	{
-		static KdShaderManager instance;
-		return instance;
-	}
-
 	// シェーダー本体の生成・シェーダーで利用する定数バッファの生成・影用の光からの深度情報テクスチャを生成
 	void Init();
 
@@ -136,34 +132,34 @@ public:
 	// 描画パイプライン系の設定
 	//==========================
 	// パイプラインの設定
-	bool SetVertexShader(ID3D11VertexShader* pSetVS);
-	bool SetPixelShader(ID3D11PixelShader* pSetPS);
+	bool SetVertexShader(ID3D11VertexShader* _pSetVS);
+	bool SetPixelShader(ID3D11PixelShader* _pSetPS);
 
 	// 入力レイアウトの設定
-	bool SetInputLayout(ID3D11InputLayout* pSetLayout);
+	bool SetInputLayout(ID3D11InputLayout* _pSetLayout);
 
 	// 定数バッファの設定
-	bool SetVSConstantBuffer(int startSlot, ID3D11Buffer* const* pSetBuffer);
-	bool SetPSConstantBuffer(int startSlot, ID3D11Buffer* const* pSetBuffer);
+	bool SetVSConstantBuffer(int _startSlot, ID3D11Buffer* const* _pSetBuffer);
+	bool SetPSConstantBuffer(int _startSlot, ID3D11Buffer* const* _pSetBuffer);
 
 	//==========================
 	// パイプラインステートの変更
 	//==========================
 	// 深度情報をどのように扱うかを変更：変更したかどうかが返ってくる
-	void ChangeDepthStencilState(KdDepthStencilState stateId);
+	void ChangeDepthStencilState(KdDepthStencilState _stateId);
 	void UndoDepthStencilState();
 
 	// ポリゴンの面をどのように描画するのかを変更：変更したかどうかが返ってくる
-	void ChangeRasterizerState(KdRasterizerState stateId);
+	void ChangeRasterizerState(KdRasterizerState _stateId);
 	void UndoRasterizerState();
 
 	// 画面の色をどのように合成するのかを変更：変更したかどうかが返ってくる
-	void ChangeBlendState(KdBlendState stateId);
+	void ChangeBlendState(KdBlendState _stateId);
 	void UndoBlendState();
 
 	// テクスチャの色をどのように取ってくるのかを変更：変更したかどうかが返ってくる
-	void ChangeSamplerState(KdSamplerState stateId, int slot = 0);
-	void UndoSamplerState(int slot = 0);
+	void ChangeSamplerState(KdSamplerState _stateId, int _slot = 0);
+	void UndoSamplerState(int _slot = 0);
 
 	//==========================
 	// 定数バッファ系
@@ -174,23 +170,23 @@ public:
 
 	const cbLight& GetLightCB() const { return m_cb9_Light.Get(); }
 
-	void WriteCBCamera(const Math::Matrix& cam, const Math::Matrix& proj);
+	void WriteCBCamera(const Math::Matrix& _cam, const Math::Matrix& _proj);
 
-	void WriteCBFogEnable(bool distance, bool height);
-	void WriteCBDistanceFog(const Math::Vector3& col, float density = 0.001f);
-	void WriteCBHeightFog(const Math::Vector3& col, float top, float bottom, float beginDistance);
+	void WriteCBFogEnable(bool _distance, bool _height);
+	void WriteCBDistanceFog(const Math::Vector3& _col, float _density = 0.001f);
+	void WriteCBHeightFog(const Math::Vector3& _col, float _top, float _bottom, float _beginDistance);
 
-	void WriteCBAmbientLight(const Math::Vector4& col);
-	void WriteCBDirectionalLight(const Math::Vector3& dir, const Math::Vector3& col);
-	void WriteCBShadowArea(const Math::Matrix& proj, float dirLightHeight);
-	void WriteCBPointLight(const std::list<PointLight>& pointLights);
+	void WriteCBAmbientLight(const Math::Vector4& _col);
+	void WriteCBDirectionalLight(const Math::Vector3& _dir, const Math::Vector3& _col);
+	void WriteCBShadowArea(const Math::Matrix& _proj, float _dirLightHeight);
+	void WriteCBPointLight(const std::list<PointLight>& _pointLights);
 
 	//==========================
 	// その他
 	//==========================
 	bool IsPixelArtStyle() const { return m_pixelArtStyle; }
 
-	void AddPointLight(const Math::Vector3& pos, const Math::Vector3& color, float radius, bool isBright);
+	void AddPointLight(const Math::Vector3& _pos, const Math::Vector3& _color, float _radius, bool _isBright);
 
 	const KdAmbientController& GetAmbientController() const { return m_ambientController; }
 	KdAmbientController& WorkAmbientController() { return m_ambientController; }
@@ -199,9 +195,6 @@ public:
 	void Release();
 
 private:
-	KdShaderManager() {}
-	~KdShaderManager() {}
-
 	// カメラ定数バッファ
 	KdConstantBuffer<cbCamera>	m_cb7_Camera;
 
@@ -233,4 +226,15 @@ private:
 	// サンプラーステート（テクスチャのピクセル色を取得する際にどのような補間や扱いで取得するかを選択できる
 	ID3D11SamplerState* m_samplerStates[(int)KdSamplerState::Max] = {};
 	std::stack<ID3D11SamplerState*> m_ss_Undo;
+
+public:
+	static KdShaderManager& GetInstance()
+	{
+		static KdShaderManager instance;
+		return instance;
+	}
+
+private:
+	KdShaderManager() {}
+	~KdShaderManager() {}
 };

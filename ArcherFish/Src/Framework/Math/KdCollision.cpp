@@ -13,59 +13,58 @@ using namespace DirectX;
 // ・レイの情報は1つしかないためレイだけを逆行列化する事で
 // 　処理の安定化＋1度しか計算が行われないため最大の効率化にもなる
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-static void InvertRayInfo(DirectX::XMVECTOR& rayPosInv, DirectX::XMVECTOR& rayDirInv, float& rayRangeInv, float& scaleInv, 
-	const DirectX::XMMATRIX& matrix, const DirectX::XMVECTOR& rayPos, const DirectX::XMVECTOR& rayDir, float rayRange)
+static void InvertRayInfo(DirectX::XMVECTOR& _rayPosInv, DirectX::XMVECTOR& _rayDirInv, float& _rayRangeInv, float& _scaleInv, 
+	const DirectX::XMMATRIX& _matrix, const DirectX::XMVECTOR& _rayPos, const DirectX::XMVECTOR& _rayDir, float _rayRange)
 {
 	// ターゲットの逆行列でレイを変換
-	DirectX::XMMATRIX invMat = XMMatrixInverse(0, matrix);
+	DirectX::XMMATRIX invMat = XMMatrixInverse(0, _matrix);
 
 	// レイの判定開始位置を逆変換
-	rayPosInv = XMVector3TransformCoord(rayPos, invMat);
+	_rayPosInv = XMVector3TransformCoord(_rayPos, invMat);
 
 	// レイの方向を逆変換
-	rayDirInv = XMVector3TransformNormal(rayDir, invMat);
+	_rayDirInv = XMVector3TransformNormal(_rayDir, invMat);
 
 	// 拡大率を逆変換
-	scaleInv = DirectX::XMVector3Length(rayDirInv).m128_f32[0];
+	_scaleInv = DirectX::XMVector3Length(_rayDirInv).m128_f32[0];
 
 	// レイの方向ベクトルの長さ=拡大率で判定限界距離を補正
 	// ※逆行列に拡縮が入っていると、レイの長さが変わるため
 	// レイが当たった座標からの距離に拡縮が反映されてしまうので
 	// 判定用の最大距離にも拡縮を反映させておく
-	rayRangeInv = rayRange * scaleInv;
+	_rayRangeInv = _rayRange * _scaleInv;
 
 	// 方角レイとして正しく扱うためには長さが１でなければならないので正規化
-	rayDirInv = DirectX::XMVector3Normalize(rayDirInv);
+	_rayDirInv = DirectX::XMVector3Normalize(_rayDirInv);
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = */
 /* レイとの当たり判定結果をリザルトにセットする */
 /* = = = = = = = = = = = = = = = = = = = = = = = */
-static void SetRayResult(CollisionMeshResult& result, bool isHit, float closestDist, 
-	const DirectX::XMVECTOR& rayPos, const DirectX::XMVECTOR& rayDir, float rayRange)
+static void SetRayResult(CollisionMeshResult& _result, bool _isHit, float _closestDist, 
+	const DirectX::XMVECTOR& _rayPos, const DirectX::XMVECTOR& _rayDir, float _rayRange)
 {
 	// リザルトに結果を格納
-	result.m_hit = isHit;
-	result.m_hitPos = DirectX::XMVectorAdd(rayPos, DirectX::XMVectorScale(rayDir, closestDist));
-	result.m_hitDir = DirectX::XMVectorScale(rayDir, -1);
-	result.m_overlapDistance = rayRange - closestDist;
+	_result.m_hit = _isHit;
+	_result.m_hitPos = DirectX::XMVectorAdd(_rayPos, DirectX::XMVectorScale(_rayDir, _closestDist));
+	_result.m_hitDir = DirectX::XMVectorScale(_rayDir, -1);
+	_result.m_overlapDistance = _rayRange - _closestDist;
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* レイ対ポリゴン(KdMesh以外の任意の多角形ポリゴン)の当たり判定本体 */
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, const DirectX::XMVECTOR& rayDir, float rayRange,
-	const DirectX::XMMATRIX& matrix, CollisionMeshResult* pResult)
+bool PolygonsIntersect(const KdPolygon& _poly, const DirectX::XMVECTOR& _rayPos, const DirectX::XMVECTOR& _rayDir,
+	float _rayRange, const DirectX::XMMATRIX& _matrix, CollisionMeshResult* _pResult)
 {
 	//--------------------------------------------------------
 	// レイの逆行列化
 	//--------------------------------------------------------
 	DirectX::XMVECTOR rayPosInv, rayDirInv;
-	float rayRangeInv = 0;
-	float scaleInv = 0;
+	float rayRangeInv = 0.0f;
+	float scaleInv = 0.0f;
 
-	InvertRayInfo(rayPosInv, rayDirInv, rayRangeInv, scaleInv,
-		matrix, rayPos, rayDir, rayRange);
+	InvertRayInfo(rayPosInv, rayDirInv, rayRangeInv, scaleInv, _matrix, _rayPos, _rayDir, _rayRange);
 
 	//--------------------------------------------------------
 	// レイ vs 全ての面
@@ -77,7 +76,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 
 	// 頂点リスト取得
 	std::vector<Math::Vector3> positions;
-	poly.GetPositions(positions);
+	_poly.GetPositions(positions);
 	size_t faceNum = positions.size() - 2;
 
 	// 全ての面(三角形)
@@ -91,7 +90,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 		if (hitDist > rayRangeInv) { continue; }
 
 		// CollisionResult無しなら結果は関係ないので当たった時点で返る
-		if (!pResult) { return isHit; }
+		if (!_pResult) { return isHit; }
 
 		// 最短距離の更新判定処理
 		closestDist = std::min(hitDist, closestDist);
@@ -99,7 +98,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 		isHit = true;
 	}
 
-	if (pResult && isHit) { SetRayResult(*pResult, isHit, closestDist / scaleInv, rayPos, rayDir, rayRange); }
+	if (_pResult && isHit) { SetRayResult(*_pResult, isHit, closestDist / scaleInv, _rayPos, _rayDir, _rayRange); }
 
 	return isHit;
 }
@@ -107,8 +106,8 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::XMVECTOR& rayPos, c
 /* = = = = = = = = = = = = = = = = */
 /* レイ対メッシュの当たり判定本体 */
 /* = = = = = = = = = = = = = = = = */
-bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const DirectX::XMVECTOR& rayDir,
-	float rayRange, const DirectX::XMMATRIX& matrix, CollisionMeshResult* pResult)
+bool MeshIntersect(const KdMesh& _mesh, const DirectX::XMVECTOR& _rayPos, const DirectX::XMVECTOR& _rayDir,
+	float _rayRange, const DirectX::XMMATRIX& _matrix, CollisionMeshResult* _pResult)
 {
 	//--------------------------------------------------------
 	// ブロードフェイズ
@@ -119,11 +118,11 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 		// AABB vs レイ
 		float AABBdist = FLT_MAX;
 		DirectX::BoundingBox aabb;
-		mesh.GetBoundingBox().Transform(aabb, matrix);
-		if (!aabb.Intersects(rayPos, rayDir, AABBdist)) { return false; }
+		_mesh.GetBoundingBox().Transform(aabb, _matrix);
+		if (!aabb.Intersects(_rayPos, _rayDir, AABBdist)) { return false; }
 
 		// 最大距離外なら範囲外なので中止
-		if (AABBdist > rayRange) { return false; }
+		if (AABBdist > _rayRange) { return false; }
 	}
 
 	//--------------------------------------------------------
@@ -133,8 +132,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 	float rayRangeInv = 0;
 	float scaleInv = 0;
 
-	InvertRayInfo(rayPosInv, rayDirInv, rayRangeInv, scaleInv,
-		matrix, rayPos, rayDir, rayRange);
+	InvertRayInfo(rayPosInv, rayDirInv, rayRangeInv, scaleInv, _matrix, _rayPos, _rayDir, _rayRange);
 
 	//--------------------------------------------------------
 	// ナローフェイズ
@@ -146,9 +144,9 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 	float closestDist = FLT_MAX;
 
 	// DEBUGビルドでも速度を維持するため、別変数に拾っておく
-	const KdMeshFace* pFaces = &mesh.GetFaces()[0];
-	auto& vertices = mesh.GetVertexPositions();
-	UINT faceNum = mesh.GetFaces().size();
+	const KdMeshFace* pFaces = &_mesh.GetFaces()[0];
+	auto& vertices = _mesh.GetVertexPositions();
+	UINT faceNum = _mesh.GetFaces().size();
 
 	// 全ての面(三角形)
 	for (UINT faceIdx = 0; faceIdx < faceNum; ++faceIdx)
@@ -164,7 +162,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 		if (hitDist > rayRangeInv) { continue; }
 	
 		// CollisionResult無しなら結果は関係ないので当たった時点で返る
-		if (!pResult) { return isHit; }
+		if (!_pResult) { return isHit; }
 
 		// 最短距離の更新判定処理
 		closestDist = std::min(hitDist, closestDist);
@@ -172,7 +170,7 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 		isHit = true;
 	}
 
-	if (pResult && isHit) { SetRayResult(*pResult, isHit, closestDist / scaleInv, rayPos, rayDir, rayRange); }
+	if (_pResult && isHit) { SetRayResult(*_pResult, isHit, closestDist / scaleInv, _rayPos, _rayDir, _rayRange); }
 
 	return isHit;
 }
@@ -187,51 +185,51 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::XMVECTOR& rayPos, const Di
 /* ===== ===== ===== ===== ===== */
 // ・レイと同様の理由
 /* = = = = = = = = = = = = = = = */
-static void InvertSphereInfo(DirectX::XMVECTOR& spherePosInv, DirectX::XMVECTOR& sphereScale, float& radiusSqr,
-	const DirectX::XMMATRIX& matrix, const DirectX::BoundingSphere& sphere)
+static void InvertSphereInfo(DirectX::XMVECTOR& _spherePosInv, DirectX::XMVECTOR& _sphereScale, float& _radiusSqr,
+	const DirectX::XMMATRIX& _matrix, const DirectX::BoundingSphere& _sphere)
 {
 	// メッシュの逆行列で、球の中心座標を変換(メッシュの座標系へ変換される)
-	DirectX::XMMATRIX invMat = XMMatrixInverse(0, matrix);
-	spherePosInv = XMVector3TransformCoord(XMLoadFloat3(&sphere.Center), invMat);
+	DirectX::XMMATRIX invMat = XMMatrixInverse(0, _matrix);
+	_spherePosInv = XMVector3TransformCoord(XMLoadFloat3(&_sphere.Center), invMat);
 
 	// 半径の二乗(判定の高速化用)
-	radiusSqr = sphere.Radius * sphere.Radius;	// 半径の２乗
+	_radiusSqr = _sphere.Radius * _sphere.Radius;	// 半径の２乗
 
 	// 行列の各軸の拡大率を取得しておく
-	sphereScale.m128_f32[0] = DirectX::XMVector3Length(matrix.r[0]).m128_f32[0];
-	sphereScale.m128_f32[1] = DirectX::XMVector3Length(matrix.r[1]).m128_f32[0];
-	sphereScale.m128_f32[2] = DirectX::XMVector3Length(matrix.r[2]).m128_f32[0];
-	sphereScale.m128_f32[3] = 0;
+	_sphereScale.m128_f32[0] = DirectX::XMVector3Length(_matrix.r[0]).m128_f32[0];
+	_sphereScale.m128_f32[1] = DirectX::XMVector3Length(_matrix.r[1]).m128_f32[0];
+	_sphereScale.m128_f32[2] = DirectX::XMVector3Length(_matrix.r[2]).m128_f32[0];
+	_sphereScale.m128_f32[3] = 0;
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* スフィアとポリゴンの最近接点を元に接触しているかどうかを判定 */
 // ・次のポリゴンの判定の間に当たらない位置までスフィアを移動させる
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-static bool HitCheckAndPosUpdate(DirectX::XMVECTOR& finalPos, DirectX::XMVECTOR& finalHitPos, 
-	const DirectX::XMVECTOR& nearPoint, const DirectX::XMVECTOR& objScale, float radiusSqr, float sphereRadius)
+static bool HitCheckAndPosUpdate(DirectX::XMVECTOR& _finalPos, DirectX::XMVECTOR& _finalHitPos, 
+	const DirectX::XMVECTOR& _nearPoint, const DirectX::XMVECTOR& _objScale, float _radiusSqr, float _sphereRadius)
 {
 	// 最近接点→球の中心　ベクトルを求める
-	DirectX::XMVECTOR vToCenter = finalPos - nearPoint;
+	DirectX::XMVECTOR vToCenter = _finalPos - _nearPoint;
 
 	// XYZ軸が別々の大きさで拡縮されてる状態の場合、球が変形してる状態なため正確な半径がわからない。
 	// そこでscaleをかけてXYZ軸のスケールが均等な座標系へ変換する
-	vToCenter *= objScale;
+	vToCenter *= _objScale;
 
 	// 最近接点が半径の2乗より遠い場合は、衝突していない
-	if (DirectX::XMVector3LengthSq(vToCenter).m128_f32[0] > radiusSqr) { return false; }
+	if (DirectX::XMVector3LengthSq(vToCenter).m128_f32[0] > _radiusSqr) { return false; }
 
 	// 押し戻し計算
 	// めり込んでいるぶんのベクトルを計算
 	DirectX::XMVECTOR vPush = DirectX::XMVector3Normalize(vToCenter);
-	vPush *= sphereRadius - DirectX::XMVector3Length(vToCenter).m128_f32[0];
+	vPush *= _sphereRadius - DirectX::XMVector3Length(vToCenter).m128_f32[0];
 
 	// 拡縮を考慮した座標系へ戻す
-	vPush /= objScale;
+	vPush /= _objScale;
 
 	// 球の中心座標を更新
-	finalPos += vPush;
-	finalHitPos = nearPoint;
+	_finalPos += vPush;
+	_finalHitPos = _nearPoint;
 
 	return true;
 }
@@ -239,20 +237,20 @@ static bool HitCheckAndPosUpdate(DirectX::XMVECTOR& finalPos, DirectX::XMVECTOR&
 /* = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* スフィアとの当たり判定結果をリザルトにセットする */
 /* = = = = = = = = = = = = = = = = = = = = = = = = = */
-static void SetSphereResult(CollisionMeshResult& result, bool isHit, const DirectX::XMVECTOR& hitPos,
-	const DirectX::XMVECTOR& finalPos, const DirectX::XMVECTOR& beginPos)
+static void SetSphereResult(CollisionMeshResult& _result, bool _isHit, const DirectX::XMVECTOR& _hitPos,
+	const DirectX::XMVECTOR& _finalPos, const DirectX::XMVECTOR& _beginPos)
 {
-	result.m_hit = isHit;
-	result.m_hitPos = hitPos;
-	result.m_hitDir = DirectX::XMVectorSubtract(finalPos, beginPos);
-	result.m_overlapDistance = DirectX::XMVector3Length(result.m_hitDir).m128_f32[0];
-	result.m_hitDir = DirectX::XMVector3Normalize(result.m_hitDir);
+	_result.m_hit = _isHit;
+	_result.m_hitPos = _hitPos;
+	_result.m_hitDir = DirectX::XMVectorSubtract(_finalPos, _beginPos);
+	_result.m_overlapDistance = DirectX::XMVector3Length(_result.m_hitDir).m128_f32[0];
+	_result.m_hitDir = DirectX::XMVector3Normalize(_result.m_hitDir);
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 /* スフィア対ポリゴン(KdMesh以外の任意の多角形ポリゴン)の当たり判定本体 */
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool PolygonsIntersect(const KdPolygon& poly, const DirectX::BoundingSphere& sphere, const DirectX::XMMATRIX& matrix, CollisionMeshResult* pResult)
+bool PolygonsIntersect(const KdPolygon& _poly, const DirectX::BoundingSphere& _sphere, const DirectX::XMMATRIX& _matrix, CollisionMeshResult* _pResult)
 {
 	//------------------------------------------
 	// 球とポリゴンとの詳細判定
@@ -262,14 +260,14 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::BoundingSphere& sph
 
 	// 頂点リスト取得
 	std::vector<Math::Vector3> positions;
-	poly.GetPositions(positions);
+	_poly.GetPositions(positions);
 	size_t faceNum = positions.size() - 2;
 
 	DirectX::XMVECTOR finalHitPos = {};	// 当たった座標の中でも最後の座標
 	DirectX::XMVECTOR finalPos = {};	// 各面に押されて最終的に到達する座標：判定する球の中心
 	DirectX::XMVECTOR objScale = {};	// ターゲットオブジェクトの各軸の拡大率
 	float radiusSqr = 0.0f;
-	InvertSphereInfo(finalPos, objScale, radiusSqr, matrix, sphere);
+	InvertSphereInfo(finalPos, objScale, radiusSqr, _matrix, _sphere);
 
 	// 全ての面と判定
 	// ※判定はポリゴンのローカル空間で行われる
@@ -278,24 +276,20 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::BoundingSphere& sph
 		DirectX::XMVECTOR nearPoint;
 
 		// 点 と 三角形 の最近接点を求める
-		KdPointToTriangle(finalPos,
-			positions[faceIndx],
-			positions[faceIndx + 1],
-			positions[faceIndx + 2],
-			nearPoint);
+		KdPointToTriangle(finalPos, positions[faceIndx], positions[faceIndx + 1], positions[faceIndx + 2], nearPoint);
 
 		// 当たっているかどうかの判定と最終座標の更新
-		isHit |= HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, sphere.Radius);
+		isHit |= HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, _sphere.Radius);
 
 		// CollisionResult無しなら結果は関係ないので当たった時点で返る
-		if (!pResult && isHit) { return isHit; }
+		if (!_pResult && isHit) { return isHit; }
 	}
 
 	// リザルトに結果を格納
-	if (pResult && isHit)
+	if (_pResult && isHit)
 	{
-		SetSphereResult(*pResult, isHit, XMVector3TransformCoord(finalHitPos, matrix),
-			XMVector3TransformCoord(finalPos, matrix), XMLoadFloat3(&sphere.Center));
+		SetSphereResult(*_pResult, isHit, XMVector3TransformCoord(finalHitPos, _matrix),
+			XMVector3TransformCoord(finalPos, _matrix), XMLoadFloat3(&_sphere.Center));
 	}
 
 	return isHit;
@@ -304,8 +298,7 @@ bool PolygonsIntersect(const KdPolygon& poly, const DirectX::BoundingSphere& sph
 /* = = = = = = = = = = = = = = = = = = */
 /* スフィア対メッシュの当たり判定本体 */
 /* = = = = = = = = = = = = = = = = = = */
-bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
-	const DirectX::XMMATRIX& matrix, CollisionMeshResult* pResult)
+bool MeshIntersect(const KdMesh& _mesh, const DirectX::BoundingSphere& _sphere,const DirectX::XMMATRIX& _matrix, CollisionMeshResult* _pResult)
 {
 	//------------------------------------------
 	// ブロードフェイズ
@@ -315,9 +308,9 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 	{
 		// メッシュのAABBを元に、行列で変換したAABBを作成
 		DirectX::BoundingBox aabb;
-		mesh.GetBoundingBox().Transform(aabb, matrix);
+		_mesh.GetBoundingBox().Transform(aabb, _matrix);
 
-		if (aabb.Intersects(sphere) == false) { return false; }
+		if (!aabb.Intersects(_sphere)) { return false; }
 	}
 
 	//------------------------------------------
@@ -328,15 +321,15 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 	bool isHit = false;
 
 	// DEBUGビルドでも速度を維持するため、別変数に拾っておく
-	const auto* pFaces = &mesh.GetFaces()[0];
-	UINT faceNum = mesh.GetFaces().size();
-	auto& vertices = mesh.GetVertexPositions();
+	const auto* pFaces = &_mesh.GetFaces()[0];
+	UINT faceNum = _mesh.GetFaces().size();
+	auto& vertices = _mesh.GetVertexPositions();
 
 	DirectX::XMVECTOR finalHitPos = {};	// 当たった座標の中でも最後の座標
 	DirectX::XMVECTOR finalPos = {};	// 各面に押されて最終的に到達する座標：判定する球の中心
 	DirectX::XMVECTOR objScale = {};	// ターゲットオブジェクトの各軸の拡大率
 	float radiusSqr = 0.0f;
-	InvertSphereInfo(finalPos, objScale, radiusSqr, matrix, sphere);
+	InvertSphereInfo(finalPos, objScale, radiusSqr, _matrix, _sphere);
 
 	// 全ての面と判定
 	// ※判定はメッシュのローカル空間で行われる
@@ -351,17 +344,17 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 		KdPointToTriangle(finalPos, vertices[idx[0]], vertices[idx[1]], vertices[idx[2]], nearPoint);
 
 		// 当たっているかどうかの判定と最終座標の更新
-		isHit |= HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, sphere.Radius);
+		isHit |= HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, _sphere.Radius);
 
 		// CollisionResult無しなら結果は関係ないので当たった時点で返る
-		if (!pResult && isHit) { return isHit; }
+		if (!_pResult && isHit) { return isHit; }
 	}
 
 	// リザルトに結果を格納
-	if (pResult && isHit)
+	if (_pResult && isHit)
 	{
-		SetSphereResult(*pResult, isHit, XMVector3TransformCoord(finalHitPos, matrix), 
-			XMVector3TransformCoord(finalPos, matrix), XMLoadFloat3(&sphere.Center));
+		SetSphereResult(*_pResult, isHit, XMVector3TransformCoord(finalHitPos, _matrix), 
+			XMVector3TransformCoord(finalPos, _matrix), XMLoadFloat3(&_sphere.Center));
 	}
 
 	return isHit;
@@ -370,32 +363,34 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 /* = = = = = = = = = = = = = = = = = = = = = = = */
 /* 点 vs 面を形成する三角形との最近接点を求める */
 /* = = = = = = = = = = = = = = = = = = = = = = = */
-void KdPointToTriangle(const XMVECTOR& p, const XMVECTOR& a, const XMVECTOR& b, const XMVECTOR& c, DirectX::XMVECTOR& outPt)
+void KdPointToTriangle(const XMVECTOR& _p, const XMVECTOR& _a, const XMVECTOR& _b, const XMVECTOR& _c, DirectX::XMVECTOR& _outPt)
 {
 	// ※参考:[書籍]「ゲームプログラミングのためのリアルタイム衝突判定」
 
 	// pがaの外側の頂点領域の中にあるかどうかチェック
-	XMVECTOR ab = b - a;
-	XMVECTOR ac = c - a;
-	XMVECTOR ap = p - a;
+	XMVECTOR ab = _b - _a;
+	XMVECTOR ac = _c - _a;
+	XMVECTOR ap = _p - _a;
 
 	float d1 = XMVector3Dot(ab, ap).m128_f32[0];//ab.Dot(ap);
 	float d2 = XMVector3Dot(ac, ap).m128_f32[0];//ac.Dot(ap);
 
 	if (d1 <= 0.0f && d2 <= 0.0f)
 	{
-		outPt = a;	// 重心座標(1,0,0)
+		// 重心座標(1,0,0)
+		_outPt = _a;
 		return;
 	}
 
 	// pがbの外側の頂点領域の中にあるかどうかチェック
-	XMVECTOR bp = p - b;
+	XMVECTOR bp = _p - _b;
 	float d3 = XMVector3Dot(ab, bp).m128_f32[0];//ab.Dot(bp);
 	float d4 = XMVector3Dot(ac, bp).m128_f32[0];//ac.Dot(bp);
 
 	if (d3 >= 0.0f && d4 <= d3)
 	{
-		outPt = b;	// 重心座標(0,1,0)
+		// 重心座標(0,1,0)
+		_outPt = _b;
 		return;
 	}
 
@@ -405,18 +400,18 @@ void KdPointToTriangle(const XMVECTOR& p, const XMVECTOR& a, const XMVECTOR& b, 
 	if (vc <= 0.0f && d1 >= 0.0f && d3 <= 0.0f)
 	{
 		float v = d1 / (d1 - d3);
-		outPt = a + ab * v;	// 重心座標(1-v,v,0)
+		_outPt = _a + ab * v;	// 重心座標(1-v,v,0)
 		return;
 	}
 
 	// pがcの外側の頂点領域の中にあるかどうかチェック
-	XMVECTOR cp = p - c;
+	XMVECTOR cp = _p - _c;
 	float d5 = XMVector3Dot(ab, cp).m128_f32[0];//ab.Dot(cp);
 	float d6 = XMVector3Dot(ac, cp).m128_f32[0];;//ac.Dot(cp);
 
 	if (d6 >= 0.0f && d5 <= d6)
 	{
-		outPt = c;	// 重心座標(0,0,1)
+		_outPt = _c;	// 重心座標(0,0,1)
 		return;
 	}
 
@@ -426,7 +421,7 @@ void KdPointToTriangle(const XMVECTOR& p, const XMVECTOR& a, const XMVECTOR& b, 
 	if (vb <= 0.0f && d2 >= 0.0f && d6 <= 0.0f)
 	{
 		float w = d2 / (d2 - d6);
-		outPt = a + ac * w;	// 重心座標(1-w,0,w)
+		_outPt = _a + ac * w;	// 重心座標(1-w,0,w)
 		return;
 	}
 
@@ -436,7 +431,7 @@ void KdPointToTriangle(const XMVECTOR& p, const XMVECTOR& a, const XMVECTOR& b, 
 	if (va <= 0.0f && (d4 - d3) >= 0.0f && (d5 - d6) >= 0.0f)
 	{
 		float w = (d4 - d3) / ((d4 - d3) + (d5 - d6));
-		outPt = b + (c - b) * w;	// 重心座標(0,1-w,w)
+		_outPt = _b + (_c - _b) * w;	// 重心座標(0,1-w,w)
 		return;
 	}
 
@@ -444,5 +439,5 @@ void KdPointToTriangle(const XMVECTOR& p, const XMVECTOR& a, const XMVECTOR& b, 
 	float denom = 1.0f / (va + vb + vc);
 	float v = vb * denom;
 	float w = vc * denom;
-	outPt = a + ab * v + ac * w;	// = u*a + v*b + w*c, u = va*demon = 1.0f - v - w
+	_outPt = _a + ab * v + ac * w;	// = u*a + v*b + w*c, u = va*demon = 1.0f - v - w
 }

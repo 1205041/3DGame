@@ -67,7 +67,7 @@ public:
 	void SetWaterNomalText(KdTexture& _text)
 	{
 		// テクスチャをGPUに転送
-		KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(20, 1, _text.WorkSRViewAddress());
+		KdDirect3D::GetInstance().WorkDevContext()->PSSetShaderResources(20, 1, _text.WorkSRViewAddress());
 		/* マルチレンダーターゲットが使われている */
 	}
 
@@ -87,66 +87,66 @@ public:
 	}
 
 	// add：色変更有効/無効
-	void SetColorEnable(bool enable)
+	void SetColorEnable(bool _enable)
 	{
-		m_cb0_Obj.Work().ColorEnable = enable;
+		m_cb0_Obj.Work().ColorEnable = _enable;
 
 		m_dirtyCBObj = true;
 	}
 	/* =============================================== */
 
 	// UVタイリング設定
-	void SetUVTiling(const Math::Vector2& tiling)
+	void SetUVTiling(const Math::Vector2& _tiling)
 	{
-		m_cb0_Obj.Work().UVTiling = tiling;
+		m_cb0_Obj.Work().UVTiling = _tiling;
 
 		m_dirtyCBObj = true;
 	}
 
 	// UVオフセット設定
-	void SetUVOffset(const Math::Vector2& offset)
+	void SetUVOffset(const Math::Vector2& _offset)
 	{
-		m_cb0_Obj.Work().UVOffset = offset;
+		m_cb0_Obj.Work().UVOffset = _offset;
 
 		m_dirtyCBObj = true;
 	}
 
 	// フォグ有効/無効
-	void SetFogEnable(bool enable)
+	void SetFogEnable(bool _enable)
 	{
-		m_cb0_Obj.Work().FogEnable = enable;
+		m_cb0_Obj.Work().FogEnable = _enable;
 
 		m_dirtyCBObj = true;
 	}
 
 	// ディゾルブ設定
-	void SetDissolve(float threshold, const float* range = nullptr, const Math::Vector3* edgeColor = nullptr)
+	void SetDissolve(float _threshold, const float* _range = nullptr, const Math::Vector3* _edgeColor = nullptr)
 	{
 		auto& cbObj = m_cb0_Obj.Work();
 
-		cbObj.DissolveThreshold = threshold;
+		cbObj.DissolveThreshold = _threshold;
 
-		if (range) { cbObj.DissolveEdgeRange = *range; }
+		if (_range) { cbObj.DissolveEdgeRange = *_range; }
 
-		if (edgeColor) { cbObj.DissolveEmissive = *edgeColor; }
+		if (_edgeColor) { cbObj.DissolveEmissive = *_edgeColor; }
 
 		m_dirtyCBObj = true;
 	}
 
 	// ディゾルブテクスチャ設定
-	void SetDissolveTexture(KdTexture& dissolveMask)
+	void SetDissolveTexture(KdTexture& _dissolveMask)
 	{
-		KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(11, 1, dissolveMask.WorkSRViewAddress());
+		KdDirect3D::GetInstance().WorkDevContext()->PSSetShaderResources(11, 1, _dissolveMask.WorkSRViewAddress());
 	}
 
 	// デフォルトディゾルブテクスチャ設定
-	void SetDefaultDissolveTexture(std::shared_ptr<KdTexture>& spDissolveMask)
+	void SetDefaultDissolveTexture(std::shared_ptr<KdTexture>& _spDissolveMask)
 	{
-		if (!spDissolveMask) { return; }
+		if (!_spDissolveMask) { return; }
 
-		m_dissolveTex = spDissolveMask;
+		m_dissolveTex = _spDissolveMask;
 
-		SetDissolveTexture(*spDissolveMask);
+		SetDissolveTexture(*_spDissolveMask);
 	}
 
 	// デフォルトのディゾルブテクスチャに戻す
@@ -185,24 +185,25 @@ public:
 	// 描画関数
 	//================================================
 	// メッシュ描画
-	void DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld, const std::vector<KdMaterial>& materials,
-		const Math::Vector4& col, const Math::Vector3& emissive);
+	void DrawMesh(const KdMesh* _mesh, const Math::Matrix& _mWorld, 
+		const std::vector<KdMaterial>& _materials, const Math::Vector4& _col, 
+		const Math::Vector3& _emissive);
 
 	// モデルデータ描画：アニメーションに非対応
-	void DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld = Math::Matrix::Identity, 
-		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
+	void DrawModel(const KdModelData& _rModel, const Math::Matrix& _mWorld = Math::Matrix::Identity, 
+		const Math::Color& _colRate = kWhiteColor, const Math::Vector3& _emissive = Math::Vector3::Zero);
 
 	// モデルワーク描画：アニメーションに対応
-	void DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld = Math::Matrix::Identity,
-		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
+	void DrawModel(KdModelWork& _rModel, const Math::Matrix& _mWorld = Math::Matrix::Identity, 
+		const Math::Color& _colRate = kWhiteColor, const Math::Vector3& _emissive = Math::Vector3::Zero);
 
 	// 任意の頂点群からなるポリゴン描画
-	void DrawPolygon(const KdPolygon& poly, const Math::Matrix& mWorld = Math::Matrix::Identity,
-		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
+	void DrawPolygon(const KdPolygon& _poly, const Math::Matrix& _mWorld = Math::Matrix::Identity,
+		const Math::Color& _colRate = kWhiteColor, const Math::Vector3& _emissive = Math::Vector3::Zero);
 
 	// 任意の頂点群からなるポリゴンライン描画
-	void DrawVertices(const std::vector<KdPolygon::Vertex>& vertices, const Math::Matrix& mWorld = Math::Matrix::Identity,
-		const Math::Color& colRate = kWhiteColor);
+	void DrawVertices(const std::vector<KdPolygon::Vertex>& _vertices, const Math::Matrix& _mWorld = Math::Matrix::Identity, 
+		const Math::Color& _colRate = kWhiteColor);
 
 	//================================================
 	// 初期化・解放
@@ -219,10 +220,10 @@ public:
 
 private:
 	// マテリアルのセット
-	void WriteMaterial(const KdMaterial& material, const Math::Vector4& colRate, const Math::Vector3& emiRate);
+	void WriteMaterial(const KdMaterial& _material, const Math::Vector4& _colRate, const Math::Vector3& _emiRate);
 
 	// ポリゴンの法線情報を2Dように書き換える
-	void ConvertNormalsFor2D(std::vector<KdPolygon::Vertex>& target, const Math::Matrix& mWorld);
+	void ConvertNormalsFor2D(std::vector<KdPolygon::Vertex>& _target, const Math::Matrix& _mWorld);
 
 	// 定数バッファを初期状態に戻す
 	void ResetCBObject();

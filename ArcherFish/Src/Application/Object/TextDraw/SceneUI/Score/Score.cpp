@@ -20,7 +20,7 @@ void Score::DrawSprite()
 	char buf[100];
 	int num = 0;
 	//スコアボードの文字の描画
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_txt, (int)m_pixel.x, (int)m_pixel.y, &m_rectAng, &m_color, m_pivot);
+	KdShaderManager::GetInstance().m_spriteShader.DrawTex(&m_txt, (int)m_pixel.x, (int)m_pixel.y, &m_rectAng, &m_color, m_pivot);
 	
 	//スコア描画
 //	num = sprintf(buf, "%d", m_score);
@@ -29,7 +29,7 @@ void Score::DrawSprite()
 //		DrawGraph(SCORE_X + 20 + i * 19, 95, g_number[(buf[i] - '0')], TRUE); 
 //	}
 
-//	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_waterMax, m_height, &m_rectAng, &m_barColor, m_pivot);
+//	KdShaderManager::GetInstance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_waterMax, m_height, &m_rectAng, &m_barColor, m_pivot);
 
 }
 

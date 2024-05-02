@@ -3,15 +3,15 @@
 // アニメーションキー(クォータニオン
 struct KdAnimKeyQuaternion
 {
-	float				m_time = 0;		// 時間
-	Math::Quaternion	m_quat;			// クォータニオンデータ
+	float			 m_time = 0.0f;	// 時間
+	Math::Quaternion m_quat;		// クォータニオンデータ
 };
 
 // アニメーションキー(ベクトル
 struct KdAnimKeyVector3
 {
-	float				m_time = 0;		// 時間
-	Math::Vector3		m_vec;			// 3Dベクトルデータ
+	float			m_time = 0.0f;	// 時間
+	Math::Vector3	m_vec;			// 3Dベクトルデータ
 };
 
 //============================
@@ -22,7 +22,7 @@ struct KdAnimationData
 	// アニメーション名
 	std::string		m_name;
 	// アニメの長さ
-	float			m_maxLength = 0;
+	float			m_maxLength = 0.0f;
 
 	// １ノードのアニメーションデータ
 	struct Node
@@ -34,10 +34,10 @@ struct KdAnimationData
 		std::vector<KdAnimKeyQuaternion>	m_rotations;	// 回転キーリスト
 		std::vector<KdAnimKeyVector3>		m_scales;		// 拡縮キーリスト
 
-		void Interpolate(Math::Matrix& rDst, float time );
-		bool InterpolateTranslations(Math::Vector3& result, float time);
-		bool InterpolateRotations(Math::Quaternion& result, float time);
-		bool InterpolateScales(Math::Vector3& result, float time);
+		void Interpolate(Math::Matrix& _rDst, float _time );
+		bool InterpolateTranslations(Math::Vector3& _result, float _time);
+		bool InterpolateRotations(Math::Quaternion& _result, float _time);
+		bool InterpolateScales(Math::Vector3& _result, float _time);
 	};
 
 	// 全ノード用アニメーションデータ
@@ -47,10 +47,10 @@ struct KdAnimationData
 class KdAnimator
 {
 public:
-	inline void SetAnimation(const std::shared_ptr<KdAnimationData>& rData, bool isLoop = true)
+	inline void SetAnimation(const std::shared_ptr<KdAnimationData>& _rData, bool _isLoop = true)
 	{
-		m_spAnimation = rData;
-		m_isLoop = isLoop;
+		m_spAnimation = _rData;
+		m_isLoop = _isLoop;
 
 		m_time = 0.0f;
 	}
@@ -65,10 +65,11 @@ public:
 	}
 
 	// アニメーションの更新
-	void AdvanceTime( std::vector<KdModelWork::Node>& rNodes, float speed = 1.0f);
+	void AdvanceTime( std::vector<KdModelWork::Node>& _rNodes, float _speed = 1.0f);
 
 private:
-	std::shared_ptr<KdAnimationData>	m_spAnimation = nullptr;	// 再生するアニメーションデータ
+	// 再生するアニメーションデータ
+	std::shared_ptr<KdAnimationData>	m_spAnimation = nullptr;
 
 	float m_time = 0.0f;
 

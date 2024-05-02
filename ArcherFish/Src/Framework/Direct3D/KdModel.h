@@ -26,24 +26,22 @@ public:
 		bool	m_isSkinMesh = false;
 	};
 
-	//コンストラクター
+	// コンストラクタとデストラクタ
 	KdModelData() {}
-
-	//デストラクター
 	~KdModelData() { Release(); }
 
-	bool Load(std::string_view filename);
+	bool Load(std::string_view _filename);
 
-	void CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel);									// ノード作成
-	void CreateMaterials(const std::shared_ptr<KdGLTFModel>& spGltfModel, const  std::string& fileDir);	// マテリアル作成
-	void CreateAnimations(const std::shared_ptr<KdGLTFModel>& spGltfModel);								// アニメーション作成
+	void CreateNodes(const std::shared_ptr<KdGLTFModel>& _spGltfModel);									// ノード作成
+	void CreateMaterials(const std::shared_ptr<KdGLTFModel>& _spGltfModel, const  std::string& _fileDir);	// マテリアル作成
+	void CreateAnimations(const std::shared_ptr<KdGLTFModel>& _spGltfModel);								// アニメーション作成
 
 	//アクセサ
-	const std::shared_ptr<KdMesh> GetMesh(UINT index) const { return index < m_originalNodes.size() ? m_originalNodes[ index ].m_spMesh : nullptr; }
+	const std::shared_ptr<KdMesh> GetMesh(UINT _index) const { return _index < m_originalNodes.size() ? m_originalNodes[_index].m_spMesh : nullptr; }
 	
-	Node* FindNode(std::string name)
+	Node* FindNode(std::string _name)
 	{
-		for (auto&& node : m_originalNodes) { if (node.m_name == name) { return &node; } }
+		for (auto&& node : m_originalNodes) { if (node.m_name == _name) { return &node; } }
 
 		return nullptr;
 	}
@@ -55,8 +53,8 @@ public:
 	const std::vector<Node>& GetOriginalNodes() const { return m_originalNodes; }
 
 	// アニメーションデータ取得
-	const std::shared_ptr<KdAnimationData> GetAnimation(std::string_view animName) const;
-	const std::shared_ptr<KdAnimationData> GetAnimation(UINT index) const;
+	const std::shared_ptr<KdAnimationData> GetAnimation(std::string_view _animName) const;
+	const std::shared_ptr<KdAnimationData> GetAnimation(UINT _index) const;
 
 	// それぞれのノードのインデックスリスト取得
 	const std::vector<int>& GetRootNodeIndices() const { return m_rootNodeIndices; }
@@ -79,18 +77,18 @@ private:
 	std::vector<std::shared_ptr<KdAnimationData>>	m_spAnimations;
 
 	// 全ノード配列
-	std::vector<Node>		m_originalNodes;
+	std::vector<Node> m_originalNodes;
 	// 全ノード中、RootノードのみのIndex配列
-	std::vector<int>		m_rootNodeIndices;
+	std::vector<int>  m_rootNodeIndices;
 	// 全ノード中、ボーンノードのみのIndex配列
-	std::vector<int>		m_boneNodeIndices;
+	std::vector<int>  m_boneNodeIndices;
 	// 全ノード中、メッシュが存在するノードのみのIndexn配列
-	std::vector<int>		m_meshNodeIndices;
+	std::vector<int>  m_meshNodeIndices;
 
 	// 全ノード中、コリジョンメッシュが存在するノードのみのIndexn配列
-	std::vector<int>		m_collisionMeshNodeIndices;
+	std::vector<int>  m_collisionMeshNodeIndices;
 	// 全ノード中、描画するノードのみのIndexn配列
-	std::vector<int>		m_drawMeshNodeIndices;
+	std::vector<int>  m_drawMeshNodeIndices;
 };
 
 class KdModelWork
@@ -104,18 +102,18 @@ public:
 		Math::Matrix	m_localTransform;	// 直属の親ボーンからの行列
 		Math::Matrix	m_worldTransform;	// 原点からの行列
 
-		void copy(const KdModelData::Node& rNode)
+		void copy(const KdModelData::Node& _rNode)
 		{
-			m_name = rNode.m_name;
+			m_name = _rNode.m_name;
 
-			m_localTransform = rNode.m_localTransform;
-			m_worldTransform = rNode.m_worldTransform;
+			m_localTransform = _rNode.m_localTransform;
+			m_worldTransform = _rNode.m_worldTransform;
 		}
 	};
 
 	// コンストラクタ
 	KdModelWork(){}
-	KdModelWork(const std::shared_ptr<KdModelData>& spModel) { SetModelData(spModel); }
+	KdModelWork(const std::shared_ptr<KdModelData>& _spModel) { SetModelData(_spModel); }
 
 	~KdModelWork() {}
 
@@ -124,18 +122,18 @@ public:
 
 	// 有効フラグ
 	bool IsEnable() const { return (m_enable && m_spData); }
-	void SetEnable(bool flag) { m_enable = flag; }
+	void SetEnable(bool _flag) { m_enable = _flag; }
 
 	// ノード検索：文字列
-	const KdModelData::Node* FindDataNode(std::string_view name) const;
-	const Node* FindNode(std::string_view name) const;
-	Node* FindWorkNode(std::string_view name);
+	const KdModelData::Node* FindDataNode(std::string_view _name) const;
+	const Node* FindNode(std::string_view _name) const;
+	Node* FindWorkNode(std::string_view _name);
 
 	// アクセサ
 	// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 	inline const std::shared_ptr<KdModelData> GetData() const { return m_spData; }
 	// メッシュ取得
-	inline const std::shared_ptr<KdMesh> GetMesh(UINT index) const { return index >= m_coppiedNodes.size() ? nullptr : GetDataNodes()[index].m_spMesh; }
+	inline const std::shared_ptr<KdMesh> GetMesh(UINT _index) const { return _index >= m_coppiedNodes.size() ? nullptr : GetDataNodes()[_index].m_spMesh; }
 
 	// データノードリスト取得
 	const std::vector<KdModelData::Node>& GetDataNodes() const { assert(m_spData && "モデルデータが存在しません"); return m_spData->GetOriginalNodes(); }
@@ -144,18 +142,18 @@ public:
 	std::vector<Node>& WorkNodes() { m_needCalcNode = true; return m_coppiedNodes; }
 
 	// アニメーションデータ取得
-	const std::shared_ptr<KdAnimationData> GetAnimation(std::string_view animName) const { return !m_spData ? nullptr : m_spData->GetAnimation(animName); }
-	const std::shared_ptr<KdAnimationData> GetAnimation(int index) const { return !m_spData ? nullptr : m_spData->GetAnimation(index); }
+	const std::shared_ptr<KdAnimationData> GetAnimation(std::string_view _animName) const { return !m_spData ? nullptr : m_spData->GetAnimation(_animName); }
+	const std::shared_ptr<KdAnimationData> GetAnimation(int _index) const { return !m_spData ? nullptr : m_spData->GetAnimation(_index); }
 
 	// モデル設定：コピーノードの生成
-	void SetModelData(const std::shared_ptr<KdModelData>& rModel);
-	void SetModelData(std::string_view fileName);
+	void SetModelData(const std::shared_ptr<KdModelData>& _rModel);
+	void SetModelData(std::string_view _fileName);
 
 	bool NeedCalcNodeMatrices() { return m_needCalcNode; }
 
 private:
 	// 再帰呼び出し用計算関数
-	void recCalcNodeMatrices(int nodeIdx, int parentNodeIdx = -1);
+	void recCalcNodeMatrices(int _nodeIdx, int _parentNodeIdx = -1);
 
 	// 有効
 	bool	m_enable = true;

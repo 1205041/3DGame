@@ -22,17 +22,17 @@ public:
 	// 不要なインスタンス削除など
 	void Update();
 
-	void SetListnerMatrix(const Math::Matrix& mWorld);
+	void SetListnerMatrix(const Math::Matrix& _mWorld);
 
 	// サウンド再生
-	std::shared_ptr<KdSoundInstance>  Play(std::string_view rName, bool loop = false);
-	std::shared_ptr<KdSoundInstance3D> Play3D(std::string_view rName, const Math::Vector3& rPos, bool loop = false);
+	std::shared_ptr<KdSoundInstance>  Play(std::string_view _rName, bool _loop = false);
+	std::shared_ptr<KdSoundInstance3D> Play3D(std::string_view _rName, const Math::Vector3& _rPos, bool _loop = false);
 
-	void AddPlayList(const std::shared_ptr<KdSoundInstance>& rSound)
+	void AddPlayList(const std::shared_ptr<KdSoundInstance>& _rSound)
 	{
-		if (!rSound.get()) { return; }
+		if (!_rSound.get()) { return; }
 
-		m_playList[(size_t)(rSound.get())] = rSound;
+		m_playList[(size_t)(_rSound.get())] = _rSound;
 	}
 
 	// 再生中の音をすべて停止する
@@ -51,14 +51,14 @@ public:
 	const DirectX::AudioListener& GetListener() { return m_listener; }
 
 	// サウンドアセットの一括読込
-	void LoadSoundAssets(std::initializer_list<std::string_view>& fileName);
+	void LoadSoundAssets(std::initializer_list<std::string_view>& _fileName);
 
 	// 解放
 	void Release();
 
 private:
 	// サウンドデータの取得orロード
-	std::shared_ptr<KdSoundEffect> GetSound(std::string_view fileName);
+	std::shared_ptr<KdSoundEffect> GetSound(std::string_view _fileName);
 
 	// DirectXのAudioEngine本体
 	std::unique_ptr<DirectX::AudioEngine>	m_audioEng;
@@ -94,20 +94,20 @@ private:
 class KdSoundInstance : public std::enable_shared_from_this<KdSoundInstance>
 {
 public:
-	KdSoundInstance(const std::shared_ptr<KdSoundEffect>& soundEffect);
+	KdSoundInstance(const std::shared_ptr<KdSoundEffect>& _soundEffect);
 
 	virtual bool CreateInstance();
 
-	virtual void Play(bool loop = false);
+	virtual void Play(bool _loop = false);
 	void Stop() { if (m_instance) { m_instance->Stop(); } }
 	void Pause() { if (m_instance) { m_instance->Pause(); } }
 	void Resume() { if (m_instance) { m_instance->Resume(); } }
 
 	// ・vol	… ボリューム設定(1.0が100%)
-	void SetVolume(float vol);
+	void SetVolume(float _vol);
 
 	// ・pitch	… 振動設定(低音-1.0～1.0高音)
-	void SetPitch(float pitch);
+	void SetPitch(float _pitch);
 
 	// 再生状態の取得
 	bool IsPlaying();
@@ -135,16 +135,16 @@ protected:
 class KdSoundInstance3D : public KdSoundInstance
 {
 public:
-	KdSoundInstance3D(const std::shared_ptr<KdSoundEffect>& soundEffect, const DirectX::AudioListener& ownerListener);
+	KdSoundInstance3D(const std::shared_ptr<KdSoundEffect>& _soundEffect, const DirectX::AudioListener& _ownerListener);
 
 	bool CreateInstance() override;
 
-	void Play(bool loop = false) override;
+	void Play(bool _loop = false) override;
 
-	void SetPos(const Math::Vector3& rPos);
+	void SetPos(const Math::Vector3& _rPos);
 
 	// 減衰倍率設定 1:通常 FLT_MIN～FLT_MAX
-	void SetCurveDistanceScaler(float val);
+	void SetCurveDistanceScaler(float _val);
 
 protected:
 	// エミッター 主に3Dサウンドソースの定義
@@ -171,15 +171,15 @@ public:
 
 	~KdSoundEffect() { m_soundEffect = nullptr; }
 
-	std::unique_ptr<DirectX::SoundEffectInstance> CreateInstance(DirectX::SOUND_EFFECT_INSTANCE_FLAGS flag)
+	std::unique_ptr<DirectX::SoundEffectInstance> CreateInstance(DirectX::SOUND_EFFECT_INSTANCE_FLAGS _flag)
 	{
 		if (!m_soundEffect){ return nullptr; }
 
-		return m_soundEffect->CreateInstance(flag);
+		return m_soundEffect->CreateInstance(_flag);
 	}
 
 	// WAVEサウンド読み込み
-	bool Load(std::string_view fileName, const std::unique_ptr<DirectX::AudioEngine>& engine);
+	bool Load(std::string_view _fileName, const std::unique_ptr<DirectX::AudioEngine>& _engine);
 
 private:
 	// サウンドエフェクト

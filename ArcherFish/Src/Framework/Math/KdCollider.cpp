@@ -8,58 +8,58 @@
 /* 当たり判定形状の登録関数群 */
 /* = = = = = = = =  = = = = = */
 // 当たり判定形状登録関数
-void KdCollider::RegisterCollisionShape(std::string_view name, std::unique_ptr<KdCollisionShape> spShape)
+void KdCollider::RegisterCollisionShape(std::string_view _name, std::unique_ptr<KdCollisionShape> _spShape)
 {
-	if (!spShape) { return; }
-	m_collisionShapes.emplace(name.data(), std::move(spShape));
+	if (!_spShape) { return; }
+	m_collisionShapes.emplace(_name.data(), std::move(_spShape));
 }
 
 // 球情報の当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, const DirectX::BoundingSphere& sphere, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, const DirectX::BoundingSphere& _sphere, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdSphereCollision>(sphere, type));
+	RegisterCollisionShape(_name, std::make_unique<KdSphereCollision>(_sphere, _type));
 }
 
 // ローカル座標と半径の当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, const Math::Vector3& localPos, float radius, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, const Math::Vector3& _localPos, float _radius, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdSphereCollision>(localPos, radius, type));
+	RegisterCollisionShape(_name, std::make_unique<KdSphereCollision>(_localPos, _radius, _type));
 }
 
 // スマポのモデルデータの当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdModelData>& model, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, const std::shared_ptr<KdModelData>& _model, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdModelCollision>(model, type));
+	RegisterCollisionShape(_name, std::make_unique<KdModelCollision>(_model, _type));
 }
 
 // 生ポのモデルデータの当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, KdModelData* model, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, KdModelData* _model, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdModelCollision>(std::shared_ptr<KdModelData>(model), type));
+	RegisterCollisionShape(_name, std::make_unique<KdModelCollision>(std::shared_ptr<KdModelData>(_model), _type));
 }
 
 // スマポのモデルワークの当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdModelWork>& model, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, const std::shared_ptr<KdModelWork>& _model, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdModelCollision>(model, type));
+	RegisterCollisionShape(_name, std::make_unique<KdModelCollision>(_model, _type));
 }
 
 // 生ポのモデルワークの当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, KdModelWork* model, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, KdModelWork* _model, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdModelCollision>(std::shared_ptr<KdModelWork>(model), type));
+	RegisterCollisionShape(_name, std::make_unique<KdModelCollision>(std::shared_ptr<KdModelWork>(_model), _type));
 }
 
 // スマポのポリゴンの当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, const std::shared_ptr<KdPolygon> polygon, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, const std::shared_ptr<KdPolygon> _polygon, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdPolygonCollision>(polygon, type));
+	RegisterCollisionShape(_name, std::make_unique<KdPolygonCollision>(_polygon, _type));
 }
 
 // 生ポのポリゴンの当たり判定
-void KdCollider::RegisterCollisionShape(std::string_view name, KdPolygon* polygon, UINT type)
+void KdCollider::RegisterCollisionShape(std::string_view _name, KdPolygon* _polygon, UINT _type)
 {
-	RegisterCollisionShape(name, std::make_unique<KdPolygonCollision>(std::shared_ptr<KdPolygon>(polygon), type));
+	RegisterCollisionShape(_name, std::make_unique<KdPolygonCollision>(std::shared_ptr<KdPolygon>(_polygon), _type));
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -67,28 +67,28 @@ void KdCollider::RegisterCollisionShape(std::string_view name, KdPolygon* polygo
 // ・球に合わせて何のために当たり判定をするのか type を渡す必要がある
 // ・第3引数に詳細結果の受け取る機能が付いている
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool KdCollider::Intersects(const SphereInfo& targetShape, const Math::Matrix& ownerMatrix, std::list<KdCollider::CollisionResult>* pResults) const
+bool KdCollider::Intersects(const SphereInfo& _targetShape, const Math::Matrix& _ownerMatrix, std::list<KdCollider::CollisionResult>* _pResults) const
 {
 	// 当たり判定無効のタイプの場合は返る
-	if (targetShape.m_type & m_disableType) { return false; }
+	if (_targetShape.m_type & m_disableType) { return false; }
 
 	bool isHit = false;
 
 	for (auto& collisionShape : m_collisionShapes)
 	{
 		// 用途が一致していない当たり判定形状はスキップ
-		if (!(targetShape.m_type & collisionShape.second->GetType())) { continue; }
+		if (!(_targetShape.m_type & collisionShape.second->GetType())) { continue; }
 
 		KdCollider::CollisionResult tmpRes;
-		KdCollider::CollisionResult* pTmpRes = pResults ? &tmpRes : nullptr;
+		KdCollider::CollisionResult* pTmpRes = _pResults ? &tmpRes : nullptr;
 
-		if (collisionShape.second->Intersects(targetShape.m_sphere, ownerMatrix, pTmpRes))
+		if (collisionShape.second->Intersects(_targetShape.m_sphere, _ownerMatrix, pTmpRes))
 		{
 			isHit = true;
 
 			// 詳細な衝突結果を必要としない場合は1つでも接触して返す
-			if (!pResults) { break; }
-			pResults->push_back(tmpRes);
+			if (!_pResults) { break; }
+			_pResults->push_back(tmpRes);
 		}
 	}
 
@@ -100,13 +100,13 @@ bool KdCollider::Intersects(const SphereInfo& targetShape, const Math::Matrix& o
 // ・レイに合わせて何のために当たり判定をするのか type を渡す必要がある
 // ・第3引数に詳細結果の受け取る機能が付いている
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =*/
-bool KdCollider::Intersects(const RayInfo& targetShape, const Math::Matrix& ownerMatrix, std::list<KdCollider::CollisionResult>* pResults) const
+bool KdCollider::Intersects(const RayInfo& _targetShape, const Math::Matrix& _ownerMatrix, std::list<KdCollider::CollisionResult>* _pResults) const
 {
 	// 当たり判定無効のタイプの場合は返る
-	if (targetShape.m_type & m_disableType) { return false; }
+	if (_targetShape.m_type & m_disableType) { return false; }
 
 	// レイの方向ベクトルが存在しない場合は判定不能なのでそのまま返る
-	if (!targetShape.m_dir.LengthSquared())
+	if (!_targetShape.m_dir.LengthSquared())
 	{
 		assert(0 && "KdCollider::Intersects：レイの方向ベクトルが存在していないため、正しく判定できません");
 
@@ -118,18 +118,18 @@ bool KdCollider::Intersects(const RayInfo& targetShape, const Math::Matrix& owne
 	for (auto& collisionShape : m_collisionShapes)
 	{
 		// 用途が一致していない当たり判定形状はスキップ
-		if (!(targetShape.m_type & collisionShape.second->GetType())) { continue; }
+		if (!(_targetShape.m_type & collisionShape.second->GetType())) { continue; }
 
 		KdCollider::CollisionResult tmpRes;
-		KdCollider::CollisionResult* pTmpRes = pResults ? &tmpRes : nullptr;
+		KdCollider::CollisionResult* pTmpRes = _pResults ? &tmpRes : nullptr;
 
-		if (collisionShape.second->Intersects(targetShape, ownerMatrix, pTmpRes))
+		if (collisionShape.second->Intersects(_targetShape, _ownerMatrix, pTmpRes))
 		{
 			isHit = true;
 
 			// 詳細な衝突結果を必要としない場合は1つでも接触して返す
-			if (!pResults) { break; }
-			pResults->push_back(tmpRes);
+			if (!_pResults) { break; }
+			_pResults->push_back(tmpRes);
 		}
 	}
 
@@ -139,24 +139,24 @@ bool KdCollider::Intersects(const RayInfo& targetShape, const Math::Matrix& owne
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = */
 // 任意のCollisionShapeを検索して有効/無効を切り替える
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdCollider::SetEnable(std::string_view name, bool flag)
+void KdCollider::SetEnable(std::string_view _name, bool _flag)
 {
-	auto targetCol = m_collisionShapes.find(name.data());
-	if (targetCol != m_collisionShapes.end()) { targetCol->second->SetEnable(flag); }
+	auto targetCol = m_collisionShapes.find(_name.data());
+	if (targetCol != m_collisionShapes.end()) { targetCol->second->SetEnable(_flag); }
 }
 
 /* = = = = = = = = = = = = = = = = = = */
 // 特定のタイプの有効/無効を切り替える
 /* = = = = = = = = = = = = = = = = = = */
-void KdCollider::SetEnable(int type, bool flag)
+void KdCollider::SetEnable(int _type, bool _flag)
 {
-	if (flag) { m_disableType &= ~type; }	// 有効にしたい
-	else { m_disableType |= type; }			// 無効にしたい
+	if (_flag) { m_disableType &= ~_type; }	// 有効にしたい
+	else { m_disableType |= _type; }		// 無効にしたい
 }
 
-void KdCollider::SetEnableAll(bool flag)
+void KdCollider::SetEnableAll(bool _flag)
 {
-	for (auto& col : m_collisionShapes) { col.second->SetEnable(flag); }
+	for (auto& col : m_collisionShapes) { col.second->SetEnable(_flag); }
 }
 
 /* =！=！=！=！=！=！=！=！= */
@@ -171,36 +171,36 @@ void KdCollider::SetEnableAll(bool flag)
 // 　計算回数も固定なので処理効率は安定
 // ・片方の球の判定を0にすれば単純な距離判定も作れる
 /* = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool KdSphereCollision::Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes)
+bool KdSphereCollision::Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes)
 {
 	if (!m_enable) { return false; }
 
 	DirectX::BoundingSphere myShape;
 
-	m_shape.Transform(myShape, world);
+	m_shape.Transform(myShape, _world);
 
 	// 球同士の当たり判定
-	bool isHit = myShape.Intersects(target);
+	bool isHit = myShape.Intersects(_target);
 
 	// 詳細リザルトが必要無ければ即結果を返す
-	if (!pRes) { return isHit; }
+	if (!_pRes) { return isHit; }
 
 	// 当たった時のみ計算
 	if (isHit)
 	{
 		// お互いに当たらない最小距離
-		float needDistance = target.Radius + myShape.Radius;
+		float needDistance = _target.Radius + myShape.Radius;
 
 		// 自身から相手に向かう方向ベクトル
-		pRes->m_hitDir = (Math::Vector3(target.Center) - Math::Vector3(myShape.Center));
-		float betweenDistance = pRes->m_hitDir.Length();
+		_pRes->m_hitDir = (Math::Vector3(_target.Center) - Math::Vector3(myShape.Center));
+		float betweenDistance = _pRes->m_hitDir.Length();
 
 		// 重なり量 = お互い当たらない最小距離 - お互いの実際距離
-		pRes->m_overlapDistance = needDistance - betweenDistance;
-		pRes->m_hitDir.Normalize();
+		_pRes->m_overlapDistance = needDistance - betweenDistance;
+		_pRes->m_hitDir.Normalize();
 
 		// 当たった座標はお互いの球の衝突の中心点
-		pRes->m_hitPos = myShape.Center + pRes->m_hitDir * (myShape.Radius + pRes->m_overlapDistance * 0.5f);
+		_pRes->m_hitPos = myShape.Center + _pRes->m_hitDir * (myShape.Radius + _pRes->m_overlapDistance * 0.5f);
 	}
 
 	return isHit;
@@ -211,31 +211,31 @@ bool KdSphereCollision::Intersects(const DirectX::BoundingSphere& target, const 
 // ・判定回数は 1 回　
 // 　計算回数が固定なので処理効率は安定
 /* = = = = = = = = = = = = = = = = = = */
-bool KdSphereCollision::Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes)
+bool KdSphereCollision::Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes)
 {
 	if (!m_enable) { return false; }
 
 	DirectX::BoundingSphere myShape;
 
-	m_shape.Transform(myShape, world);
+	m_shape.Transform(myShape, _world);
 
 	float hitDistance = 0.0f;
 
-	bool isHit = myShape.Intersects(target.m_pos, target.m_dir, hitDistance);
+	bool isHit = myShape.Intersects(_target.m_pos, _target.m_dir, hitDistance);
 
 	// 判定限界距離を加味
-	isHit &= (target.m_range >= hitDistance);
+	isHit &= (_target.m_range >= hitDistance);
 
 	// 詳細リザルトが必要無ければ即結果を返す
-	if (!pRes) { return isHit; }
+	if (!_pRes) { return isHit; }
 
 	// 当たった時のみ計算
 	if (isHit)
 	{
 		// レイ発射位置 + レイの当たった位置までのベクトル 
-		pRes->m_hitPos = target.m_pos + target.m_dir * hitDistance;
-		pRes->m_hitDir = target.m_dir * (-1);
-		pRes->m_overlapDistance = target.m_range - hitDistance;
+		_pRes->m_hitPos = _target.m_pos + _target.m_dir * hitDistance;
+		_pRes->m_hitDir = _target.m_dir * (-1);
+		_pRes->m_overlapDistance = _target.m_range - hitDistance;
 	}
 
 	return isHit;
@@ -253,7 +253,7 @@ bool KdSphereCollision::Intersects(const KdCollider::RayInfo& target, const Math
 // 　計算回数がモデルのデータ依存のため処理効率は不安定
 // ・単純に計算回数が多くなる可能性があるため重くなりがち
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool KdModelCollision::Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes)
+bool KdModelCollision::Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes)
 {
 	// 当たり判定が無効 or 形状が解放済みなら判定せず返る
 	if (!m_enable || !m_shape) { return false; }
@@ -267,7 +267,7 @@ bool KdModelCollision::Intersects(const DirectX::BoundingSphere& target, const M
 	const std::vector<KdModelWork::Node>& workNodes = m_shape->GetNodes();
 
 	// 各メッシュに押される用の球・押される毎に座標を更新する必要がある
-	DirectX::BoundingSphere pushedSphere = target;
+	DirectX::BoundingSphere pushedSphere = _target;
 	// 計算用にFloat3 → Vectorへ変換
 	Math::Vector3 pushedSphereCenter = DirectX::XMLoadFloat3(&pushedSphere.Center);
 
@@ -285,13 +285,13 @@ bool KdModelCollision::Intersects(const DirectX::BoundingSphere& target, const M
 		if (!dataNode.m_spMesh) { continue; }
 
 		CollisionMeshResult tmpResult;
-		CollisionMeshResult* pTmpResult = pRes ? &tmpResult : nullptr;
+		CollisionMeshResult* pTmpResult = _pRes ? &tmpResult : nullptr;
 
 		// メッシュと球形の当たり判定実行
-		if (!MeshIntersect(*dataNode.m_spMesh, pushedSphere, workNode.m_worldTransform * world, pTmpResult)) { continue; }
+		if (!MeshIntersect(*dataNode.m_spMesh, pushedSphere, workNode.m_worldTransform * _world, pTmpResult)) { continue; }
 
 		// 詳細リザルトが必要無ければ即結果を返す
-		if (!pRes) { return true; }
+		if (!_pRes) { return true; }
 
 		isHit = true;
 
@@ -304,15 +304,15 @@ bool KdModelCollision::Intersects(const DirectX::BoundingSphere& target, const M
 		hitPos = tmpResult.m_hitPos;
 	}
 
-	if (pRes && isHit)
+	if (_pRes && isHit)
 	{
 		// 最後に当たった座標が使用される
-		pRes->m_hitPos = hitPos;
+		_pRes->m_hitPos = hitPos;
 
 		// 複数のメッシュに押された最終的な位置 - 移動前の位置 = 押し出しベクトル
-		pRes->m_hitDir = DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&pushedSphere.Center), DirectX::XMLoadFloat3(&target.Center));
-		pRes->m_overlapDistance = DirectX::XMVector3Length(pRes->m_hitDir).m128_f32[0];
-		pRes->m_hitDir = DirectX::XMVector3Normalize(pRes->m_hitDir);
+		_pRes->m_hitDir = DirectX::XMVectorSubtract(DirectX::XMLoadFloat3(&pushedSphere.Center), DirectX::XMLoadFloat3(&_target.Center));
+		_pRes->m_overlapDistance = DirectX::XMVector3Length(_pRes->m_hitDir).m128_f32[0];
+		_pRes->m_hitDir = DirectX::XMVector3Normalize(_pRes->m_hitDir);
 	}
 
 	return isHit;
@@ -324,7 +324,7 @@ bool KdModelCollision::Intersects(const DirectX::BoundingSphere& target, const M
 // 　計算回数がモデルのデータ依存のため処理効率は不安定
 // ・単純に計算回数が多くなる可能性があるため重くなりがち
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool KdModelCollision::Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes)
+bool KdModelCollision::Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes)
 {
 	// 当たり判定が無効 or 形状が解放済みなら判定せず返る
 	if (!m_enable || !m_shape) { return false; }
@@ -349,24 +349,24 @@ bool KdModelCollision::Intersects(const KdCollider::RayInfo& target, const Math:
 		if (!dataNode.m_spMesh) { continue; }
 
 		CollisionMeshResult tmpResult;
-		CollisionMeshResult* pTmpResult = pRes ? &tmpResult : nullptr;
+		CollisionMeshResult* pTmpResult = _pRes ? &tmpResult : nullptr;
 
-		if (!MeshIntersect(*dataNode.m_spMesh, target.m_pos, target.m_dir, target.m_range, workNode.m_worldTransform * world, pTmpResult)) { continue; }
+		if (!MeshIntersect(*dataNode.m_spMesh, _target.m_pos, _target.m_dir, _target.m_range, workNode.m_worldTransform * _world, pTmpResult)) { continue; }
 
 		// 詳細リザルトが必要無ければ即結果を返す
-		if (!pRes) { return true; }
+		if (!_pRes) { return true; }
 
 		isHit = true;
 
 		if (tmpResult.m_overlapDistance > nearestResult.m_overlapDistance) { nearestResult = tmpResult; }
 	}
 
-	if (pRes && isHit)
+	if (_pRes && isHit)
 	{
 		// 最も近くで当たったヒット情報をコピーする
-		pRes->m_hitPos = nearestResult.m_hitPos;
-		pRes->m_hitDir = nearestResult.m_hitDir;
-		pRes->m_overlapDistance = nearestResult.m_overlapDistance;
+		_pRes->m_hitPos = nearestResult.m_hitPos;
+		_pRes->m_hitDir = nearestResult.m_hitDir;
+		_pRes->m_overlapDistance = nearestResult.m_overlapDistance;
 	}
 
 	return isHit;
@@ -384,22 +384,22 @@ bool KdModelCollision::Intersects(const KdCollider::RayInfo& target, const Math:
 // 　計算回数がポリゴンデータ依存のため処理効率は不安定
 // ・単純に計算回数が多くなる可能性があるため重くなりがち
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool KdPolygonCollision::Intersects(const DirectX::BoundingSphere& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes)
+bool KdPolygonCollision::Intersects(const DirectX::BoundingSphere& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes)
 {
 	// 当たり判定が無効 or 形状が解放済みなら判定せず返る
 	if (!m_enable || !m_shape) { return false; }
 
 	CollisionMeshResult result;
-	CollisionMeshResult* pTmpResult = pRes ? &result : nullptr;
+	CollisionMeshResult* pTmpResult = _pRes ? &result : nullptr;
 
 	// メッシュと球形の当たり判定実行：当たっていなければ無条件に返る
-	if (!PolygonsIntersect(*m_shape, target, world, pTmpResult)) { return false; }
+	if (!PolygonsIntersect(*m_shape, _target, _world, pTmpResult)) { return false; }
 
-	if (pRes)
+	if (_pRes)
 	{
-		pRes->m_hitPos = result.m_hitPos;
-		pRes->m_hitDir = result.m_hitDir;
-		pRes->m_overlapDistance = result.m_overlapDistance;
+		_pRes->m_hitPos = result.m_hitPos;
+		_pRes->m_hitDir = result.m_hitDir;
+		_pRes->m_overlapDistance = result.m_overlapDistance;
 	}
 
 	return true;
@@ -411,22 +411,22 @@ bool KdPolygonCollision::Intersects(const DirectX::BoundingSphere& target, const
 // 　計算回数がポリゴンデータ依存のため処理効率は不安定
 // ・単純に計算回数が多くなる可能性があるため重くなりがち
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-bool KdPolygonCollision::Intersects(const KdCollider::RayInfo& target, const Math::Matrix& world, KdCollider::CollisionResult* pRes)
+bool KdPolygonCollision::Intersects(const KdCollider::RayInfo& _target, const Math::Matrix& _world, KdCollider::CollisionResult* _pRes)
 {
 	// 当たり判定が無効 or 形状が解放済みなら判定せず返る
 	if (!m_enable || !m_shape) { return false; }
 	
 	CollisionMeshResult result;
-	CollisionMeshResult* pTmpResult = pRes ? &result : nullptr;
+	CollisionMeshResult* pTmpResult = _pRes ? &result : nullptr;
 
 	// 当たっていなければ無条件に返る
-	if (!PolygonsIntersect(*m_shape, target.m_pos, target.m_dir, target.m_range, world, pTmpResult)) { return false; }
+	if (!PolygonsIntersect(*m_shape, _target.m_pos, _target.m_dir, _target.m_range, _world, pTmpResult)) { return false; }
 
-	if (pRes)
+	if (_pRes)
 	{
-		pRes->m_hitPos = result.m_hitPos;
-		pRes->m_hitDir = result.m_hitDir;
-		pRes->m_overlapDistance = result.m_overlapDistance;
+		_pRes->m_hitPos = result.m_hitPos;
+		_pRes->m_hitDir = result.m_hitDir;
+		_pRes->m_overlapDistance = result.m_overlapDistance;
 	}
 
 	return true;

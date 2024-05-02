@@ -13,41 +13,42 @@ class KdInputCollector;
 class KdInputManager
 {
 public:
-	static KdInputManager& Instance()
+	void Update();
+
+	// 全ての有効な入力装置からのボタン入力状態を取得
+	short GetButtonState(std::string_view _name) const;
+
+	bool IsFree(std::string_view _name) const;
+	bool IsPress(std::string_view _name) const;
+	bool IsHold(std::string_view _name) const;
+	bool IsRelease(std::string_view _name) const;
+
+	// 全ての有効な入力装置からの軸入力状態を取得
+	Math::Vector2 GetAxisState(std::string_view _name) const;
+
+	// 入力装置の登録
+	void AddDevice(std::string_view _name, KdInputCollector* _pDevice);
+	void AddDevice(std::string_view _name, std::unique_ptr<KdInputCollector>& _pDevice);
+
+	const std::unique_ptr<KdInputCollector>& GetDevice(std::string_view _name) const;
+	std::unique_ptr<KdInputCollector>& WorkDevice(std::string_view _name);
+
+	void Release();
+
+private:
+	std::unordered_map<std::string, std::unique_ptr<KdInputCollector>> m_pInputDevices;
+
+public:
+	static KdInputManager& GetInstance()
 	{
 		static KdInputManager instance;
 		return instance;
 	}
 
-	void Update();
-
-	// 全ての有効な入力装置からのボタン入力状態を取得
-	short GetButtonState(std::string_view name) const;
-
-	bool IsFree(std::string_view name) const;
-	bool IsPress(std::string_view name) const;
-	bool IsHold(std::string_view name) const;
-	bool IsRelease(std::string_view name) const;
-
-	// 全ての有効な入力装置からの軸入力状態を取得
-	Math::Vector2 GetAxisState(std::string_view name) const;
-
-	// 入力装置の登録
-	void AddDevice(std::string_view name, KdInputCollector* pDevice);
-	void AddDevice(std::string_view name, std::unique_ptr<KdInputCollector>& pDevice);
-
-	const std::unique_ptr<KdInputCollector>& GetDevice(std::string_view name) const;
-	std::unique_ptr<KdInputCollector>& WorkDevice(std::string_view name);
-
-	void Release();
-
 private:
 	KdInputManager() {}
 	~KdInputManager() { Release(); }
-
-	std::unordered_map<std::string, std::unique_ptr<KdInputCollector>> m_pInputDevices;
 };
-
 
 class KdInputButtonBase;
 class KdInputAxisBase;
@@ -78,23 +79,23 @@ public:
 	bool IsSomethingInput();
 
 	// 任意の入力状況の取得
-	short GetButtonState(std::string_view name) const;
-	Math::Vector2 GetAxisState(std::string_view name) const;
+	short GetButtonState(std::string_view _name) const;
+	Math::Vector2 GetAxisState(std::string_view _name) const;
 
 	// 入力デバイスの状態の取得と設定
 	ActiveState GetActiveState() const { return m_state; }
-	void SetActiveState(ActiveState state) { m_state = state; }
+	void SetActiveState(ActiveState _state) { m_state = _state; }
 
 	// アプリケーションボタンの追加：上書き
-	void AddButton(std::string_view name, KdInputButtonBase* pButton);
-	void AddButton(std::string_view name, std::shared_ptr<KdInputButtonBase> spButton);
+	void AddButton(std::string_view _name, KdInputButtonBase* _pButton);
+	void AddButton(std::string_view _name, std::shared_ptr<KdInputButtonBase> _spButton);
 	// 入力軸の追加：上書き
-	void AddAxis(std::string_view name, KdInputAxisBase* pAxis);
-	void AddAxis(std::string_view name, std::shared_ptr<KdInputAxisBase> spAxis);
+	void AddAxis(std::string_view _name, KdInputAxisBase* _pAxis);
+	void AddAxis(std::string_view _name, std::shared_ptr<KdInputAxisBase> _spAxis);
 
-	const std::shared_ptr<KdInputButtonBase> GetButton(std::string_view name) const;
+	const std::shared_ptr<KdInputButtonBase> GetButton(std::string_view _name) const;
 
-	const std::shared_ptr<KdInputAxisBase> GetAxis(std::string_view name) const;
+	const std::shared_ptr<KdInputAxisBase> GetAxis(std::string_view _name) const;
 
 private:
 	void Release();
@@ -137,7 +138,7 @@ public:
 
 	short GetState() const { return m_state; }
 
-	virtual void GetCode(std::vector<int>& ret) const = 0;
+	virtual void GetCode(std::vector<int>& _ret) const = 0;
 
 protected:
 	// 入力の状態
@@ -158,13 +159,13 @@ class KdInputButtonForWindows : public KdInputButtonBase
 {
 public:
 	// 引き付きコンストラクター
-	KdInputButtonForWindows(int keyCode);
-	KdInputButtonForWindows(std::initializer_list<int> keyCodeList);
-	KdInputButtonForWindows(const std::vector<int>& keyCodeList);
+	KdInputButtonForWindows(int _keyCode);
+	KdInputButtonForWindows(std::initializer_list<int> _keyCodeList);
+	KdInputButtonForWindows(const std::vector<int>& _keyCodeList);
 
 	void Update() override;
 
-	void GetCode(std::vector<int>& ret) const override;
+	void GetCode(std::vector<int>& _ret) const override;
 
 private:
 	std::list<int>   m_keyCodes;
@@ -190,8 +191,8 @@ public:
 	// 強制的に入力無しの状態にする
 	void NoInput() { m_axis = Math::Vector2::Zero; }
 
-	void SetValueRate(float rate) { m_valueRate = rate; }
-	void SetLimitValue(float limit) { m_limitValue = limit; }
+	void SetValueRate(float _rate) { m_valueRate = _rate; }
+	void SetLimitValue(float _limit) { m_limitValue = _limit; }
 
 	Math::Vector2 GetState() const;
 
@@ -215,15 +216,15 @@ class KdInputAxisForWindows : public KdInputAxisBase
 {
 public:
 	// 引き付きコンストラクター
-	KdInputAxisForWindows(int upCode, int rightCode, int downCode, int leftCode);
-	KdInputAxisForWindows(std::initializer_list<int> upCodes, std::initializer_list<int> rightCodes,
-		std::initializer_list<int> downCodes, std::initializer_list<int> leftCodes);
-	KdInputAxisForWindows(const std::vector<int>& upCodes, const std::vector<int>& rightCodes,
-		const std::vector<int>& downCodes, const std::vector<int>& leftCodes);
-	KdInputAxisForWindows(const std::shared_ptr<KdInputButtonBase> upButton, 
-		const std::shared_ptr<KdInputButtonBase> rightButton, 
-		const std::shared_ptr<KdInputButtonBase> downButton, 
-		const std::shared_ptr<KdInputButtonBase> leftButton);
+	KdInputAxisForWindows(int _upCode, int _rightCode, int _downCode, int _leftCode);
+	KdInputAxisForWindows(std::initializer_list<int> _upCodes, std::initializer_list<int> _rightCodes,
+		std::initializer_list<int> _downCodes, std::initializer_list<int> _leftCodes);
+	KdInputAxisForWindows(const std::vector<int>& _upCodes, const std::vector<int>& _rightCodes,
+		const std::vector<int>& _downCodes, const std::vector<int>& _leftCodes);
+	KdInputAxisForWindows(const std::shared_ptr<KdInputButtonBase> _upButton, 
+		const std::shared_ptr<KdInputButtonBase> _rightButton, 
+		const std::shared_ptr<KdInputButtonBase> _downButton, 
+		const std::shared_ptr<KdInputButtonBase> _leftButton);
 
 	void PreUpdate() override;
 
@@ -253,10 +254,10 @@ class KdInputAxisForWindowsMouse : public KdInputAxisBase
 public:
 	KdInputAxisForWindowsMouse() {}
 
-	KdInputAxisForWindowsMouse(int fixCode);
-	KdInputAxisForWindowsMouse(std::initializer_list<int> fixCodes);
-	KdInputAxisForWindowsMouse(const std::vector<int>& fixCodes);
-	KdInputAxisForWindowsMouse(const std::shared_ptr<KdInputButtonBase> fixButton);
+	KdInputAxisForWindowsMouse(int _fixCode);
+	KdInputAxisForWindowsMouse(std::initializer_list<int> _fixCodes);
+	KdInputAxisForWindowsMouse(const std::vector<int>& _fixCodes);
+	KdInputAxisForWindowsMouse(const std::shared_ptr<KdInputButtonBase> _fixButton);
 
 	void PreUpdate() override;
 

@@ -68,7 +68,7 @@ void KdTrailPolygon::CreateVerticesWithBillboardPattern()
 	if (m_pointList.size() < 2) { return; }
 
 	// カメラの情報
-	Math::Matrix mCam = KdShaderManager::Instance().GetCameraCB().mView.Invert();
+	Math::Matrix mCam = KdShaderManager::GetInstance().GetCameraCB().mView.Invert();
 
 	// 軌跡画像の分割数
 	float sliceCount = (float)(m_pointList.size() - 1);
@@ -91,16 +91,10 @@ void KdTrailPolygon::CreateVerticesWithBillboardPattern()
 
 		// ラインの向き
 		Math::Vector3 vDir;
-		if (i == 0)
-		{
-			// 初回時のみ、次のポイントを使用
-			vDir = m_pointList[1].Translation() - mat.Translation();
-		}
-		else
-		{
-			// 二回目以降は、前回の座標から向きを決定する
-			vDir = mat.Translation() - prevPos;
-		}
+		// 初回時のみ、次のポイントを使用
+		if (i == 0) { vDir = m_pointList[1].Translation() - mat.Translation(); }
+		// 二回目以降は、前回の座標から向きを決定する
+		else { vDir = mat.Translation() - prevPos; }
 
 		// カメラからポイントへの向き
 		Math::Vector3 v = mat.Translation() - mCam.Translation();

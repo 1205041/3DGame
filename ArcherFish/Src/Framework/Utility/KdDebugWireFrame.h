@@ -1,15 +1,18 @@
 #pragma once
 
+// 360“x
+#define EVERY_DIRECTION 360
+
 class KdDebugWireFrame
 {
 public:
 	KdDebugWireFrame() {}
 	~KdDebugWireFrame() { Release(); }
 
-	void AddDebugLine(const Math::Vector3& start, const Math::Vector3& end, const Math::Color& col = kWhiteColor);
-	void AddDebugLine(const Math::Vector3& start, const Math::Vector3& dir = Math::Vector3(0,0,1), float length = 1.0f, const Math::Color& col = kWhiteColor);
-	void AddDebugLineFromMatrix(const Math::Matrix& mat, float scale);
-	void AddDebugSphere(const Math::Vector3& pos, float radius, const Math::Color& col = kWhiteColor);
+	void AddDebugLine(const Math::Vector3& _start, const Math::Vector3& _end, const Math::Color& _col = kWhiteColor);
+	void AddDebugLine(const Math::Vector3& _start, const Math::Vector3& _dir = Math::Vector3(0,0,1), float _length = 1.0f, const Math::Color& _col = kWhiteColor);
+	void AddDebugLineFromMatrix(const Math::Matrix& _mat, float _scale);
+	void AddDebugSphere(const Math::Vector3& _pos, float _radius, const Math::Color& _col = kWhiteColor);
 
 	void Draw();
 

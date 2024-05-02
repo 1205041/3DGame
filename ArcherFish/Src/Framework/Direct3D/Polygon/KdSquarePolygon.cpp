@@ -4,9 +4,9 @@
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 板ポリゴンの原点の設定
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdSquarePolygon::SetPivot(PivotType pivot)
+void KdSquarePolygon::SetPivot(PivotType _pivot)
 {
-	m_pivotType = pivot;
+	m_pivotType = _pivot;
 
 	Math::Vector2 scale;
 	scale.x = m_vertices[3].pos.x - m_vertices[0].pos.x;
@@ -18,10 +18,10 @@ void KdSquarePolygon::SetPivot(PivotType pivot)
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 描画の幅と高さの設定
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdSquarePolygon::SetScale(const Math::Vector2& scale)
+void KdSquarePolygon::SetScale(const Math::Vector2& _scale)
 {
-	float halfX = scale.x * 0.5f;
-	float halfY = scale.y * 0.5f;
+	float halfX = _scale.x * 0.5f;
+	float halfY = _scale.y * 0.5f;
 
 	float pivotX = (static_cast<int>(m_pivotType) / 10 - 1) * halfX;
 	float pivotY = (static_cast<int>(m_pivotType) % 10 - 1) * halfY;
@@ -33,30 +33,21 @@ void KdSquarePolygon::SetScale(const Math::Vector2& scale)
 	m_vertices[3].pos = { halfX + pivotX,  halfY + pivotY, 0.0f };	// 右下
 }
 
-void KdSquarePolygon::SetScale(float scalar)
+void KdSquarePolygon::SetScale(float _scalar)
 {
 	Math::Vector2 scale;
 
 	scale.x = m_vertices[3].pos.x - m_vertices[0].pos.x;
 	scale.y = m_vertices[3].pos.y - m_vertices[0].pos.y;
 
-	// アスペクト比を保ったまま拡縮する、
-	if (scale.x == 0.0f || scale.y == 0.0f)
-	{
-		// どちらかのscaleが0だった場合の0除算対策
-		scale.Normalize();
-	}
-	// 短い方を長さ1.0に正規化
-	else if (scale.x > scale.y)
-	{
-		scale /= scale.y;
-	}
-	else
-	{
-		scale /= scale.x;
-	}
+	// アスペクト比を保ったまま拡縮する、どちらかのscaleが0だった場合の0除算対策
+	if (scale.x == 0.0f || scale.y == 0.0f) { scale.Normalize(); }
 
-	scale *= scalar;
+	// 短い方を長さ1.0に正規化
+	else if (scale.x > scale.y) { scale /= scale.y; }
+	else { scale /= scale.x; }
+
+	scale *= _scalar;
 
 	SetScale(scale);
 }
@@ -69,10 +60,7 @@ void KdSquarePolygon::SetVertexColor(const std::vector<Math::Color>& _vertCols)
 {
 	size_t colNum = _vertCols.size();
 
-	if(!colNum)
-	{
-		assert(0 && "KdSquarePolygon::SetVertexColor 色が一色も指定されていません");
-	}
+	if (!colNum) { assert(0 && "KdSquarePolygon::SetVertexColor 色が一色も指定されていません"); }
 
 	// 送られた色数分頂点色を書き換える
 	for (size_t i = 0; i < colNum; ++i)
@@ -95,24 +83,24 @@ void KdSquarePolygon::SetVertexColor(const std::vector<Math::Color>& _vertCols)
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // テクスチャ内の描画エリアの設定 splitX,Yを使って
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdSquarePolygon::SetUVRect(UINT index)
+void KdSquarePolygon::SetUVRect(UINT _index)
 {
 	// マス座標
-	int x = index % m_splitX;
-	int y = index / m_splitX;
+	int x = _index % m_splitX;
+	int y = _index / m_splitX;
 
 	SetUVRect(x, y);
 }
 
-void KdSquarePolygon::SetUVRect(UINT x, UINT y)
+void KdSquarePolygon::SetUVRect(UINT _x, UINT _y)
 {
 	float w = 1.0f / m_splitX;
 	float h = 1.0f / m_splitY;
 
 	Math::Vector2 uvMin, uvMax;
 
-	uvMin.x = x * w;
-	uvMin.y = y * h;
+	uvMin.x = _x * w;
+	uvMin.y = _y * h;
 
 	uvMax.x = uvMin.x + w;
 	uvMax.y = uvMin.y + h;

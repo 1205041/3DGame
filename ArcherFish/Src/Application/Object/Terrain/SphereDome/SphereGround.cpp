@@ -15,7 +15,7 @@ void SphereGround::PostUpdate()
 void SphereGround::DrawUnLit()
 {
 	if (!m_spModelData) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
+	KdShaderManager::GetInstance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
 }
 
 void SphereGround::Init()
@@ -23,7 +23,7 @@ void SphereGround::Init()
 	if (!m_spModelData)
 	{
 		m_spModelData = std::make_shared<KdModelData>();
-		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
+		m_spModelData = KdAssets::GetInstance().m_modeldatas.GetData(
 			"Asset/Models/Terrain/Land/Land.gltf");
 	}
 

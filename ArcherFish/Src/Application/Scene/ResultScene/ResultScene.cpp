@@ -8,7 +8,7 @@
 void ResultScene::Event()
 {
 	// ƒV[ƒ“Ø‘Ö(Result¨Title)
-	if (KdInputManager::Instance().GetButtonState("ChangeTitle"))
+	if (KdInputManager::GetInstance().GetButtonState("ChangeTitle"))
 	{
 		if (!m_SceneFlg)
 		{

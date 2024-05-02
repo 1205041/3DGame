@@ -31,7 +31,7 @@ void WaterBar::Init()
 
 void WaterBar::DrawSprite()
 {
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_txt, (int)m_txtPixel.x, (int)m_txtPixel.y, &m_txtRectAng);
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_waterMax, m_height, &m_rectAng, &m_barColor, m_pivot);
-	KdShaderManager::Instance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_water, m_height, &m_rectAng, &m_color, m_pivot);
+	KdShaderManager::GetInstance().m_spriteShader.DrawTex(&m_txt, (int)m_txtPixel.x, (int)m_txtPixel.y, &m_txtRectAng);
+	KdShaderManager::GetInstance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_waterMax, m_height, &m_rectAng, &m_barColor, m_pivot);
+	KdShaderManager::GetInstance().m_spriteShader.DrawTex(&m_tex, (int)m_pixel.x, (int)m_pixel.y, m_water, m_height, &m_rectAng, &m_color, m_pivot);
 }

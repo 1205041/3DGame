@@ -23,10 +23,10 @@ float4 main(VSOutputNoLighting In) : SV_Target0
 	float3 outColor = baseColor.rgb;
 	
 	// Alphaテスト
-	if (baseColor.a < 0.05f)
-	{
-		discard;
-	}
+    if (baseColor.a < 0.05f)
+    {
+        discard;
+    }
 	
 	// 自己発光色の適応
 	if (g_OnlyEmissie)

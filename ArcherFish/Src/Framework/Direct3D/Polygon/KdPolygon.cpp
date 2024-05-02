@@ -3,14 +3,11 @@
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // 判定用ポリゴン頂点座標のコピー
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdPolygon::GetPositions(std::vector<Math::Vector3>& res) const
+void KdPolygon::GetPositions(std::vector<Math::Vector3>& _res) const
 {
-	res.resize(m_vertices.size());
+	_res.resize(m_vertices.size());
 
-	for (size_t i = 0; i < m_vertices.size(); ++i)
-	{
-		res[i] = m_vertices[i].pos;
-	}
+	for (size_t i = 0; i < m_vertices.size(); ++i) { _res[i] = m_vertices[i].pos; }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -18,20 +15,14 @@ void KdPolygon::GetPositions(std::vector<Math::Vector3>& res) const
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // テクスチャデータからファイルパスを参照してファイルパスからマテリアルを作成する関数を呼び出す
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdPolygon::SetMaterial(const std::shared_ptr<KdTexture>& spBaseColTex)
+void KdPolygon::SetMaterial(const std::shared_ptr<KdTexture>& _spBaseColTex)
 {
-	if (!spBaseColTex) { return; }
+	if (!_spBaseColTex) { return; }
 
 	if (!m_spMaterial) { m_spMaterial = std::make_shared<KdMaterial>(); }
 
-	if (spBaseColTex->GetFilepath() == "")
-	{
-		m_spMaterial->SetTextures(spBaseColTex, nullptr, nullptr, nullptr);
-	}
-	else
-	{
-		SetMaterial(spBaseColTex->GetFilepath());
-	}
+	if (_spBaseColTex->GetFilepath() == "") { m_spMaterial->SetTextures(_spBaseColTex, nullptr, nullptr, nullptr); }
+	else { SetMaterial(_spBaseColTex->GetFilepath()); }
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -42,16 +33,15 @@ void KdPolygon::SetMaterial(const std::shared_ptr<KdTexture>& spBaseColTex)
 // ファイル名_emi.png ：光源が書き込まれたテクスチャ
 // ファイル名_nml.png ：法線情報が書き込まれたテクスチャ
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdPolygon::SetMaterial(const std::string& filePath)
+void KdPolygon::SetMaterial(const std::string& _filePath)
 {
 	if (!m_spMaterial) { m_spMaterial = std::make_shared<KdMaterial>(); }
 
-	m_spMaterial->m_name = filePath;
+	m_spMaterial->m_name = _filePath;
 
 	// ファイルパス生成用に引数のファイルパスを分解
-	std::string dirPath = KdGetDirFromPath(filePath);
-	std::string fileName = KdGetNameFromPath(filePath, true);
+	std::string dirPath = KdGetDirFromPath(_filePath);
+	std::string fileName = KdGetNameFromPath(_filePath, true);
 
-	m_spMaterial->SetTextures(dirPath, fileName + ".png", fileName + "_mtrf.png",
-		fileName + "_emi.png", fileName + "_nml.png");
+	m_spMaterial->SetTextures(dirPath, fileName + ".png", fileName + "_mtrf.png", fileName + "_emi.png", fileName + "_nml.png");
 }

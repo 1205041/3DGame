@@ -2,7 +2,7 @@
 
 #include "KdBuffer.h"
 
-bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, const D3D11_SUBRESOURCE_DATA* initData)
+bool KdBuffer::Create(UINT _bindFlags, UINT _bufferSize, D3D11_USAGE _bufferUsage, const D3D11_SUBRESOURCE_DATA* _initData)
 {
 	Release();
 
@@ -10,10 +10,11 @@ bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, 
 	// 定数バッファとして作成する場合はサイズチェックを行う
 	// ※定数バッファは16バイトアライメント(16の倍数)にする必要がある
 	//----------------------------------
-	if (bindFlags == D3D11_BIND_CONSTANT_BUFFER)
+	if (_bindFlags == D3D11_BIND_CONSTANT_BUFFER)
 	{
 
-		if (bufferSize % 16 != 0) {
+		if (_bufferSize % 16 != 0)
+		{
 			assert(0 && "コンスタントバッファ作成のサイズは16の倍数バイトでなければならないよ!!(Buffer)");
 			return false;
 		}
@@ -26,12 +27,12 @@ bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, 
 	// バッファ作成のための詳細データ
 	//--------------------------------
 	D3D11_BUFFER_DESC desc;
-	desc.BindFlags			= bindFlags;		// デバイスにバインドするときの種類(頂点バッファ、インデックスバッファ、定数バッファなど)
-	desc.ByteWidth			= bufferSize;		// 作成するバッファのバイトサイズ
+	desc.BindFlags			= _bindFlags;		// デバイスにバインドするときの種類(頂点バッファ、インデックスバッファ、定数バッファなど)
+	desc.ByteWidth			= _bufferSize;		// 作成するバッファのバイトサイズ
 	desc.MiscFlags			= 0;				// その他のフラグ
 	desc.StructureByteStride= 0;				// 構造化バッファの場合、その構造体のサイズ
 
-	desc.Usage				= bufferUsage;		// 作成するバッファの使用法
+	desc.Usage				= _bufferUsage;		// 作成するバッファの使用法
 
 	/* 動的ビデオメモリバッファ */
 	// ・GPUからWrite× Read○
@@ -63,54 +64,54 @@ bool KdBuffer::Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, 
 	//--------------------------------
 	// バッファ作成
 	//--------------------------------
-	if (FAILED(KdDirect3D::Instance().WorkDev()->CreateBuffer(&desc, initData, &m_pBuffer)))
+	if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreateBuffer(&desc, _initData, &m_pBuffer)))
 	{
 		assert(0 && "バッファ作成失敗(Buffer)");
 		return false;
 	}
 
 	// 
-	m_bufUsage = bufferUsage;
-	m_bufSize = bufferSize;
+	m_bufUsage = _bufferUsage;
+	m_bufSize = _bufferSize;
 
 	return true;
 }
 
-void KdBuffer::WriteData(const void* pSrcData, UINT size)
+void KdBuffer::WriteData(const void* _pSrcData, UINT _size)
 {
 	// 動的バッファの場合
 	if (m_bufUsage == D3D11_USAGE_DYNAMIC)
 	{
 		D3D11_MAPPED_SUBRESOURCE pData;
 		// 書き込み専用
-		if (SUCCEEDED(KdDirect3D::Instance().WorkDevContext()->Map(m_pBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &pData)))
+		if (SUCCEEDED(KdDirect3D::GetInstance().WorkDevContext()->Map(m_pBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &pData)))
 		{
-			memcpy_s(pData.pData, m_bufSize, pSrcData, size);
+			memcpy_s(pData.pData, m_bufSize, _pSrcData, _size);
 
-			KdDirect3D::Instance().WorkDevContext()->Unmap(m_pBuffer, 0);
+			KdDirect3D::GetInstance().WorkDevContext()->Unmap(m_pBuffer, 0);
 		}
 	}
 	// 静的バッファの場合：バッファに書き込み
-	else if (m_bufUsage == D3D11_USAGE_DEFAULT) { KdDirect3D::Instance().WorkDevContext()->UpdateSubresource(m_pBuffer, 0, 0, pSrcData, 0, 0); }
+	else if (m_bufUsage == D3D11_USAGE_DEFAULT) { KdDirect3D::GetInstance().WorkDevContext()->UpdateSubresource(m_pBuffer, 0, 0, _pSrcData, 0, 0); }
 	// ステージングバッファの場合
 	else if (m_bufUsage == D3D11_USAGE_STAGING)
 	{
 		// 読み書き両方
 		D3D11_MAPPED_SUBRESOURCE pData;
-		if (SUCCEEDED(KdDirect3D::Instance().WorkDevContext()->Map(m_pBuffer, 0, D3D11_MAP_READ_WRITE, 0, &pData)))
+		if (SUCCEEDED(KdDirect3D::GetInstance().WorkDevContext()->Map(m_pBuffer, 0, D3D11_MAP_READ_WRITE, 0, &pData)))
 		{
-			memcpy_s(pData.pData, m_bufSize, pSrcData, size);
+			memcpy_s(pData.pData, m_bufSize, _pSrcData, _size);
 
-			KdDirect3D::Instance().WorkDevContext()->Unmap(m_pBuffer, 0);
+			KdDirect3D::GetInstance().WorkDevContext()->Unmap(m_pBuffer, 0);
 		}
 	}
 
 }
 
-void KdBuffer::CopyFrom(const KdBuffer& srcBuffer)
+void KdBuffer::CopyFrom(const KdBuffer& _srcBuffer)
 {
 	if (m_pBuffer == nullptr)return;
-	if (srcBuffer.GetBuffer() == nullptr)return;
+	if (_srcBuffer.GetBuffer() == nullptr)return;
 
-	KdDirect3D::Instance().WorkDevContext()->CopyResource(m_pBuffer, srcBuffer.GetBuffer());
+	KdDirect3D::GetInstance().WorkDevContext()->CopyResource(m_pBuffer, _srcBuffer.GetBuffer());
 }

@@ -2,35 +2,32 @@
 
 #include "KdTexture.h"
 
-
 /* 2D画像(resource)リソースから、最適なビューを作成する */
 // ・resource … 2D画像リソース
 // ・ppSRV	  … 作成されたShaderResourceViewを受け取るための変数のアドレス
 // ・ppRTV	  … 作成されたRenderTargetViewを受け取るための変数のアドレス
 // ・ppDSV	  … 作成されたDepthStencilViewを受け取るための変数のアドレス
-static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderResourceView** ppSRV, ID3D11RenderTargetView** ppRTV, ID3D11DepthStencilView** ppDSV)
+static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* _resource, ID3D11ShaderResourceView** _ppSRV, ID3D11RenderTargetView** _ppRTV, ID3D11DepthStencilView** _ppDSV)
 {
 	// リソースが無い
-	if (resource == nullptr)return false;
+	if (_resource == nullptr)return false;
 
 	// テクスチャ本体の情報取得
 	D3D11_TEXTURE2D_DESC desc;
-	resource->GetDesc(&desc);
+	_resource->GetDesc(&desc);
 
 	//===========================================================
 	// RenderTargetViewを作成する
 	//===========================================================
 
 	// レンダーターゲットフラグがついてる時のみ
-	if (ppRTV && desc.BindFlags & D3D11_BIND_RENDER_TARGET)
+	if (_ppRTV && desc.BindFlags & D3D11_BIND_RENDER_TARGET)
 	{
 		// 作成するビューの設定
 		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 		rtvDesc.Format = desc.Format;	// Format
 		// 単品のテクスチャ(通常テクスチャ)の場合
-		if (desc.ArraySize == 1) {
-			rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;			// 単品テクスチャ
-		}
+		if (desc.ArraySize == 1) { rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D; }
 		// テクスチャ配列の場合
 		else {
 			rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DARRAY;		// テクスチャ配列
@@ -40,7 +37,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 		}
 
 		// レンダーターゲットビュー作成
-		HRESULT hr = KdDirect3D::Instance().WorkDev()->CreateRenderTargetView(resource, &rtvDesc, ppRTV);
+		HRESULT hr = KdDirect3D::GetInstance().WorkDev()->CreateRenderTargetView(_resource, &rtvDesc, _ppRTV);
 		if (FAILED(hr))
 		{
 			assert(0 && "RenderTargetViewの作成に失敗");
@@ -52,7 +49,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 	// ShaderResourceViewの情報を作成する
 	//===========================================================
 	// シェーダリソースビューフラグがついてる時のみ
-	if (ppSRV && desc.BindFlags & D3D11_BIND_SHADER_RESOURCE)
+	if (_ppSRV && desc.BindFlags & D3D11_BIND_SHADER_RESOURCE)
 	{
 		// 作成するビューの設定
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -60,7 +57,8 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 		// テクスチャがZバッファの場合は、最適なフォーマットにする
 		if (desc.BindFlags & D3D11_BIND_DEPTH_STENCIL)
 		{
-			switch (desc.Format) {
+			switch (desc.Format) 
+			{
 				// 16ビット
 			case DXGI_FORMAT_R16_TYPELESS:
 				srvDesc.Format = DXGI_FORMAT_R16_UNORM;
@@ -79,10 +77,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 			}
 		}
 		// Zバッファでない場合は、そのまま同じフォーマットを使用
-		else
-		{
-			srvDesc.Format = desc.Format;
-		}
+		else { srvDesc.Format = desc.Format; }
 
 		// 単品のテクスチャ(通常テクスチャ)の場合
 		if (desc.ArraySize == 1)
@@ -95,13 +90,9 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 		// テクスチャ配列の場合
 		else {
 			// さらにキューブマップの場合
-			if (desc.MiscFlags & D3D11_RESOURCE_MISC_TEXTURECUBE) {
-				srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
-			}
+			if (desc.MiscFlags & D3D11_RESOURCE_MISC_TEXTURECUBE) { srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE; }
 			// 通常テクスチャ配列
-			else {
-				srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
-			}
+			else { srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY; }
 			srvDesc.Texture2DArray.MostDetailedMip = 0;
 			srvDesc.Texture2DArray.MipLevels = desc.MipLevels;
 			srvDesc.Texture2DArray.ArraySize = desc.ArraySize;	// 要素数
@@ -109,7 +100,7 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 		}
 
 		// シェーダリソースビュー作成
-		HRESULT hr = KdDirect3D::Instance().WorkDev()->CreateShaderResourceView(resource, &srvDesc, ppSRV);
+		HRESULT hr = KdDirect3D::GetInstance().WorkDev()->CreateShaderResourceView(_resource, &srvDesc, _ppSRV);
 		if (FAILED(hr))
 		{
 			assert(0 && "ShaderResourceViewの作成に失敗");
@@ -121,12 +112,14 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 	// DepthStencilViewを作成する
 	//===========================================================
 	// Zバッファフラグがついてる時のみ
-	if (ppDSV && desc.BindFlags & D3D11_BIND_DEPTH_STENCIL) {
+	if (_ppDSV && desc.BindFlags & D3D11_BIND_DEPTH_STENCIL) 
+	{
 		// 作成するビューの設定
 		D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
 
 		// テクスチャー作成時に指定したフォーマットと互換性があり、深度ステンシルビューとして指定できるフォーマットを指定する
-		switch (desc.Format) {
+		switch (desc.Format) 
+		{
 			// 16ビット
 		case DXGI_FORMAT_R16_TYPELESS:
 			dsvDesc.Format = DXGI_FORMAT_D16_UNORM;
@@ -145,7 +138,8 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 		}
 
 		// 単品のテクスチャ(通常テクスチャ)の場合
-		if (desc.ArraySize == 1) {
+		if (desc.ArraySize == 1) 
+		{
 			dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 			dsvDesc.Texture2D.MipSlice = 0;
 		}
@@ -160,8 +154,9 @@ static bool KdCreateViewsFromTexture2D(ID3D11Texture2D* resource, ID3D11ShaderRe
 		//-------------------------------
 		// デプスステンシルビュー作成
 		//-------------------------------
-		HRESULT hr = KdDirect3D::Instance().WorkDev()->CreateDepthStencilView(resource, &dsvDesc, ppDSV);
-		if (FAILED(hr)) {
+		HRESULT hr = KdDirect3D::GetInstance().WorkDev()->CreateDepthStencilView(_resource, &dsvDesc, _ppDSV);
+		if (FAILED(hr)) 
+		{
 			assert(0 && "DepthStencilViewの作成に失敗");
 			return false;
 		}
@@ -196,13 +191,13 @@ ID3D11Texture2D* KdTexture::WorkResource() const
 	return tex2D;
 }
 
-bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthStencil, bool generateMipmap)
+bool KdTexture::Load(std::string_view _filename, bool _renderTarget, bool _depthStencil, bool _generateMipmap)
 {
 	Release();
-	if (filename.empty())return false;
+	if (_filename.empty())return false;
 
 	// ファイル名をWideCharへ変換
-	std::wstring wFilename = sjis_to_wide(filename.data());
+	std::wstring wFilename = sjis_to_wide(_filename.data());
 
 	//------------------------------------
 	// 画像読み込み
@@ -211,8 +206,8 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	// Bind Flags
 	UINT bindFlags = 0;
 	bindFlags |= D3D11_BIND_SHADER_RESOURCE;
-	if (renderTarget)bindFlags |= D3D11_BIND_RENDER_TARGET;
-	if (depthStencil)bindFlags |= D3D11_BIND_DEPTH_STENCIL;
+	if (_renderTarget)bindFlags |= D3D11_BIND_RENDER_TARGET;
+	if (_depthStencil)bindFlags |= D3D11_BIND_DEPTH_STENCIL;
 
 
 	// ※DirectX Texライブラリを使用して画像を読み込む
@@ -260,7 +255,7 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	if (!bLoaded) { return false; }
 
 	// ミップマップ生成
-	if (meta.mipLevels == 1 && generateMipmap)
+	if (meta.mipLevels == 1 && _generateMipmap)
 	{
 		DirectX::ScratchImage mipChain;
 		if (SUCCEEDED(DirectX::GenerateMipMaps(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DirectX::TEX_FILTER_DEFAULT, 0, mipChain)))
@@ -275,7 +270,7 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	//------------------------------------
 	ID3D11Texture2D* tex2D = nullptr;
 	if (FAILED(DirectX::CreateTextureEx(
-		KdDirect3D::Instance().WorkDev(),				// Direct3D Device
+		KdDirect3D::GetInstance().WorkDev(),				// Direct3D Device
 		image.GetImages(),
 		image.GetImageCount(),
 		image.GetMetadata(),
@@ -284,8 +279,8 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 		0,												// CPU Access Flags
 		0,												// MiscFlags
 		DirectX::CREATETEX_FLAGS::CREATETEX_DEFAULT,	// ForceSRGB
-		(ID3D11Resource**)&tex2D)
-	)) {
+		(ID3D11Resource**)&tex2D))) 
+	{
 		return false;
 	}
 
@@ -303,20 +298,20 @@ bool KdTexture::Load(std::string_view filename, bool renderTarget, bool depthSte
 	tex2D->GetDesc(&m_desc);
 	tex2D->Release();
 
-	m_filepath = filename;
+	m_filepath = _filename;
 
 	return true;
 }
 
-bool KdTexture::Create(ID3D11Texture2D* pTexture2D)
+bool KdTexture::Create(ID3D11Texture2D* _pTexture2D)
 {
 	Release();
-	if (pTexture2D == nullptr)return false;
+	if (_pTexture2D == nullptr)return false;
 
 	//---------------------------------------------
 	// 画像リソースから、各ビューを作成する
 	//---------------------------------------------
-	if (!KdCreateViewsFromTexture2D(pTexture2D, &m_srv, &m_rtv, &m_dsv)) 
+	if (!KdCreateViewsFromTexture2D(_pTexture2D, &m_srv, &m_rtv, &m_dsv)) 
 	{
 		Release();
 		return false;
@@ -326,13 +321,12 @@ bool KdTexture::Create(ID3D11Texture2D* pTexture2D)
 	m_filepath = "";
 
 	// 画像情報取得
-	pTexture2D->GetDesc(&m_desc);
+	_pTexture2D->GetDesc(&m_desc);
 
 	return true;
-
 }
 
-bool KdTexture::Create(const D3D11_TEXTURE2D_DESC & desc, const D3D11_SUBRESOURCE_DATA * fillData)
+bool KdTexture::Create(const D3D11_TEXTURE2D_DESC & _desc, const D3D11_SUBRESOURCE_DATA * _fillData)
 {
 	Release();
 
@@ -340,7 +334,7 @@ bool KdTexture::Create(const D3D11_TEXTURE2D_DESC & desc, const D3D11_SUBRESOURC
 	// 2Dテクスチャの生成
 	//--------------------------------------------
 	ID3D11Texture2D* resource;
-	HRESULT hr = KdDirect3D::Instance().WorkDev()->CreateTexture2D(&desc, fillData, &resource);
+	HRESULT hr = KdDirect3D::GetInstance().WorkDev()->CreateTexture2D(&_desc, _fillData, &resource);
 	if (FAILED(hr)) 
 	{
 		Release();
@@ -363,23 +357,23 @@ bool KdTexture::Create(const D3D11_TEXTURE2D_DESC & desc, const D3D11_SUBRESOURC
 	return true;
 }
 
-void SetTextureInfo(D3D11_TEXTURE2D_DESC& rDesc, int w, int h, DXGI_FORMAT format, UINT arrayCnt, UINT miscFlags)
+void SetTextureInfo(D3D11_TEXTURE2D_DESC& _rDesc, int _w, int _h, DXGI_FORMAT _format, UINT _arrayCnt, UINT _miscFlags)
 {
-	rDesc.Width = (UINT)w;
-	rDesc.Height = (UINT)h;
-	rDesc.Format = format;
-	rDesc.ArraySize = arrayCnt;
-	rDesc.MiscFlags = miscFlags;
+	_rDesc.Width = (UINT)_w;
+	_rDesc.Height = (UINT)_h;
+	_rDesc.Format = _format;
+	_rDesc.ArraySize = _arrayCnt;
+	_rDesc.MiscFlags = _miscFlags;
 }
 
-bool KdTexture::Create(int w, int h, DXGI_FORMAT format, UINT arrayCnt, const D3D11_SUBRESOURCE_DATA * fillData)
+bool KdTexture::Create(int _w, int _h, DXGI_FORMAT _format, UINT _arrayCnt, const D3D11_SUBRESOURCE_DATA * _fillData)
 {
 	Release();
 
 	// 作成する2Dテクスチャ設定
 	D3D11_TEXTURE2D_DESC desc = {};
 
-	SetTextureInfo(desc, w, h, format, arrayCnt, 0);
+	SetTextureInfo(desc, _w, _h, _format, _arrayCnt, 0);
 
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
@@ -389,19 +383,19 @@ bool KdTexture::Create(int w, int h, DXGI_FORMAT format, UINT arrayCnt, const D3
 	desc.SampleDesc.Quality = 0;
 
 	// 作成
-	if (Create(desc, fillData) == false)return false;
+	if (Create(desc, _fillData) == false)return false;
 
 	return true;
 }
 
-bool KdTexture::CreateRenderTarget(int w, int h, DXGI_FORMAT format, UINT arrayCnt, const D3D11_SUBRESOURCE_DATA* fillData, UINT miscFlags)
+bool KdTexture::CreateRenderTarget(int _w, int _h, DXGI_FORMAT _format, UINT _arrayCnt, const D3D11_SUBRESOURCE_DATA* _fillData, UINT _miscFlags)
 {
 	Release();
 
 	// 作成する2Dテクスチャ設定
 	D3D11_TEXTURE2D_DESC desc = {};
 
-	SetTextureInfo(desc, w, h, format, arrayCnt, 0);
+	SetTextureInfo(desc, _w, _h, _format, _arrayCnt, 0);
 	
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
@@ -409,22 +403,22 @@ bool KdTexture::CreateRenderTarget(int w, int h, DXGI_FORMAT format, UINT arrayC
 	desc.MipLevels = 1;
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
-	desc.MiscFlags = miscFlags;
+	desc.MiscFlags = _miscFlags;
 
 	// 作成
-	if (Create(desc, fillData) == false)return false;
+	if (Create(desc, _fillData) == false)return false;
 
 	return true;
 }
 
-bool KdTexture::CreateDepthStencil(int w, int h, DXGI_FORMAT format, UINT arrayCnt, const D3D11_SUBRESOURCE_DATA* fillData, UINT miscFlags)
+bool KdTexture::CreateDepthStencil(int _w, int _h, DXGI_FORMAT _format, UINT _arrayCnt, const D3D11_SUBRESOURCE_DATA* _fillData, UINT _miscFlags)
 {
 	Release();
 
 	// 作成する2Dテクスチャ設定
 	D3D11_TEXTURE2D_DESC desc = {};
 
-	SetTextureInfo(desc, w, h, format, arrayCnt, 0);
+	SetTextureInfo(desc, _w, _h, _format, _arrayCnt, 0);
 
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
@@ -432,20 +426,20 @@ bool KdTexture::CreateDepthStencil(int w, int h, DXGI_FORMAT format, UINT arrayC
 	desc.MipLevels = 1;
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
-	desc.MiscFlags = miscFlags;
+	desc.MiscFlags = _miscFlags;
 
 	// 作成
-	if (Create(desc, fillData) == false)return false;
+	if (Create(desc, _fillData) == false)return false;
 
 	return true;
 }
 
-void KdTexture::SetSRView(ID3D11ShaderResourceView* srv)
+void KdTexture::SetSRView(ID3D11ShaderResourceView* _srv)
 {
-	if (srv == nullptr)return;
+	if (_srv == nullptr)return;
 
 	Release();
-	m_srv = srv;	// セット
+	m_srv = _srv;	// セット
 	m_srv->AddRef();// 参照カウンタを増やしておく
 
 	// 画像情報取得

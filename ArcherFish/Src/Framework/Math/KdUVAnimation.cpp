@@ -6,11 +6,11 @@
 
 // アニメーションデータの読み込みcsvデータとして読み込む
 // アニメーション名,開始フレーム番号,終了フレーム番号
-void KdUVAnimationData::Load(std::string_view fileName)
+void KdUVAnimationData::Load(std::string_view _fileName)
 {
 	KdCSVData data;
 
-	if (data.Load(fileName.data()))
+	if (data.Load(_fileName.data()))
 	{
 		for (int i = 0; ; ++i)
 		{
@@ -23,19 +23,19 @@ void KdUVAnimationData::Load(std::string_view fileName)
 	}
 }
 
-void KdUVAnimationData::AddAnimation(const std::string_view animName, const KdAnimationFrame& data)
+void KdUVAnimationData::AddAnimation(const std::string_view _animName, const KdAnimationFrame& _data)
 {
-	m_animations[animName.data()] = std::make_shared<KdAnimationFrame>(data);
+	m_animations[_animName.data()] = std::make_shared<KdAnimationFrame>(_data);
 }
 
-void KdUVAnimationData::AddAnimation(const std::string_view animName, int start, int end)
+void KdUVAnimationData::AddAnimation(const std::string_view _animName, int _start, int _end)
 {
-	m_animations[animName.data()] = std::make_shared<KdAnimationFrame>(start, end);
+	m_animations[_animName.data()] = std::make_shared<KdAnimationFrame>(_start, _end);
 }
 
-const std::shared_ptr<KdAnimationFrame> KdUVAnimationData::GetAnimation(std::string_view name)
+const std::shared_ptr<KdAnimationFrame> KdUVAnimationData::GetAnimation(std::string_view _name)
 {
-	auto dataItr = m_animations.find(name.data());
+	auto dataItr = m_animations.find(_name.data());
 
 	if ( dataItr == m_animations.end() ) { return nullptr; }
 
@@ -47,31 +47,31 @@ const std::shared_ptr<KdAnimationFrame> KdUVAnimationData::GetAnimation(std::str
 // ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### #####
 
 // 再生したいアニメーションのセット
-void KdUVAnimator::SetAnimation(const std::shared_ptr<KdAnimationFrame>& animData, bool loop, bool restart)
+void KdUVAnimator::SetAnimation(const std::shared_ptr<KdAnimationFrame>& _animData, bool _loop, bool _restart)
 {
-	if (!m_spNowAnimation) { m_spNowAnimation = animData; }
+	if (!m_spNowAnimation) { m_spNowAnimation = _animData; }
 
 	// アニメーションの進捗を初期化しない
-	if (!restart)
+	if (!_restart)
 	{
 		float nowProgress = m_nowAnimPos - m_spNowAnimation->m_startFrame;
 
-		m_nowAnimPos = std::min(animData->m_startFrame + nowProgress, static_cast<float>(animData->m_endFrame));
+		m_nowAnimPos = std::min(_animData->m_startFrame + nowProgress, static_cast<float>(_animData->m_endFrame));
 	}
-	else { m_nowAnimPos = static_cast<float>(animData->m_startFrame); }
+	else { m_nowAnimPos = static_cast<float>(_animData->m_startFrame); }
 
-	m_spNowAnimation = animData;
+	m_spNowAnimation = _animData;
 
-	m_loopAnimation = loop;
+	m_loopAnimation = _loop;
 }
 
 // アニメーションを進行させる
-void KdUVAnimator::AdvanceTime(float speed)
+void KdUVAnimator::AdvanceTime(float _speed)
 {
 	if (!m_spNowAnimation) { return; }
 
 	// アニメーション位置を進める
-	m_nowAnimPos += speed;
+	m_nowAnimPos += _speed;
 
 	// 終了判定
 	if (IsAnimationEnd())

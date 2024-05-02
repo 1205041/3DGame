@@ -14,10 +14,10 @@ float4 main(VSOutput In) : SV_Target0
 {
 	float3 color = 0;
 	
-	for (int i = 0; i < g_samplingNum; i++)
-	{
-		color += g_inputTex.Sample(g_ss, In.UV + g_offset[i].xy).rgb * g_offset[i].z;
-	}
+    for (int i = 0; i < g_samplingNum; i++)
+    {
+        color += g_inputTex.Sample(g_ss, In.UV + g_offset[i].xy).rgb * g_offset[i].z;
+    }
 
 	return float4(color, 1);
 }

@@ -9,7 +9,7 @@
 void KdCamera::SetToShader() const
 {
 	// カメラの情報をGPUへ転送
-	KdShaderManager::Instance().WriteCBCamera(m_mCam, m_mProj);
+	KdShaderManager::GetInstance().WriteCBCamera(m_mCam, m_mProj);
 
 	// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 	// 被写界深度（DepthOfField）加工に使うの情報も更新
@@ -18,10 +18,10 @@ void KdCamera::SetToShader() const
 	float viewRange = farClippingDistance - nearClippingDistance;
 
 	// フォーカスを合わせる焦点距離をコピー
-	KdShaderManager::Instance().m_postProcessShader.SetNearClippingDistance(nearClippingDistance);
-	KdShaderManager::Instance().m_postProcessShader.SetFarClippingDistance(farClippingDistance);
-	KdShaderManager::Instance().m_postProcessShader.SetFocusDistance((m_focusDistance - nearClippingDistance) / viewRange);
-	KdShaderManager::Instance().m_postProcessShader.SetFocusRange(m_focusForeRange / viewRange, m_focusBackRange / viewRange);
+	KdShaderManager::GetInstance().m_postProcessShader.SetNearClippingDistance(nearClippingDistance);
+	KdShaderManager::GetInstance().m_postProcessShader.SetFarClippingDistance(farClippingDistance);
+	KdShaderManager::GetInstance().m_postProcessShader.SetFocusDistance((m_focusDistance - nearClippingDistance) / viewRange);
+	KdShaderManager::GetInstance().m_postProcessShader.SetFocusRange(m_focusForeRange / viewRange, m_focusBackRange / viewRange);
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -33,20 +33,20 @@ void KdCamera::SetToShader() const
 // 　　　　(aspectRatio：画面の縦横幅の比率)
 // ・視野角以外のパラメータはデフォルト引数が設定されているため、省略可能
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdCamera::SetProjectionMatrix(float fov, float maxRange, float minRange, float aspectRatio)
+void KdCamera::SetProjectionMatrix(float _fov, float _maxRange, float _minRange, float _aspectRatio)
 {
-	float aspect = aspectRatio;
+	float aspect = _aspectRatio;
 
 	// アスペクト比が不正だった場合
 	if (aspect <= 0)
 	{
 		// 自動的にバックバッファからアスペクト比を求める
-		if (KdDirect3D::Instance().GetBackBuffer()) { aspect = KdDirect3D::Instance().GetBackBuffer()->GetAspectRatio(); }
+		if (KdDirect3D::GetInstance().GetBackBuffer()) { aspect = KdDirect3D::GetInstance().GetBackBuffer()->GetAspectRatio(); }
 		// バックバッファが生成されてすらいな状況なら射影行列をセットしない
 		else { return; }
 	}
 
-	m_mProj = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(fov), aspect, minRange, maxRange);
+	m_mProj = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(_fov), aspect, _minRange, _maxRange);
 
 	SetProjectionMatrix(m_mProj);
 }
@@ -57,11 +57,11 @@ void KdCamera::SetProjectionMatrix(float fov, float maxRange, float minRange, fl
 // ・カメラから見て焦点を当てる距離の設定
 // ・ぼかさずに描画する焦点エリアを前後それぞれ別の距離に設定可能
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdCamera::SetFocus(float focusDist, float focusForeRange, float focusBackRange)
+void KdCamera::SetFocus(float _focusDist, float _focusForeRange, float _focusBackRange)
 {
-	m_focusDistance = focusDist;
-	m_focusForeRange = focusForeRange;
-	m_focusBackRange = focusBackRange;
+	m_focusDistance = _focusDist;
+	m_focusForeRange = _focusForeRange;
+	m_focusBackRange = _focusBackRange;
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -69,21 +69,21 @@ void KdCamera::SetFocus(float focusDist, float focusForeRange, float focusBackRa
 // ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
 // ・マウスポインタの2D位置にある3Dオブジェクトを選択する時などに使用する
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-void KdCamera::GenerateRayInfoFromClientPos(const POINT& clientPos, Math::Vector3& rayPos, Math::Vector3& rayDir, float& rayRange)
+void KdCamera::GenerateRayInfoFromClientPos(const POINT& _clientPos, Math::Vector3& _rayPos, Math::Vector3& _rayDir, float& _rayRange)
 {
 	// レイ判定の最遠座標
 	Math::Vector3 farPos;
 
 	// 2D座標を3Dワールド座標に変換する関数を使ってレイの発射座標と最遠座標を求める
-	KdDirect3D::Instance().ClientToWorld(clientPos, 0.0f, rayPos, m_mCam, m_mProj);
-	KdDirect3D::Instance().ClientToWorld(clientPos, 1.0f, farPos, m_mCam, m_mProj);
+	KdDirect3D::GetInstance().ClientToWorld(_clientPos, 0.0f, _rayPos, m_mCam, m_mProj);
+	KdDirect3D::GetInstance().ClientToWorld(_clientPos, 1.0f, farPos, m_mCam, m_mProj);
 
 	// 目的地 - 出発地点 でレイを飛ばす方向を求める
-	rayDir = farPos - rayPos;
+	_rayDir = farPos - _rayPos;
 
 	// 2点間の距離を求めてレイの判定距離を求める
-	rayRange = rayDir.Length();
+	_rayRange = _rayDir.Length();
 
 	// 正規化（長さを1.0fに）して方向ベクトルに変換する
-	rayDir.Normalize();
+	_rayDir.Normalize();
 }

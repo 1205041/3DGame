@@ -14,25 +14,25 @@
 void KdHD2DShader::BeginLit()
 {
 	// 頂点シェーダーのパイプライン変更
-	if (KdShaderManager::Instance().SetVertexShader(m_VS_Lit))
+	if (KdShaderManager::GetInstance().SetVertexShader(m_VS_Lit))
 	{
-		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
-		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
+		KdShaderManager::GetInstance().SetInputLayout(m_inputLayout);
+		KdShaderManager::GetInstance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
+		KdShaderManager::GetInstance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
 	}
 
 	// ピクセルシェーダーのパイプライン変更
-	if (KdShaderManager::Instance().SetPixelShader(m_PS_Lit))
+	if (KdShaderManager::GetInstance().SetPixelShader(m_PS_Lit))
 	{
-		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
-		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
+		KdShaderManager::GetInstance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
+		KdShaderManager::GetInstance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
 
 	// シャドウマップのテクスチャをセット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
+	KdDirect3D::GetInstance().WorkDevContext()->PSSetShaderResources(10, 1, m_depthMapFromLightRTPack.m_RTTexture->WorkSRViewAddress());
 
 	// 影ぼかし用の比較機能付きサンプラーのセット
-	KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Linear_Clamp_Cmp, 1);
+	KdShaderManager::GetInstance().ChangeSamplerState(KdSamplerState::Linear_Clamp_Cmp, 1);
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -43,7 +43,7 @@ void KdHD2DShader::BeginLit()
 void KdHD2DShader::EndLit()
 {
 	ID3D11ShaderResourceView* pNullSRV = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
+	KdDirect3D::GetInstance().WorkDevContext()->PSSetShaderResources(10, 1, &pNullSRV);
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -54,17 +54,17 @@ void KdHD2DShader::EndLit()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdHD2DShader::BeginUnLit()
 {
-	if (KdShaderManager::Instance().SetVertexShader(m_VS_UnLit))
+	if (KdShaderManager::GetInstance().SetVertexShader(m_VS_UnLit))
 	{
-		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
-		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
+		KdShaderManager::GetInstance().SetInputLayout(m_inputLayout);
+		KdShaderManager::GetInstance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
+		KdShaderManager::GetInstance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
 	}
 
-	if (KdShaderManager::Instance().SetPixelShader(m_PS_UnLit))
+	if (KdShaderManager::GetInstance().SetPixelShader(m_PS_UnLit))
 	{
-		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
-		KdShaderManager::Instance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
+		KdShaderManager::GetInstance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
+		KdShaderManager::GetInstance().SetPSConstantBuffer(2, m_cb2_Material.GetAddress());
 	}
 }
 
@@ -84,17 +84,14 @@ void KdHD2DShader::EndUnLit()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdHD2DShader::BeginGenerateDepthMapFromLight()
 {
-	if (KdShaderManager::Instance().SetVertexShader(m_VS_GenDepthFromLight))
+	if (KdShaderManager::GetInstance().SetVertexShader(m_VS_GenDepthFromLight))
 	{
-		KdShaderManager::Instance().SetInputLayout(m_inputLayout);
-		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
-		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
+		KdShaderManager::GetInstance().SetInputLayout(m_inputLayout);
+		KdShaderManager::GetInstance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
+		KdShaderManager::GetInstance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
 	}
 
-	if (KdShaderManager::Instance().SetPixelShader(m_PS_GenDepthFromLight))
-	{
-		KdShaderManager::Instance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress());
-	}
+	if (KdShaderManager::GetInstance().SetPixelShader(m_PS_GenDepthFromLight)) { KdShaderManager::GetInstance().SetPSConstantBuffer(0, m_cb0_Obj.GetAddress()); }
 
 	m_depthMapFromLightRTPack.ClearTexture(kRedColor);
 	m_depthMapFromLightRTChanger.ChangeRenderTarget(m_depthMapFromLightRTPack);
@@ -120,32 +117,31 @@ void KdHD2DShader::EndGenerateDepthMapFromLight()
 // メッシュの頂点データや3Dワールド情報・マテリアル情報をシェーダー(GPU)に転送する
 // サブセットごとに描画命令を呼び出す：サブセットの個数分処理が重くなる
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdHD2DShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
-	const std::vector<KdMaterial>& materials, const Math::Vector4& colRate, const Math::Vector3& emissive)
+void KdHD2DShader::DrawMesh(const KdMesh* _mesh, const Math::Matrix& _mWorld,const std::vector<KdMaterial>& _materials, const Math::Vector4& _colRate, const Math::Vector3& _emissive)
 {
-	if (mesh == nullptr) { return; }
+	if (_mesh == nullptr) { return; }
 
 	// メッシュの頂点情報転送
-	mesh->SetToDevice();
+	_mesh->SetToDevice();
 
 	// 3Dワールド行列転送
-	m_cb1_Mesh.Work().mW = mWorld;
+	m_cb1_Mesh.Work().mW = _mWorld;
 	m_cb1_Mesh.Write();
 
 	// 全サブセット
-	for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
+	for (UINT subi = 0; subi < _mesh->GetSubsets().size(); subi++)
 	{
 		// 面が１枚も無い場合はスキップ
-		if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+		if (_mesh->GetSubsets()[subi].FaceCount == 0)continue;
 
 		// マテリアルデータの転送
-		const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
-		WriteMaterial(material, colRate, emissive);
+		const KdMaterial& material = _materials[_mesh->GetSubsets()[subi].MaterialNo];
+		WriteMaterial(material, _colRate, _emissive);
 
 		//-----------------------
 		// サブセット描画
 		//-----------------------
-		mesh->DrawSubset(subi);
+		_mesh->DrawSubset(subi);
 	}
 }
 
@@ -154,21 +150,15 @@ void KdHD2DShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // データに所属する全ての描画用メッシュを描画する
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdHD2DShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld, 
-	const Math::Color& colRate, const Math::Vector3& emissive)
+void KdHD2DShader::DrawModel(const KdModelData& _rModel, const Math::Matrix& _mWorld, const Math::Color& _colRate, const Math::Vector3& _emissive)
 {
 	// オブジェクト単位の情報転送
 	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
-	auto& dataNodes = rModel.GetOriginalNodes();
+	auto& dataNodes = _rModel.GetOriginalNodes();
 
 	// 全描画用メッシュノードを描画
-	for (auto& nodeIdx : rModel.GetDrawMeshNodeIndices())
-	{
-		// 描画
-		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), dataNodes[nodeIdx].m_worldTransform * mWorld, 
-			rModel.GetMaterials(), colRate, emissive);
-	}
+	for (auto& nodeIdx : _rModel.GetDrawMeshNodeIndices()) { DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), dataNodes[nodeIdx].m_worldTransform * _mWorld, _rModel.GetMaterials(), _colRate, _emissive); }
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
 	if (m_dirtyCBObj) { ResetCBObject(); }
@@ -179,31 +169,25 @@ void KdHD2DShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWor
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // データに所属する全ての描画用メッシュをワークの3D行列に従って描画する
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdHD2DShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld,
-	const Math::Color& colRate, const Math::Vector3& emissive)
+void KdHD2DShader::DrawModel(KdModelWork& _rModel, const Math::Matrix& _mWorld,const Math::Color& _colRate, const Math::Vector3& _emissive)
 {
-	if (!rModel.IsEnable()) { return; }
+	if (!_rModel.IsEnable()) { return; }
 
-	const std::shared_ptr<KdModelData>& data = rModel.GetData();
+	const std::shared_ptr<KdModelData>& data = _rModel.GetData();
 
 	// データがないときはスキップ
 	if (data == nullptr) { return; }
 
-	if (rModel.NeedCalcNodeMatrices()) { rModel.CalcNodeMatrices(); }
+	if (_rModel.NeedCalcNodeMatrices()) { _rModel.CalcNodeMatrices(); }
 
 	// オブジェクト単位の情報転送
 	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
-	auto& workNodes = rModel.GetNodes();
+	auto& workNodes = _rModel.GetNodes();
 	auto& dataNodes = data->GetOriginalNodes();
 
 	// 全描画用メッシュノードを描画
-	for (auto& nodeIdx : data->GetDrawMeshNodeIndices())
-	{
-		// 描画
-		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), workNodes[nodeIdx].m_worldTransform * mWorld,
-			data->GetMaterials(), colRate, emissive);
-	}
+	for (auto& nodeIdx : data->GetDrawMeshNodeIndices()) { DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), workNodes[nodeIdx].m_worldTransform * _mWorld, data->GetMaterials(), _colRate, _emissive); }
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
 	if (m_dirtyCBObj) { ResetCBObject(); }
@@ -214,13 +198,12 @@ void KdHD2DShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld,
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // データに所属する全ての描画用メッシュをワークの3D行列に従って描画する
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdHD2DShader::DrawPolygon(const KdPolygon& rPolygon, const Math::Matrix& mWorld,
-	const Math::Color& colRate, const Math::Vector3& emissive)
+void KdHD2DShader::DrawPolygon(const KdPolygon& _rPolygon, const Math::Matrix& _mWorld,const Math::Color& _colRate, const Math::Vector3& _emissive)
 {
-	if (!rPolygon.IsEnable()) { return; }
+	if (!_rPolygon.IsEnable()) { return; }
 
 	// ポリゴン描画用の頂点取得
-	auto& vertices = rPolygon.GetVertices();
+	auto& vertices = _rPolygon.GetVertices();
 
 	// 頂点数が3より少なければポリゴンが形成できないので描画不能
 	if (vertices.size() < 3) { return; }
@@ -229,89 +212,82 @@ void KdHD2DShader::DrawPolygon(const KdPolygon& rPolygon, const Math::Matrix& mW
 	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
 	// 3Dワールド行列転送
-	m_cb1_Mesh.Work().mW = mWorld;
+	m_cb1_Mesh.Work().mW = _mWorld;
 	m_cb1_Mesh.Write();
 
 	// マテリアルの転送
-	if (rPolygon.GetMaterial()) { WriteMaterial(*rPolygon.GetMaterial(), colRate, emissive); }
-	else { WriteMaterial(KdMaterial(), colRate, emissive); }
+	if (_rPolygon.GetMaterial()) { WriteMaterial(*_rPolygon.GetMaterial(), _colRate, _emissive); }
+	else { WriteMaterial(KdMaterial(), _colRate, _emissive); }
 
-	KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
+	KdShaderManager::GetInstance().ChangeRasterizerState(KdRasterizerState::CullNone);
 
 	// サンプラーステートの変更:ポリゴンの描画なので、テクスチャの末端が繰り返されると不自然な描画になるため変更が必要
-	if (KdShaderManager::Instance().IsPixelArtStyle())
-	{
-		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Point_Clamp);
-	}
-	else { KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp); }
+	if (KdShaderManager::GetInstance().IsPixelArtStyle()) { KdShaderManager::GetInstance().ChangeSamplerState(KdSamplerState::Point_Clamp); }
+	else { KdShaderManager::GetInstance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp); }
 
 	// 描画パイプラインのチェック
 	ID3D11VertexShader* pNowVS = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->VSGetShader(&pNowVS, nullptr, nullptr);
+	KdDirect3D::GetInstance().WorkDevContext()->VSGetShader(&pNowVS, nullptr, nullptr);
 	bool isLitShader = false;
 	isLitShader = m_VS_Lit == pNowVS;
 	KdSafeRelease(pNowVS);
 
 	// 陰影ありのシェーダーで2Dオブジェクトを描画する時
-	if (isLitShader && rPolygon.Is2DObject())
+	if (isLitShader && _rPolygon.Is2DObject())
 	{
 		std::vector<KdPolygon::Vertex> _2DVertices = vertices;
 
 		// ポリゴンの法線を光に向ける処理：どの方向に向いていても光の影響を正面からに受けるように変換
-		ConvertNormalsFor2D(_2DVertices, mWorld);
+		ConvertNormalsFor2D(_2DVertices, _mWorld);
 
 		// 2DObject用に変換した頂点配列を描画
-		KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, _2DVertices.size(), &_2DVertices[0], sizeof(KdPolygon::Vertex));
+		KdDirect3D::GetInstance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, _2DVertices.size(), &_2DVertices[0], sizeof(KdPolygon::Vertex));
 	}
 	// 頂点配列を描画
-	else { KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, vertices.size(), &vertices[0], sizeof(KdPolygon::Vertex)); }
+	else { KdDirect3D::GetInstance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP, vertices.size(), &vertices[0], sizeof(KdPolygon::Vertex)); }
 
-	KdShaderManager::Instance().UndoSamplerState();
-	KdShaderManager::Instance().UndoRasterizerState();
+	KdShaderManager::GetInstance().UndoSamplerState();
+	KdShaderManager::GetInstance().UndoRasterizerState();
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
 	if (m_dirtyCBObj) { ResetCBObject(); }
 }
 
-void KdHD2DShader::DrawVertices(const std::vector<KdPolygon::Vertex>& vertices, const Math::Matrix& mWorld,
-	const Math::Color& colRate)
+void KdHD2DShader::DrawVertices(const std::vector<KdPolygon::Vertex>& _vertices, const Math::Matrix& _mWorld,const Math::Color& _colRate)
 {
 	// 頂点数が2より少なければポリゴンが形成できないので描画不能
-	if (vertices.size() < 2) { return; }
+	if (_vertices.size() < 2) { return; }
 
 	// オブジェクト単位の定数バッファで変更があった場合のみ情報転送
 	if (m_dirtyCBObj) { m_cb0_Obj.Write(); }
 
 	// 3Dワールド行列転送
-	m_cb1_Mesh.Work().mW = mWorld;
+	m_cb1_Mesh.Work().mW = _mWorld;
 	m_cb1_Mesh.Write();
 
 	// マテリアルの転送
-	WriteMaterial(KdMaterial(), colRate, Math::Vector3::Zero);
+	WriteMaterial(KdMaterial(), _colRate, Math::Vector3::Zero);
 
-	KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullNone);
-	KdShaderManager::Instance().ChangeDepthStencilState(KdDepthStencilState::ZDisable);
+	KdShaderManager::GetInstance().ChangeRasterizerState(KdRasterizerState::CullNone);
+	KdShaderManager::GetInstance().ChangeDepthStencilState(KdDepthStencilState::ZDisable);
 
 	// サンプラーステートの変更:ポリゴンの描画なので、テクスチャの末端が繰り返されると不自然な描画になるため変更が必要
-	if (KdShaderManager::Instance().IsPixelArtStyle())
-	{
-		KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Point_Clamp);
-	}
-	else { KdShaderManager::Instance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp); }
+	if (KdShaderManager::GetInstance().IsPixelArtStyle()) { KdShaderManager::GetInstance().ChangeSamplerState(KdSamplerState::Point_Clamp); }
+	else { KdShaderManager::GetInstance().ChangeSamplerState(KdSamplerState::Anisotropic_Clamp); }
 
 	// 描画パイプラインのチェック
 	ID3D11VertexShader* pNowVS = nullptr;
-	KdDirect3D::Instance().WorkDevContext()->VSGetShader(&pNowVS, nullptr, nullptr);
+	KdDirect3D::GetInstance().WorkDevContext()->VSGetShader(&pNowVS, nullptr, nullptr);
 	bool isLitShader = false;
 	isLitShader = m_VS_Lit == pNowVS;
 	KdSafeRelease(pNowVS);
 
 	// 頂点配列を描画
-	KdDirect3D::Instance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_LINELIST, vertices.size(), &vertices[0], sizeof(KdPolygon::Vertex));
+	KdDirect3D::GetInstance().DrawVertices(D3D_PRIMITIVE_TOPOLOGY_LINELIST, _vertices.size(), &_vertices[0], sizeof(KdPolygon::Vertex));
 
-	KdShaderManager::Instance().UndoSamplerState();
-	KdShaderManager::Instance().UndoDepthStencilState();
-	KdShaderManager::Instance().UndoRasterizerState();
+	KdShaderManager::GetInstance().UndoSamplerState();
+	KdShaderManager::GetInstance().UndoDepthStencilState();
+	KdShaderManager::GetInstance().UndoRasterizerState();
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
 	if (m_dirtyCBObj) { ResetCBObject(); }
@@ -332,9 +308,13 @@ bool KdHD2DShader::Init()
 	{
 		// コンパイル済みのシェーダーヘッダーファイルをインクルード
 #include "KdHD2DShader_VS_Lit.shaderInc"
-
 		// 頂点シェーダー作成
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreateVertexShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_VS_Lit))) {
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreateVertexShader(
+			compiledBuffer,
+			sizeof(compiledBuffer),
+			nullptr,
+			&m_VS_Lit)))
+		{
 			assert(0 && "頂点シェーダー作成失敗");
 			Release();
 			return false;
@@ -350,13 +330,13 @@ bool KdHD2DShader::Init()
 		};
 
 		// 頂点入力レイアウト作成
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreateInputLayout(
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreateInputLayout(
 			&layout[0],				// 入力エレメント先頭アドレス
 			layout.size(),			// 入力エレメント数
 			&compiledBuffer[0],		// 頂点バッファのバイナリデータ
 			sizeof(compiledBuffer),	// 上記のバッファサイズ
-			&m_inputLayout))
-			) {
+			&m_inputLayout))) 
+		{
 			assert(0 && "CreateInputLayout失敗");
 			Release();
 			return false;
@@ -365,9 +345,13 @@ bool KdHD2DShader::Init()
 
 	{
 #include "KdHD2DShader_VS_GenDepthMapFromLight.shaderInc"
-
 		// 頂点シェーダー作成
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreateVertexShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_VS_GenDepthFromLight))) {
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreateVertexShader(
+			compiledBuffer,
+			sizeof(compiledBuffer),
+			nullptr,
+			&m_VS_GenDepthFromLight)))
+		{
 			assert(0 && "頂点シェーダー作成失敗");
 			Release();
 			return false;
@@ -376,9 +360,13 @@ bool KdHD2DShader::Init()
 
 	{
 #include "KdHD2DShader_VS_UnLit.shaderInc"
-
 		// 頂点シェーダー作成
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreateVertexShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_VS_UnLit))) {
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreateVertexShader(
+			compiledBuffer,
+			sizeof(compiledBuffer), 
+			nullptr,
+			&m_VS_UnLit)))
+		{
 			assert(0 && "頂点シェーダー作成失敗");
 			Release();
 			return false;
@@ -390,8 +378,12 @@ bool KdHD2DShader::Init()
 	//-------------------------------------
 	{
 #include "KdHD2DShader_PS_Lit.shaderInc"
-
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreatePixelShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_PS_Lit))) {
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreatePixelShader(
+			compiledBuffer,
+			sizeof(compiledBuffer),
+			nullptr,
+			&m_PS_Lit)))
+		{
 			assert(0 && "ピクセルシェーダー作成失敗");
 			Release();
 			return false;
@@ -400,8 +392,12 @@ bool KdHD2DShader::Init()
 
 	{
 #include "KdHD2DShader_PS_GenDepthMapFromLight.shaderInc"
-
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreatePixelShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_PS_GenDepthFromLight))) {
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreatePixelShader(
+			compiledBuffer,
+			sizeof(compiledBuffer),
+			nullptr,
+			&m_PS_GenDepthFromLight)))
+		{
 			assert(0 && "ピクセルシェーダー作成失敗");
 			Release();
 			return false;
@@ -410,8 +406,12 @@ bool KdHD2DShader::Init()
 	
 	{
 #include "KdHD2DShader_PS_UnLit.shaderInc"
-
-		if (FAILED(KdDirect3D::Instance().WorkDev()->CreatePixelShader(compiledBuffer, sizeof(compiledBuffer), nullptr, &m_PS_UnLit))) {
+		if (FAILED(KdDirect3D::GetInstance().WorkDev()->CreatePixelShader(
+			compiledBuffer,
+			sizeof(compiledBuffer), 
+			nullptr,
+			&m_PS_UnLit)))
+		{
 			assert(0 && "ピクセルシェーダー作成失敗");
 			Release();
 			return false;
@@ -430,12 +430,13 @@ bool KdHD2DShader::Init()
 		0.0f, 0.0f,
 		static_cast<float>(ds->GetWidth()),
 		static_cast<float>(ds->GetHeight()),
-		0.0f, 1.0f };
+		0.0f, 1.0f
+	};
 
 	m_depthMapFromLightRTPack.CreateRenderTarget(1024, 1024, true, DXGI_FORMAT_R32_FLOAT);
 	m_depthMapFromLightRTPack.ClearTexture(kRedColor);
 
-	SetDissolveTexture(*KdAssets::Instance().m_textures.GetData("Asset/Textures/System/WhiteNoise.png"));
+	SetDissolveTexture(*KdAssets::GetInstance().m_textures.GetData("Asset/Textures/System/WhiteNoise.png"));
 
 	return true;
 }
@@ -468,15 +469,15 @@ void KdHD2DShader::Release()
 // BaseColor：基本色 / Emissive：自己発光色 / Metalic：金属性(テカテカ) / Roughness：粗さ(材質の色の反映度)
 // テクスチャは法線マップ以外は未設定なら白1ピクセルのシステムテクスチャを指定
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdHD2DShader::WriteMaterial(const KdMaterial& material, const Math::Vector4& colRate, const Math::Vector3& emiRate)
+void KdHD2DShader::WriteMaterial(const KdMaterial& _material, const Math::Vector4& _colRate, const Math::Vector3& _emiRate)
 {
 	//-----------------------
 	// マテリアル情報を定数バッファへ書き込む
 	//-----------------------
-	m_cb2_Material.Work().BaseColor = material.m_baseColorRate * colRate;
-	m_cb2_Material.Work().Emissive = material.m_emissiveRate * emiRate;
-	m_cb2_Material.Work().Metallic = material.m_metallicRate;
-	m_cb2_Material.Work().Roughness = material.m_roughnessRate;
+	m_cb2_Material.Work().BaseColor = _material.m_baseColorRate * _colRate;
+	m_cb2_Material.Work().Emissive = _material.m_emissiveRate * _emiRate;
+	m_cb2_Material.Work().Metallic = _material.m_metallicRate;
+	m_cb2_Material.Work().Roughness = _material.m_roughnessRate;
 	m_cb2_Material.Write();
 
 	//-----------------------
@@ -484,33 +485,33 @@ void KdHD2DShader::WriteMaterial(const KdMaterial& material, const Math::Vector4
 	//-----------------------
 	ID3D11ShaderResourceView* srvs[4]{};
 
-	srvs[0] = material.m_baseColorTex ? material.m_baseColorTex->WorkSRView() : KdDirect3D::Instance().GetWhiteTex()->WorkSRView();
-	srvs[1] = material.m_metallicRoughnessTex ? material.m_metallicRoughnessTex->WorkSRView() : KdDirect3D::Instance().GetWhiteTex()->WorkSRView();
-	srvs[2] = material.m_emissiveTex ? material.m_emissiveTex->WorkSRView() : KdDirect3D::Instance().GetWhiteTex()->WorkSRView();
-	srvs[3] = material.m_normalTex ? material.m_normalTex->WorkSRView() : KdDirect3D::Instance().GetNormalTex()->WorkSRView();
+	srvs[0] = _material.m_baseColorTex ? _material.m_baseColorTex->WorkSRView() : KdDirect3D::GetInstance().GetWhiteTex()->WorkSRView();
+	srvs[1] = _material.m_metallicRoughnessTex ? _material.m_metallicRoughnessTex->WorkSRView() : KdDirect3D::GetInstance().GetWhiteTex()->WorkSRView();
+	srvs[2] = _material.m_emissiveTex ? _material.m_emissiveTex->WorkSRView() : KdDirect3D::GetInstance().GetWhiteTex()->WorkSRView();
+	srvs[3] = _material.m_normalTex ? _material.m_normalTex->WorkSRView() : KdDirect3D::GetInstance().GetNormalTex()->WorkSRView();
 
 	// セット
-	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, _countof(srvs), srvs);
+	KdDirect3D::GetInstance().WorkDevContext()->PSSetShaderResources(0, _countof(srvs), srvs);
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // ポリゴンがどの方向に向いていても光の影響を正面からに受けるように頂点の法線を変換
 // 2Dキャラクタを描画する時などは必要
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdHD2DShader::ConvertNormalsFor2D(std::vector<KdPolygon::Vertex>& target, const Math::Matrix& mWorld)
+void KdHD2DShader::ConvertNormalsFor2D(std::vector<KdPolygon::Vertex>& _target, const Math::Matrix& _mWorld)
 {
 	// 平行光の向き
-	const Math::Vector3& dirLight_Dir = KdShaderManager::Instance().GetLightCB().DirLight_Dir;
+	const Math::Vector3& dirLight_Dir = KdShaderManager::GetInstance().GetLightCB().DirLight_Dir;
 
 	// どの角度を向いていても表面は常に光の方向を向いている状態：横向きの板ポリが暗くならない対策
-	Math::Vector3 normal = Math::Vector3::TransformNormal(-dirLight_Dir, mWorld.Invert());
+	Math::Vector3 normal = Math::Vector3::TransformNormal(-dirLight_Dir, _mWorld.Invert());
 	Math::Vector3 tangent = (normal != Math::Vector3::Up) ?
 		normal.Cross(Math::Vector3::Up) : normal.Cross(Math::Vector3::Right);
 
-	for (size_t i = 0; i < target.size(); ++i)
+	for (size_t i = 0; i < _target.size(); ++i)
 	{
-		target[i].normal = normal;
-		target[i].tangent = tangent;
+		_target[i].normal = normal;
+		_target[i].tangent = tangent;
 	}
 }
 

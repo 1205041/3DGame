@@ -18,16 +18,16 @@ public:
 	void SetToShader() const;
 
 	// カメラ行列の設定・カメラ行列からビュー行列を生成
-	virtual void SetCameraMatrix(const DirectX::SimpleMath::Matrix& mCam) { m_mCam = mCam; }
+	virtual void SetCameraMatrix(const DirectX::SimpleMath::Matrix& _mCam) { m_mCam = _mCam; }
 
 	// 射影行列の設定：各種パラメータから射影行列を生成して保持する
-	void SetProjectionMatrix(float fov, float maxRange = 2000, float minRange = 0.01f, float aspectRatio = 0.0f);
+	void SetProjectionMatrix(float _fov, float _maxRange = 2000, float _minRange = 0.01f, float _aspectRatio = 0.0f);
 	
 	// 射影行列の設定：既存の射影行列をコピーする
-	void SetProjectionMatrix(const DirectX::SimpleMath::Matrix& rProj) { m_mProj = rProj; }
+	void SetProjectionMatrix(const DirectX::SimpleMath::Matrix& _rProj) { m_mProj = _rProj; }
 
 	// 焦点距離を設定
-	void SetFocus(float focusDist, float focusForeRange, float focusBackRange);
+	void SetFocus(float _focusDist, float _focusForeRange, float _focusBackRange);
 
 	// カメラ行列取得
 	inline const DirectX::SimpleMath::Matrix& GetCameraMatrix() const { return m_mCam; }
@@ -36,7 +36,7 @@ public:
 	inline const DirectX::SimpleMath::Matrix& GetProjMatrix() const { return m_mProj; }
 
 	// クライアント座標（2D）から3Dワールド座標を求める用のレイ情報を生成
-	void GenerateRayInfoFromClientPos(const POINT& clientPos, Math::Vector3& rayPos, Math::Vector3& rayDir, float& rayRange);
+	void GenerateRayInfoFromClientPos(const POINT& _clientPos, Math::Vector3& _rayPos, Math::Vector3& _rayDir, float& _rayRange);
 
 protected:
 	// カメラ行列：3Dワールド空間上のカメラの行列情報

@@ -23,16 +23,16 @@ void WaterSurface::PostUpdate()
 
 void WaterSurface::DrawLit()
 {
-	KdShaderManager::Instance().m_HD2DShader.SetUVTiling({ 10.0f,10.0f });
+	KdShaderManager::GetInstance().m_HD2DShader.SetUVTiling({ 10.0f,10.0f });
 
 	// 水面表現を有効
-	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(true);
-	KdShaderManager::Instance().m_HD2DShader.SetWaterUVOffset(m_offset);
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterEnable(true);
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterUVOffset(m_offset);
 
 	if (!m_spModelData) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
+	KdShaderManager::GetInstance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
 
-	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(false);
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterEnable(false);
 }
 
 void WaterSurface::Init()
@@ -40,12 +40,12 @@ void WaterSurface::Init()
 	if (!m_spModelData)
 	{
 		m_spModelData = std::make_shared<KdModelData>();
-		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
+		m_spModelData = KdAssets::GetInstance().m_modeldatas.GetData(
 			"Asset/Models/Terrain/WaterSurface/WaterSurface.gltf");
 	}
 
 	// add：テクスチャ読込とGPUに転送
 	std::shared_ptr<KdTexture> spTex;
-	spTex = KdAssets::Instance().m_textures.GetData("Asset/Textures/WaterSurface/water.png");
-	KdShaderManager::Instance().m_HD2DShader.SetWaterNomalText(*spTex);
+	spTex = KdAssets::GetInstance().m_textures.GetData("Asset/Textures/WaterSurface/water.png");
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterNomalText(*spTex);
 }

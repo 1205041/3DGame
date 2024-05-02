@@ -6,12 +6,12 @@ public:
 	KdPostProcessShader() {}
 	~KdPostProcessShader() { Release(); }
 
-	void SetNearClippingDistance(float distance) { m_cb0_DoFInfo.Work().NearClippingDistance = distance; }
-	void SetFarClippingDistance(float distance) { m_cb0_DoFInfo.Work().FarClippingDistance = distance; }
-	void SetFocusDistance(float distance) { m_cb0_DoFInfo.Work().FocusDistance = distance; }
-	void SetFocusRange(float fore, float back) { m_cb0_DoFInfo.Work().FocusForeRange = fore; m_cb0_DoFInfo.Work().FocusBackRange = back; }
+	void SetNearClippingDistance(float _distance) { m_cb0_DoFInfo.Work().NearClippingDistance = _distance; }
+	void SetFarClippingDistance(float _distance) { m_cb0_DoFInfo.Work().FarClippingDistance = _distance; }
+	void SetFocusDistance(float _distance) { m_cb0_DoFInfo.Work().FocusDistance = _distance; }
+	void SetFocusRange(float _fore, float _back) { m_cb0_DoFInfo.Work().FocusForeRange = _fore; m_cb0_DoFInfo.Work().FocusBackRange = _back; }
 
-	void SetBrightThreshold(float threshold) { m_cb0_BrightInfo.Work().Threshold = threshold; }
+	void SetBrightThreshold(float _threshold) { m_cb0_BrightInfo.Work().Threshold = _threshold; }
 
 	struct Vertex
 	{
@@ -30,7 +30,7 @@ public:
 
 	void PostEffectProcess();
 
-	void GenerateBlurTexture(std::shared_ptr<KdTexture>& spSrcTex, std::shared_ptr<KdTexture>& spDstTex, D3D11_VIEWPORT& VP, int blurRadius);
+	void GenerateBlurTexture(std::shared_ptr<KdTexture>& _spSrcTex, std::shared_ptr<KdTexture>& _spDstTex, D3D11_VIEWPORT& _VP, int _blurRadius);
 
 private:
 
@@ -38,12 +38,12 @@ private:
 	void LightBloomProcess();
 	void DepthOfFieldProcess();
 
-	void CreateBlurOffsetList(std::vector<Math::Vector3>& dstInfo, const std::shared_ptr<KdTexture>& spSrcTex, int samplingSize, const Math::Vector2& dir);
+	void CreateBlurOffsetList(std::vector<Math::Vector3>& _dstInfo, const std::shared_ptr<KdTexture>& _spSrcTex, int _samplingSize, const Math::Vector2& _dir);
 
-	void DrawTexture(std::shared_ptr<KdTexture>* spSrcTex, int srcTexSize, std::shared_ptr<KdTexture> spDstTex, D3D11_VIEWPORT* pVP);
+	void DrawTexture(std::shared_ptr<KdTexture>* _spSrcTex, int _srcTexSize, std::shared_ptr<KdTexture> _spDstTex, D3D11_VIEWPORT* _pVP);
 
-	void SetBlurInfo(const std::shared_ptr<KdTexture>& spSrcTex, int samplingSize, const Math::Vector2& dir);
-	void SetBlurInfo(const std::vector<Math::Vector3>& srcInfo);
+	void SetBlurInfo(const std::shared_ptr<KdTexture>& _spSrcTex, int _samplingSize, const Math::Vector2& _dir);
+	void SetBlurInfo(const std::vector<Math::Vector3>& _srcInfo);
 
 	void SetBlurToDevice();
 	void SetDoFToDevice();

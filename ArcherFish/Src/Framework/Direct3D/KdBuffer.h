@@ -11,7 +11,6 @@ public:
 	//=================================================
 	// 取得
 	//=================================================
-
 	// バッファインターフェイスを取得
 	ID3D11Buffer*			GetBuffer() const { return m_pBuffer; }
 	ID3D11Buffer* const*	GetAddress() const { return &m_pBuffer; }
@@ -27,7 +26,7 @@ public:
 	// ・bufferSize		… 作成するバッファのサイズ(byte)
 	// ・bufferUsage	… バッファの使用法　D3D11_USAGE定数を指定する
 	// ・initData		… 作成時に書き込むデータ nullptrだと何も書き込まない
-	bool Create(UINT bindFlags, UINT bufferSize, D3D11_USAGE bufferUsage, const D3D11_SUBRESOURCE_DATA* initData);
+	bool Create(UINT _bindFlags, UINT _bufferSize, D3D11_USAGE _bufferUsage, const D3D11_SUBRESOURCE_DATA* _initData);
 	
 	// 解放
 	void Release()
@@ -46,7 +45,7 @@ public:
 	// Stagingの場合はD3D11_MAP_READ_WRITEでMap。
 	// ・pSrcData		… 書き込みたいデータの先頭アドレス
 	// ・size			… 書き込むサイズ(byte)
-	void WriteData(const void* pSrcData, UINT size);
+	void WriteData(const void* _pSrcData, UINT _size);
 
 	// GPU上でバッファのコピーを実行する
 	// ※詳細はDeviceContextのCopyResource()参照 https://msdn.microsoft.com/ja-jp/library/ee419574(v=vs.85).aspx
@@ -57,25 +56,18 @@ public:
 	//  ※単純なコピーのみが行われます。CopyResource では、引き伸ばし、カラー キー、ブレンド、フォーマット変換はサポートされません。
 	//  ※DXGIフォーマットの互換性が必要です。
 	// ・srcBuffer		… コピー元バッファ
-	void CopyFrom(const KdBuffer& srcBuffer);
+	void CopyFrom(const KdBuffer& _srcBuffer);
 
 	//=================================================
 
-	// コンストラクタ
+	// コンストラクタとデストラクタ
 	KdBuffer() {}
-
-	// デストラクタ
 	~KdBuffer() { Release(); }
 
 protected:
-	// バッファ本体
-	ID3D11Buffer*		m_pBuffer = nullptr;
-
-	// バッファのサイズ(byte)
-	UINT				m_bufSize = 0;
-
-	// バッファの使用法
-	D3D11_USAGE			m_bufUsage = D3D11_USAGE_DEFAULT;
+	ID3D11Buffer* m_pBuffer = nullptr;				// バッファ本体
+	UINT		  m_bufSize = 0;					// バッファのサイズ(byte)
+	D3D11_USAGE	  m_bufUsage = D3D11_USAGE_DEFAULT;	// バッファの使用法
 
 private:
 	// コピー禁止用
@@ -95,7 +87,6 @@ public:
 	//=================================================
 	// 取得・設定
 	//=================================================
-
 	// 作業領域取得　※変更フラグがONになります
 	DataType& Work()
 	{
@@ -108,7 +99,6 @@ public:
 
 	// バッファアドレス取得
 	ID3D11Buffer* const*	GetAddress() const { return m_buffer.GetAddress(); }
-
 
 	// m_workを定数バッファへ書き込む
 	// ※m_isDirtyがtrueの時のみ、バッファに書き込まれる
@@ -125,12 +115,11 @@ public:
 	//=================================================
 	// 作成・解放
 	//=================================================
-
 	// DataType型のサイズの定数バッファを作成
 	// ・initData		… 作成時にバッファに書き込むデータ　nullptrで何も書き込まない
-	bool Create(const DataType* initData = nullptr)
+	bool Create(const DataType* _initData = nullptr)
 	{
-		if (initData) { m_work = *initData; }
+		if (_initData) { m_work = *_initData; }
 
 		//----------------------------------
 		// バッファ作成
@@ -157,8 +146,7 @@ public:
 	KdConstantBuffer() = default;
 
 private:
-	// 定数バッファ
-	KdBuffer			m_buffer;
+	KdBuffer			m_buffer;	// 定数バッファ
 
 	// 作業用 定数バッファ
 	// この内容がWrite関数で定数バッファ本体に方に書き込まれる

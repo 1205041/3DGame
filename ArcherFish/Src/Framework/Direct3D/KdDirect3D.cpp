@@ -1,20 +1,20 @@
 ﻿#include "Framework/KdFramework.h"
 
-void KdDirect3D::CopyViewportInfo(Math::Viewport& out) const
+void KdDirect3D::CopyViewportInfo(Math::Viewport& _out) const
 {
 	UINT numVPs = 1;
 	D3D11_VIEWPORT vp;
 	m_pDeviceContext->RSGetViewports(&numVPs, &vp);
-	out = vp;
+	_out = vp;
 }
 
-void KdDirect3D::ClientToWorld(const POINT& screenPos, float porjZ, Math::Vector3& dst, const Math::Matrix& mCam, const Math::Matrix& mProj)
+void KdDirect3D::ClientToWorld(const POINT& _screenPos, float _porjZ, Math::Vector3& _dst, const Math::Matrix& _mCam, const Math::Matrix& _mProj)
 {
-	porjZ = std::clamp(porjZ, 0.0f, 1.0f);
+	_porjZ = std::clamp(_porjZ, 0.0f, 1.0f);
 
 	// 各行列の逆行列を算出
-	Math::Matrix invView = mCam;
-	Math::Matrix invPrj = mProj.Invert();
+	Math::Matrix invView = _mCam;
+	Math::Matrix invPrj = _mProj.Invert();
 
 	Math::Matrix mVP;
 	mVP._11 = m_windowWidth * 0.5f;
@@ -27,10 +27,10 @@ void KdDirect3D::ClientToWorld(const POINT& screenPos, float porjZ, Math::Vector
 	// 2D→3D変換用行列合成
 	Math::Matrix convertMat = invViewport * invPrj * invView;
 
-	Math::Vector3::Transform({ (float)screenPos.x, (float)screenPos.y, porjZ }, convertMat, dst);
+	Math::Vector3::Transform({ (float)_screenPos.x, (float)_screenPos.y, _porjZ }, convertMat, _dst);
 }
 
-void KdDirect3D::WorldToClient(const Math::Vector3& srcWorld, POINT& dst, const Math::Matrix& mCam, const Math::Matrix& mProj)
+void KdDirect3D::WorldToClient(const Math::Vector3& _srcWorld, POINT& _dst, const Math::Matrix& _mCam, const Math::Matrix& _mProj)
 {
 	Math::Matrix mVP;
 	mVP._11 = m_windowWidth * 0.5f;
@@ -38,15 +38,15 @@ void KdDirect3D::WorldToClient(const Math::Vector3& srcWorld, POINT& dst, const 
 	mVP._41 = m_windowWidth * 0.5f;
 	mVP._42 = m_windowHeight * 0.5f;
 
-	Math::Matrix convertMat = mCam.Invert() * mProj * mVP;
+	Math::Matrix convertMat = _mCam.Invert() * _mProj * mVP;
 
-	Math::Vector3 screenPos = Math::Vector3::Transform(srcWorld, convertMat);
+	Math::Vector3 screenPos = Math::Vector3::Transform(_srcWorld, convertMat);
 
-	dst.x = static_cast<int>(screenPos.x);
-	dst.y = static_cast<int>(screenPos.y);
+	_dst.x = static_cast<int>(screenPos.x);
+	_dst.y = static_cast<int>(screenPos.y);
 }
 
-bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& errMsg)
+bool KdDirect3D::Init(HWND _hWnd, int _w, int _h, bool _deviceDebug, std::string& _errMsg)
 {
 	HRESULT hr;
 
@@ -57,7 +57,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	hr = CreateDXGIFactory1(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&factory));
 	if (FAILED(hr)) 
 	{
-		errMsg = "ファクトリー作成失敗";
+		_errMsg = "ファクトリー作成失敗";
 
 		Release();
 		return false;
@@ -69,7 +69,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	UINT creationFlags = 0;
 
 	// Direct3Dのデバッグを有効にする(すごく重いが細かいエラーがわかる)
-	if (deviceDebug) { creationFlags |= D3D11_CREATE_DEVICE_DEBUG; }
+	if (_deviceDebug) { creationFlags |= D3D11_CREATE_DEVICE_DEBUG; }
 
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
@@ -117,7 +117,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 
 	if FAILED(hr)
 	{
-		errMsg = "Direct3D11デバイス作成失敗";
+		_errMsg = "Direct3D11デバイス作成失敗";
 
 		Release();
 		return false;
@@ -127,8 +127,8 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	// スワップチェイン作成(フロントバッファに表示可能なバックバッファを持つもの)
 	//=====================================================
 	DXGI_SWAP_CHAIN_DESC DXGISwapChainDesc = {};		// スワップチェーンの設定データ
-	DXGISwapChainDesc.BufferDesc.Width = w;
-	DXGISwapChainDesc.BufferDesc.Height = h;
+	DXGISwapChainDesc.BufferDesc.Width = _w;
+	DXGISwapChainDesc.BufferDesc.Height = _h;
 	DXGISwapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
 	DXGISwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	DXGISwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -138,12 +138,12 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	DXGISwapChainDesc.SampleDesc.Quality = 0;
 	DXGISwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 	DXGISwapChainDesc.BufferCount = 2;
-	DXGISwapChainDesc.OutputWindow = hWnd;
+	DXGISwapChainDesc.OutputWindow = _hWnd;
 	DXGISwapChainDesc.Windowed = TRUE;
 	DXGISwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	DXGISwapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 	if (FAILED(factory->CreateSwapChain(m_pDevice, &DXGISwapChainDesc, &m_pGISwapChain))) {
-		errMsg = "スワップチェイン作成失敗";
+		_errMsg = "スワップチェイン作成失敗";
 
 		Release();
 		return false;
@@ -153,7 +153,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	// スワップチェインからバックバッファ取得
 	ID3D11Texture2D* pBackBuffer;
 	if (FAILED(m_pGISwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pBackBuffer))) {
-		errMsg = "バックバッファ取得失敗";
+		_errMsg = "バックバッファ取得失敗";
 
 		Release();
 		return false;
@@ -163,7 +163,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	m_backBuffer = std::make_shared<KdTexture>();
 	if (m_backBuffer->Create(pBackBuffer) == false)
 	{
-		errMsg = "バックバッファ作成失敗";
+		_errMsg = "バックバッファ作成失敗";
 		Release();
 		return false;
 	}
@@ -182,7 +182,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 		IDXGIFactory* pIDXGIFactory;
 		pDXGIAdapter->GetParent(__uuidof(IDXGIFactory), (void **)&pIDXGIFactory);
 
-		pIDXGIFactory->MakeWindowAssociation(hWnd, DXGI_MWA_NO_ALT_ENTER);
+		pIDXGIFactory->MakeWindowAssociation(_hWnd, DXGI_MWA_NO_ALT_ENTER);
 
 		pDXGIDevice->Release();
 		pDXGIAdapter->Release();
@@ -199,8 +199,8 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 		desc.Usage = D3D11_USAGE_DEFAULT;
 		desc.Format = DXGI_FORMAT_R24G8_TYPELESS;
 		desc.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
-		desc.Width = (UINT)w;
-		desc.Height = (UINT)h;
+		desc.Width = (UINT)_w;
+		desc.Height = (UINT)_h;
 		desc.CPUAccessFlags = 0;
 		desc.MipLevels = 1;
 		desc.ArraySize = 1;
@@ -210,7 +210,7 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 		m_zBuffer = std::make_shared<KdTexture>();
 		if (m_zBuffer->Create(desc) == false)
 		{
-			errMsg = "Zバッファ作成失敗";
+			_errMsg = "Zバッファ作成失敗";
 			Release();
 			return false;
 		}
@@ -230,8 +230,8 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 	{
 		// ビューポートの設定
 		D3D11_VIEWPORT vp;
-		vp.Width = (float)w;
-		vp.Height = (float)h;
+		vp.Width = (float)_w;
+		vp.Height = (float)_h;
 		vp.MinDepth = 0.0f;
 		vp.MaxDepth = 1.0f;
 		vp.TopLeftX = 0;
@@ -312,8 +312,8 @@ bool KdDirect3D::Init(HWND hWnd, int w, int h, bool deviceDebug, std::string& er
 		bufferSize *= 2;	// 容量を倍にしていく
 	}
 
-	m_windowWidth = w;
-	m_windowHeight = h;
+	m_windowWidth = _w;
+	m_windowHeight = _h;
 
 	return true;
 }
@@ -333,13 +333,13 @@ void KdDirect3D::Release()
 	KdSafeRelease(m_pDevice);
 }
 
-ID3D11DepthStencilState* KdDirect3D::CreateDepthStencilState(bool zEnable, bool zWriteEnable) const
+ID3D11DepthStencilState* KdDirect3D::CreateDepthStencilState(bool _zEnable, bool _zWriteEnable) const
 {
 	// Zバッファの動作設定
 	D3D11_DEPTH_STENCIL_DESC desc = {};
 
-	desc.DepthEnable = zEnable;							// 深度テストを使用する
-	desc.DepthWriteMask = zWriteEnable ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
+	desc.DepthEnable = _zEnable;							// 深度テストを使用する
+	desc.DepthWriteMask = _zWriteEnable ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
 	desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 
 	desc.StencilEnable = FALSE;
@@ -353,18 +353,18 @@ ID3D11DepthStencilState* KdDirect3D::CreateDepthStencilState(bool zEnable, bool 
 	return state;
 }
 
-ID3D11RasterizerState* KdDirect3D::CreateRasterizerState(D3D11_CULL_MODE cullMode, D3D11_FILL_MODE fillMode, bool depthClipEnable, bool scissorEnable) const
+ID3D11RasterizerState* KdDirect3D::CreateRasterizerState(D3D11_CULL_MODE _cullMode, D3D11_FILL_MODE _fillMode, bool _depthClipEnable, bool _scissorEnable) const
 {
 	// ラスタライズの動作設定
 	D3D11_RASTERIZER_DESC desc = {};
-	desc.FillMode = fillMode;
-	desc.CullMode = cullMode;
+	desc.FillMode = _fillMode;
+	desc.CullMode = _cullMode;
 	desc.FrontCounterClockwise = FALSE;
 	desc.DepthBias = 0;
 	desc.DepthBiasClamp = 0;
 	desc.SlopeScaledDepthBias = 0;
-	desc.DepthClipEnable = depthClipEnable;
-	desc.ScissorEnable = scissorEnable;
+	desc.DepthClipEnable = _depthClipEnable;
+	desc.ScissorEnable = _scissorEnable;
 	desc.MultisampleEnable = FALSE;
 	desc.AntialiasedLineEnable = FALSE;
 
@@ -375,11 +375,11 @@ ID3D11RasterizerState* KdDirect3D::CreateRasterizerState(D3D11_CULL_MODE cullMod
 	return state;
 }
 
-ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterType, UINT maxAnisotropy, KdSamplerAddressingMode addressingMode, bool comparisonModel) const
+ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode _filterType, UINT _maxAnisotropy, KdSamplerAddressingMode _addressingMode, bool _comparisonModel) const
 {
 	D3D11_SAMPLER_DESC desc = {};
 	// フィルタ
-	switch (filterType) 
+	switch (_filterType) 
 	{
 		// Point
 	case KdSamplerFilterMode::Point:
@@ -392,12 +392,12 @@ ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterTyp
 		// Anisotropic
 	case KdSamplerFilterMode::Anisotropic:
 		desc.Filter = D3D11_FILTER_ANISOTROPIC;
-		desc.MaxAnisotropy = maxAnisotropy;
+		desc.MaxAnisotropy = _maxAnisotropy;
 		break;
 	}
 
 	// アドレッシングモード
-	switch (addressingMode) 
+	switch (_addressingMode) 
 	{
 		// Wrap
 	case KdSamplerAddressingMode::Wrap:
@@ -414,7 +414,8 @@ ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterTyp
 	}
 
 	// 比較モードサンプラ
-	if (comparisonModel) {
+	if (_comparisonModel) 
+	{
 		desc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
 		desc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;	// とりあえず今回は線形フィルタ固定で
 	}
@@ -434,7 +435,7 @@ ID3D11SamplerState* KdDirect3D::CreateSamplerState(KdSamplerFilterMode filterTyp
 	return state;
 }
 
-ID3D11BlendState* KdDirect3D::CreateBlendState(KdBlendMode mode) const
+ID3D11BlendState* KdDirect3D::CreateBlendState(KdBlendMode _mode) const
 {
 	D3D11_BLEND_DESC desc = {};
 	// 有効
@@ -446,7 +447,7 @@ ID3D11BlendState* KdDirect3D::CreateBlendState(KdBlendMode mode) const
 	desc.AlphaToCoverageEnable = FALSE;
 
 	// ブレンドなし
-	if (mode == KdBlendMode::NoBlend)
+	if (_mode == KdBlendMode::NoBlend)
 	{
 		// 色の合成方法
 		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
@@ -458,7 +459,7 @@ ID3D11BlendState* KdDirect3D::CreateBlendState(KdBlendMode mode) const
 		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	}
 	// 半透明ブレンド
-	else if (mode == KdBlendMode::Alpha)
+	else if (_mode == KdBlendMode::Alpha)
 	{
 		// 色の合成方法
 		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
@@ -470,7 +471,7 @@ ID3D11BlendState* KdDirect3D::CreateBlendState(KdBlendMode mode) const
 		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
 	}
 	// 加算ブレンド
-	else if (mode == KdBlendMode::Add)
+	else if (_mode == KdBlendMode::Add)
 	{
 		// 色の合成方法
 		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
@@ -489,15 +490,15 @@ ID3D11BlendState* KdDirect3D::CreateBlendState(KdBlendMode mode) const
 	return state;
 }
 
-void KdDirect3D::DrawVertices(D3D_PRIMITIVE_TOPOLOGY topology, int vertexCount, const void* pVertexStream, UINT stride)
+void KdDirect3D::DrawVertices(D3D_PRIMITIVE_TOPOLOGY _topology, int _vertexCount, const void* _pVertexStream, UINT _stride)
 {
 	assert(m_pDeviceContext && "デバイスコンテキストが見つかりません");
 
 	// プリミティブトポロジーをセット
-	m_pDeviceContext->IASetPrimitiveTopology(topology);
+	m_pDeviceContext->IASetPrimitiveTopology(_topology);
 
 	// 全頂点の総バイトサイズ
-	UINT totalSize = vertexCount * stride;
+	UINT totalSize = _vertexCount * _stride;
 
 	// 最適な固定長バッファを検索
 	KdBuffer* buffer = nullptr;
@@ -527,18 +528,17 @@ void KdDirect3D::DrawVertices(D3D_PRIMITIVE_TOPOLOGY topology, int vertexCount, 
 	//============================================================
 
 	// 全頂点をバッファに書き込み(DISCARD指定)
-	buffer->WriteData(pVertexStream, totalSize);
+	buffer->WriteData(_pVertexStream, totalSize);
 
 	// 頂点バッファーをデバイスへセット
 	{
 		UINT offset = 0;
-		m_pDeviceContext->IASetVertexBuffers(0, 1, buffer->GetAddress(), &stride, &offset);
+		m_pDeviceContext->IASetVertexBuffers(0, 1, buffer->GetAddress(), &_stride, &offset);
 	}
 
 	// 描画
-	m_pDeviceContext->Draw(vertexCount, 0);
+	m_pDeviceContext->Draw(_vertexCount, 0);
 }
-
 
 void KdDirect3D::ClearBackBuffer()
 {
@@ -546,6 +546,5 @@ void KdDirect3D::ClearBackBuffer()
 	m_pDeviceContext->ClearRenderTargetView(m_backBuffer->WorkRTView(), m_backBafferClearColor);
 
 	// Zバッファクリア
-	m_pDeviceContext->ClearDepthStencilView(m_zBuffer->WorkDSView(),
-		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	m_pDeviceContext->ClearDepthStencilView(m_zBuffer->WorkDSView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

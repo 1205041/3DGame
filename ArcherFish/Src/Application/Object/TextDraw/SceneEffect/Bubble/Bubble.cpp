@@ -29,5 +29,5 @@ void Bubble::Init()
 
 void Bubble::DrawSprite()
 {
-	if (m_act) { KdShaderManager::Instance().m_spriteShader.DrawCircle((int)m_pixel.x, (int)m_pixel.y, (int)m_radius, &m_color, m_fill); }
+	if (m_act) { KdShaderManager::GetInstance().m_spriteShader.DrawCircle((int)m_pixel.x, (int)m_pixel.y, (int)m_radius, &m_color, m_fill); }
 }

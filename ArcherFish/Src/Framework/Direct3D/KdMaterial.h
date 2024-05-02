@@ -5,12 +5,14 @@
 //==========================================================
 struct KdMaterial
 {
-	void SetTextures(const std::shared_ptr<KdTexture>& spBaseColTex,
-		const std::shared_ptr<KdTexture>& spMtRfColTex, const std::shared_ptr<KdTexture>& spEmiColTex,
-		const std::shared_ptr<KdTexture>& spNmlColTex);
+	void SetTextures(const std::shared_ptr<KdTexture>& _spBaseColTex,
+		const std::shared_ptr<KdTexture>& _spMtRfColTex, 
+		const std::shared_ptr<KdTexture>& _spEmiColTex,
+		const std::shared_ptr<KdTexture>& _spNmlColTex);
 
-	void SetTextures(const std::string& fileDir, const std::string& baseColName,
-		const std::string& mtRfColName, const std::string& emiColName, const std::string& nmlColName);
+	void SetTextures(const std::string& _fileDir, const std::string& _baseColName,
+		const std::string& _mtRfColName, const std::string& _emiColName, 
+		const std::string& _nmlColName);
 
 	//---------------------------------------
 	// 材質データ

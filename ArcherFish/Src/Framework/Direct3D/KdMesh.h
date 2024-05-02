@@ -43,7 +43,6 @@ public:
 	//=================================================
 	// 取得・設定
 	//=================================================
-
 	// サブセット情報配列を取得
 	const std::vector<KdMeshSubset>&	GetSubsets() const { return m_subsets; }
 
@@ -72,23 +71,20 @@ public:
 	// ・faces		… 面インデックス情報配列
 	// ・subsets	… サブセット情報配列
 	// 戻り値		… 成功：true
-	bool Create(const std::vector<KdMeshVertex>& vertices, const std::vector<KdMeshFace>& faces, const std::vector<KdMeshSubset>& subsets, bool isSkinMesh);
+	bool Create(const std::vector<KdMeshVertex>& _vertices, const std::vector<KdMeshFace>& _faces, const std::vector<KdMeshSubset>& _subsets, bool _isSkinMesh);
 
 	// 解放
 	void Release();
 
-	// デストラクタ
+	// コンストラクタとデストラクタ
+	KdMesh() {}
 	~KdMesh() { Release(); }
 
 	//=================================================
 	// 処理
 	//=================================================
-
 	// 指定サブセットを描画
-	void DrawSubset(int subsetNo) const;
-
-	// コンストラクタ
-	KdMesh() {}
+	void DrawSubset(int _subsetNo) const;
 
 private:
 	// 頂点バッファ

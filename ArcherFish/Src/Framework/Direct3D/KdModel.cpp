@@ -2,13 +2,13 @@
 #include "KdGLTFLoader.h"
 
 //ロード関数
-bool KdModelData::Load(std::string_view filename)
+bool KdModelData::Load(std::string_view _filename)
 {
 	Release();
 
-	std::string fileDir = KdGetDirFromPath(filename.data());
+	std::string fileDir = KdGetDirFromPath(_filename.data());
 	
-	std::shared_ptr<KdGLTFModel> spGltfModel = KdLoadGLTFModel(filename.data());
+	std::shared_ptr<KdGLTFModel> spGltfModel = KdLoadGLTFModel(_filename.data());
 	if (spGltfModel == nullptr) { return false; }
 
 	CreateNodes(spGltfModel);
@@ -21,14 +21,14 @@ bool KdModelData::Load(std::string_view filename)
 }
 
 // ノード作成
-void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
+void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& _spGltfModel)
 {
-	m_originalNodes.resize(spGltfModel->Nodes.size());
+	m_originalNodes.resize(_spGltfModel->Nodes.size());
 
-	for (UINT i = 0; i < spGltfModel->Nodes.size(); i++)
+	for (UINT i = 0; i < _spGltfModel->Nodes.size(); i++)
 	{
 		// 入力元ノード
-		const KdGLTFNode& rSrcNode = spGltfModel->Nodes[i];
+		const KdGLTFNode& rSrcNode = _spGltfModel->Nodes[i];
 
 		// 出力先のノード参照
 		Node& rDstNode = m_originalNodes[i];
@@ -42,7 +42,6 @@ void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
 
 			// メッシュノードリストにインデックス登録
 			m_meshNodeIndices.push_back(i);
-
 		}
 
 		// ノード情報セット
@@ -65,13 +64,13 @@ void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
 		else { m_drawMeshNodeIndices.push_back(i); }// 描画ノードに割り当て
 	}
 
-	for (UINT nodeIdx = 0; nodeIdx < spGltfModel->Nodes.size(); nodeIdx++)
+	for (UINT nodeIdx = 0; nodeIdx < _spGltfModel->Nodes.size(); nodeIdx++)
 	{
 		// ルートノードのIndexリスト
-		if (spGltfModel->Nodes[nodeIdx].Parent == -1) { m_rootNodeIndices.push_back(nodeIdx); }
+		if (_spGltfModel->Nodes[nodeIdx].Parent == -1) { m_rootNodeIndices.push_back(nodeIdx); }
 
 		// ボーンノードのIndexリスト
-		int boneIdx = spGltfModel->Nodes[nodeIdx].BoneNodeIndex;
+		int boneIdx = _spGltfModel->Nodes[nodeIdx].BoneNodeIndex;
 
 		if (boneIdx >= 0)
 		{
@@ -87,23 +86,23 @@ void KdModelData::CreateNodes(const std::shared_ptr<KdGLTFModel>& spGltfModel)
 }
 
 // マテリアル作成
-void KdModelData::CreateMaterials(const std::shared_ptr<KdGLTFModel>& spGltfModel, const std::string& fileDir)
+void KdModelData::CreateMaterials(const std::shared_ptr<KdGLTFModel>& _spGltfModel, const std::string& _fileDir)
 {
 	//マテリアル配列を受け取れるサイズのメモリを確保
-	m_materials.resize(spGltfModel->Materials.size());
+	m_materials.resize(_spGltfModel->Materials.size());
 
 	for (UINT i = 0; i < m_materials.size(); ++i)
 	{
 		// src = sourceの略
 		// dst = destinationの略
-		const KdGLTFMaterial& rSrcMaterial = spGltfModel->Materials[i];
+		const KdGLTFMaterial& rSrcMaterial = _spGltfModel->Materials[i];
 		KdMaterial& rDstMaterial = m_materials[i];
 
 		// 名前
 		rDstMaterial.m_name = rSrcMaterial.Name;
 
 		// 各テクスチャの設定
-		rDstMaterial.SetTextures(fileDir, rSrcMaterial.BaseColorTexName,
+		rDstMaterial.SetTextures(_fileDir, rSrcMaterial.BaseColorTexName,
 			rSrcMaterial.MetallicRoughnessTexName, rSrcMaterial.EmissiveTexName, rSrcMaterial.NormalTexName);
 
 		// 基本色
@@ -119,14 +118,14 @@ void KdModelData::CreateMaterials(const std::shared_ptr<KdGLTFModel>& spGltfMode
 }
 
 // アニメーション作成
-void KdModelData::CreateAnimations(const std::shared_ptr<KdGLTFModel>& spGltfModel)
+void KdModelData::CreateAnimations(const std::shared_ptr<KdGLTFModel>& _spGltfModel)
 {
 	// アニメーションデータ
-	m_spAnimations.resize(spGltfModel->Animations.size());
+	m_spAnimations.resize(_spGltfModel->Animations.size());
 
 	for (UINT i = 0; i < m_spAnimations.size(); ++i)
 	{
-		const KdGLTFAnimationData& rSrcAnimation = *spGltfModel->Animations[i];
+		const KdGLTFAnimationData& rSrcAnimation = *_spGltfModel->Animations[i];
 
 		m_spAnimations[i] = std::make_shared<KdAnimationData>();
 		KdAnimationData& rDstAnimation = *(m_spAnimations[i]);
@@ -148,17 +147,17 @@ void KdModelData::CreateAnimations(const std::shared_ptr<KdGLTFModel>& spGltfMod
 }
 
 // アニメーションデータ取得：文字列検索
-const std::shared_ptr<KdAnimationData> KdModelData::GetAnimation(std::string_view animName) const
+const std::shared_ptr<KdAnimationData> KdModelData::GetAnimation(std::string_view _animName) const
 {
-	for (auto&& anim : m_spAnimations) { if (anim->m_name == animName) { return anim; } }
+	for (auto&& anim : m_spAnimations) { if (anim->m_name == _animName) { return anim; } }
 
 	return nullptr;
 }
 
 // アニメーションデータ取得：番号指定
-const std::shared_ptr<KdAnimationData> KdModelData::GetAnimation(UINT index) const
+const std::shared_ptr<KdAnimationData> KdModelData::GetAnimation(UINT _index) const
 {
-	return index >= m_spAnimations.size() ? nullptr : m_spAnimations[index];
+	return _index >= m_spAnimations.size() ? nullptr : m_spAnimations[_index];
 }
 
 // 解放
@@ -183,27 +182,27 @@ bool KdModelData::IsSkinMesh()
 /* = = = = = = */
 // KdModelWork
 /* = = = = = = */
-const KdModelData::Node* KdModelWork::FindDataNode(std::string_view name) const
+const KdModelData::Node* KdModelWork::FindDataNode(std::string_view _name) const
 {
 	if (m_spData == nullptr) { return nullptr; }
 
-	return m_spData->FindNode(name.data());
+	return m_spData->FindNode(_name.data());
 }
 
 // ノード検索：文字列
-const KdModelWork::Node* KdModelWork::FindNode(std::string_view name) const
+const KdModelWork::Node* KdModelWork::FindNode(std::string_view _name) const
 {
-	for (auto&& node : m_coppiedNodes) { if (node.m_name == name.data()) { return &node; } }
+	for (auto&& node : m_coppiedNodes) { if (node.m_name == _name.data()) { return &node; } }
 
 	return nullptr;
 }
 
 // 可変ノード検索：文字列
-KdModelWork::Node* KdModelWork::FindWorkNode(std::string_view name)
+KdModelWork::Node* KdModelWork::FindWorkNode(std::string_view _name)
 {
 	for (auto&& node : m_coppiedNodes)
 	{
-		if (node.m_name == name.data())
+		if (node.m_name == _name.data())
 		{
 			m_needCalcNode = true;
 
@@ -215,24 +214,24 @@ KdModelWork::Node* KdModelWork::FindWorkNode(std::string_view name)
 }
 
 // モデル設定：コピーノードの生成
-void KdModelWork::SetModelData(const std::shared_ptr<KdModelData>& rModel)
+void KdModelWork::SetModelData(const std::shared_ptr<KdModelData>& _rModel)
 { 
-	m_spData = rModel;
+	m_spData = _rModel;
 
-	UINT nodeSize = rModel->GetOriginalNodes().size();
+	UINT nodeSize = _rModel->GetOriginalNodes().size();
 
 	m_coppiedNodes.resize(nodeSize);
 
 	// ノードのコピーを生成
-	for (UINT i = 0; i < nodeSize; ++i) { m_coppiedNodes[i].copy(rModel->GetOriginalNodes()[i]); }
+	for (UINT i = 0; i < nodeSize; ++i) { m_coppiedNodes[i].copy(_rModel->GetOriginalNodes()[i]); }
 
 	m_needCalcNode = true;
 }
 
-void KdModelWork::SetModelData(std::string_view fileName)
+void KdModelWork::SetModelData(std::string_view _fileName)
 {
 	// モデルのセット
-	SetModelData(KdAssets::Instance().m_modeldatas.GetData(fileName));
+	SetModelData(KdAssets::GetInstance().m_modeldatas.GetData(_fileName));
 }
 
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
@@ -251,13 +250,13 @@ void KdModelWork::CalcNodeMatrices()
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // ノード行列計算用の再起用関数
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-void KdModelWork::recCalcNodeMatrices(int nodeIdx, int parentNodeIdx)
+void KdModelWork::recCalcNodeMatrices(int _nodeIdx, int _parentNodeIdx)
 {
-	auto& data = m_spData->GetOriginalNodes()[nodeIdx];
-	auto& work = m_coppiedNodes[nodeIdx];
+	auto& data = m_spData->GetOriginalNodes()[_nodeIdx];
+	auto& work = m_coppiedNodes[_nodeIdx];
 
 	// 親との行列を合成
-	if (parentNodeIdx >= 0)
+	if (_parentNodeIdx >= 0)
 	{
 		auto& parent = m_coppiedNodes[data.m_parent];
 
@@ -266,5 +265,5 @@ void KdModelWork::recCalcNodeMatrices(int nodeIdx, int parentNodeIdx)
 	// 親が居ない場合は親は自分自身とする
 	else { work.m_worldTransform = work.m_localTransform; }
 
-	for (auto childNodeIdx : data.m_children) { recCalcNodeMatrices(childNodeIdx, nodeIdx); }
+	for (auto childNodeIdx : data.m_children) { recCalcNodeMatrices(childNodeIdx, _nodeIdx); }
 }

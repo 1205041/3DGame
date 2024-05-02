@@ -24,13 +24,13 @@ void UnderWater::PostUpdate()
 void UnderWater::DrawLit()
 {
 	// êÖñ ï\åªÇóLå¯
-	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(true);
-	KdShaderManager::Instance().m_HD2DShader.SetWaterUVOffset(m_offset);
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterEnable(true);
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterUVOffset(m_offset);
 
 	if (!m_spModelData) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
+	KdShaderManager::GetInstance().m_HD2DShader.DrawModel(*m_spModelData, m_mWorld);
 	
-	KdShaderManager::Instance().m_HD2DShader.SetWaterEnable(false);
+	KdShaderManager::GetInstance().m_HD2DShader.SetWaterEnable(false);
 }
 
 void UnderWater::Init()
@@ -38,7 +38,7 @@ void UnderWater::Init()
 	if (!m_spModelData)
 	{
 		m_spModelData = std::make_shared<KdModelData>();
-		m_spModelData = KdAssets::Instance().m_modeldatas.GetData(
+		m_spModelData = KdAssets::GetInstance().m_modeldatas.GetData(
 			"Asset/Models/Terrain/UnderWater/UnderWater.gltf");
 	}
 

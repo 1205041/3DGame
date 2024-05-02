@@ -21,7 +21,7 @@ public:
 	// 解放
 	void Release();
 
-	// 
+	// デストラクタ
 	~KdSpriteShader() { Release(); }
 
 	//===========================================
@@ -32,14 +32,14 @@ public:
 	// ステートの記憶・変更や、2D描画用の行列の設定、シェーダ切り替えなどを行う
 	// ・linear			… 線形補間モードにする
 	// ・disableZBuffer	… Zバッファを使用しない
-	void Begin(bool linear = false, bool disableZBuffer = true);
+	void Begin(bool _linear = false, bool _disableZBuffer = true);
 
 	// 描画終了
 	//  Begin()で記憶していたステートを復元 
 	void End();
 
 	// 変換行列セット
-	void SetMatrix(const Math::Matrix& m) { m_cb0.Work().mTransform = m; }
+	void SetMatrix(const Math::Matrix& _m) { m_cb0.Work().mTransform = _m; }
 
 	// 2D画像描画(Begin～End間で実行すると、処理効率が上がる)
 	// ・tex	 … 描画するテクスチャ(Texture)
@@ -50,7 +50,7 @@ public:
 	// ・srcRect … 元画像のRECT nullptrで全体
 	// ・color	 … 色(RGBA) nullptrで色はセットしない(前回の描画時の色が使用される)
 	// ・pivot	 … 基準点 0.0～1.0の範囲で指定する
-	void DrawTex(const KdTexture* tex, int x, int y, int w, int h, const Math::Rectangle* srcRect = nullptr, const Math::Color* color = &kWhiteColor, const Math::Vector2& pivot = { 0.5, 0.5f });
+	void DrawTex(const KdTexture* _tex, int _x, int _y, int _w, int _h, const Math::Rectangle* _srcRect = nullptr, const Math::Color* _color = &kWhiteColor, const Math::Vector2& _pivot = { 0.5, 0.5f });
 
 	// 2D画像描画(Begin～End間で実行すると、処理効率が上がる)
 	// 幅と高さはtexの情報が使用される
@@ -60,17 +60,17 @@ public:
 	// ・srcRect … 元画像のRECT
 	// ・color	 … 色(RGBA)
 	// ・pivot	 … 基準点 0.0～1.0の範囲で指定する
-	void DrawTex(const KdTexture* tex, int x, int y, const Math::Rectangle* srcRect = nullptr, const Math::Color* color = &kWhiteColor, const Math::Vector2& pivot = { 0.5, 0.5f })
+	void DrawTex(const KdTexture* _tex, int _x, int _y, const Math::Rectangle* _srcRect = nullptr, const Math::Color* _color = &kWhiteColor, const Math::Vector2& _pivot = { 0.5, 0.5f })
 	{
-		if (tex == nullptr)return;
-		DrawTex(tex, x, y, tex->GetInfo().Width, tex->GetInfo().Height, srcRect, color, pivot);
+		if (_tex == nullptr)return;
+		DrawTex(_tex, _x, _y, _tex->GetInfo().Width, _tex->GetInfo().Height, _srcRect, _color, _pivot);
 	}
 
 	// 点を描画
 	// ・x		 … 点のX座標
 	// ・y		 … 点のY座標
 	// ・color	 … 色(RGBA)
-	void DrawPoint(int x, int y, const Math::Color* color = &kWhiteColor);
+	void DrawPoint(int _x, int _y, const Math::Color* _color = &kWhiteColor);
 
 	// 2D線を描画
 	// ・x1		 … 点１のX座標
@@ -78,7 +78,7 @@ public:
 	// ・x2		 … 点２のX座標
 	// ・y2		 … 点２のY座標
 	// ・color	 … 色(RGBA)
-	void DrawLine(int x1, int y1, int x2, int y2, const Math::Color* color = &kWhiteColor);
+	void DrawLine(int _x1, int _y1, int _x2, int _y2, const Math::Color* _color = &kWhiteColor);
 
 	// 三角形を描画
 	// ・x1		 … 座標１のX座標
@@ -88,7 +88,7 @@ public:
 	// ・x3		 … 座標３のX座標
 	// ・y3		 … 座標３のY座標
 	// ・fill	 … 塗りつぶし
-	void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, const Math::Color* color = &kWhiteColor, bool fill = true);
+	void DrawTriangle(int _x1, int _y1, int _x2, int _y2, int _x3, int _y3, const Math::Color* _color = &kWhiteColor, bool _fill = true);
 
 	// 2D円を描画
 	// ・x		 … 円の中心座標のX座標
@@ -96,7 +96,7 @@ public:
 	// ・radius	 … 円の半径
 	// ・color	 … 色(RGBA)
 	// ・fill	 … 塗りつぶし
-	void DrawCircle(int x, int y, int radius, const Math::Color* color = &kWhiteColor, bool fill = true);
+	void DrawCircle(int _x, int _y, int _radius, const Math::Color* _color = &kWhiteColor, bool _fill = true);
 
 	// 2D箱を描画
 	// ・x		 … 箱の中心座標のX座標
@@ -105,35 +105,35 @@ public:
 	// ・extentY … 箱のY方向のハーフサイズ
 	// ・color	 … 色(RGBA)
 	// ・fill	 … 塗りつぶし
-	void DrawBox(int x, int y, int extentX, int extentY, const Math::Color* color = &kWhiteColor, bool fill = true);
+	void DrawBox(int _x, int _y, int _extentX, int _extentY, const Math::Color* _color = &kWhiteColor, bool _fill = true);
 
 	// 切り抜き範囲を設定する
 	// ・rect			… 範囲
-	void SetScissorRect(const Math::Rectangle& rect);
+	void SetScissorRect(const Math::Rectangle& _rect);
 
 private:
-	ID3D11VertexShader*		m_VS = nullptr;				// 頂点シェーダー
-	ID3D11InputLayout*		m_VLayout = nullptr;		// 頂点レイアウト
+	ID3D11VertexShader*	m_VS = nullptr;				// 頂点シェーダー
+	ID3D11InputLayout*	m_VLayout = nullptr;		// 頂点レイアウト
 
-	ID3D11PixelShader*		m_PS = nullptr;				// ピクセルシェーダー
+	ID3D11PixelShader*	m_PS = nullptr;				// ピクセルシェーダー
 
 	// 定数バッファ
 	struct cbSprite 
 	{
-		Math::Matrix		mTransform;
-		Math::Vector4		Color = { 1, 1, 1, 1 };
+		Math::Matrix	mTransform;
+		Math::Vector4	Color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 	KdConstantBuffer<cbSprite>	m_cb0;
 
 	// 定数バッファ
-	struct cbProjection { Math::Matrix		mProj; };
+	struct cbProjection { Math::Matrix mProj; };
 	KdConstantBuffer<cbProjection>	m_cb1;
 
 	// Flag
-	bool					m_isBegin = false;
+	bool			m_isBegin = false;
 
 	// 2D用正射影行列
-	Math::Matrix			m_mProj2D;
+	Math::Matrix	m_mProj2D;
 };
 
 

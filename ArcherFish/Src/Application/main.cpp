@@ -33,8 +33,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_  HINSTANCE, _In_ LPSTR, _In_ int)
 void Application::PreUpdate()
 {
 	// 入力状況の更新
-	KdInputManager::Instance().Update();
-	KdShaderManager::Instance().WorkAmbientController().PreUpdate();
+	KdInputManager::GetInstance().Update();
+	KdShaderManager::GetInstance().WorkAmbientController().PreUpdate();
 
 	SceneManager::Instance().PreUpdate();
 }
@@ -49,7 +49,7 @@ void Application::Update()
 void Application::PostUpdate()
 {
 	// 3DSoundListnerの行列を更新
-	KdAudioManager::Instance().SetListnerMatrix(KdShaderManager::Instance().GetCameraCB().mView.Invert());
+	KdAudioManager::Instance().SetListnerMatrix(KdShaderManager::GetInstance().GetCameraCB().mView.Invert());
 
 	SceneManager::Instance().PostUpdate();
 }
@@ -57,9 +57,9 @@ void Application::PostUpdate()
 // アプリケーション描画の前処理
 void Application::PreDraw()
 {
-	KdDirect3D::Instance().ClearBackBuffer();
-	KdShaderManager::Instance().WorkAmbientController().PreDraw();
-	KdShaderManager::Instance().m_postProcessShader.PreDraw();
+	KdDirect3D::GetInstance().ClearBackBuffer();
+	KdShaderManager::GetInstance().WorkAmbientController().PreDraw();
+	KdShaderManager::GetInstance().m_postProcessShader.PreDraw();
 
 	SceneManager::Instance().PreDraw();
 }
@@ -74,7 +74,7 @@ void Application::Draw()
 void Application::PostDraw()
 {
 	// 画面のぼかしや被写界深度処理の実施
-	KdShaderManager::Instance().m_postProcessShader.PostEffectProcess();
+	KdShaderManager::GetInstance().m_postProcessShader.PostEffectProcess();
 
 	SceneManager::Instance().DrawDebug();
 }
@@ -115,14 +115,14 @@ bool Application::Init(int w, int h)
 
 	// Direct3D初期化
 	std::string errorMsg;
-	if (!KdDirect3D::Instance().Init(m_window.GetWndHandle(), w, h, deviceDebugMode, errorMsg)) 
+	if (!KdDirect3D::GetInstance().Init(m_window.GetWndHandle(), w, h, deviceDebugMode, errorMsg)) 
 	{
 		MessageBoxA(m_window.GetWndHandle(), errorMsg.c_str(), "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
 		return false;
 	}
 
 	// フルスクリーン設定
-	if (bFullScreen) { KdDirect3D::Instance().WorkSwapChain()->SetFullscreenState(TRUE, 0); }
+	if (bFullScreen) { KdDirect3D::GetInstance().WorkSwapChain()->SetFullscreenState(TRUE, 0); }
 
 	//===================================================================
 	// imGui
@@ -135,7 +135,7 @@ bool Application::Init(int w, int h)
 //	ImGui::StyleColorsClassic();
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());
-	ImGui_ImplDX11_Init(KdDirect3D::Instance().WorkDev(), KdDirect3D::Instance().WorkDevContext());
+	ImGui_ImplDX11_Init(KdDirect3D::GetInstance().WorkDev(), KdDirect3D::GetInstance().WorkDevContext());
 
 #include "imGui/ja_glyph_ranges.h"
 	ImGuiIO& io = ImGui::GetIO();
@@ -148,7 +148,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// シェーダー初期化
 	//===================================================================
-	KdShaderManager::Instance().Init();
+	KdShaderManager::GetInstance().Init();
 	KdAudioManager::Instance().Init();
 
 	//===================================================================
@@ -170,7 +170,7 @@ void Application::InputButtonInit()
 	KdInputCollector* keyboardCollector = new KdInputCollector();
 
 	// 入力デバイス①をWindowsと命名してマネージャに登録
-	KdInputManager::Instance().AddDevice("Windows", keyboardCollector);
+	KdInputManager::GetInstance().AddDevice("Windows", keyboardCollector);
 
 	// シーン切替
 	/* キーボードキーの入力受付クラスを作成 */
@@ -277,7 +277,7 @@ void Application::Execute()
 		// ウィンドウが破棄されてるならループ終了
 		if (!m_window.IsCreated()) { break; }
 
-		if (KdInputManager::Instance().GetButtonState("EndButton")) { End(); }
+		if (KdInputManager::GetInstance().GetButtonState("EndButton")) { End(); }
 
 		// imGui開始
 		ImGui_ImplDX11_NewFrame();
@@ -308,7 +308,7 @@ void Application::Execute()
 
 
 		// BackBuffer -> 画面表示
-		KdDirect3D::Instance().WorkSwapChain()->Present(0, 0);
+		KdDirect3D::GetInstance().WorkSwapChain()->Present(0, 0);
 
 		//=========================================
 		// フレームレート制御
@@ -330,8 +330,8 @@ void Application::Execute()
 // アプリケーション終了
 void Application::Release()
 {
-	KdInputManager::Instance().Release();
-	KdShaderManager::Instance().Release();
+	KdInputManager::GetInstance().Release();
+	KdShaderManager::GetInstance().Release();
 	KdAudioManager::Instance().Release();
 
 	// imGui解放
@@ -340,10 +340,10 @@ void Application::Release()
 	ImGui::DestroyContext();
 
 	// フルスクリーンを戻す(フルスクリーン前提で記載)
-	KdDirect3D::Instance().WorkSwapChain()->SetFullscreenState(FALSE, 0);
+	KdDirect3D::GetInstance().WorkSwapChain()->SetFullscreenState(FALSE, 0);
 
 	// Direct3D解放
-	KdDirect3D::Instance().Release();
+	KdDirect3D::GetInstance().Release();
 
 	// ウィンドウ削除
 	m_window.Release();

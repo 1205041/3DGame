@@ -15,17 +15,17 @@ void Player::Update()
 	m_moveVec = Math::Vector3::Zero;
 
 	// ‘O•ûˆÚ“®
-	if (KdInputManager::Instance().GetButtonState("MoveForward")) { GetVecNowMove(Math::Vector3::Backward, camRotMat); }
+	if (KdInputManager::GetInstance().GetButtonState("MoveForward")) { GetVecNowMove(Math::Vector3::Backward, camRotMat); }
 	// ã•ûˆÚ“®
-	if (KdInputManager::Instance().GetButtonState("MoveUp")) { GetVecNowMove(Math::Vector3::Up, camRotMat); }
+	if (KdInputManager::GetInstance().GetButtonState("MoveUp")) { GetVecNowMove(Math::Vector3::Up, camRotMat); }
 	// ‰º•ûˆÚ“®
-	if (KdInputManager::Instance().GetButtonState("MoveDown")) { GetVecNowMove(Math::Vector3::Down, camRotMat); }
+	if (KdInputManager::GetInstance().GetButtonState("MoveDown")) { GetVecNowMove(Math::Vector3::Down, camRotMat); }
 
 	// ËŒ‚ˆ—
 	std::shared_ptr<WaterBar> spWaterBar = m_wpWaterBar.lock();
 	if (spWaterBar)
 	{
-		if (KdInputManager::Instance().GetButtonState("ShotRay"))
+		if (KdInputManager::GetInstance().GetButtonState("ShotRay"))
 		{	
 			if (spWaterBar->GetWater() == spWaterBar->GetWaterMax())
 			{
@@ -59,13 +59,13 @@ void Player::PostUpdate()
 void Player::DrawLit()
 {
 	if (!m_spModelWork) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+	KdShaderManager::GetInstance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
 }
 
 void Player::GenerateDepthMapFromLight()
 {
 	if (!m_spModelWork) { return; }
-	KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+	KdShaderManager::GetInstance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
 }
 
 // ‰Šú‰»ŠÖ”
@@ -75,7 +75,7 @@ void Player::Init()
 	if (!m_spModelWork)
 	{
 		m_spModelWork = std::make_shared<KdModelWork>();
-		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
+		m_spModelWork->SetModelData(KdAssets::GetInstance().m_modeldatas.GetData("Asset/Models/Player/Player.gltf"));
 	}
 
 	// ‰ŠúˆÊ’u‚Æ‘¬“x

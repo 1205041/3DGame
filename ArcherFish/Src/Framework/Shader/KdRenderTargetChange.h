@@ -7,12 +7,12 @@ struct KdRenderTargetPack
 {
 	KdRenderTargetPack() {}
 
-	void CreateRenderTarget(int width, int height, bool needDSV = false, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_VIEWPORT* pVP = nullptr);
-	void SetRenderTarget(std::shared_ptr<KdTexture> RTT, std::shared_ptr<KdTexture> DST = nullptr, D3D11_VIEWPORT* pVP = nullptr);
+	void CreateRenderTarget(int _width, int _height, bool _needDSV = false, DXGI_FORMAT _format = DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_VIEWPORT* _pVP = nullptr);
+	void SetRenderTarget(std::shared_ptr<KdTexture> _RTT, std::shared_ptr<KdTexture> _DST = nullptr, D3D11_VIEWPORT* _pVP = nullptr);
 
-	void SetViewPort(D3D11_VIEWPORT* pVP);
+	void SetViewPort(D3D11_VIEWPORT* _pVP);
 
-	void ClearTexture(const Math::Color& fillColor = kBlueColor);
+	void ClearTexture(const Math::Color& _fillColor = kBlueColor);
 
 	std::shared_ptr<KdTexture> m_RTTexture = nullptr;
 	std::shared_ptr<KdTexture> m_ZBuffer = nullptr;
@@ -29,11 +29,11 @@ struct KdRenderTargetChanger
 	UINT					m_numVP = 1;
 	bool					m_changeVP = false;
 
-	bool Validate(ID3D11RenderTargetView* pRTV);
+	bool Validate(ID3D11RenderTargetView* _pRTV);
 
-	bool ChangeRenderTarget(ID3D11RenderTargetView* pRTV, ID3D11DepthStencilView* pDSV = nullptr, D3D11_VIEWPORT* pVP = nullptr);
-	bool ChangeRenderTarget(std::shared_ptr<KdTexture> RTT, std::shared_ptr<KdTexture> DST = nullptr, D3D11_VIEWPORT* pVP = nullptr);
-	bool ChangeRenderTarget(KdRenderTargetPack& RTPack);
+	bool ChangeRenderTarget(ID3D11RenderTargetView* _pRTV, ID3D11DepthStencilView* _pDSV = nullptr, D3D11_VIEWPORT* _pVP = nullptr);
+	bool ChangeRenderTarget(std::shared_ptr<KdTexture> _RTT, std::shared_ptr<KdTexture> _DST = nullptr, D3D11_VIEWPORT* _pVP = nullptr);
+	bool ChangeRenderTarget(KdRenderTargetPack& _RTPack);
 
 	void UndoRenderTarget();
 

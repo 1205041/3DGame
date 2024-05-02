@@ -23,38 +23,46 @@ public:
 	};
 
 	KdSquarePolygon() { InitVertices(); }
-	KdSquarePolygon(const std::shared_ptr<KdTexture>& spBaseColTex) : KdPolygon(spBaseColTex) { InitVertices(); SetScale(1.0f); }
-	KdSquarePolygon(const std::string& baseColTexName) : KdPolygon(baseColTexName) { InitVertices(); SetScale(1.0f); }
+	KdSquarePolygon(const std::shared_ptr<KdTexture>& _spBaseColTex) 
+		: KdPolygon(_spBaseColTex) 
+	{
+		InitVertices(); SetScale(1.0f);
+	}
+
+	KdSquarePolygon(const std::string& _baseColTexName) 
+		: KdPolygon(_baseColTexName) 
+	{ 
+		InitVertices(); SetScale(1.0f); 
+	}
 
 	~KdSquarePolygon() override {}
 
-	void SetPivot(PivotType pivot);
+	void SetPivot(PivotType _pivot);
 
 	// 描画の幅と高さの設定
-	void SetScale(const Math::Vector2& scale);
+	void SetScale(const Math::Vector2& _scale);
 	void SetScale(float _scalar);
 
 	// 頂点の描画色の設定、それぞれの頂点色を指定
 	void SetVertexColor(const std::vector<Math::Color>& _vertCols);
 
 	// テクスチャ内の描画エリアの設定
-	void SetUVRect(UINT index);
-	void SetUVRect(UINT x, UINT y);
+	void SetUVRect(UINT _index);
+	void SetUVRect(UINT _x, UINT _y);
 	void SetUVRect(const Math::Rectangle& _rect);
 	void SetUVRect(const Math::Vector2& _minUV, const Math::Vector2& _maxUV);
 
 	// テクスチャの分割数を設定
-	inline void SetSplit(UINT splitX, UINT splitY)
+	inline void SetSplit(UINT _splitX, UINT _splitY)
 	{
-		m_splitX = splitX;
-		m_splitY = splitY;
+		m_splitX = _splitX;
+		m_splitY = _splitY;
 	}
 
 	UINT GetSplitX() { return m_splitX; }
 	UINT GetSplitY() { return m_splitY; }
 
 private:
-
 	void InitVertices();
 
 	UINT m_splitX = 1;

@@ -53,9 +53,9 @@ cbuffer cbLight : register(b9)
 	// データ
 	struct PointLight 
 	{
-	    float3	    Color;			// 色
-	    float	    Radius;			// 半径
-	    float3	    Pos;			// 座標
-	    int			IsBright;		// 明度用ライトかどうか
+	    float3 Color;	 // 色
+	    float  Radius;	 // 半径
+	    float3 Pos;		 // 座標
+	    int	   IsBright; // 明度用ライトかどうか
 	} g_PointLights[100];
 };

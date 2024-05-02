@@ -23,7 +23,7 @@ void Enemy::Update()
 			else { SetLightAct(false); }
 		}
 
-		if (KdInputManager::Instance().GetButtonState("EnemyFlg"))
+		if (KdInputManager::GetInstance().GetButtonState("EnemyFlg"))
 		{
 			SetActFlg(true);
 			SetAliveFlg(true);
@@ -68,16 +68,16 @@ void Enemy::DrawLit()
 {
 	if (!GetActFlg())
 	{
-		KdShaderManager::Instance().m_HD2DShader.SetColorEnable(GetLightAct());
+		KdShaderManager::GetInstance().m_HD2DShader.SetColorEnable(GetLightAct());
 	}
 
 	if (GetAliveFlg())
 	{
 		if (!m_spModelWork) { return; }
-		KdShaderManager::Instance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
+		KdShaderManager::GetInstance().m_HD2DShader.DrawModel(*m_spModelWork, m_mWorld);
 	}
 	
-	KdShaderManager::Instance().m_HD2DShader.SetColorEnable(false);
+	KdShaderManager::GetInstance().m_HD2DShader.SetColorEnable(false);
 }
 
 void Enemy::Init()
@@ -86,7 +86,7 @@ void Enemy::Init()
 	if (!m_spModelWork)
 	{
 		m_spModelWork = std::make_shared<KdModelWork>();
-		m_spModelWork->SetModelData(KdAssets::Instance().m_modeldatas.GetData("Asset/Models/Enemy/SkyEnemy.gltf"));
+		m_spModelWork->SetModelData(KdAssets::GetInstance().m_modeldatas.GetData("Asset/Models/Enemy/SkyEnemy.gltf"));
 	}
 
 	// ‘¬“x
