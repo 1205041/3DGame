@@ -69,35 +69,35 @@ void KdDebugWireFrame::AddDebugSphere(const Math::Vector3& _pos, float _radius, 
 	{
 		// XZ–Ê
 		v.pos = _pos;
-		v.pos.x += cos((float)i * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
-		v.pos.z += sin((float)i * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
+		v.pos.x += cos((float)i * (m_EveryDirection / detail) * KdToRadians) * _radius;
+		v.pos.z += sin((float)i * (m_EveryDirection / detail) * KdToRadians) * _radius;
 		m_debugVertices.push_back(v);
 
 		v.pos = _pos;
-		v.pos.x += cos((float)(i + 1) * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
-		v.pos.z += sin((float)(i + 1) * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
+		v.pos.x += cos((float)(i + 1) * (m_EveryDirection / detail) * KdToRadians) * _radius;
+		v.pos.z += sin((float)(i + 1) * (m_EveryDirection / detail) * KdToRadians) * _radius;
 		m_debugVertices.push_back(v);
 
 		// XY–Ê
 		v.pos = _pos;
-		v.pos.x += cos((float)i * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
-		v.pos.y += sin((float)i * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
+		v.pos.x += cos((float)i * (m_EveryDirection / detail) * KdToRadians) * _radius;
+		v.pos.y += sin((float)i * (m_EveryDirection / detail) * KdToRadians) * _radius;
 		m_debugVertices.push_back(v);
 
 		v.pos = _pos;
-		v.pos.x += cos((float)(i + 1) * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
-		v.pos.y += sin((float)(i + 1) * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
+		v.pos.x += cos((float)(i + 1) * (m_EveryDirection / detail) * KdToRadians) * _radius;
+		v.pos.y += sin((float)(i + 1) * (m_EveryDirection / detail) * KdToRadians) * _radius;
 		m_debugVertices.push_back(v);
 
 		// YZ–Ê
 		v.pos = _pos;
-		v.pos.y += cos((float)i * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
-		v.pos.z += sin((float)i * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
+		v.pos.y += cos((float)i * (m_EveryDirection / detail) * KdToRadians) * _radius;
+		v.pos.z += sin((float)i * (m_EveryDirection / detail) * KdToRadians) * _radius;
 		m_debugVertices.push_back(v);
 
 		v.pos = _pos;
-		v.pos.y += cos((float)(i + 1) * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
-		v.pos.z += sin((float)(i + 1) * (EVERY_DIRECTION / detail) * KdToRadians) * _radius;
+		v.pos.y += cos((float)(i + 1) * (m_EveryDirection / detail) * KdToRadians) * _radius;
+		v.pos.z += sin((float)(i + 1) * (m_EveryDirection / detail) * KdToRadians) * _radius;
 		m_debugVertices.push_back(v);
 	}
 }

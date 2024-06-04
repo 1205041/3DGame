@@ -9,7 +9,7 @@ void Score::Init()
 	m_txt.Load("Asset/Textures/SceneUI/Score/board.png");
 	m_tex.Load("Asset/Textures/SceneUI/Score/number.png");
 
-	m_pixel = { SCORE_X,0 };
+	m_pixel = { -300,0 };
 	m_rectAng = { 0,0,200,230 };
 	m_color = kWhiteColor;
 	m_pivot = { 0.5f, 0.5f };

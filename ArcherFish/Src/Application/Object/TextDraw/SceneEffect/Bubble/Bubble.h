@@ -1,7 +1,6 @@
 #pragma once
 #include "../../TextDraw.h"
 
-// ñAëçêî
 #define BUBBLE_NUM 50
 
 class Bubble :public TextDraw
@@ -14,7 +13,6 @@ public:
 	void Init()			override;
 	void DrawSprite()	override;
 
-	const int GetBubbleNum()const { return BUBBLE_NUM; }
 private:
 	float		  m_radius	= 0.0f;
 	Math::Vector2 m_move	= Math::Vector2::Zero;

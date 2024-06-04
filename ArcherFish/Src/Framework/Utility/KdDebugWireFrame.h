@@ -1,8 +1,5 @@
 #pragma once
 
-// 360“x
-#define EVERY_DIRECTION 360
-
 class KdDebugWireFrame
 {
 public:
@@ -20,4 +17,5 @@ private:
 	void Release();
 
 	std::vector<KdPolygon::Vertex>	m_debugVertices;
+	const int m_EveryDirection = 360;
 };

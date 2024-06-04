@@ -44,7 +44,7 @@ void ResultScene::Init()
 
 	// –A
 	std::shared_ptr<Bubble> spBub;
-	for (int i = 0; i < spBub->GetBubbleNum(); i++)
+	for (int i = 0; i < BUBBLE_NUM; i++)
 	{
 		spBub = std::make_shared<Bubble>();
 		m_objList.push_back(spBub);

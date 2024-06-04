@@ -1,9 +1,6 @@
 #pragma once
 #include "../../TextDraw.h"
 
-//スコアの文字描画の基準となるX座標
-#define SCORE_X -300
-
 enum ScoreData
 {
 	High_Score,
